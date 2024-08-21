@@ -1,0 +1,72 @@
+.container {
+  padding: 2rem;
+  height: 100vh;
+  background-color: #202024;
+
+  h1 {
+    color: #0daf7f;
+    font-size: 1.6rem;
+    font-weight: bolder;
+    text-align: center;
+  }
+
+  p {
+    color: #7b7b7b;
+  }
+
+  p a {
+    color: #0daf7f;
+    text-decoration: none;
+  }
+
+  ion-button {
+    margin-top: 1.5rem;
+    --background: #0daf7f;
+  }
+
+  ion-item {
+    --background: #121214;
+    color: #fff;
+    --border-radius: 5px;
+    margin-bottom: 15px;
+    --padding-bottom: 10px;
+    --padding-top: 10px;
+  }
+
+  ion-icon {
+    color: #0daf7f;
+  }
+
+  ion-radio-group {
+    color: #fff;
+  }
+
+  ion-list {
+    margin-bottom: 15px;
+    background-color: #202024;
+    border-radius: 5px;
+  }
+
+  ion-icon {
+    margin-right: 15px;
+  }
+
+  ion-radio {
+    --border-radius: 4px;
+    --color: #ddd;
+    --color-checked: #0daf7f;
+    --inner-border-radius: 4px;
+  }
+  
+  ion-radio.ios::part(container) {
+    width: 20px;
+    height: 20px;
+  
+    border: 2px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .radio-checked.ios::part(container) {
+    border-color: #0daf7f;
+  }
+}

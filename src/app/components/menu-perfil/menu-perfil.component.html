@@ -1,0 +1,49 @@
+<ion-menu [menuId]="menu" side="end" [contentId]="menuContentId">
+  <ion-header>
+    <ion-toolbar>
+      <ion-title>Perfil</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content class="ion-padding">
+    <img
+      alt="rhino standing near grass"
+      src="https://images.unsplash.com/flagged/photo-1556983257-71fddc36bc75?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
+    />
+    <p>Luiz Tozati.</p>
+    <p>Análise e Desenvolvimento de Sistemas</p>
+    <p>Notificações e Preferências.</p>
+    <p>Configurações de Privacidade.</p>
+    <p>Editar Perfil.</p>
+
+    <p>Metas diárias:</p>
+    <ul>
+      <li>Beber 2L de água.</li>
+      <li>Correr 2 km.</li>
+    </ul>
+
+    <p>Metas esportivas:</p>
+
+    <ul>
+      <li>Futebol</li>
+      <ul>
+        <li>Fazer 5 gols.</li>
+      </ul>
+      <br />
+      <li>Volei</li>
+      <ul>
+        <li>Fazer 3 bloqueios.</li>
+      </ul>
+    </ul>
+    <p>Sair</p></ion-content
+  >
+</ion-menu>
+<div class="ion-page" [id]="menuContentId">
+  <ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="end">
+        <ion-menu-button [menu]="menu"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{ title }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</div>

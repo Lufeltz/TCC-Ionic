@@ -1,0 +1,18 @@
+<ion-content [fullscreen]="true">
+  <div class="container">
+    <h1>Sportfy</h1>
+    <p>Acesse a sua conta.</p>
+    <ion-list lines="none">
+      <ion-item>
+        <ion-icon name="mail-outline"></ion-icon>
+        <ion-input type="email" placeholder="E-mail@ufpr.br"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-icon name="lock-closed-outline"></ion-icon>
+        <ion-input type="password" placeholder="Senha"></ion-input>
+      </ion-item>
+    </ion-list>
+    <ion-button expand="block"> Entrar </ion-button>
+    <p>Não tem uma conta? <a routerLink="/cadastro">Cadastrar</a></p>
+  </div>
+</ion-content>
