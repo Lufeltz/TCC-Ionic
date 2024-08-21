@@ -1,3 +1,18 @@
 ion-segment {
-    margin-top: 3.5rem;
+  margin-top: 3.5rem;
+}
+
+ion-content {
+  --background: #121214;
+}
+
+div {
+  h2,
+  p {
+    color: white;
+  }
+}
+
+ion-segment {
+  --background: #202024;
 }

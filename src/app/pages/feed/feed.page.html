@@ -1,17 +1,35 @@
-<ion-content>
+<ion-content class="ion-padding">
   <app-menu-perfil
     [title]="pageTitle"
     [menu]="pageMenu"
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <ion-segment value="default">
-    <ion-segment-button value="default">
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="campeonatos">
       <ion-label>Campeonatos</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="segment">
+    <ion-segment-button value="posts">
       <ion-label>Posts</ion-label>
     </ion-segment-button>
   </ion-segment>
-</ion-content>
 
+  <div *ngIf="selectedSegment === 'campeonatos'">
+    <h2>Campeonatos</h2>
+    <p>Conteúdo relacionado a campeonatos aqui.</p>
+  </div>
+
+  <div *ngIf="selectedSegment === 'posts'">
+    <h2>Posts</h2>
+    <p>Conteúdo relacionado a posts aqui.</p>
+  </div>
+
+  <!-- Depois de criar os componentes -->
+  <!-- <ng-container [ngSwitch]="selectedSegment">
+    <app-campeonatos *ngSwitchCase="'campeonatos'"></app-campeonatos>
+    <app-posts *ngSwitchCase="'posts'"></app-posts>
+    <div *ngSwitchDefault>
+      Selecione uma opção
+    </div>
+  </ng-container> -->
+</ion-content>

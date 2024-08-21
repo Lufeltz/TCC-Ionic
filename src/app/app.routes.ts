@@ -7,6 +7,11 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'homepage',
+    redirectTo: 'homepage/feed',
+    pathMatch: 'full',
+  },
+  {
     path: 'cadastro',
     loadComponent: () =>
       import('./auth/cadastro/cadastro.page').then((m) => m.CadastroPage),

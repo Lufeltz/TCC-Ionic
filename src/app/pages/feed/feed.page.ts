@@ -6,6 +6,8 @@ import {
   IonLabel,
   IonContent,
 } from '@ionic/angular/standalone';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-feed',
@@ -18,12 +20,16 @@ import {
     IonSegmentButton,
     IonLabel,
     IonContent,
+    FormsModule,
+    CommonModule
   ],
 })
 export class FeedPage implements OnInit {
   pageTitle: string = 'Feed';
   pageMenu: string = 'feed-menu';
   pageContent: string = 'feed';
+
+  selectedSegment: string = 'campeonatos';
   constructor() {}
 
   ngOnInit() {}

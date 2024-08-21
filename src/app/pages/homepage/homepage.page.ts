@@ -13,7 +13,12 @@ import {
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-import { trophyOutline, flashOutline,homeOutline, footballOutline } from 'ionicons/icons';
+import {
+  trophyOutline,
+  flashOutline,
+  homeOutline,
+  footballOutline,
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-homepage',
@@ -34,8 +39,14 @@ import { trophyOutline, flashOutline,homeOutline, footballOutline } from 'ionico
   ],
 })
 export class HomepagePage implements OnInit {
+  selectedTab: string = '';
+
   constructor() {
     addIcons({ trophyOutline, flashOutline, homeOutline, footballOutline });
+  }
+
+  onTabChange(event: any) {
+    this.selectedTab = event.tab;
   }
 
   ngOnInit() {}
