@@ -1,6 +1,16 @@
+<div class="ion-page" [id]="menuContentId">
+  <ion-header>
+    <ion-toolbar class="toolbar-menu">
+      <ion-buttons slot="end">
+        <ion-menu-button [menu]="menu"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>{{ title }}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+</div>
 <ion-menu [menuId]="menu" side="end" [contentId]="menuContentId">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar class="toolbar-tabs">
       <ion-title>Perfil</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -9,41 +19,114 @@
       alt="rhino standing near grass"
       src="https://images.unsplash.com/flagged/photo-1556983257-71fddc36bc75?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
     />
-    <p>Luiz Tozati.</p>
-    <p>Análise e Desenvolvimento de Sistemas</p>
-    <p>Notificações e Preferências.</p>
-    <p>Configurações de Privacidade.</p>
-    <p>Editar Perfil.</p>
+    <ion-list lines="none">
+      <ion-item>
+        <div class="item">
+          <ion-icon name="person-circle-outline" aria-hidden="true"></ion-icon>
+          <ion-label>Luiz Tozati</ion-label>
+        </div>
+      </ion-item>
 
-    <p>Metas diárias:</p>
-    <ul>
-      <li>Beber 2L de água.</li>
-      <li>Correr 2 km.</li>
-    </ul>
+      <!-- Dados gerais -->
+      <ion-item>
+        <div class="item">
+          <ion-icon name="school-outline"></ion-icon>
+          <ion-label>Análise e Desenvolvimento de Sistemas</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="item">
+          <ion-icon name="notifications-outline"></ion-icon>
+          <ion-label>Notificações e Preferências</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="item">
+          <ion-icon name="eye-off-outline"></ion-icon>
+          <ion-label>Configurações de Privacidade</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="item">
+          <ion-icon name="settings-outline"></ion-icon>
+          <ion-label>Editar Perfil</ion-label>
+        </div>
+      </ion-item>
 
-    <p>Metas esportivas:</p>
+      <!-- Lista Metas diárias -->
+      <ion-item>
+        <div class="item">
+          <ion-icon name="calendar-number-outline"></ion-icon>
+          <ion-label>Metas diárias</ion-label>
+        </div>
+      </ion-item>
 
-    <ul>
-      <li>Futebol</li>
-      <ul>
-        <li>Fazer 5 gols.</li>
-      </ul>
-      <br />
-      <li>Volei</li>
-      <ul>
-        <li>Fazer 3 bloqueios.</li>
-      </ul>
-    </ul>
-    <p>Sair</p></ion-content
-  >
+      <ion-item>
+        <div class="sublist">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <ion-label>Beber 2L de água</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="sublist">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <ion-label>Correr 2km</ion-label>
+        </div>
+      </ion-item>
+
+      <!-- Lista Metas Esportivas -->
+      <ion-item>
+        <div class="item">
+          <ion-icon name="bicycle-outline"></ion-icon>
+          <ion-label>Metas esportivas</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="metas-esportivas">
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-label>Futebol</ion-label>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="sublist">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <ion-label>Fazer 5 gols</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="sublist">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <ion-label>Fazer 10 dribles</ion-label>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="metas-esportivas">
+          <ion-icon name="star-outline"></ion-icon>
+          <ion-label>Vôlei</ion-label>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="sublist">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <ion-label>Fazer 5 cortes</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="sublist">
+          <ion-icon name="add-circle-outline"></ion-icon>
+          <ion-label>Fazer 5 bloqueios</ion-label>
+        </div>
+      </ion-item>
+
+      <ion-item>
+        <div class="logout">
+          <ion-icon name="log-out-outline"></ion-icon>
+          <ion-label>Sair</ion-label>
+        </div>
+      </ion-item>
+    </ion-list>
+  </ion-content>
 </ion-menu>
-<div class="ion-page" [id]="menuContentId">
-  <ion-header>
-    <ion-toolbar>
-      <ion-buttons slot="end">
-        <ion-menu-button [menu]="menu"></ion-menu-button>
-      </ion-buttons>
-      <ion-title>{{ title }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</div>

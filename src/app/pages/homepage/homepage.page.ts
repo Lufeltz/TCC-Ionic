@@ -10,6 +10,7 @@ import {
   IonTabBar,
   IonTabButton,
   IonIcon,
+  IonLabel
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
@@ -36,6 +37,7 @@ import {
     IonTabBar,
     IonTabButton,
     IonIcon,
+    IonLabel
   ],
 })
 export class HomepagePage implements OnInit {

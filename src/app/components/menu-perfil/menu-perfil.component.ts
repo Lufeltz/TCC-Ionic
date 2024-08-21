@@ -1,7 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { MenuController } from '@ionic/angular';
+
+import { addIcons } from 'ionicons';
+import {
+  personCircleOutline,
+  schoolOutline,
+  notificationsOutline,
+  eyeOffOutline,
+  settingsOutline,
+  bicycleOutline,
+  addCircleOutline,
+  starOutline,
+  calendarNumberOutline,
+  logOutOutline,
+} from 'ionicons/icons';
 
 import {
   IonContent,
@@ -11,6 +24,12 @@ import {
   IonButtons,
   IonMenu,
   IonMenuButton,
+  IonList,
+  IonListHeader,
+  IonItem,
+  IonLabel,
+  IonItemGroup,
+  IonIcon,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -28,13 +47,32 @@ import {
     IonButtons,
     IonMenu,
     IonMenuButton,
+    IonList,
+    IonListHeader,
+    IonItem,
+    IonLabel,
+    IonItemGroup,
+    IonIcon,
   ],
 })
 export class MenuPerfilComponent implements OnInit {
   @Input() title: string = '';
   @Input() menu: string = '';
   @Input() menuContentId: string = '';
-  constructor(private menuController: MenuController) {}
+  constructor() {
+    addIcons({
+      personCircleOutline,
+      schoolOutline,
+      notificationsOutline,
+      eyeOffOutline,
+      settingsOutline,
+      bicycleOutline,
+      addCircleOutline,
+      starOutline,
+      calendarNumberOutline,
+      logOutOutline,
+    });
+  }
 
   ngOnInit() {}
 }

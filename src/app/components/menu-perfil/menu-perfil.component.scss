@@ -1,6 +1,25 @@
-ion-toolbar {
+.toolbar-tabs {
+  --background: #202024;
+  // border-bottom: 1px solid #0daf7f;
+  border-top-left-radius: 30px;
+}
+
+.toolbar-menu {
   --background: #121214;
   border-bottom: 1px solid #0daf7f;
+}
+
+ion-menu {
+  --background: #121214;
+}
+
+ion-content {
+  --background: #202024;
+}
+
+ion-item {
+  --background: #202024;
+  color: #fff;
 }
 
 ion-title {
@@ -10,3 +29,47 @@ ion-title {
 ion-menu-button {
   color: #0daf7f;
 }
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  ion-icon {
+    font-size: 1.5rem;
+    color: #0daf7f;
+  }
+}
+
+.metas-esportivas {
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  gap: 10px;
+}
+
+.sublist {
+  display: flex;
+  align-items: center;
+  margin-left: 30px;
+  gap: 10px;
+
+  ion-icon {
+    color: #ffb703;
+  }
+}
+
+.logout {
+  width: 100%;
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  ion-icon {
+    color: #e63946;
+  }
+}
+
+

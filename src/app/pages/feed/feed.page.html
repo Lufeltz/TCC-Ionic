@@ -5,12 +5,17 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
+  <ion-searchbar animated="true" placeholder="Procurar"></ion-searchbar>
+
   <ion-segment [(ngModel)]="selectedSegment">
     <ion-segment-button value="campeonatos">
       <ion-label>Campeonatos</ion-label>
     </ion-segment-button>
     <ion-segment-button value="posts">
       <ion-label>Posts</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="jogadores">
+      <ion-label>Jogadores</ion-label>
     </ion-segment-button>
   </ion-segment>
 
@@ -22,6 +27,11 @@
   <div *ngIf="selectedSegment === 'posts'">
     <h2>Posts</h2>
     <p>Conteúdo relacionado a posts aqui.</p>
+  </div>
+
+  <div *ngIf="selectedSegment === 'jogadores'">
+    <h2>Jogadores</h2>
+    <p>Conteúdo relacionado a jogadores aqui.</p>
   </div>
 
   <!-- Depois de criar os componentes -->
