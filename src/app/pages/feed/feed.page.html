@@ -20,6 +20,13 @@
   </ion-segment>
 
   <div *ngIf="selectedSegment === 'campeonatos'">
+    <div class="aberto-finalizado">
+      <ion-toggle labelPlacement="end">Abertos</ion-toggle>
+      <ion-toggle labelPlacement="end">Finalizados</ion-toggle>
+    </div>
+    <div class="iniciado">
+      <ion-toggle labelPlacement="end">Iniciados</ion-toggle>
+    </div>
     <h2>Campeonatos</h2>
     <p>Conteúdo relacionado a campeonatos aqui.</p>
   </div>

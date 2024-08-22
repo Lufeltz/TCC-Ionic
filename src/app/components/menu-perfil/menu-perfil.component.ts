@@ -31,6 +31,7 @@ import {
   IonItemGroup,
   IonIcon,
 } from '@ionic/angular/standalone';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-menu-perfil',
@@ -53,6 +54,7 @@ import {
     IonLabel,
     IonItemGroup,
     IonIcon,
+    RouterModule
   ],
 })
 export class MenuPerfilComponent implements OnInit {

@@ -12,6 +12,21 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'pref-notif',
+    redirectTo: 'homepage/pref-notif',
+    pathMatch: 'full',
+  },
+  {
+    path: 'privacidade',
+    redirectTo: 'homepage/privacidade',
+    pathMatch: 'full',
+  },
+  {
+    path: 'perfil-usuario',
+    redirectTo: 'homepage/perfil-usuario',
+    pathMatch: 'full',
+  },
+  {
     path: 'cadastro',
     loadComponent: () =>
       import('./auth/cadastro/cadastro.page').then((m) => m.CadastroPage),
@@ -50,6 +65,24 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/metas/metas.page').then((m) => m.MetasPage),
       },
+      {
+        path: 'pref-notif',
+        loadComponent: () =>
+          import('./pages/pref-notif/pref-notif.page').then(
+            (m) => m.PrefNotifPage
+          ),
+      },
+      {
+        path: 'privacidade',
+        loadComponent: () =>
+          import('./pages/privacidade/privacidade.page').then(
+            (m) => m.PrivacidadePage
+          ),
+      },  {
+        path: 'perfil-usuario',
+        loadComponent: () => import('./pages/perfil-usuario/perfil-usuario.page').then( m => m.PerfilUsuarioPage)
+      },
     ],
   },
+
 ];

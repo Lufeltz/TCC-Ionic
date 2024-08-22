@@ -20,3 +20,38 @@ ion-searchbar {
   margin-top: 2rem;
 }
 
+.aberto-finalizado {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 15px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.iniciado {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+ion-toggle {
+  color: #fff;
+  --handle-width: 20px;
+  --handle-height: 20px;
+
+  --handle-max-height: auto;
+
+  --track-background: #d2caca;
+  --track-background-checked: #333337;
+  --handle-background: #fff;
+  --handle-background-checked: #0daf7f;
+}
+
+ion-toggle::part(track) {
+  height: 20px;
+  width: 36px;
+
+  /* Required for iOS handle to overflow the height of the track */
+  overflow: visible;
+}

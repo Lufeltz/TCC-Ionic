@@ -1,0 +1,47 @@
+ion-content {
+  --background: #202024;
+  h2 {
+    margin-top: 40px;
+    text-align: center;
+    color: #fff;
+  }
+
+  p {
+    color: #fff;
+  }
+
+  ion-toggle,
+  ion-text {
+    color: #fff;
+  }
+
+  h3 {
+    margin-top: 50px;
+    color: #0daf7f;
+    text-align: center;
+  }
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  text-align: justify;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+ion-toggle {
+  color: #fff;
+
+  --handle-max-height: auto;
+
+  --track-background: #d2caca;
+  --track-background-checked: #0daf7f;
+  --handle-background: #fff;
+  --handle-background-checked: #fff;
+}
+
+ion-toggle::part(track) {
+  /* Required for iOS handle to overflow the height of the track */
+  overflow: visible;
+}

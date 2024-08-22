@@ -12,5 +12,9 @@ ion-tab-bar {
 }
 
 ion-tab-button.selected {
-    color: #0daf7f; /* Cor do botão ativo */
+    color: #0daf7f; 
+}
+
+ion-tab-button ion-icon:hover {
+  color: #0daf7f; 
 }

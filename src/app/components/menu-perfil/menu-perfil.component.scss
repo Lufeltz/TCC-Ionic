@@ -1,6 +1,6 @@
 .toolbar-tabs {
   --background: #202024;
-  // border-bottom: 1px solid #0daf7f;
+  border-left: 2px solid #0daf7f;
   border-top-left-radius: 30px;
 }
 
@@ -15,11 +15,24 @@ ion-menu {
 
 ion-content {
   --background: #202024;
+  border-left: 2px solid #0daf7f;
 }
 
 ion-item {
   --background: #202024;
   color: #fff;
+}
+
+ion-label:hover {
+  color: #0daf7f;
+}
+
+.sublist ion-label:hover {
+  color: #ffb703;
+}
+
+.logout ion-label:hover {
+  color: #e63946;
 }
 
 ion-title {
@@ -71,5 +84,3 @@ ion-menu-button {
     color: #e63946;
   }
 }
-
-
