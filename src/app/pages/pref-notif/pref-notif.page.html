@@ -5,55 +5,98 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-
   <h3>Modalidades</h3>
 
   <div class="toggle">
-    <ion-toggle labelPlacement="end"></ion-toggle>
+    <ion-toggle id="open-toast" labelPlacement="end"></ion-toggle>
     <ion-text
-      >Novos campeonatos criados nas modalidades que estou inscrito</ion-text
+      >Notificar sobre novos campeonatos criados nas modalidades que estou inscrito</ion-text
     >
+    <ion-toast
+      position="top"
+      trigger="open-toast"
+      message="1 Preferência atualizada."
+      [duration]="3000"
+    ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle labelPlacement="end"></ion-toggle>
-    <ion-text
-      >Novos posts criados nas modalidades que estou inscrito</ion-text
-    >
+    <ion-toggle id="open-toast2" labelPlacement="end"></ion-toggle>
+    <ion-text>Notificar sobre novos posts criados nas modalidades que estou inscrito</ion-text>
+    <ion-toast
+      position="top"
+      trigger="open-toast2"
+      message="2 Preferência atualizada."
+      [duration]="3000"
+    ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle labelPlacement="end"></ion-toggle>
+    <ion-toggle id="open-toast3" labelPlacement="end"></ion-toggle>
     <ion-text>Notificar sobre comentários feitos nos meus posts</ion-text>
+    <ion-toast
+      position="top"
+      trigger="open-toast3"
+      message="3 Preferência atualizada."
+      [duration]="3000"
+    ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle labelPlacement="end"></ion-toggle>
+    <ion-toggle id="open-toast4" labelPlacement="end"></ion-toggle>
     <ion-text>Notificar sobre likes nos meus posts</ion-text>
+    <ion-toast
+      position="top"
+      trigger="open-toast4"
+      message="4 Preferência atualizada."
+      [duration]="3000"
+    ></ion-toast>
   </div>
   <h3>Privacidade</h3>
   <div class="toggle">
-    <ion-toggle labelPlacement="end"></ion-toggle>
+    <ion-toggle id="open-toast5" labelPlacement="end"></ion-toggle>
     <ion-text
       >Permitir que outros usuários vejam detalhes das minhas modalidades
       esportivas</ion-text
     >
+    <ion-toast
+      position="top"
+      trigger="open-toast5"
+      message="5 Preferência atualizada."
+      [duration]="3000"
+    ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle labelPlacement="end"></ion-toggle>
+    <ion-toggle id="open-toast6" labelPlacement="end"></ion-toggle>
     <ion-text
       >Permitir que outros usuários acessem o meu histórico de
       campeonatos</ion-text
     >
+    <ion-toast
+      position="top"
+      trigger="open-toast6"
+      message="6 Preferência atualizada."
+      [duration]="3000"
+    ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle labelPlacement="end"></ion-toggle>
+    <ion-toggle id="open-toast7" labelPlacement="end"></ion-toggle>
     <ion-text
       >Permitir que outros usuários vejam as minhas estatísticas nas modalidades
       esportivas</ion-text
     >
+    <ion-toast
+      position="top"
+      trigger="open-toast7"
+      message="7 Preferência atualizada."
+      [duration]="3000"
+    ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle labelPlacement="end"></ion-toggle>
-    <ion-text
-      >Permitir que outros usuários vejam as minhas conquistas</ion-text
-    >
+    <ion-toggle id="open-toast8" labelPlacement="end"></ion-toggle>
+    <ion-text>Permitir que outros usuários vejam as minhas conquistas</ion-text>
+    <ion-toast
+      position="top"
+      trigger="open-toast8"
+      message="8 Preferência atualizada."
+      [duration]="3000"
+    ></ion-toast>
   </div>
 </ion-content>

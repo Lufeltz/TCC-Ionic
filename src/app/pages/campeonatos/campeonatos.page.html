@@ -1,1 +1,37 @@
-<app-menu-perfil [title]="pageTitle" [menu]="pageMenu" [menuContentId]="pageContent"></app-menu-perfil>
+<ion-content class="ion-padding">
+  <app-menu-perfil
+    [title]="pageTitle"
+    [menu]="pageMenu"
+    [menuContentId]="pageContent"
+  ></app-menu-perfil>
+
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="criacao">
+      <ion-label>Criação</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="listagem-campeonatos">
+      <ion-label>Listagem</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="historico-campeonatos">
+      <ion-label>Histórico</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectedSegment === 'criacao'">
+    <h2>Criação</h2>
+    <p>Conteúdo relacionado a criação de campeonatos.</p>
+  </div>
+
+  <div *ngIf="selectedSegment === 'listagem-campeonatos'">
+    <div class="toggle">
+      <ion-toggle labelPlacement="end">Meus campeonatos</ion-toggle>
+    </div>
+    <h2>Listagem</h2>
+    <p>Conteúdo relacionado a listagem de campeonatos.</p>
+  </div>
+
+  <div *ngIf="selectedSegment === 'historico-campeonatos'">
+    <h2>Histórico</h2>
+    <p>Conteúdo relacionado ao histórico de campeonatos.</p>
+  </div>
+</ion-content>

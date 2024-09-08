@@ -1,0 +1,54 @@
+<ion-content class="ion-padding">
+  <app-menu-perfil
+    [title]="pageTitle"
+    [menu]="pageMenu"
+    [menuContentId]="pageContent"
+  ></app-menu-perfil>
+
+  <ion-button size="small" id="open-modal">Avaliar Jogador</ion-button>
+  <ion-modal
+    #modal
+    trigger="open-modal"
+    [canDismiss]="canDismiss"
+    [presentingElement]="presentingElement"
+  >
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Avaliação de jogador</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding content-bg">
+        <p>Avaliação do jogador aqui!</p>
+        <ion-button size="small" (click)="modal.dismiss()">Avaliar</ion-button>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="modalidades">
+      <ion-label>Modalidades</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="estatisticas">
+      <ion-label>Estatísticas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="historico-campeonatos">
+      <ion-label>Histórico</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectedSegment === 'modalidades'">
+    <h2>Modalidades</h2>
+    <p>Conteúdo relacionado as Modaldidades.</p>
+  </div>
+
+  <div *ngIf="selectedSegment === 'estatisticas'">
+    <h2>Estatísticas</h2>
+    <p>Conteúdo relacionado as Estatísticas.</p>
+  </div>
+
+  <div *ngIf="selectedSegment === 'historico-campeonatos'">
+    <h2>Histórico</h2>
+    <p>Conteúdo relacionado ao Histórico de campeonatos.</p>
+  </div>
+</ion-content>

@@ -1,0 +1,40 @@
+ion-label {
+  color: #0daf7f;
+}
+
+ion-segment {
+  margin-top: 1rem;
+  --background: #121214;
+}
+
+div {
+  h2,
+  p {
+    color: white;
+  }
+}
+
+ion-button {
+  width: 100%;
+  --background: #0daf7f;
+  font-size: 1rem;
+  margin-top: 2.5rem;
+}
+
+.content-bg {
+  --background: #121214;
+}
+
+ion-header ion-toolbar {
+  --background: #121214;
+}
+
+ion-content {
+  p {
+    color: white;
+  }
+}
+
+ion-title {
+  color: white;
+}

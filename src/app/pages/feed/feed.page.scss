@@ -55,3 +55,13 @@ ion-toggle::part(track) {
   /* Required for iOS handle to overflow the height of the track */
   overflow: visible;
 }
+
+ion-button {
+  --background: #0daf7f;
+}
+
+.criar-post {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}

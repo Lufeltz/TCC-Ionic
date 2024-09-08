@@ -6,7 +6,8 @@ import {
   IonLabel,
   IonContent,
   IonSearchbar,
-  IonToggle
+  IonToggle,
+  IonButton
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -25,8 +26,8 @@ import { CommonModule } from '@angular/common';
     FormsModule,
     CommonModule,
     IonSearchbar,
-    IonToggle
-    
+    IonToggle,
+    IonButton
   ],
 })
 export class FeedPage implements OnInit {

@@ -4,4 +4,31 @@
     [menu]="pageMenu"
     [menuContentId]="pageContent"
   ></app-menu-perfil>
+
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="estatisticas-pessoais">
+      <ion-label>Pessoais</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="conquistas">
+      <ion-label>Conquistas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="estatisticas-esportivas">
+      <ion-label>Esportivas</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectedSegment === 'estatisticas-pessoais'">
+    <h2>Estatísticas Pessoais</h2>
+    <p>Conteúdo relacionado as Estatísticas Pessoais.</p>
+  </div>
+
+  <div *ngIf="selectedSegment === 'conquistas'">
+    <h2>Conquistas</h2>
+    <p>Conteúdo relacionado as Conquistas.</p>
+  </div>
+
+  <div *ngIf="selectedSegment === 'estatisticas-esportivas'">
+    <h2>Estatísticas Esportivas</h2>
+    <p>Conteúdo relacionado as Estatísticas Esportivas.</p>
+  </div>
 </ion-content>

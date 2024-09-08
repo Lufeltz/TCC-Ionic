@@ -8,7 +8,8 @@ import {
   IonToolbar,
   IonToggle,
   IonLabel,
-  IonText
+  IonText,
+  IonToast
 } from '@ionic/angular/standalone';
 
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
@@ -28,7 +29,8 @@ import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.
     MenuPerfilComponent,
     IonToggle,
     IonLabel,
-    IonText
+    IonText,
+    IonToast
   ],
 })
 export class PrefNotifPage implements OnInit {

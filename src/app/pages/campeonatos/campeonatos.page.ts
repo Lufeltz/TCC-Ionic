@@ -6,6 +6,10 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
+  IonToggle
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 
@@ -22,12 +26,18 @@ import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.
     CommonModule,
     FormsModule,
     MenuPerfilComponent,
+    IonSegment,
+    IonSegmentButton,
+    IonLabel,
+    IonToggle
   ],
 })
 export class CampeonatosPage implements OnInit {
   pageTitle: string = 'Campeonatos';
   pageMenu: string = 'campeonato-menu';
   pageContent: string = 'campeonato';
+
+  selectedSegment: string = 'criacao';
   constructor() {}
 
   ngOnInit() {}

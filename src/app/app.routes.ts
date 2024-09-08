@@ -27,6 +27,11 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'perfil-outro-usuario',
+    redirectTo: 'homepage/perfil-outro-usuario',
+    pathMatch: 'full',
+  },
+  {
     path: 'cadastro',
     loadComponent: () =>
       import('./auth/cadastro/cadastro.page').then((m) => m.CadastroPage),
@@ -78,11 +83,21 @@ export const routes: Routes = [
           import('./pages/privacidade/privacidade.page').then(
             (m) => m.PrivacidadePage
           ),
-      },  {
+      },
+      {
         path: 'perfil-usuario',
-        loadComponent: () => import('./pages/perfil-usuario/perfil-usuario.page').then( m => m.PerfilUsuarioPage)
+        loadComponent: () =>
+          import('./pages/perfil-usuario/perfil-usuario.page').then(
+            (m) => m.PerfilUsuarioPage
+          ),
+      },
+      {
+        path: 'perfil-outro-usuario',
+        loadComponent: () =>
+          import('./pages/perfil-outro-usuario/perfil-outro-usuario.page').then(
+            (m) => m.PerfilOutroUsuarioPage
+          ),
       },
     ],
   },
-
 ];

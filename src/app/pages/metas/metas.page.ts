@@ -6,6 +6,9 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonSegment,
+  IonSegmentButton,
+  IonLabel,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 
@@ -22,12 +25,17 @@ import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.
     CommonModule,
     FormsModule,
     MenuPerfilComponent,
+    IonSegmentButton,
+    IonLabel,
+    IonSegment,
   ],
 })
 export class MetasPage implements OnInit {
   pageTitle: string = 'Metas';
   pageMenu: string = 'metas-menu';
   pageContent: string = 'metas';
+
+  selectedSegment: string = 'criacao';
   constructor() {}
 
   ngOnInit() {}

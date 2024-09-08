@@ -1,1 +1,56 @@
-<app-menu-perfil [title]="pageTitle" [menu]="pageMenu" [menuContentId]="pageContent"></app-menu-perfil>
+<ion-content class="ion-padding">
+  <app-menu-perfil
+    [title]="pageTitle"
+    [menu]="pageMenu"
+    [menuContentId]="pageContent"
+  ></app-menu-perfil>
+
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="inscrito">
+      <ion-label>Inscrito</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="nao-inscrito">
+      <ion-label>Não Inscrito</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectedSegment === 'inscrito'">
+    <h2>Modalidades inscritas</h2>
+    <p>Conteúdo relacionado as modalidades inscritas.</p>
+    <ion-button
+      class="alerta-cancelar"
+      id="alerta-cancelar"
+      size="small"
+      expand="block"
+      >Cancelar inscrição</ion-button
+    >
+    <ion-alert
+      trigger="alerta-cancelar"
+      header="Cancelar inscrição?"
+      subHeader="Modalidade: Futebol"
+      message="Ao cancelar sua inscrição você não receberá mais informações sobre essa modalidade no seu feed"
+      [buttons]="alertButtons"
+      (didDismiss)="setResult($event)"
+    ></ion-alert>
+  </div>
+
+  <div *ngIf="selectedSegment === 'nao-inscrito'">
+    <h2>Modalidades não inscritas</h2>
+    <p>Conteúdo relacionado as modalidades não inscritas.</p>
+    <ion-button
+      id="alerta-inscrever"
+      class="alerta-inscrever"
+      size="small"
+      expand="block"
+      >Inscrever-se</ion-button
+    >
+    <ion-alert
+      trigger="alerta-inscrever"
+      header="Inscrever-se?"
+      subHeader="Modalidade: Vôlei"
+      message="Ao realizar a inscrição você passará a receber informações sobre essa modalidade no seu feed"
+      [buttons]="alertButtons"
+      (didDismiss)="setResult($event)"
+    ></ion-alert>
+  </div>
+</ion-content>
