@@ -8,9 +8,15 @@
   <h3>Modalidades</h3>
 
   <div class="toggle">
-    <ion-toggle id="open-toast" labelPlacement="end"></ion-toggle>
+    <ion-toggle
+      id="open-toast"
+      labelPlacement="end"
+      [(ngModel)]="estados.modalidades.notifCampeonatos"
+      (click)="mostrarEstadoToggle(estados.modalidades.notifCampeonatos)"
+    ></ion-toggle>
     <ion-text
-      >Notificar sobre novos campeonatos criados nas modalidades que estou inscrito</ion-text
+      >Notificar sobre novos campeonatos criados nas modalidades que estou
+      inscrito</ion-text
     >
     <ion-toast
       position="top"
@@ -20,8 +26,16 @@
     ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle id="open-toast2" labelPlacement="end"></ion-toggle>
-    <ion-text>Notificar sobre novos posts criados nas modalidades que estou inscrito</ion-text>
+    <ion-toggle
+      id="open-toast2"
+      labelPlacement="end"
+      [(ngModel)]="estados.modalidades.notifPosts"
+      (click)="mostrarEstadoToggle(estados.modalidades.notifPosts)"
+    ></ion-toggle>
+    <ion-text
+      >Notificar sobre novos posts criados nas modalidades que estou
+      inscrito</ion-text
+    >
     <ion-toast
       position="top"
       trigger="open-toast2"
@@ -30,7 +44,12 @@
     ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle id="open-toast3" labelPlacement="end"></ion-toggle>
+    <ion-toggle
+      id="open-toast3"
+      labelPlacement="end"
+      [(ngModel)]="estados.modalidades.notifComentarios"
+      (click)="mostrarEstadoToggle(estados.modalidades.notifComentarios)"
+    ></ion-toggle>
     <ion-text>Notificar sobre comentários feitos nos meus posts</ion-text>
     <ion-toast
       position="top"
@@ -40,7 +59,12 @@
     ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle id="open-toast4" labelPlacement="end"></ion-toggle>
+    <ion-toggle
+      id="open-toast4"
+      labelPlacement="end"
+      [(ngModel)]="estados.modalidades.notifLikes"
+      (click)="mostrarEstadoToggle(estados.modalidades.notifLikes)"
+    ></ion-toggle>
     <ion-text>Notificar sobre likes nos meus posts</ion-text>
     <ion-toast
       position="top"
@@ -51,7 +75,12 @@
   </div>
   <h3>Privacidade</h3>
   <div class="toggle">
-    <ion-toggle id="open-toast5" labelPlacement="end"></ion-toggle>
+    <ion-toggle
+      id="open-toast5"
+      labelPlacement="end"
+      [(ngModel)]="estados.privacidade.privModalidadesEsportivas"
+      (click)="mostrarEstadoToggle(estados.privacidade.privModalidadesEsportivas)"
+    ></ion-toggle>
     <ion-text
       >Permitir que outros usuários vejam detalhes das minhas modalidades
       esportivas</ion-text
@@ -64,7 +93,12 @@
     ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle id="open-toast6" labelPlacement="end"></ion-toggle>
+    <ion-toggle
+      id="open-toast6"
+      labelPlacement="end"
+      [(ngModel)]="estados.privacidade.privHistoricoCampeonatos"
+      (click)="mostrarEstadoToggle(estados.privacidade.privHistoricoCampeonatos)"
+    ></ion-toggle>
     <ion-text
       >Permitir que outros usuários acessem o meu histórico de
       campeonatos</ion-text
@@ -77,7 +111,12 @@
     ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle id="open-toast7" labelPlacement="end"></ion-toggle>
+    <ion-toggle
+      id="open-toast7"
+      labelPlacement="end"
+      [(ngModel)]="estados.privacidade.privEstatisticasModalidades"
+      (click)="mostrarEstadoToggle(estados.privacidade.privEstatisticasModalidades)"
+    ></ion-toggle>
     <ion-text
       >Permitir que outros usuários vejam as minhas estatísticas nas modalidades
       esportivas</ion-text
@@ -90,7 +129,12 @@
     ></ion-toast>
   </div>
   <div class="toggle">
-    <ion-toggle id="open-toast8" labelPlacement="end"></ion-toggle>
+    <ion-toggle
+      id="open-toast8"
+      labelPlacement="end"
+      [(ngModel)]="estados.privacidade.privConquistas"
+      (click)="mostrarEstadoToggle(estados.privacidade.privConquistas)"
+    ></ion-toggle>
     <ion-text>Permitir que outros usuários vejam as minhas conquistas</ion-text>
     <ion-toast
       position="top"

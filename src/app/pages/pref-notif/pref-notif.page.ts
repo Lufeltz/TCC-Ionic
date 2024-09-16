@@ -9,7 +9,7 @@ import {
   IonToggle,
   IonLabel,
   IonText,
-  IonToast
+  IonToast,
 } from '@ionic/angular/standalone';
 
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
@@ -30,14 +30,34 @@ import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.
     IonToggle,
     IonLabel,
     IonText,
-    IonToast
+    IonToast,
   ],
 })
 export class PrefNotifPage implements OnInit {
   pageTitle: string = 'Preferências';
   pageMenu: string = 'pref-notif';
   pageContent: string = 'pref-notif';
+
+  estados = {
+    modalidades: {
+      notifCampeonatos: false,
+      notifPosts: false,
+      notifComentarios: false,
+      notifLikes: false,
+    },
+    privacidade: {
+      privModalidadesEsportivas: false,
+      privHistoricoCampeonatos: false,
+      privEstatisticasModalidades: false,
+      privConquistas: false,
+    },
+  };
+
   constructor() {}
+
+  mostrarEstadoToggle(estado: boolean): void {
+    console.log(!estado);
+  }
 
   ngOnInit() {}
 }

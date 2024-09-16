@@ -32,6 +32,11 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'canal-saude',
+    redirectTo: 'homepage/canal-saude',
+    pathMatch: 'full',
+  },
+  {
     path: 'cadastro',
     loadComponent: () =>
       import('./auth/cadastro/cadastro.page').then((m) => m.CadastroPage),
@@ -96,6 +101,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/perfil-outro-usuario/perfil-outro-usuario.page').then(
             (m) => m.PerfilOutroUsuarioPage
+          ),
+      },
+      {
+        path: 'canal-saude',
+        loadComponent: () =>
+          import('./pages/canal-saude/canal-saude.page').then(
+            (m) => m.CanalSaudePage
           ),
       },
     ],

@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import {
   IonContent,
   IonHeader,
@@ -17,7 +17,9 @@ import {
 
 import { addIcons } from 'ionicons';
 import { mailOutline, lockClosedOutline, personOutline } from 'ionicons/icons';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import { AcademicoService } from 'src/app/services/academico.service';
+import { Academico } from 'src/app/models/academico.model';
 
 @Component({
   selector: 'app-cadastro',
@@ -38,13 +40,55 @@ import { RouterModule } from '@angular/router';
     IonInput,
     IonRadio,
     IonRadioGroup,
-    RouterModule
+    RouterModule,
   ],
 })
-export class CadastroPage implements OnInit {
-  constructor() {
+export class CadastroPage {
+  @ViewChild('formCadastro') formCadastro!: NgForm;
+  message!: string;
+  academico: Academico = new Academico();
+
+  constructor(
+    private academicoService: AcademicoService,
+    private router: Router
+  ) {
     addIcons({ mailOutline, lockClosedOutline, personOutline });
   }
 
-  ngOnInit() {}
+  cadastrar() {
+    // if (this.formCadastro.form.valid) {
+    this.academicoService.cadastrar(this.academico).subscribe({
+      next: (academico) => {
+        // alert('Cadastro realizado com sucesso!');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        console.log('Erro ao cadastrar academico', err);
+        // alert('Erro ao cadastrar academico');
+      },
+    });
+    // }
+  }
+
+  // Arrumar
+  // consultarPorIdUsuario(idUsuario: number): Observable<ClienteDto | null> {
+  //   return this._http
+  //     .get<ClienteDto>(`${this.NEW_URL}/consultar/${idUsuario}`, this.httpOptions)
+  //     .pipe(
+  //       map((resp: HttpResponse<ClienteDto>) => {
+  //         if (resp.status == 200) {
+  //           return resp.body;
+  //         } else {
+  //           return null;
+  //         }
+  //       }),
+  //       catchError((err, caught) => {
+  //         if (err.status == 404) {
+  //           return of(null);
+  //         } else {
+  //           return throwError(() => err);
+  //         }
+  //       })
+  //     );
+  // }
 }

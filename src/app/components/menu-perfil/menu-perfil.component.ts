@@ -14,6 +14,7 @@ import {
   starOutline,
   calendarNumberOutline,
   logOutOutline,
+  medkitOutline
 } from 'ionicons/icons';
 
 import {
@@ -73,6 +74,7 @@ export class MenuPerfilComponent implements OnInit {
       starOutline,
       calendarNumberOutline,
       logOutOutline,
+      medkitOutline
     });
   }
 
