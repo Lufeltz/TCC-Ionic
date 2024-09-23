@@ -17,6 +17,11 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'feed',
+    redirectTo: 'homepage/feed',
+    pathMatch: 'full',
+  },
+  {
     path: 'privacidade',
     redirectTo: 'homepage/privacidade',
     pathMatch: 'full',
@@ -35,7 +40,12 @@ export const routes: Routes = [
     path: 'canal-saude',
     redirectTo: 'homepage/canal-saude',
     pathMatch: 'full',
-  },
+  }, 
+  {
+    path: 'app-post',
+    redirectTo: 'homepage/app-post',
+    pathMatch: 'full',
+  }, 
   {
     path: 'cadastro',
     loadComponent: () =>
@@ -110,6 +120,11 @@ export const routes: Routes = [
             (m) => m.CanalSaudePage
           ),
       },
+      {
+        path: 'app-post',
+        loadComponent: () => import('./pages/post/post.page').then( m => m.PostPage)
+      },
     ],
   },
+
 ];

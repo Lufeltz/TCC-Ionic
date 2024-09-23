@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 import {
   IonSegment,
@@ -7,10 +7,17 @@ import {
   IonContent,
   IonSearchbar,
   IonToggle,
-  IonButton
+  IonButton,
+  IonModal,
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonButtons,
+  IonItem,
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -27,19 +34,28 @@ import { CommonModule } from '@angular/common';
     CommonModule,
     IonSearchbar,
     IonToggle,
-    IonButton
+    IonButton,
+    IonModal,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonItem,
   ],
 })
 export class FeedPage implements OnInit {
-  pageTitle: string = 'Feed';
+  pageTitle: string = 'Comunidade';
   pageMenu: string = 'feed-menu';
   pageContent: string = 'feed';
 
   selectedSegment: string = 'campeonatos';
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
+  criarPost() {
+    this.router.navigate(['/app-post']);
+  }
 
   // search
   // usar em conjunto com o debounce no ion-searchbar

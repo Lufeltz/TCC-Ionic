@@ -9,6 +9,7 @@ import {
   IonSegment,
   IonSegmentButton,
   IonLabel,
+  IonToggle
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 
@@ -28,6 +29,7 @@ import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.
     IonSegmentButton,
     IonLabel,
     IonSegment,
+    IonToggle
   ],
 })
 export class MetasPage implements OnInit {

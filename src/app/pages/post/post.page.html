@@ -1,0 +1,46 @@
+<ion-content class="ion-padding" [fullscreen]="true">
+  <app-menu-perfil
+    [title]="pageTitle"
+    [menu]="pageMenu"
+    [menuContentId]="pageContent"
+  ></app-menu-perfil>
+
+  <ion-input
+    class="input-space"
+    label="Título"
+    labelPlacement="floating"
+    [counter]="true"
+    maxlength="50"
+  ></ion-input>
+
+  <ion-input
+    id="custom-input"
+    label="Mensagem"
+    labelPlacement="floating"
+    [counter]="true"
+    maxlength="200"
+    [counterFormatter]="customCounterFormatter"
+  ></ion-input>
+
+  <ion-toast
+    trigger="open-toast"
+    message="Post criado com sucesso, redirecionando..."
+    [duration]="2500"
+  ></ion-toast>
+
+  <ion-list class="input-space">
+    <ion-item>
+      <ion-select placeholder="Selecione a modalidade">
+        <!-- Trocar para um for com todas as modalidades -->
+        <ion-select-option value="futebol">Futebol</ion-select-option>
+        <ion-select-option value="volei">Vôlei</ion-select-option>
+        <ion-select-option value="basquete">Basquete</ion-select-option>
+        <ion-select-option value="ping-pong">Ping Pong</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-button size="small" id="open-toast" (click)="voltarComunidade()"
+    >Enviar</ion-button
+  >
+</ion-content>

@@ -1,16 +1,37 @@
 ion-label {
-    color: #0daf7f;
+  color: #0daf7f;
+}
+
+ion-segment {
+  margin-top: 2.5rem;
+  --background: #121214;
+}
+
+div {
+  h2,
+  p {
+    color: white;
   }
-  
-  ion-segment {
-    margin-top: 2.5rem;
-    --background: #121214;
-  }
-  
-  div {
-    h2,
-    p {
-      color: white;
-    }
-  }
-  
+}
+
+ion-toggle {
+  color: #fff;
+  --handle-width: 20px;
+  --handle-height: 20px;
+
+  --handle-max-height: auto;
+
+  --track-background: #d2caca;
+  --track-background-checked: #333337;
+  --handle-background: #fff;
+  --handle-background-checked: #0daf7f;
+  margin-right: 2rem;
+}
+
+ion-toggle::part(track) {
+  height: 20px;
+  width: 36px;
+
+  /* Required for iOS handle to overflow the height of the track */
+  overflow: visible;
+}

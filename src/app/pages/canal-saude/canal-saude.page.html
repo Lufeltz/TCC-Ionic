@@ -1,13 +1,7 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>canal-saude</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">canal-saude</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <app-menu-perfil
+    [title]="pageTitle"
+    [menu]="pageMenu"
+    [menuContentId]="pageContent"
+  ></app-menu-perfil>
 </ion-content>

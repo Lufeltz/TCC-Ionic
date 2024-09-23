@@ -1,0 +1,98 @@
+ion-content {
+  --background: #121214;
+}
+
+div {
+  h2,
+  p {
+    color: white;
+  }
+}
+
+ion-input {
+  color: #0daf7f;
+  --background: #202024;
+  font-weight: 700;
+}
+
+.input-space {
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+}
+
+ion-select {
+  --placeholder-color: #0daf7f;
+  --placeholder-opacity: 1;
+  --background: #202024;
+  width: 100%;
+  font-weight: 700;
+  justify-content: center;
+}
+
+ion-select-option {
+  --background: #202024;
+}
+
+ion-item {
+  --background: #202024;
+}
+
+ion-select::part(placeholder),
+ion-select::part(text) {
+  flex: 0 0 auto;
+}
+
+ion-select::part(text) {
+  color: #0daf7f;
+}
+
+ion-select::part(icon) {
+  color: #0daf7f;
+  opacity: 1;
+}
+
+.aberto-finalizado {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 15px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.iniciado {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+ion-toggle {
+  color: #fff;
+  --handle-width: 20px;
+  --handle-height: 20px;
+
+  --handle-max-height: auto;
+
+  --track-background: #d2caca;
+  --track-background-checked: #333337;
+  --handle-background: #fff;
+  --handle-background-checked: #0daf7f;
+}
+
+ion-toggle::part(track) {
+  height: 20px;
+  width: 36px;
+
+  /* Required for iOS handle to overflow the height of the track */
+  overflow: visible;
+}
+
+ion-button {
+  --background: #0daf7f;
+}
+
+.criar-post {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}

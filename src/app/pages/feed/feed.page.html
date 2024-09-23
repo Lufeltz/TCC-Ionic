@@ -33,7 +33,7 @@
 
   <div *ngIf="selectedSegment === 'posts'">
     <div class="criar-post">
-      <ion-button size="small">Criar Post</ion-button>
+      <ion-button size="small" (click)="criarPost()">Criar Post</ion-button>
     </div>
     <h2>Posts</h2>
     <p>Conteúdo relacionado a posts aqui.</p>
@@ -41,6 +41,7 @@
 
   <div *ngIf="selectedSegment === 'jogadores'">
     <h2>Jogadores</h2>
+    <ion-toggle labelPlacement="end">Jogaram comigo</ion-toggle>
     <p>Conteúdo relacionado a jogadores aqui.</p>
   </div>
 
