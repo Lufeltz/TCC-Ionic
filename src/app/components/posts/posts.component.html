@@ -1,0 +1,50 @@
+<div class="publicacoes-container">
+  <ul>
+    <li
+      *ngFor="let publicacao of academicos.listaPublicacao"
+      class="publicacao"
+    >
+      <div class="publicacao-header">
+        <p class="descricao">{{ publicacao.descricao }}</p>
+        <p class="data">{{ publicacao.dataPublicacao | date : "short" }}</p>
+      </div>
+      <div class="publicacao-usuario">
+        <p class="usuario-nome">Publicado por: {{ publicacao.Usuario.nome }}</p>
+        <p class="usuario-username">
+          Username: {{ publicacao.Usuario.username }}
+        </p>
+      </div>
+      <div class="publicacao-interacoes">
+        <div class="curtidas">
+          <h3 class="interacao-header">Curtidas</h3>
+          <ul>
+            <li class="li-curtidas" *ngFor="let usuario of publicacao.listaUsuarioCurtida">
+              <p>{{ usuario.nome }} ({{ usuario.username }})</p>
+            </li>
+          </ul>
+        </div>
+        <div class="comentarios">
+          <h3 class="interacao-header">Comentários</h3>
+          <ul>
+            <li class="li-comentarios" *ngFor="let comentario of publicacao.listaComentario">
+              <p class="comentario-descricao">{{ comentario.descricao }}</p>
+              <p class="comentario-usuario">
+                Comentado por: {{ comentario.Usuario.nome }} ({{
+                  comentario.Usuario.username
+                }})
+              </p>
+              <div class="comentario-curtidas">
+                <p class="interacao-header">Curtidas:</p>
+                <ul>
+                  <li class="li-curtidas-comentarios" *ngFor="let usuario of comentario.listaUsuarioCurtida">
+                    <p>{{ usuario.nome }} ({{ usuario.username }})</p>
+                  </li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -37,15 +37,25 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'canal-saude',
-    redirectTo: 'homepage/canal-saude',
-    pathMatch: 'full',
-  }, 
-  {
     path: 'app-post',
     redirectTo: 'homepage/app-post',
     pathMatch: 'full',
-  }, 
+  },
+  {
+    path: 'canal-saude',
+    redirectTo: 'homepage/canal-saude',
+    pathMatch: 'full',
+  },
+  {
+    path: 'chaveamento',
+    redirectTo: 'homepage/chaveamento',
+    pathMatch: 'full',
+  },
+  {
+    path: 'resultados',
+    redirectTo: 'homepage/resultados',
+    pathMatch: 'full',
+  },
   {
     path: 'cadastro',
     loadComponent: () =>
@@ -114,6 +124,11 @@ export const routes: Routes = [
           ),
       },
       {
+        path: 'app-post',
+        loadComponent: () =>
+          import('./pages/post/post.page').then((m) => m.PostPage),
+      },
+      {
         path: 'canal-saude',
         loadComponent: () =>
           import('./pages/canal-saude/canal-saude.page').then(
@@ -121,10 +136,19 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'app-post',
-        loadComponent: () => import('./pages/post/post.page').then( m => m.PostPage)
+        path: 'chaveamento',
+        loadComponent: () =>
+          import('./pages/chaveamento/chaveamento.page').then(
+            (m) => m.ChaveamentoPage
+          ),
+      },
+      {
+        path: 'resultados',
+        loadComponent: () =>
+          import('./pages/resultados/resultados.page').then(
+            (m) => m.ResultadosPage
+          ),
       },
     ],
   },
-
 ];

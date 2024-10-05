@@ -1,6 +1,13 @@
 ion-content {
   --background: #202024;
 }
+:root {
+  --background-light: #202024;
+  --background-dark: #121214;
+  --text-light: #7b7b7b;
+  --text-green: #0daf7f;
+  --text-white: #fff;
+}
 
 /*
  * App Global CSS

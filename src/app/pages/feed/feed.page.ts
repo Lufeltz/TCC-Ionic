@@ -18,6 +18,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { JogadorComponent } from 'src/app/components/jogador/jogador.component';
+import { PostsComponent } from 'src/app/components/posts/posts.component';
 
 @Component({
   selector: 'app-feed',
@@ -26,6 +28,8 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [
     MenuPerfilComponent,
+    JogadorComponent,
+    PostsComponent,
     IonSegment,
     IonSegmentButton,
     IonLabel,
@@ -48,7 +52,10 @@ export class FeedPage implements OnInit {
   pageMenu: string = 'feed-menu';
   pageContent: string = 'feed';
 
+  results: string = ""
+
   selectedSegment: string = 'campeonatos';
+
   constructor(private router: Router) {}
 
   ngOnInit() {}
