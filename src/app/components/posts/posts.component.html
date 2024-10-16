@@ -5,16 +5,13 @@
       class="publicacao"
     >
       <div class="publicacao-header">
-        <p class="descricao">{{ publicacao.descricao }}</p>
-        <p class="data">{{ publicacao.dataPublicacao | date : "short" }}</p>
-      </div>
-      <div class="publicacao-usuario">
-        <p class="usuario-nome">Publicado por: {{ publicacao.Usuario.nome }}</p>
-        <p class="usuario-username">
-          Username: {{ publicacao.Usuario.username }}
+        <p class="usuario-username">{{ publicacao.Usuario.username }}</p>
+        <p class="data">
+          {{ publicacao.dataPublicacao | date : "dd/MM/yy, hh:mm" }}
         </p>
       </div>
-      <div class="publicacao-interacoes">
+      <div class="publicacao-usuario">
+        <p class="descricao">{{ publicacao.descricao }}</p>
         <div class="curtidas">
           <div class="curtidas-info" (click)="curtir(publicacao)">
             <ion-icon
@@ -23,34 +20,44 @@
             <span>{{ publicacao.listaUsuarioCurtida.length }}</span>
           </div>
         </div>
-        <div class="comentarios">
-          <h3 class="interacao-header">Comentários</h3>
-          <ul>
-            <li
-              class="li-comentarios"
-              *ngFor="let comentario of publicacao.listaComentario"
-            >
-              <p class="comentario-descricao">{{ comentario.descricao }}</p>
-              <p class="comentario-usuario">
-                Comentado por: {{ comentario.Usuario.nome }} ({{
-                  comentario.Usuario.username
-                }})
-              </p>
-              <div class="comentario-curtidas">
-                <p class="interacao-header">Curtidas:</p>
-                <div
-                  class="curtidas-info"
-                  (click)="curtirComentario(comentario)"
+      </div>
+      <div class="publicacao-interacoes">
+        <ion-accordion-group>
+          <ion-accordion>
+            <ion-item slot="header" class="comentarios-header">
+              <ion-label>Comentários</ion-label>
+            </ion-item>
+            <div slot="content">
+              <ul>
+                <li
+                  class="li-comentarios"
+                  *ngFor="let comentario of publicacao.listaComentario"
                 >
-                  <ion-icon
-                    [name]="comentario.isCurtiu ? 'heart' : 'heart-outline'"
-                  ></ion-icon>
-                  <span>{{ comentario.listaUsuarioCurtida.length }}</span>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </div>
+                  <div class="comentario-header">
+                    <p class="comentario-usuario">
+                      {{ comentario.Usuario.username }}
+                    </p>
+                    <p class="comentario-data">
+                      {{ comentario.dataComentario | date : "dd/MM/yy, hh:mm" }}
+                    </p>
+                  </div>
+                  <p class="comentario-descricao">{{ comentario.descricao }}</p>
+                  <div class="comentario-curtidas">
+                    <div
+                      class="curtidas-info"
+                      (click)="curtirComentario(comentario)"
+                    >
+                      <ion-icon
+                        [name]="comentario.isCurtiu ? 'heart' : 'heart-outline'"
+                      ></ion-icon>
+                      <span>{{ comentario.listaUsuarioCurtida.length }}</span>
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
       </div>
     </li>
   </ul>

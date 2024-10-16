@@ -87,8 +87,19 @@ ion-toggle::part(track) {
   overflow: visible;
 }
 
-ion-button {
-  --background: #0daf7f;
+ion-button.btn-enviar {
+  width: 100%;
+  --background: var(--text-green);
+}
+
+ion-button.btn-voltar {
+  width: 100%;
+  --background: var(--background-red);
+}
+
+ion-button.btn-voltar:hover,
+ion-button.btn-voltar:active {
+  --background: var(--background-red);
 }
 
 .criar-post {

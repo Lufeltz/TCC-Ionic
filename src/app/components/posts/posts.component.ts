@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { heartOutline, heart } from 'ionicons/icons';
+import { heartOutline, heart, chevronDownOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-posts',
@@ -13,7 +13,7 @@ import { heartOutline, heart } from 'ionicons/icons';
 })
 export class PostsComponent implements OnInit {
   constructor() {
-    addIcons({ heartOutline, heart });
+    addIcons({ heartOutline, chevronDownOutline });
   }
 
   academicos = {
@@ -70,8 +70,9 @@ export class PostsComponent implements OnInit {
         ],
         listaComentario: [
           {
-            descricao: 'Eu consigo amanhã, bora bora',
-            dataComentario: '2024-09-17T10:37:24Z',
+            descricao:
+              'Eu consigo amanhã, bora bora',
+            dataComentario: '2024-09-17T10:42:04Z',
             Usuario: {
               username: 'maria_gn',
               nome: 'Maria Gabriela Naste',
@@ -96,7 +97,7 @@ export class PostsComponent implements OnInit {
           },
           {
             descricao: 'quase certeza que sim',
-            dataComentario: '2024-09-17T10:37:24Z',
+            dataComentario: '2024-09-17T10:36:11Z',
             Usuario: {
               username: 'marcelo_ls',
               nome: 'Marcelo Leite Silveira',
@@ -115,7 +116,7 @@ export class PostsComponent implements OnInit {
           },
           {
             descricao: 'consigo depois das 18h',
-            dataComentario: '2024-09-17T10:37:24Z',
+            dataComentario: '2024-09-17T10:55:02Z',
             Usuario: {
               username: 'muriel_ln',
               nome: 'Muriel Leon Nogueira',
@@ -127,6 +128,117 @@ export class PostsComponent implements OnInit {
           },
         ],
       },
+      {
+        descricao:
+          'alguém afim de jogar um pingas amanhã? Se quiserem, eu vou criar um campeonato pra nós depois.',
+        dataPublicacao: '2024-09-17T11:42:20Z',
+        idCanal: 1,
+        Usuario: {
+          username: 'math_aa',
+          nome: 'Matheus Antônio Augusto',
+          foto: null,
+          permissao: 'ACADEMICO',
+        },
+        isCurtiu: false, // Propriedade para controlar se o usuário curtiu a publicação
+        listaUsuarioCurtida: [
+          {
+            username: 'michael_ac',
+            nome: 'Michael Andrew Curry',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'maira_sm',
+            nome: 'Maíra Silverado Mendes',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'marcelo_ls',
+            nome: 'Marcelo Leite Silveira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'muriel_ln',
+            nome: 'Muriel Leon Nogueira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'michaela_ac',
+            nome: 'Michaela Antonela Churatto',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'mauro_vm',
+            nome: 'Mauro Vieira Marçal',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+        ],
+        listaComentario: [
+          {
+            descricao:
+              'Eu consigo amanhã, bora bora',
+            dataComentario: '2024-09-17T12:37:14Z',
+            Usuario: {
+              username: 'maria_gn',
+              nome: 'Maria Gabriela Naste',
+              foto: null,
+              permissao: 'ACADEMICO',
+            },
+            isCurtiu: false, // Propriedade para controlar se o usuário curtiu o comentário
+            listaUsuarioCurtida: [
+              {
+                username: 'math_aa',
+                nome: 'Matheus Antônio Augusto',
+                foto: null,
+                permissao: 'ACADEMICO',
+              },
+              {
+                username: 'mauro_vm',
+                nome: 'Mauro Vieira Marçal',
+                foto: null,
+                permissao: 'ACADEMICO',
+              },
+            ],
+          },
+          {
+            descricao: 'quase certeza que sim',
+            dataComentario: '2024-09-17T12:40:16Z',
+            Usuario: {
+              username: 'marcelo_ls',
+              nome: 'Marcelo Leite Silveira',
+              foto: null,
+              permissao: 'ACADEMICO',
+            },
+            isCurtiu: false, // Propriedade para controlar se o usuário curtiu o comentário
+            listaUsuarioCurtida: [
+              {
+                username: 'murilo_scn',
+                nome: 'Murilo Souza Costa Neto',
+                foto: null,
+                permissao: 'ACADEMICO',
+              },
+            ],
+          },
+          {
+            descricao: 'consigo depois das 18h',
+            dataComentario: '2024-09-17T16:55:22Z',
+            Usuario: {
+              username: 'muriel_ln',
+              nome: 'Muriel Leon Nogueira',
+              foto: null,
+              permissao: 'ACADEMICO',
+            },
+            isCurtiu: false, // Propriedade para controlar se o usuário curtiu o comentário
+            listaUsuarioCurtida: [],
+          },
+        ],
+      },
+
       // Adicione mais objetos de publicação conforme necessário
     ],
   };

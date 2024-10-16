@@ -1,16 +1,3 @@
-ion-content {
-  --background: var(--background-dark);
-}
-
-:root {
-  --background-light: #202024;
-  --background-dark: #121214;
-  --text-light: #7b7b7b;
-  --text-green: #0daf7f;
-  --text-white: #fff;
-  --text-highlight: #bbbbbb;
-}
-
 .publicacoes-container {
   padding: 16px;
 }
@@ -29,28 +16,32 @@ li {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.publicacao-header {
+.publicacao-header,
+.comentario-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
 }
 
-.descricao {
+.descricao,
+.comentario-descricao {
   font-size: 16px;
   color: var(--text-white);
 }
 
-.data {
-  font-size: 12px;
-  color: var(--text-light);
+.data,
+.comentario-data {
+  font-size: 12px !important;
+  color: var(--text-light) !important;
 }
 
 .publicacao-usuario {
-  margin-bottom: 16px;
+  margin-bottom: 26px;
 }
 
-.usuario-nome, .usuario-username {
+.usuario-nome,
+.usuario-username {
   font-size: 14px;
   color: var(--text-highlight);
 }
@@ -58,6 +49,7 @@ li {
 .publicacao-interacoes {
   border-top: 1px solid var(--text-light);
   padding-top: 16px;
+  // background-color: white;
 }
 
 .curtidas-info {
@@ -83,32 +75,32 @@ li {
   margin-bottom: 8px;
 }
 
-.li-curtidas, .li-comentarios, .li-curtidas-comentarios {
-  border: 1px solid var(--text-light);
-  padding: 8px;
+.li-curtidas,
+.li-comentarios,
+.li-curtidas-comentarios {
+  // border: 1px solid var(--text-light);
+  background-color: var(--background-dark);
+  padding: 10px;
   border-radius: 4px;
   margin-bottom: 8px;
+  border-radius: 5px;
 }
 
-.li-curtidas p, .li-comentarios p, .li-curtidas-comentarios p {
-  margin: 0;
-  font-size: 14px;
-  color: var(--text-white);
-}
-
-.comentario-descricao {
+.li-curtidas p,
+.li-comentarios p,
+.li-curtidas-comentarios p {
   font-size: 14px;
   color: var(--text-white);
 }
 
 .comentario-usuario {
   font-size: 12px;
-  color: var(--text-highlight);
+  color: var(--text-light) !important;
   margin-bottom: 8px;
 }
 
 .comentario-curtidas {
-  margin-left: 16px;
+  margin-top: 10px;
 }
 
 @media (max-width: 375px) {
@@ -116,12 +108,16 @@ li {
     padding: 12px;
   }
 
-  .descricao, .comentario-descricao {
+  .descricao,
+  .comentario-descricao {
     font-size: 14px;
   }
 
-  .usuario-nome, .usuario-username, .comentario-usuario {
-    font-size: 12px;
+  .usuario-nome,
+  .usuario-username,
+  .comentario-usuario {
+    // font-size: 12px !important;
+    color: var(--text-light);
   }
 
   .curtidas-info ion-icon {
@@ -131,4 +127,37 @@ li {
   .curtidas-info span {
     font-size: 12px;
   }
+}
+
+.comentarios-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.comentarios-header ion-label {
+  font-size: 16px;
+  color: var(--text-highlight);
+}
+
+.comentarios-header ion-icon {
+  font-size: 20px;
+  color: var(--text-light);
+}
+
+ion-accordion {
+  background-color: var(--background-light);
+}
+
+ion-accordion-group {
+  background-color: green;
+}
+
+div[slot="header"] {
+  background: var(--background-light);
+}
+
+ion-item {
+  --background: var(--background-light);
+  color: var(--text-green);
 }
