@@ -14,7 +14,8 @@ import {
   starOutline,
   calendarNumberOutline,
   logOutOutline,
-  medkitOutline
+  medkitOutline,
+  analyticsOutline,
 } from 'ionicons/icons';
 
 import {
@@ -55,7 +56,7 @@ import { RouterModule } from '@angular/router';
     IonLabel,
     IonItemGroup,
     IonIcon,
-    RouterModule
+    RouterModule,
   ],
 })
 export class MenuPerfilComponent implements OnInit {
@@ -67,14 +68,15 @@ export class MenuPerfilComponent implements OnInit {
       personCircleOutline,
       schoolOutline,
       notificationsOutline,
-      eyeOffOutline,
+      medkitOutline,
       settingsOutline,
-      bicycleOutline,
-      addCircleOutline,
-      starOutline,
+      analyticsOutline,
       calendarNumberOutline,
+      addCircleOutline,
+      bicycleOutline,
+      starOutline,
       logOutOutline,
-      medkitOutline
+      eyeOffOutline,
     });
   }
 

@@ -1,0 +1,52 @@
+body {
+  background-color: #121212; /* Cor de fundo da página */
+  font-family: Arial, sans-serif; /* Fonte mais legível */
+}
+
+p,
+li {
+  color: white;
+}
+
+li {
+  border-radius: 8px; /* Bordas mais arredondadas */
+  padding: 1rem; /* Uniformizar o padding */
+  margin-bottom: 1rem; /* Espaçamento entre os itens */
+  transition: background-color 0.3s ease, border-color 0.3s ease; /* Transição suave */
+}
+
+li.incompleto {
+  border: 1px solid #ff4d4d; /* Bordas vermelhas (tom claro) */
+  background-color: rgba(255, 77, 77, 0.2); /* Fundo vermelho claro */
+}
+
+li.completo {
+  border: 1px solid #0daf7f; /* Bordas verdes (tom original) */
+  background-color: rgba(13, 175, 127, 0.2); /* Fundo verde claro */
+}
+
+li:hover {
+  background-color: rgba(13, 175, 127, 0.4); /* Destaque ao passar o mouse */
+}
+
+ul {
+  margin: 0; /* Remove margem padrão */
+  padding: 0; /* Remove padding padrão */
+  list-style-type: none; /* Remove os marcadores da lista */
+}
+
+.estatistica {
+  display: flex; /* Para alinhar os itens em linha */
+  justify-content: space-between; /* Espaço entre os itens */
+  align-items: center; /* Alinhar verticalmente ao centro */
+}
+
+.estatistica-info {
+  flex: 1; /* Permitir que a informação ocupe o espaço disponível */
+}
+
+.estatistica-imagem {
+  width: 120px; /* Largura da imagem (ajuste conforme necessário) */
+  height: auto; /* Manter a proporção da imagem */
+  margin-left: 1rem; /* Espaçamento entre a informação e a imagem */
+}

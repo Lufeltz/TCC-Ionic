@@ -1,0 +1,10 @@
+<h2>Canais de Saúde</h2>
+<ul>
+  <li *ngFor="let canal of canaisDeSaude" class="item-lista">
+    <h3>{{ canal.nome }}</h3>
+    <p>Responsável: {{ canal.responsavel }}</p>
+    <p>Telefone: {{ canal.telefone }}</p>
+    <p>Endereço: {{ canal.endereco }}</p>
+    <p>Horário de Funcionamento: {{ canal.horarioFuncionamento }}</p>
+  </li>
+</ul>

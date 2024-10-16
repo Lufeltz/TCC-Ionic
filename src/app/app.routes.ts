@@ -57,6 +57,11 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'estatisticas',
+    redirectTo: 'homepage/estatisticas',
+    pathMatch: 'full',
+  },
+  {
     path: 'cadastro',
     loadComponent: () =>
       import('./auth/cadastro/cadastro.page').then((m) => m.CadastroPage),
@@ -149,6 +154,11 @@ export const routes: Routes = [
             (m) => m.ResultadosPage
           ),
       },
+      {
+        path: 'estatisticas',
+        loadComponent: () => import('./pages/estatisticas/estatisticas.page').then( m => m.EstatisticasPage)
+      },
     ],
   },
+
 ];

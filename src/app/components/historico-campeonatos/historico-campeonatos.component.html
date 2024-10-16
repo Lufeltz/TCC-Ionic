@@ -1,0 +1,12 @@
+<h2>Histórico de Campeonatos</h2>
+<ul>
+  <li *ngFor="let campeonato of historicoCampeonatos" class="item-lista">
+    <h3>{{ campeonato.nome }}</h3>
+    <p>Ano: {{ campeonato.ano }}</p>
+    <p>Resultado: {{ campeonato.resultado }}</p>
+    <p>Posição: {{ campeonato.posicao }}</p>
+    <p>Data: {{ campeonato.data }}</p>
+    <p>Descrição: {{ campeonato.descricao }}</p>
+    <p>Modalidade: {{ campeonato.modalidade }}</p>
+  </li>
+</ul>

@@ -11,6 +11,9 @@ import {
   IonLabel,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
+import { EstatisticasEsportivasComponent } from "../../components/estatisticas-esportivas/estatisticas-esportivas.component";
+import { ConquistasComponent } from "../../components/conquistas/conquistas.component";
+import { EstatisticasPessoaisComponent } from "../../components/estatisticas-pessoais/estatisticas-pessoais.component";
 
 @Component({
   selector: 'app-perfil-usuario',
@@ -28,13 +31,16 @@ import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.
     IonSegment,
     IonSegmentButton,
     IonLabel,
-  ],
+    EstatisticasEsportivasComponent,
+    ConquistasComponent,
+    EstatisticasPessoaisComponent
+],
 })
 export class PerfilUsuarioPage implements OnInit {
-  pageTitle: string = 'Perfil Usuário';
-  pageMenu: string = 'perfil-usuario';
-  pageContent: string = 'perfil-usuario';
-
+  pageTitle: string = 'Estatísticas';
+  pageMenu: string = 'estatisticas';
+  pageContent: string = 'estatisticas';
+  
   selectedSegment: string = 'estatisticas-pessoais';
   constructor() {}
 

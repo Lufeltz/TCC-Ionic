@@ -1,42 +1,134 @@
+ion-content {
+  --background: var(--background-dark);
+}
+
 :root {
   --background-light: #202024;
   --background-dark: #121214;
   --text-light: #7b7b7b;
   --text-green: #0daf7f;
   --text-white: #fff;
+  --text-highlight: #bbbbbb;
 }
 
-h3,
-p {
-  color: var(--text-white);
-}
-
-ul li {
-  border-radius: 5px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 0;
-  // border: 1px solid var(--text-green);
-
-  .li-curtidas {
-    border: 1px solid rgb(87, 87, 205);
-  }
-
-  .li-comentarios {
-    border: 1px solid rgb(216, 126, 42);
-  }
-
-  .li-curtidas-comentarios {
-    border: 1px solid rgb(205, 225, 30);
-  }
+.publicacoes-container {
+  padding: 16px;
 }
 
 ul {
-  padding: 1rem;
-  border-radius: 5px;
-  background-color: var(--background-light);
-  margin-left: 0;
-  padding-left: 0;
+  padding: 0;
   list-style-type: none;
+  margin: 0;
+}
+
+li {
+  background-color: var(--background-light);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.publicacao-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.descricao {
+  font-size: 16px;
+  color: var(--text-white);
+}
+
+.data {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.publicacao-usuario {
+  margin-bottom: 16px;
+}
+
+.usuario-nome, .usuario-username {
+  font-size: 14px;
+  color: var(--text-highlight);
+}
+
+.publicacao-interacoes {
+  border-top: 1px solid var(--text-light);
+  padding-top: 16px;
+}
+
+.curtidas-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  color: var(--text-green);
+  cursor: pointer;
+}
+
+.curtidas-info ion-icon {
+  margin-right: 8px;
+  font-size: 20px;
+}
+
+.curtidas-info span {
+  font-size: 14px;
+}
+
+.interacao-header {
+  font-size: 14px;
+  color: var(--text-green);
+  margin-bottom: 8px;
+}
+
+.li-curtidas, .li-comentarios, .li-curtidas-comentarios {
+  border: 1px solid var(--text-light);
+  padding: 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+}
+
+.li-curtidas p, .li-comentarios p, .li-curtidas-comentarios p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text-white);
+}
+
+.comentario-descricao {
+  font-size: 14px;
+  color: var(--text-white);
+}
+
+.comentario-usuario {
+  font-size: 12px;
+  color: var(--text-highlight);
+  margin-bottom: 8px;
+}
+
+.comentario-curtidas {
+  margin-left: 16px;
+}
+
+@media (max-width: 375px) {
+  li {
+    padding: 12px;
+  }
+
+  .descricao, .comentario-descricao {
+    font-size: 14px;
+  }
+
+  .usuario-nome, .usuario-username, .comentario-usuario {
+    font-size: 12px;
+  }
+
+  .curtidas-info ion-icon {
+    font-size: 18px;
+  }
+
+  .curtidas-info span {
+    font-size: 12px;
+  }
 }

@@ -12,6 +12,7 @@ import {
   IonToggle
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
+import { HistoricoCampeonatosComponent } from "../../components/historico-campeonatos/historico-campeonatos.component";
 
 @Component({
   selector: 'app-campeonatos',
@@ -29,8 +30,9 @@ import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.
     IonSegment,
     IonSegmentButton,
     IonLabel,
-    IonToggle
-  ],
+    IonToggle,
+    HistoricoCampeonatosComponent
+],
 })
 export class CampeonatosPage implements OnInit {
   pageTitle: string = 'Campeonatos';

@@ -1,0 +1,74 @@
+<div>
+  <h2>{{ usuario.nome }}</h2>
+  <p>Idade: {{ usuario.idade }}</p>
+  <p>Peso: {{ usuario.peso }} kg</p>
+  <p>Altura: {{ usuario.altura }} m</p>
+
+  <h3>Estatísticas Pessoais</h3>
+  <ul>
+    <li class="estatistica completo">
+      <p>
+        Metas Concluídas: {{ usuario.estatisticasPessoais.metasConcluidas }}
+      </p>
+    </li>
+    <li class="estatistica completo">
+      <p>
+        Metas Diárias em Andamento:
+        {{ usuario.estatisticasPessoais.metasDiariasEmAndamento }}
+      </p>
+    </li>
+    <li class="estatistica completo">
+      <p>
+        Metas Diárias Concluídas:
+        {{ usuario.estatisticasPessoais.metasDiariasConcluidas }}
+      </p>
+    </li>
+    <li class="estatistica completo">
+      <p>Total de Metas: {{ usuario.estatisticasPessoais.totalMetas }}</p>
+    </li>
+    <li class="estatistica completo">
+      <p>
+        Total de Metas Mensais:
+        {{ usuario.estatisticasPessoais.metasMensais.total }}
+      </p>
+    </li>
+    <li class="estatistica completo">
+      <p>
+        Metas Mensais Concluídas:
+        {{ usuario.estatisticasPessoais.metasMensais.concluidas }}
+      </p>
+    </li>
+    <li class="estatistica completo">
+      <p>
+        Metas Mensais em Andamento:
+        {{ usuario.estatisticasPessoais.metasMensais.emAndamento }}
+      </p>
+    </li>
+    <li class="estatistica completo">
+      <p>
+        Progresso Geral: {{ usuario.estatisticasPessoais.progressoGeral }}%
+      </p>
+    </li>
+    <li class="estatistica completo">
+      <p>Defesas: {{ usuario.estatisticasPessoais.defesas }}</p>
+    </li>
+    <li class="estatistica completo">
+      <p>Gols Marcados: {{ usuario.estatisticasPessoais.golsMarcados }}</p>
+    </li>
+    <li class="estatistica completo">
+      <p>Assistências: {{ usuario.estatisticasPessoais.assistencias }}</p>
+    </li>
+    <li class="estatistica completo">
+      <p>Jogos Jogados: {{ usuario.estatisticasPessoais.jogosJogados }}</p>
+    </li>
+    <li class="estatistica completo">
+      <p>Vitórias: {{ usuario.estatisticasPessoais.vitorias }}</p>
+    </li>
+    <li class="estatistica completo">
+      <p>Derrotas: {{ usuario.estatisticasPessoais.derrotas }}</p>
+    </li>
+    <li class="estatistica completo">
+      <p>Empates: {{ usuario.estatisticasPessoais.empates }}</p>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,27 @@
+body {
+  background-color: #121212; /* Cor de fundo da página */
+  font-family: Arial, sans-serif; /* Fonte mais legível */
+}
+
+p, li {
+  color: white;
+}
+
+li {
+  border: 1px solid #0daf7f; /* Cor do borda */
+  border-radius: 8px; /* Bordas mais arredondadas */
+  padding: 1rem; /* Uniformizar o padding */
+  margin-bottom: 1rem; /* Espaçamento entre os itens */
+  background-color: rgba(13, 175, 127, 0.2); /* Fundo sutil para destaque */
+  transition: background-color 0.3s ease; /* Transição suave */
+}
+
+li:hover {
+  background-color: rgba(13, 175, 127, 0.4); /* Destaque ao passar o mouse */
+}
+
+ul {
+  margin: 0; /* Remove margem padrão */
+  padding: 0; /* Remove padding padrão */
+  list-style-type: none; /* Remove os marcadores da lista */
+}

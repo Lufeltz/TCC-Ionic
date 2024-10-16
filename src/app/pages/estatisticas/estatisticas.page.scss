@@ -1,0 +1,67 @@
+/* Estilos gerais */
+.item-lista ion-label {
+  color: #0daf7f;
+  margin-bottom: 0.5rem; /* Ajuste o valor conforme necessário */
+}
+
+ion-button {
+  --background: #0daf7f;
+}
+
+ion-segment {
+  margin-top: 2.5rem;
+  --background: #121214;
+}
+
+div {
+  h2,
+  p {
+    color: white;
+  }
+}
+
+/* Estilos para a lista */
+ul {
+  margin: 0; /* Remove margem padrão */
+  padding: 0; /* Remove padding padrão */
+  list-style-type: none; /* Remove os marcadores da lista */
+}
+
+.item-lista {
+  // background-color: #1e1e1e; /* Cor de fundo para os itens da lista */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 1rem; /* Padding para os itens */
+  margin-bottom: 1rem; /* Espaçamento entre os itens */
+  color: white; /* Cor da fonte */
+  // box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para os itens */
+  // transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+}
+
+.item-lista:hover {
+  background-color: #2e2e2e; /* Mudança de fundo ao passar o mouse */
+  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+}
+
+.item-lista ion-label {
+  color: white; /* Garante que o rótulo fique branco */
+}
+
+.item-lista ion-input {
+  background-color: #2e2e2e; /* Fundo do input um pouco mais claro */
+  border-radius: 5px; /* Bordas arredondadas */
+  color: white; /* Texto do input branco */
+  padding: 0.5rem; /* Adicione o padding desejado */
+  --padding-start: 0.5rem; /* Padding para o lado esquerdo */
+  --padding-end: 0.5rem; /* Padding para o lado direito */
+  --padding-top: 0.5rem; /* Padding para o topo */
+  --padding-bottom: 0.5rem; /* Padding para a parte inferior */
+}
+
+
+.item-lista ion-input::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Placeholder em uma cor mais clara */
+}
+
+.container {
+  margin-top: 2.5rem;
+}

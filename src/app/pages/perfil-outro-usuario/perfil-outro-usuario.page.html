@@ -39,16 +39,15 @@
 
   <div *ngIf="selectedSegment === 'modalidades'">
     <h2>Modalidades</h2>
-    <p>Conteúdo relacionado as Modaldidades.</p>
+    <app-estatisticas-esportivas></app-estatisticas-esportivas>
   </div>
 
   <div *ngIf="selectedSegment === 'estatisticas'">
     <h2>Estatísticas</h2>
-    <p>Conteúdo relacionado as Estatísticas.</p>
+    <app-estatisticas-pessoais></app-estatisticas-pessoais>
   </div>
 
   <div *ngIf="selectedSegment === 'historico-campeonatos'">
-    <h2>Histórico</h2>
-    <p>Conteúdo relacionado ao Histórico de campeonatos.</p>
+    <app-historico-campeonatos></app-historico-campeonatos>
   </div>
 </ion-content>
