@@ -15,14 +15,71 @@
   </ion-segment>
 
   <div *ngIf="selectedSegment === 'criacao'">
-    <h2>Criação</h2>
-    <p>Conteúdo relacionado a criação de metas.</p>
+    <div class="container">
+      <ul>
+        <li class="item-lista">
+          <ion-label>Título</ion-label>
+          <ion-input [(ngModel)]="novaMeta.titulo"></ion-input>
+        </li>
+        <li class="item-lista">
+          <ion-label>Descrição</ion-label>
+          <ion-input [(ngModel)]="novaMeta.descricao"></ion-input>
+        </li>
+      </ul>
+      <div class="button-container">
+        <ion-button
+          id="open-toast"
+          expand="small"
+          class="centered-button"
+          (click)="salvarMeta()"
+          >Salvar</ion-button
+        >
+      </div>
+      <ion-toast
+        trigger="open-toast"
+        message="Meta criada com sucesso!"
+        [duration]="3000"
+      ></ion-toast>
+    </div>
   </div>
 
   <div *ngIf="selectedSegment === 'listagem'">
-    <h2>Listagem</h2>
-    <ion-toggle labelPlacement="end">Esportivas</ion-toggle>
-    <ion-toggle labelPlacement="end">Diárias</ion-toggle>
-    <p>Conteúdo relacionado a listagem das metas.</p>
+    <ion-item lines="none">
+      <ion-label>Esportivas</ion-label>
+      <ion-toggle
+        slot="end"
+        (ionChange)="toggleFilterEsportivas($event)"
+        [checked]="filterEsportivas"
+      ></ion-toggle>
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Diárias</ion-label>
+      <ion-toggle
+        slot="end"
+        (ionChange)="toggleFilterDiarias($event)"
+        [checked]="filterDiarias"
+      ></ion-toggle>
+    </ion-item>
+    <ul>
+      <li
+        *ngFor="let meta of filteredMetas"
+        class="item-lista"
+        [ngClass]="{
+          'meta-esportiva': meta.tipo === 'esportiva',
+          'meta-diaria': meta.tipo === 'diaria'
+        }"
+      >
+        <h3
+          [ngClass]="{
+            'titulo-esportiva': meta.tipo === 'esportiva',
+            'titulo-diaria': meta.tipo === 'diaria'
+          }"
+        >
+          {{ meta.nome || meta.esporte }}
+          <span class="texto-light">{{ meta.tipo | titlecase }}</span>
+        </h3>
+        <p *ngFor="let opcao of meta.opcoes || meta.metas">{{ opcao }}</p>
+      </li>
+    </ul>
   </div>
 </ion-content>

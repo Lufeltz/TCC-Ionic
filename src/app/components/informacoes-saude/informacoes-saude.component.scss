@@ -21,28 +21,34 @@ h2 {
 /* Estilos para a lista */
 ul {
   margin: 0; /* Remove margem padrão */
+  margin-top: 3rem;
   padding: 0; /* Remove padding padrão */
   list-style-type: none; /* Remove os marcadores da lista */
 }
 
 .item-lista {
-  background-color: #1e1e1e; /* Cor de fundo para os itens da lista */
+  background-color: #1c1c1e;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
   border-radius: 8px; /* Bordas arredondadas */
   padding: 1rem; /* Padding para os itens */
   margin-bottom: 1rem; /* Espaçamento entre os itens */
   color: white; /* Cor da fonte */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Sombra para os itens */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
   transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
 }
 
 .item-lista:hover {
-  background-color: #2e2e2e; /* Mudança de fundo ao passar o mouse */
+  background-color: rgba(41, 128, 185, 0.4); /* Mudança de fundo ao passar o mouse */
   transform: translateY(-2px); /* Leve elevação ao passar o mouse */
 }
 
 .item-lista h3 {
   margin: 0; /* Remove margem do título */
-  color: #0daf7f; /* Cor do título */
+  color: var(--text-green); /* Cor do título */
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
 }
 
 .item-lista p {
