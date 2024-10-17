@@ -1,18 +1,70 @@
-p {
-  color: white;
-}
-
-li {
-  border: 1px solid #0daf7f;
-  border-radius: 5px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  margin-bottom: 1rem;
-  margin-left: 0;
+.jogadores-container {
+  padding: 16px;
 }
 
 ul {
-  margin-left: 0;
-  padding-left: 0;
+  padding: 0;
   list-style-type: none;
+  margin: 0;
+}
+
+.jogador {
+  background-color: var(--background-light);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  position: relative;
+  z-index: 1;
+  border-right: 1px solid var(--text-green);
+  border-bottom: 1px solid var(--text-green);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+}
+
+.jogador-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.jogador-nome {
+  font-size: 16px;
+  color: var(--text-light);
+}
+
+.jogador-curso {
+  font-size: 14px;
+  color: var(--text-white);
+}
+
+.jogador-data {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.jogador-foto {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+/* Responsividade */
+@media (max-width: 375px) {
+  .jogador {
+    padding: 12px;
+  }
+
+  .jogador-nome {
+    font-size: 14px;
+  }
+
+  .jogador-curso {
+    font-size: 12px;
+  }
+
+  .jogador-data,
+  .jogador-foto {
+    font-size: 10px;
+  }
 }

@@ -1,0 +1,89 @@
+/* Estilos gerais */
+ion-label {
+  color: #0daf7f;
+}
+
+ion-button {
+  --background: #0daf7f;
+}
+
+ion-segment {
+  margin-top: 2.5rem;
+  --background: #121214;
+}
+
+/* Estilos para a lista */
+.container {
+  margin-top: 2.5rem;
+}
+
+.card {
+  background-color: #1c1c1e;
+  border-radius: 8px; /* Bordas arredondadas */
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  padding: 1rem; /* Padding para os itens */
+  color: white; /* Cor da fonte */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+  margin-top: 1rem; /* Espaçamento entre o card e outros elementos */
+}
+
+.img-container {
+  display: flex;
+  justify-content: center;
+}
+
+h2,
+h3,
+p {
+  text-align: center; /* Centraliza o texto */
+  margin: 0.5rem 0; /* Margens para os títulos e parágrafos */
+  color: rgba(255, 255, 255, 0.9); /* Cor do texto */
+}
+
+.custom-select-container {
+  position: relative; /* Para posicionar corretamente se necessário */
+  width: 100%; /* Largura total */
+  border-radius: 8px; /* Bordas arredondadas */
+  overflow: hidden; /* Para esconder bordas do select */
+  border: 1px solid white;
+}
+
+.select-wrapper {
+  display: flex; /* Flex para alinhar ícones e select */
+  align-items: center; /* Centraliza verticalmente */
+  justify-content: space-between; /* Espaçamento entre select e ícones */
+  cursor: pointer; /* Cursor em forma de ponteiro */
+}
+
+.custom-select {
+  background-color: #202024; /* Cor de fundo */
+  color: #0daf7f; /* Cor do texto */
+  border: none; /* Remove borda padrão */
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 1rem; /* Padding */
+  width: 100%; /* Largura total */
+  appearance: none; /* Remove a seta padrão do select */
+  -webkit-appearance: none; /* Para Safari */
+  -moz-appearance: none; /* Para Firefox */
+  text-align: center; /* Centraliza o texto do select */
+}
+.custom-select:focus {
+  outline: none; /* Remove o contorno padrão */
+}
+
+.caret-icon {
+  font-size: 1.5rem; /* Tamanho do ícone */
+  margin-left: 0.5rem; /* Margem esquerda para espaçamento */
+  margin-right: 0.5rem; /* Margem direita para espaçamento */
+}
+
+.btn-center {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+ion-button {
+  width: 100%;
+}

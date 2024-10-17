@@ -6,35 +6,39 @@
   ></app-menu-perfil>
 
   <div class="container">
-    <h2>Dados do Usuário</h2>
     <ul>
       <li class="item-lista">
         <ion-label>Nome</ion-label>
         <ion-input [(ngModel)]="usuario.nome"></ion-input>
       </li>
       <li class="item-lista">
-        <ion-label>Idade</ion-label>
-        <ion-input type="number" [(ngModel)]="usuario.idade"></ion-input>
+        <ion-label>Username</ion-label>
+        <ion-input [(ngModel)]="usuario.username"></ion-input>
       </li>
       <li class="item-lista">
-        <ion-label>Peso</ion-label>
-        <ion-input type="number" [(ngModel)]="usuario.peso"></ion-input>
+        <ion-label>Email</ion-label>
+        <ion-input [(ngModel)]="usuario.email"></ion-input>
       </li>
       <li class="item-lista">
-        <ion-label>Altura</ion-label>
-        <ion-input
-          type="number"
-          step="0.01"
-          [(ngModel)]="usuario.altura"
-        ></ion-input>
+        <ion-label>Telefone</ion-label>
+        <ion-input [(ngModel)]="usuario.telefone"></ion-input>
       </li>
       <li class="item-lista">
         <ion-label>Curso</ion-label>
         <ion-input [(ngModel)]="usuario.curso"></ion-input>
       </li>
-      <!-- Adicione mais campos conforme necessário -->
     </ul>
-
-    <ion-button expand="block" (click)="salvarDados()">Salvar</ion-button>
+    <ion-button
+      id="open-toast"
+      expand="small"
+      class="centered-button"
+      (click)="salvarDados()"
+      >Salvar</ion-button
+    >
+    <ion-toast
+      trigger="open-toast"
+      message="Dados de perfil atualizados!"
+      [duration]="3000"
+    ></ion-toast>
   </div>
 </ion-content>

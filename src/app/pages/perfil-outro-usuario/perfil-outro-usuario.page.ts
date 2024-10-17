@@ -15,10 +15,10 @@ import {
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 
-import { ActionSheetController } from '@ionic/angular';
-import { EstatisticasEsportivasComponent } from "../../components/estatisticas-esportivas/estatisticas-esportivas.component";
-import { EstatisticasPessoaisComponent } from "../../components/estatisticas-pessoais/estatisticas-pessoais.component";
-import { HistoricoCampeonatosComponent } from "../../components/historico-campeonatos/historico-campeonatos.component";
+import { EstatisticasEsportivasComponent } from '../../components/estatisticas-esportivas/estatisticas-esportivas.component';
+import { EstatisticasPessoaisComponent } from '../../components/estatisticas-pessoais/estatisticas-pessoais.component';
+import { HistoricoCampeonatosComponent } from '../../components/historico-campeonatos/historico-campeonatos.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil-outro-usuario',
@@ -41,8 +41,8 @@ import { HistoricoCampeonatosComponent } from "../../components/historico-campeo
     IonModal,
     EstatisticasEsportivasComponent,
     EstatisticasPessoaisComponent,
-    HistoricoCampeonatosComponent
-],
+    HistoricoCampeonatosComponent,
+  ],
 })
 export class PerfilOutroUsuarioPage implements OnInit {
   pageTitle: string = 'Carlos Ribeiro';
@@ -51,33 +51,11 @@ export class PerfilOutroUsuarioPage implements OnInit {
 
   selectedSegment: string = 'modalidades';
 
-  presentingElement: any = undefined;
+  constructor(private router: Router) {}
 
-  constructor(private actionSheetCtrl: ActionSheetController) {}
+  ngOnInit() {}
 
-  ngOnInit() {
-    this.presentingElement = document.querySelector('.ion-page');
+  avaliarJogador() {
+    this.router.navigate(['/homepage/avaliar-jogador']);
   }
-
-  canDismiss = async () => {
-    const actionSheet = await this.actionSheetCtrl.create({
-      header: 'Confirmar avaliação?',
-      buttons: [
-        {
-          text: 'Sim',
-          role: 'confirm',
-        },
-        {
-          text: 'Cancelar',
-          role: 'cancel',
-        },
-      ],
-    });
-
-    actionSheet.present();
-
-    const { role } = await actionSheet.onWillDismiss();
-
-    return role;
-  };
 }

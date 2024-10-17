@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
-import { heartOutline, heart, chevronDownOutline } from 'ionicons/icons';
+import { heartOutline, heart, chevronDownOutline, starOutline, star } from 'ionicons/icons';
 
 @Component({
   selector: 'app-posts',
@@ -13,7 +13,7 @@ import { heartOutline, heart, chevronDownOutline } from 'ionicons/icons';
 })
 export class PostsComponent implements OnInit {
   constructor() {
-    addIcons({ heartOutline, chevronDownOutline });
+    addIcons({ heartOutline, heart, chevronDownOutline, star, starOutline });
   }
 
   academicos = {

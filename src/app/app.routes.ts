@@ -62,6 +62,11 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'avaliar-jogador',
+    redirectTo: 'homepage/avaliar-jogador',
+    pathMatch: 'full',
+  },
+  {
     path: 'cadastro',
     loadComponent: () =>
       import('./auth/cadastro/cadastro.page').then((m) => m.CadastroPage),
@@ -156,9 +161,18 @@ export const routes: Routes = [
       },
       {
         path: 'estatisticas',
-        loadComponent: () => import('./pages/estatisticas/estatisticas.page').then( m => m.EstatisticasPage)
+        loadComponent: () =>
+          import('./pages/estatisticas/estatisticas.page').then(
+            (m) => m.EstatisticasPage
+          ),
+      },
+      {
+        path: 'avaliar-jogador',
+        loadComponent: () =>
+          import('./pages/avaliar-jogador/avaliar-jogador.page').then(
+            (m) => m.AvaliarJogadorPage
+          ),
       },
     ],
   },
-
 ];

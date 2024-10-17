@@ -1,10 +1,18 @@
-<div>
+<div class="jogadores-container">
   <ul>
-    <li *ngFor="let academico of academicos">
-      <p>{{academico.nome}}</p>
-      <p>{{academico.foto}}</p>
-      <p>{{academico.curso}}</p>
-      <p>{{academico.dataCriacao}}</p>
+    <li
+      *ngFor="let academico of academicos"
+      class="jogador"
+      (click)="navigateToPerfil()"
+    >
+      <div class="jogador-header">
+        <p class="jogador-nome">{{ academico.username }}</p>
+        <p class="jogador-data">
+          {{ academico.dataCriacao | date: 'dd/MM/yy' }}
+        </p>
+      </div>
+      <p class="jogador-curso">{{ academico.curso }}</p>
+      <p class="jogador-foto">{{ academico.foto }}</p>
     </li>
   </ul>
 </div>

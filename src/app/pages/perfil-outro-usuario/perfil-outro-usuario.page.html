@@ -5,25 +5,7 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <ion-button size="small" id="open-modal">Avaliar Jogador</ion-button>
-  <ion-modal
-    #modal
-    trigger="open-modal"
-    [canDismiss]="canDismiss"
-    [presentingElement]="presentingElement"
-  >
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Avaliação de jogador</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding content-bg">
-        <p>Avaliação do jogador aqui!</p>
-        <ion-button size="small" (click)="modal.dismiss()">Avaliar</ion-button>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
+  <ion-button size="small" (click)="avaliarJogador()">Avaliar Jogador</ion-button>
 
   <ion-segment [(ngModel)]="selectedSegment">
     <ion-segment-button value="modalidades">
@@ -38,12 +20,10 @@
   </ion-segment>
 
   <div *ngIf="selectedSegment === 'modalidades'">
-    <h2>Modalidades</h2>
     <app-estatisticas-esportivas></app-estatisticas-esportivas>
   </div>
 
   <div *ngIf="selectedSegment === 'estatisticas'">
-    <h2>Estatísticas</h2>
     <app-estatisticas-pessoais></app-estatisticas-pessoais>
   </div>
 

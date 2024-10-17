@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Academico } from 'src/app/models/academico.model';
 import { AcademicoService } from 'src/app/services/academico.service';
 
@@ -15,7 +16,10 @@ export class JogadorComponent implements OnInit {
   mensagem!: string;
   mensagem_detalhes!: string;
 
-  constructor(private academicoService: AcademicoService) {}
+  constructor(
+    private academicoService: AcademicoService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.getUsuarios();
@@ -35,5 +39,10 @@ export class JogadorComponent implements OnInit {
         this.mensagem_detalhes = `[${err.status} ${err.message}]`;
       },
     });
+  }
+
+  navigateToPerfil(): void {
+    console.log('Card clicado');
+    this.router.navigate(['/perfil-outro-usuario']);
   }
 }

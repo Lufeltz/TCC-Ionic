@@ -1,55 +1,53 @@
 body {
-    background-color: #121212; /* Cor de fundo da página */
-    font-family: Arial, sans-serif; /* Fonte mais legível */
-  }
-  
-  p,
-  li,
-  h2,
-  h3 {
-    color: white;
-  }
-  
-  li {
-    border-radius: 8px; /* Bordas mais arredondadas */
-    padding: 1rem; /* Uniformizar o padding */
-    margin-bottom: 1rem; /* Espaçamento entre os itens */
-    transition: background-color 0.3s ease, border-color 0.3s ease; /* Transição suave */
-  }
-  
-  li.incompleto {
-    border: 1px solid #9b59b6; /* Bordas roxas (tom claro) */
-    background-color: rgba(155, 89, 182, 0.2); /* Fundo roxo claro */
-  }
-  
-  li.completo {
-    border: 1px solid #8e44ad; /* Bordas roxas (tom original) */
-    background-color: rgba(142, 68, 173, 0.2); /* Fundo roxo claro */
-  }
-  
-  li:hover {
-    background-color: rgba(142, 68, 173, 0.4); /* Destaque ao passar o mouse */
-  }
-  
-  ul {
-    margin: 0; /* Remove margem padrão */
-    padding: 0; /* Remove padding padrão */
-    list-style-type: none; /* Remove os marcadores da lista */
-  }
-  
-  .estatistica {
-    display: flex; /* Para alinhar os itens em linha */
-    justify-content: space-between; /* Espaço entre os itens */
-    align-items: center; /* Alinhar verticalmente ao centro */
-  }
-  
-  .estatistica-info {
-    flex: 1; /* Permitir que a informação ocupe o espaço disponível */
-  }
-  
-  .estatistica-imagem {
-    width: 120px; /* Largura da imagem (ajuste conforme necessário) */
-    height: auto; /* Manter a proporção da imagem */
-    margin-left: 1rem; /* Espaçamento entre a informação e a imagem */
-  }
-  
+  background-color: #121212; /* Cor de fundo da página */
+  font-family: "Arial", sans-serif; /* Fonte mais legível */
+}
+
+p,
+li {
+  color: white; /* Cor do texto */
+}
+
+ul {
+  margin: 0; /* Remove margem padrão */
+  padding: 0; /* Remove padding padrão */
+  list-style-type: none; /* Remove os marcadores da lista */
+}
+
+div {
+  margin-top: 15px;
+}
+
+li {
+  border: none; /* Remove borda padrão */
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  border-radius: 8px; /* Bordas mais arredondadas */
+  padding: 1rem; /* Uniformizar o padding */
+  margin-bottom: 1rem; /* Espaçamento entre os itens */
+  background: linear-gradient(
+    135deg,
+    rgba(155, 89, 182, 0.2),
+    rgba(155, 89, 182, 0.4)
+  ); /* Fundo com gradiente roxo claro */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara para destaque */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave */
+  display: flex; /* Usar flexbox para alinhar ícones e texto */
+  align-items: center; /* Alinha os itens no centro verticalmente */
+  justify-content: center; /* Centraliza horizontalmente os itens dentro do li */
+}
+
+li:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(155, 89, 182, 0.4),
+    rgba(155, 89, 182, 0.6)
+  ); /* Destaque ao passar o mouse */
+  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+}
+
+.estatistica-icone {
+  margin-right: 12px; /* Espaçamento entre ícone e texto */
+  font-size: 1.5rem; /* Tamanho do ícone */
+  color: #9b59b6; /* Cor do ícone roxo claro */
+}

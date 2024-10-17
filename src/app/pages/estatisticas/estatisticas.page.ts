@@ -9,8 +9,7 @@ import {
   IonSegmentButton,
   IonLabel,
   IonButton,
-  IonInput,
-} from '@ionic/angular/standalone';
+  IonInput, IonToast } from '@ionic/angular/standalone';
 import { EstatisticasPessoaisComponent } from '../../components/estatisticas-pessoais/estatisticas-pessoais.component';
 import { ConquistasComponent } from '../../components/conquistas/conquistas.component';
 import { EstatisticasEsportivasComponent } from '../../components/estatisticas-esportivas/estatisticas-esportivas.component';
@@ -21,7 +20,7 @@ import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.co
   templateUrl: './estatisticas.page.html',
   styleUrls: ['./estatisticas.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonToast, 
     IonInput,
     IonButton,
     IonLabel,
@@ -36,17 +35,18 @@ import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.co
   ],
 })
 export class EstatisticasPage implements OnInit {
-  pageTitle: string = 'Perfil Usuário';
-  pageMenu: string = 'perfil-usuario';
-  pageContent: string = 'perfil-usuario';
+  pageTitle: string = 'Meu Perfil';
+  pageMenu: string = 'meu-perfil';
+  pageContent: string = 'meu-perfil';
 
   usuario = {
     nome: 'Carlos Ribeiro',
-    idade: 30,
-    peso: 70,
-    altura: 1.75,
+    username: 'carlosr',
+    email: 'carlos.ribeiro@example.com',
+    telefone: '(11) 99999-9999',
     curso: "Análise e Desenvolvimento de Sistemas"
   };
+  
 
   salvarDados() {
     // Lógica para salvar os dados do usuário

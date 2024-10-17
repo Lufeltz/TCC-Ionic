@@ -1,0 +1,78 @@
+<ion-content class="ion-padding">
+  <app-menu-perfil
+    [title]="pageTitle"
+    [menu]="pageMenu"
+    [menuContentId]="pageContent"
+  ></app-menu-perfil>
+  <div class="container">
+    <div class="card">
+      <div class="img-container">
+        <img
+          alt="rhino standing near grass"
+          src="https://images.unsplash.com/flagged/photo-1556983257-71fddc36bc75?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
+          height="200px"
+        />
+      </div>
+
+      <h2>Carlos Ribeiro</h2>
+      <h3>Principais modalidades</h3>
+      <p>Futebol, Ping Pong</p>
+
+      <p>Quantidade avaliações recebidas: {{ avaliacoes.length }}</p>
+      <p>
+        Média atual: {{ mediaAtual.toFixed(2) }}
+        <ng-container
+          *ngFor="let star of [].constructor(quantidadeEstrelas); let i = index"
+        >
+          <ion-icon name="star"></ion-icon>
+        </ng-container>
+        <ng-container *ngIf="temEstrelaMeia">
+          <ion-icon name="star-half-outline"></ion-icon>
+        </ng-container>
+        <ng-container
+          *ngFor="let star of [].constructor(5 - quantidadeEstrelas - (temEstrelaMeia ? 1 : 0)); let i = index"
+        >
+          <ion-icon name="star-outline"></ion-icon>
+        </ng-container>
+      </p>
+
+      <div class="custom-select-container">
+        <div class="select-wrapper" (click)="toggleSelect()">
+          <select
+            aria-label="Nota do jogador"
+            [(ngModel)]="selectedValue"
+            (change)="handleChange($event)"
+            (focus)="handleFocus()"
+            (blur)="handleBlur()"
+            class="custom-select"
+          >
+            <option value="" disabled selected>
+              Escolha uma nota para o jogador
+              <ion-icon
+                name="caret-down-outline"
+                *ngIf="!isOpen"
+                class="caret-icon"
+                style="color: #0daf7f"
+              ></ion-icon>
+              <ion-icon
+                name="caret-up-outline"
+                *ngIf="isOpen"
+                class="caret-icon"
+                style="color: #0daf7f"
+              ></ion-icon>
+            </option>
+            <option value="nota-1">Nota 1</option>
+            <option value="nota-2">Nota 2</option>
+            <option value="nota-3">Nota 3</option>
+            <option value="nota-4">Nota 4</option>
+            <option value="nota-5">Nota 5</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="btn-center">
+      <ion-button id="open-toast" size="small">Salvar Avaliação</ion-button>
+      <ion-toast trigger="open-toast" message="Avaliação salva com sucesso!" [duration]="3000"></ion-toast>
+    </div>
+  </div>
+</ion-content>

@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { IonContent } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-historico-campeonatos',
@@ -13,7 +12,6 @@ export class HistoricoCampeonatosComponent implements OnInit {
   historicoCampeonatos = [
     {
       nome: 'Pingas no SEPT',
-      ano: 2023,
       resultado: 'Campeão',
       posicao: 1,
       data: '15/09/2024',
@@ -22,7 +20,6 @@ export class HistoricoCampeonatosComponent implements OnInit {
     },
     {
       nome: 'SEPT x EF',
-      ano: 2022,
       resultado: 'Vice-campeão',
       posicao: 2,
       data: '30/07/2024',
@@ -31,7 +28,6 @@ export class HistoricoCampeonatosComponent implements OnInit {
     },
     {
       nome: 'Vôlei de areia',
-      ano: 2021,
       resultado: 'Semifinalista',
       posicao: 4,
       data: '20/09/2024',

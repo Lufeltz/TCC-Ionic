@@ -15,7 +15,7 @@
         <div class="curtidas">
           <div class="curtidas-info" (click)="curtir(publicacao)">
             <ion-icon
-              [name]="publicacao.isCurtiu ? 'heart' : 'heart-outline'"
+              [name]="publicacao.isCurtiu ? 'star' : 'star-outline'"
             ></ion-icon>
             <span>{{ publicacao.listaUsuarioCurtida.length }}</span>
           </div>
@@ -48,7 +48,7 @@
                       (click)="curtirComentario(comentario)"
                     >
                       <ion-icon
-                        [name]="comentario.isCurtiu ? 'heart' : 'heart-outline'"
+                        [name]="comentario.isCurtiu ? 'star' : 'star-outline'"
                       ></ion-icon>
                       <span>{{ comentario.listaUsuarioCurtida.length }}</span>
                     </div>
