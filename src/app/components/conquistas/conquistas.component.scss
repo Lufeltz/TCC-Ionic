@@ -8,31 +8,50 @@ li {
   color: white;
 }
 
-li {
-  border-radius: 8px; /* Bordas mais arredondadas */
-  padding: 1rem; /* Uniformizar o padding */
-  margin-bottom: 1rem; /* Espaçamento entre os itens */
-  transition: background-color 0.3s ease, border-color 0.3s ease; /* Transição suave */
-}
-
-li.incompleto {
-  border: 1px solid #ff4d4d; /* Bordas vermelhas (tom claro) */
-  background-color: rgba(255, 77, 77, 0.2); /* Fundo vermelho claro */
-}
-
-li.completo {
-  border: 1px solid #0daf7f; /* Bordas verdes (tom original) */
-  background-color: rgba(13, 175, 127, 0.2); /* Fundo verde claro */
-}
-
-li:hover {
-  background-color: rgba(13, 175, 127, 0.4); /* Destaque ao passar o mouse */
-}
-
 ul {
   margin: 0; /* Remove margem padrão */
   padding: 0; /* Remove padding padrão */
   list-style-type: none; /* Remove os marcadores da lista */
+}
+
+li {
+  border-radius: 8px; /* Bordas mais arredondadas */
+  padding: 1rem; /* Uniformizar o padding */
+  margin-bottom: 1rem; /* Espaçamento entre os itens */
+  transition: background 0.3s ease, transform 0.2s ease; /* Transição suave */
+}
+
+li.completo {
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  background: linear-gradient(
+    135deg,
+    rgba(13, 175, 127, 0.2),
+    rgba(13, 175, 127, 0.4)
+  ); /* Fundo com gradiente verde */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+}
+
+li.incompleto {
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 77, 77, 0.2),
+    rgba(255, 77, 77, 0.4)
+  ); /* Fundo com gradiente vermelho */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+}
+
+li:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(13, 175, 127, 0.4),
+    rgba(13, 175, 127, 0.6)
+  ); /* Destaque ao passar o mouse */
+  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
 }
 
 .estatistica {
@@ -49,4 +68,37 @@ ul {
   width: 120px; /* Largura da imagem (ajuste conforme necessário) */
   height: auto; /* Manter a proporção da imagem */
   margin-left: 1rem; /* Espaçamento entre a informação e a imagem */
+}
+
+h3 {
+  margin-top: -1px;
+  font-size: 1.5rem; /* Tamanho da fonte */
+  color: white; /* Cor do título */
+  text-align: center; /* Alinhamento centralizado */
+  margin-bottom: 1rem; /* Espaçamento inferior */
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  padding: 0.5rem; /* Padding para o título */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.3)
+  ); /* Fundo com gradiente branco */
+  border-radius: 8px; /* Bordas arredondadas */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+  transition: background-color 0.3s ease; /* Transição suave */
+}
+
+h3:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.5)
+  ); /* Destaque ao passar o mouse */
+}
+
+.modalidade {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Linha de separação entre modalidades */
+  padding-bottom: 1rem; /* Padding inferior para espaçamento da linha */
+  margin-bottom: 15px; /* Margem inferior para espaçamento entre as modalidades */
 }

@@ -1,19 +1,29 @@
 <div>
   <ul>
-    <li *ngFor="let esporte of estatisticasEsportivas">
+    <li *ngFor="let esporte of estatisticasEsportivas" class="modalidade">
       <h3>{{ esporte.esporte }}</h3>
       <ul>
-        <li *ngFor="let estatistica of esporte.estatisticas" 
-            class="estatistica"
-            [ngClass]="{'completo': estatistica.completo, 'incompleto': !estatistica.completo}">
-          
+        <li
+          *ngFor="let estatistica of esporte.estatisticas"
+          class="estatistica"
+          [ngClass]="{
+            completo: estatistica.completo,
+            incompleto: !estatistica.completo
+          }"
+        >
           <div class="estatistica-info">
             <p class="estatistica-nome">Titulo: {{ estatistica.titulo }}</p>
-            <p class="estatistica-descricao">Descrição: {{ estatistica.descricao }}</p>
-            <p class="estatistica-progresso">Progresso: {{ estatistica.progresso }}</p>
-            <p class="estatistica-objetivo">Objetivo: {{ estatistica.objetivo }}</p>
+            <p class="estatistica-descricao">
+              Descrição: {{ estatistica.descricao }}
+            </p>
+            <p class="estatistica-progresso">
+              Progresso: {{ estatistica.progresso }}
+            </p>
+            <p class="estatistica-objetivo">
+              Objetivo: {{ estatistica.objetivo }}
+            </p>
           </div>
-          
+
           <!-- <img
             alt="{{ estatistica.titulo }}"
             [src]="estatistica.link"
