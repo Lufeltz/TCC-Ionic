@@ -1,7 +1,7 @@
 <div class="jogadores-container">
   <ul>
     <li
-      *ngFor="let academico of academicos"
+      *ngFor="let academico of filteredJogadores"
       class="jogador"
       (click)="navigateToPerfil()"
     >

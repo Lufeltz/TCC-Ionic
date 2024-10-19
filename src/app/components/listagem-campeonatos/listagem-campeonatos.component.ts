@@ -1,0 +1,168 @@
+import { CommonModule } from '@angular/common';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  IonLabel,
+  IonAccordion,
+  IonAccordionGroup,
+  IonItem,
+  IonButton,
+  IonIcon,
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { lockClosed, lockOpen } from 'ionicons/icons';
+import { NgxMaskPipe } from 'ngx-mask';
+
+interface Endereco {
+  cep: string;
+  uf: string;
+  cidade: string;
+  bairro: string;
+  rua: string;
+  numero: number;
+  complemento: string;
+}
+
+interface Campeonato {
+  codigo: string;
+  titulo: string;
+  descricao: string;
+  aposta: string;
+  dataCriacao: string;
+  dataInicio: string;
+  dataFim: string;
+  limiteParticipantes: number;
+  status: 'aberto' | 'iniciado' | 'finalizado';
+  endereco: Endereco;
+  privacidadeCampeonato: 'privado' | 'aberto';
+}
+
+@Component({
+  selector: 'app-listagem-campeonatos',
+  templateUrl: './listagem-campeonatos.component.html',
+  styleUrls: ['./listagem-campeonatos.component.scss'],
+  imports: [
+    IonIcon,
+    IonButton,
+    IonItem,
+    IonAccordionGroup,
+    IonAccordion,
+    IonLabel,
+    CommonModule,
+    NgxMaskPipe,
+  ],
+  standalone: true,
+})
+export class ListagemCampeonatosComponent implements OnInit, OnChanges {
+  campeonatos: Campeonato[] = [
+    {
+      codigo: 'LKM90',
+      titulo: 'Campeonato de Verão',
+      descricao: 'Competição anual de verão',
+      aposta: 'R$ 500,00',
+      dataCriacao: '2023-01-01',
+      dataInicio: '2023-02-01',
+      dataFim: '2023-03-01',
+      limiteParticipantes: 50,
+      status: 'aberto',
+      endereco: {
+        cep: '12345678',
+        uf: 'SP',
+        cidade: 'São Paulo',
+        bairro: 'Centro',
+        rua: 'Rua das Flores',
+        numero: 100,
+        complemento: 'Próximo ao parque',
+      },
+      privacidadeCampeonato: 'aberto',
+    },
+    {
+      codigo: 'HGY86',
+      titulo: 'Campeonato de Inverno',
+      descricao: 'Competição anual de inverno',
+      aposta: 'R$ 1000,00',
+      dataCriacao: '2023-06-01',
+      dataInicio: '2023-07-01',
+      dataFim: '2023-08-01',
+      limiteParticipantes: 30,
+      status: 'iniciado',
+      endereco: {
+        cep: '87654321',
+        uf: 'RJ',
+        cidade: 'Rio de Janeiro',
+        bairro: 'Copacabana',
+        rua: 'Avenida Atlântica',
+        numero: 200,
+        complemento: 'Em frente à praia',
+      },
+      privacidadeCampeonato: 'privado',
+    },
+    {
+      codigo: 'ASH46',
+      titulo: 'Campeonato de Primavera',
+      descricao: 'Competição anual de primavera',
+      aposta: 'R$ 750,00',
+      dataCriacao: '2023-09-01',
+      dataInicio: '2023-10-01',
+      dataFim: '2023-11-01',
+      limiteParticipantes: 40,
+      status: 'finalizado',
+      endereco: {
+        cep: '11223344',
+        uf: 'MG',
+        cidade: 'Belo Horizonte',
+        bairro: 'Savassi',
+        rua: 'Rua dos Pioneiros',
+        numero: 300,
+        complemento: 'Próximo ao shopping',
+      },
+      privacidadeCampeonato: 'aberto',
+    },
+  ];
+
+  filteredCampeonatos: Campeonato[] = []; // Mudança aqui para manter o tipo correto.
+
+  @Input() statusToggles!: {
+    aberto: boolean;
+    finalizado: boolean;
+    iniciado: boolean;
+  };
+
+  @Input() searchedCampeonatos!: string;
+
+  constructor() {
+    addIcons({ lockClosed, lockOpen });
+  }
+
+  ngOnInit() {
+    this.filterCampeonatos();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['statusToggles'] || changes['searchedCampeonatos']) {
+      this.filterCampeonatos();
+    }
+  }
+
+  filterCampeonatos() {
+    const searchTerm = this.searchedCampeonatos.toLowerCase();
+
+    this.filteredCampeonatos = this.campeonatos.filter((campeonato) => {
+      const matchesStatus =
+        (this.statusToggles.aberto && campeonato.status === 'aberto') ||
+        (this.statusToggles.finalizado && campeonato.status === 'finalizado') ||
+        (this.statusToggles.iniciado && campeonato.status === 'iniciado');
+
+      const matchesSearchTerm =
+        campeonato.titulo.toLowerCase().includes(searchTerm) ||
+        campeonato.descricao.toLowerCase().includes(searchTerm);
+
+      return matchesStatus && matchesSearchTerm;
+    });
+  }
+}

@@ -1,0 +1,132 @@
+.cadeado-icon {
+  color: var(--text-green);
+  font-size: 1.5rem; /* Ajuste o tamanho conforme necessário */
+  vertical-align: middle;
+  margin-left: 8px; /* Espaçamento à esquerda do ícone */
+}
+
+/* Restante do seu CSS */
+.campeonatos-container {
+  padding: 16px;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+  margin: 0;
+}
+
+.campeonato {
+  background-color: var(--background-light);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  position: relative;
+  z-index: 1;
+  border-right: 1px solid var(--text-green);
+  border-bottom: 1px solid var(--text-green);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+}
+
+.campeonato-header {
+  display: flex;
+  justify-content: space-between; /* Isso mantém os elementos nas extremidades */
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.campeonato-nome {
+  font-size: 1.25rem;
+  color: var(--text-green);
+  flex-grow: 1; /* Isso permite que o título use todo o espaço disponível à esquerda */
+}
+
+.campeonato-curso {
+  font-size: 14px;
+  color: var(--text-white);
+}
+
+.campeonato-data {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.campeonato-foto {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+.campeonato-interacoes {
+  border-top: 1px solid var(--text-light);
+  padding-top: 16px;
+  color: var(--text-light);
+}
+
+.detalhes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detalhes-header ion-label {
+  font-size: 16px;
+  color: var(--text-highlight);
+}
+
+ion-accordion {
+  background-color: var(--background-light);
+}
+
+ion-accordion-group {
+  background-color: green;
+}
+
+div[slot="header"] {
+  background: var(--background-light);
+}
+
+ion-item {
+  --background: var(--background-light);
+  color: var(--text-green);
+}
+
+/* Responsividade */
+@media (max-width: 375px) {
+  .campeonato {
+    padding: 12px;
+  }
+
+  .campeonato-data,
+  .campeonato-foto {
+    font-size: 10px;
+  }
+}
+
+.header {
+  color: var(--text-white);
+}
+
+ion-button {
+  margin-top: 16px;
+  --background: var(--text-green);
+  --color: var(--text-white);
+}
+
+.endereco {
+  border-top: 1px solid var(--text-light);
+}
+
+.detalhes strong {
+  color: #ffb703;
+}
+
+.endereco strong {
+  color: #e63946;
+}
+
+.header strong {
+  color: #9b59b6;
+}

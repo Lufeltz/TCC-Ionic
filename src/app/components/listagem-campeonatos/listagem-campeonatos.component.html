@@ -1,0 +1,76 @@
+<div class="campeonatos-container">
+  <ul>
+    <li *ngFor="let campeonato of filteredCampeonatos" class="campeonato">
+      <div class="campeonato-header">
+        <h3 class="campeonato-nome">
+          {{ campeonato.titulo }}
+        </h3>
+        <ion-icon
+          [name]="
+            campeonato.privacidadeCampeonato === 'privado'
+              ? 'lock-closed'
+              : 'lock-open'
+          "
+          class="cadeado-icon"
+        ></ion-icon>
+      </div>
+      <div class="header">
+        <p>
+          <strong>Data de Criação: </strong>
+          {{ campeonato.dataCriacao | date : "dd/MM/yyyy" }}
+        </p>
+        <p><strong>Aposta: </strong> {{ campeonato.aposta }}</p>
+        <p>
+          <strong>Limite de Participantes: </strong>
+          {{ campeonato.limiteParticipantes }}
+        </p>
+        <p><strong>Código: </strong> {{ campeonato.codigo }}</p>
+      </div>
+      <div class="campeonato-interacoes">
+        <ion-accordion-group>
+          <ion-accordion>
+            <ion-item slot="header" class="detalhes-header">
+              <ion-label><strong>Detalhes</strong></ion-label>
+            </ion-item>
+            <div slot="content" class="detalhes">
+              <p><strong>Descrição:</strong> {{ campeonato.descricao }}</p>
+              <p>
+                <strong>Status:</strong> {{ campeonato.status | titlecase }}
+              </p>
+              <p>
+                <strong>Início:</strong>
+                {{ campeonato.dataInicio | date : "dd/MM/yyyy" }}
+              </p>
+              <p>
+                <strong>Fim:</strong>
+                {{ campeonato.dataFim | date : "dd/MM/yyyy" }}
+              </p>
+              <div class="endereco">
+                <p>
+                  <strong>Logradouro: </strong> {{ campeonato.endereco.rua }},
+                  {{ campeonato.endereco.numero }}
+                </p>
+                <p>
+                  <strong>Bairro: </strong> {{ campeonato.endereco.bairro }}
+                </p>
+                <p>
+                  <strong>Complemento: </strong>
+                  {{ campeonato.endereco.complemento }}
+                </p>
+                <p>
+                  <strong>Cidade/UF: </strong>
+                  {{ campeonato.endereco.cidade }}/{{ campeonato.endereco.uf }}
+                </p>
+                <p>
+                  <strong>CEP: </strong>
+                  {{ campeonato.endereco.cep | mask : "000000-000" }}
+                </p>
+              </div>
+              <ion-button size="small" expand="block">Inscrever-se</ion-button>
+            </div>
+          </ion-accordion>
+        </ion-accordion-group>
+      </div>
+    </li>
+  </ul>
+</div>

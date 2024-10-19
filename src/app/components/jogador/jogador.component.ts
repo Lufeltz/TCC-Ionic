@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { Academico } from 'src/app/models/academico.model';
 import { AcademicoService } from 'src/app/services/academico.service';
@@ -11,8 +17,10 @@ import { AcademicoService } from 'src/app/services/academico.service';
   standalone: true,
   imports: [CommonModule],
 })
-export class JogadorComponent implements OnInit {
+export class JogadorComponent implements OnInit, OnChanges {
+  @Input() searchedJogadores!: string;
   academicos: Academico[] = [];
+  public filteredJogadores: Academico[] = [];
   mensagem!: string;
   mensagem_detalhes!: string;
 
@@ -25,6 +33,12 @@ export class JogadorComponent implements OnInit {
     this.getUsuarios();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['searchedJogadores']) {
+      this.filterJogadores();
+    }
+  }
+
   getUsuarios(): void {
     this.academicoService.getAllAcademicos().subscribe({
       next: (data: Academico[] | null) => {
@@ -32,6 +46,8 @@ export class JogadorComponent implements OnInit {
           this.academicos = [];
         } else {
           this.academicos = data;
+          this.filteredJogadores = data; // Inicialize filteredJogadores com todos os acadêmicos
+          // this.filterJogadores(); // Filtrar após receber os dados
         }
       },
       error: (err) => {
@@ -44,5 +60,18 @@ export class JogadorComponent implements OnInit {
   navigateToPerfil(): void {
     console.log('Card clicado');
     this.router.navigate(['/perfil-outro-usuario']);
+  }
+
+  filterJogadores() {
+    if (!this.searchedJogadores) {
+      this.filteredJogadores = this.academicos;
+    } else {
+      const searchTerm = this.searchedJogadores.toLowerCase();
+      this.filteredJogadores = this.academicos.filter(
+        (jogadores) =>
+          jogadores.username.toLowerCase().includes(searchTerm) ||
+          jogadores.curso.toLowerCase().includes(searchTerm)
+      );
+    }
   }
 }
