@@ -1,55 +1,132 @@
-/* Estilos gerais */
-ion-label {
-  color: #0daf7f;
+.cadeado-icon {
+  color: var(--text-green);
+  font-size: 1.5rem; /* Ajuste o tamanho conforme necessário */
+  vertical-align: middle;
+  margin-left: 8px; /* Espaçamento à esquerda do ícone */
 }
 
-ion-button {
-  --background: #0daf7f;
+/* Restante do seu CSS */
+.campeonatos-container {
+  padding: 16px;
 }
 
-ion-segment {
-  margin-top: 2.5rem;
-  --background: #121214;
-}
-
-/* Estilos para a lista */
 ul {
-  margin: 0; /* Remove margem padrão */
-  margin-top: 15px;
-  padding: 0; /* Remove padding padrão */
-  list-style-type: none; /* Remove os marcadores da lista */
+  padding: 0;
+  list-style-type: none;
+  margin: 0;
 }
 
-.item-lista {
-  background-color: #1c1c1e;
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 1rem; /* Padding para os itens */
-  margin-bottom: 1rem; /* Espaçamento entre os itens */
-  color: white; /* Cor da fonte */
+.campeonato {
+  background-color: var(--background-light);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  position: relative;
+  z-index: 1;
+  border-right: 1px solid var(--text-green);
+  border-bottom: 1px solid var(--text-green);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
   transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
 }
 
-.item-lista:hover {
-  background-color: rgba(41, 128, 185, 0.4); /* Mudança de fundo ao passar o mouse */
-  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
-}
-
-.item-lista h3 {
-  margin: 0; /* Remove margem do título */
-  color: var(--text-green); /* Cor do título */
+.campeonato-header {
   display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
+  justify-content: space-between; /* Isso mantém os elementos nas extremidades */
+  align-items: center;
+  margin-bottom: 8px;
 }
 
-.item-lista p {
-  margin: 0.25rem 0; /* Margens para os parágrafos */
-  color: rgba(255, 255, 255, 0.9); /* Cor do texto */
+.campeonato-nome {
+  font-size: 1.25rem;
+  color: var(--text-green);
+  flex-grow: 1; /* Isso permite que o título use todo o espaço disponível à esquerda */
 }
 
-.container {
-  margin-top: 2.5rem;
+.campeonato-curso {
+  font-size: 14px;
+  color: var(--text-white);
+}
+
+.campeonato-data {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.campeonato-foto {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+.campeonato-interacoes {
+  border-top: 1px solid var(--text-light);
+  padding-top: 16px;
+  color: var(--text-light);
+}
+
+.detalhes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detalhes-header ion-label {
+  font-size: 16px;
+  color: var(--text-highlight);
+}
+
+ion-accordion {
+  background-color: var(--background-light);
+}
+
+ion-accordion-group {
+  background-color: green;
+}
+
+div[slot="header"] {
+  background: var(--background-light);
+}
+
+ion-item {
+  --background: var(--background-light);
+  color: var(--text-green);
+}
+
+/* Responsividade */
+@media (max-width: 375px) {
+  .campeonato {
+    padding: 12px;
+  }
+
+  .campeonato-data,
+  .campeonato-foto {
+    font-size: 10px;
+  }
+}
+
+.header {
+  color: var(--text-white);
+}
+
+ion-button {
+  margin-top: 16px;
+  --background: var(--text-green);
+  --color: var(--text-white);
+}
+
+.endereco {
+  border-top: 1px solid var(--text-light);
+}
+
+.detalhes strong {
+  color: #ffb703;
+}
+
+.endereco strong {
+  color: #e63946;
+}
+
+.header strong {
+  color: #9b59b6;
 }

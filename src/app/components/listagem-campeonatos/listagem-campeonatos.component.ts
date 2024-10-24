@@ -17,6 +17,7 @@ import {
 import { addIcons } from 'ionicons';
 import { lockClosed, lockOpen } from 'ionicons/icons';
 import { NgxMaskPipe } from 'ngx-mask';
+import { AlertController } from '@ionic/angular';
 
 interface Endereco {
   cep: string;
@@ -125,17 +126,17 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
     },
   ];
 
-  filteredCampeonatos: Campeonato[] = []; // Mudança aqui para manter o tipo correto.
+  filteredCampeonatos: Campeonato[] = [];
 
-  @Input() statusToggles!: {
-    aberto: boolean;
-    finalizado: boolean;
-    iniciado: boolean;
-  };
+  @Input() statusToggles: {
+    aberto?: boolean;
+    finalizado?: boolean;
+    iniciado?: boolean;
+  } = {};
 
-  @Input() searchedCampeonatos!: string;
+  @Input() searchedCampeonatos: string = '';
 
-  constructor() {
+  constructor(private alertController: AlertController) {
     addIcons({ lockClosed, lockOpen });
   }
 
@@ -150,13 +151,21 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   }
 
   filterCampeonatos() {
+    // Definindo valores padrão caso statusToggles não tenha dados
+    const {
+      aberto = true,
+      finalizado = true,
+      iniciado = true,
+    } = this.statusToggles;
+
+    // Utilizando valor padrão para searchedCampeonatos
     const searchTerm = this.searchedCampeonatos.toLowerCase();
 
     this.filteredCampeonatos = this.campeonatos.filter((campeonato) => {
       const matchesStatus =
-        (this.statusToggles.aberto && campeonato.status === 'aberto') ||
-        (this.statusToggles.finalizado && campeonato.status === 'finalizado') ||
-        (this.statusToggles.iniciado && campeonato.status === 'iniciado');
+        (aberto && campeonato.status === 'aberto') ||
+        (finalizado && campeonato.status === 'finalizado') ||
+        (iniciado && campeonato.status === 'iniciado');
 
       const matchesSearchTerm =
         campeonato.titulo.toLowerCase().includes(searchTerm) ||
@@ -165,4 +174,54 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
       return matchesStatus && matchesSearchTerm;
     });
   }
+
+  async presentAlertPrompt(campeonato: Campeonato, errorMessage: string = '') {
+    const alert = await this.alertController.create({
+      header: 'Insira a senha',
+      message: errorMessage,  // Mensagem de erro
+      inputs: [
+        {
+          name: 'senha',
+          type: 'password',
+          placeholder: 'Senha',
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Operação cancelada');
+          },
+        },
+        {
+          text: 'OK',
+          handler: (data) => {
+            this.verificarSenha(campeonato, data.senha);
+          },
+        },
+      ],
+    });
+  
+    await alert.present();
+  }
+  
+  verificarSenha(campeonato: Campeonato, senha: string) {
+    const senhaCorreta = 'senha123'; // Defina a senha correta aqui
+  
+    if (senha === senhaCorreta) {
+      console.log('Você entrou no campeonato:', campeonato.titulo);
+    } else {
+      this.presentAlertPrompt(campeonato, 'Senha errada. Tente novamente.');
+    }
+  }
+
+  inscreverSe(campeonato: Campeonato) {
+    if (campeonato.privacidadeCampeonato === 'privado') {
+      this.presentAlertPrompt(campeonato);
+    } else {
+      console.log('Você entrou no campeonato:', campeonato.titulo);
+    }
+  }
+  
 }

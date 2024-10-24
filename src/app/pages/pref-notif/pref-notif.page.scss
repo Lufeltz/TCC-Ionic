@@ -1,5 +1,111 @@
+/* Estilos gerais */
+ion-label {
+  color: #0daf7f;
+}
+
+ion-button {
+  --background: #0daf7f;
+}
+
+ion-segment {
+  margin-top: 2.5rem;
+  --background: #121214;
+}
+
+h2 {
+  color: #0daf7f;
+  margin-bottom: 1rem;
+  margin-top: 3rem;
+}
+
+/* Estilos para a lista */
+ul {
+  margin: 0; /* Remove margem padrão */
+  margin-top: 3rem;
+  padding: 0; /* Remove padding padrão */
+  list-style-type: none; /* Remove os marcadores da lista */
+}
+
+.item-lista {
+  background-color: #1c1c1e;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 1rem; /* Padding para os itens */
+  margin-bottom: 1rem; /* Espaçamento entre os itens */
+  color: white; /* Cor da fonte */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+}
+
+.item-lista:hover {
+  background-color: rgba(
+    41,
+    128,
+    185,
+    0.4
+  ); /* Mudança de fundo ao passar o mouse */
+  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+}
+
+.item-lista h3 {
+  margin: 0; /* Remove margem do título */
+  color: var(--text-green); /* Cor do título */
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.item-lista p {
+  margin: 0.25rem 0; /* Margens para os parágrafos */
+  color: rgba(255, 255, 255, 0.9); /* Cor do texto */
+}
+
+.container {
+  margin-top: 2.5rem;
+}
+
+/* Estilos para os toggles */
+.toggle {
+  display: flex;
+  align-items: center;
+  text-align: justify;
+  gap: 20px;
+  margin-bottom: 20px;
+  background-color: #1c1c1e; /* Fundo mais escuro */
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
+  border-radius: 8px; /* Bordas arredondadas */
+  padding: 10px; /* Padding para o toggle */
+  transition: background-color 0.3s; /* Transição suave no fundo */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+}
+
+.toggle:hover {
+  background-color: rgba(13, 175, 127, 0.3); /* Novo fundo ao passar o mouse */
+}
+
+/* Estilos para os toggles */
+/* Estilos para os toggles */
+ion-toggle {
+  --handle-background: #0daf7f; /* Cor do handle */
+  --handle-background-checked: #0daf7f; /* Cor do handle quando checado */
+  --track-background: rgba(255, 255, 255, 0.2); /* Cor do track */
+  --track-background-checked: rgba(
+    13,
+    175,
+    127,
+    0.6
+  ); /* Cor do track quando checado (verde claro) */
+  --track-border-radius: 14px; /* Raio da borda do track */
+  --track-height: 24px; /* Altura do track */
+  --track-width: 50px; /* Largura do track */
+  transition: transform 0.3s; /* Transição suave */
+}
+
 ion-content {
   --background: #202024;
+
   h2 {
     margin-top: 40px;
     text-align: center;
@@ -22,26 +128,9 @@ ion-content {
   }
 }
 
-.toggle {
-  display: flex;
-  align-items: center;
-  text-align: justify;
-  gap: 20px;
-  margin-bottom: 20px;
-}
 
-ion-toggle {
-  color: #fff;
+//lucide
 
-  --handle-max-height: auto;
-
-  --track-background: #d2caca;
-  --track-background-checked: #0daf7f;
-  --handle-background: #fff;
-  --handle-background-checked: #fff;
-}
-
-ion-toggle::part(track) {
-  /* Required for iOS handle to overflow the height of the track */
-  overflow: visible;
+.my-icon {
+ color: #0daf7f;
 }

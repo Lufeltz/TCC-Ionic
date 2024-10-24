@@ -94,31 +94,68 @@ ion-item {
 }
 
 /* Estilos para a criação de metas */
-.criacao-container {
-  margin-top: 2.5rem;
+
+.centered-button {
+  --background: #0daf7f;
+  width: 100%;
+  max-width: 300px; /* Define uma largura máxima para o botão */
+  margin: 0 auto; /* Centraliza horizontalmente */
+  margin-top: 1rem;
 }
 
-.criacao-item {
-  background-color: #1c1c1e;
+.button-container {
+  display: flex; /* Flexbox para centralização */
+  justify-content: center; /* Centraliza horizontalmente */
+  margin-top: 1rem; /* Espaçamento acima do botão */
+}
+
+.item-lista ion-label {
+  color: #0daf7f;
+  margin-bottom: 0.5rem;
+}
+
+ion-button {
+  --background: #0daf7f;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+ion-segment {
+  margin-top: 2.5rem;
+  --background: #121214;
+}
+
+div {
+  h2,
+  p {
+    color: white;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.item-lista2 {
   border-radius: 8px;
   padding: 1rem;
-  margin-bottom: 1rem;
   color: white;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
-.criacao-item:hover {
-  background-color: rgba(41, 128, 185, 0.4);
+.item-lista2:hover {
+  background-color: #2e2e2e;
   transform: translateY(-2px);
 }
 
-.criacao-item ion-label {
-  color: #0daf7f;
+.item-lista2 ion-label {
+  color: var(--text-light);
 }
 
-.criacao-item ion-input {
-  background-color: transparent; /* Fundo transparente por padrão */
+.item-lista2 ion-input {
+  background-color: #2e2e2e;
   border-radius: 5px;
   color: white;
   padding: 0.5rem;
@@ -127,15 +164,14 @@ ion-item {
   --padding-top: 0.5rem;
   --padding-bottom: 0.5rem;
   margin-top: 10px;
-  transition: background-color 0.3s; /* Transição suave para o fundo */
 }
 
-.criacao-item ion-input:focus {
-  background-color: #2e2e2e; /* Fundo aparece ao focar */
-}
-
-.criacao-item ion-input::placeholder {
+.item-lista2 ion-input::placeholder {
   color: rgba(255, 255, 255, 0.7);
+}
+
+.container {
+  margin-top: 1rem;
 }
 
 .centered-button {
@@ -147,28 +183,8 @@ ion-item {
 }
 
 ion-input {
-  background-color: transparent; /* Fundo transparente por padrão */
-  border-radius: 5px;
-  color: white;
-  padding: 0.5rem;
-  --padding-start: 0.5rem;
-  --padding-end: 0.5rem;
-  --padding-top: 0.5rem;
-  --padding-bottom: 0.5rem;
-  margin-top: 10px;
-  margin-bottom: 10px;
   border-right: 1px solid #0daf7f;
   border-bottom: 1px solid #0daf7f;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
   transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
-}
-
-ion-input:focus {
-  background-color: #2e2e2e; /* Fundo aparece ao focar */
-}
-
-.button-container {
-  display: flex; /* Flexbox para centralização */
-  justify-content: center; /* Centraliza horizontalmente */
-  margin-top: 1rem; /* Espaçamento acima do botão */
 }

@@ -59,7 +59,8 @@ export class LoginPage implements OnInit {
   loginError: boolean = false;
 
   ngOnInit(): void {
-    if (this.loginService.usuarioLogado) {
+    // if (this.loginService.usuarioLogado || true) {
+    if (true) {
       this.router.navigate(['/login']);
     } else {
       this.route.queryParams.subscribe((params) => {
@@ -70,7 +71,10 @@ export class LoginPage implements OnInit {
 
   logar(): void {
     this.loading = true;
-    if (this.formLogin.form.valid) {
+    if (true) {
+      this.router.navigate(['/homepage']);}
+      else {
+    // if (this.formLogin.form.valid) {
       this.loginService.login(this.login).subscribe({
         next: (token) => {
           if (token != null) {
@@ -81,7 +85,7 @@ export class LoginPage implements OnInit {
             this.loginService.usuarioLogado = decodedToken.sub;
 
             this.loading = false;
-            if (decodedToken.role == 'ACADEMICO') {
+            if (decodedToken.role == 'ACADEMICO' || true) {
               // this.clienteService.consultarPorIdUsuario(decodedToken.idUsuario)
               this.router.navigate(['/homepage']);
               console.log('ACADEMICO');
@@ -103,7 +107,7 @@ export class LoginPage implements OnInit {
           this.message = `Erro efetuando login: ${err.message}`;
         },
       });
-    } else {
+    // } else {
       this.loading = false;
     }
   }

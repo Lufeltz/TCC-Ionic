@@ -10,7 +10,10 @@ import {
   IonSegmentButton,
   IonLabel,
   IonToggle,
-  IonItem, IonToast, IonButton, IonInput } from '@ionic/angular/standalone';
+  IonItem,
+  IonToast,
+  IonButton,
+  IonInput, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 
 interface Meta {
@@ -26,7 +29,10 @@ interface Meta {
   templateUrl: './metas.page.html',
   styleUrls: ['./metas.page.scss'],
   standalone: true,
-  imports: [IonInput, IonButton, IonToast, 
+  imports: [IonCardContent, IonCardTitle, IonCardHeader, IonCard, 
+    IonInput,
+    IonButton,
+    IonToast,
     IonItem,
     IonContent,
     IonHeader,
@@ -51,7 +57,11 @@ export class MetasPage implements OnInit {
   filterDiarias: boolean = false;
 
   metasDiarias: Meta[] = [
-    { tipo: 'diaria', nome: 'Beber água', opcoes: ['1L', '2L', '3L'] },
+    {
+      tipo: 'diaria',
+      nome: 'Beber água',
+      opcoes: ['1L', '2L', '3L'],
+    },
     {
       tipo: 'diaria',
       nome: 'Comer uma fruta',
@@ -82,7 +92,23 @@ export class MetasPage implements OnInit {
       nome: 'Fazer abdominais',
       opcoes: ['10 abdominais', '20 abdominais', '30 abdominais'],
     },
+    {
+      tipo: 'diaria',
+      nome: 'Meditar',
+      opcoes: ['5 minutos', '10 minutos', '20 minutos'],
+    },
+    {
+      tipo: 'diaria',
+      nome: 'Fazer caminhada',
+      opcoes: ['15 minutos', '30 minutos', '1 hora'],
+    },
+    {
+      tipo: 'diaria',
+      nome: 'Escrever no diário',
+      opcoes: ['1 página', '2 páginas', '3 páginas'],
+    },
   ];
+  
 
   metasEsportivas: Meta[] = [
     {
@@ -94,6 +120,50 @@ export class MetasPage implements OnInit {
         'Defesas feitas',
         'Gols de pênalti',
         'Conquistas obtidas',
+      ],
+    },
+    {
+      tipo: 'esportiva',
+      esporte: 'Futebol', // Nova instância
+      metas: [
+        'Jogo vencido',
+        'Cartões recebidos',
+        'Faltas cometidas',
+        'Gols de cabeça',
+        'Passes certos',
+      ],
+    },
+    {
+      tipo: 'esportiva',
+      esporte: 'Futebol', // Nova instância
+      metas: [
+        'Total de minutos jogados',
+        'Substituições realizadas',
+        'Gols de fora da área',
+        'Chances criadas',
+        'Lesões sofridas',
+      ],
+    },
+    {
+      tipo: 'esportiva',
+      esporte: 'Futebol', // Nova instância
+      metas: [
+        'Dribles bem-sucedidos',
+        'Cruzamentos feitos',
+        'Gols em jogos decisivos',
+        'Recordes pessoais',
+        'Assistências em finais',
+      ],
+    },
+    {
+      tipo: 'esportiva',
+      esporte: 'Futebol', // Nova instância
+      metas: [
+        'Jogos jogados na temporada',
+        'Gols contra',
+        'Faltas sofridas',
+        'Defesas do goleiro',
+        'Gols de pênalti convertidos',
       ],
     },
     {
@@ -130,6 +200,18 @@ export class MetasPage implements OnInit {
       ],
     },
   ];
+
+  meta: any = {
+    titulo: '',
+    descricao: '',
+    progresso: '',
+  };
+
+  salvarDados() {
+    // Lógica para salvar os dados do usuário
+    console.log('Dados do usuário salvos:', this.meta);
+    // Aqui você pode chamar um serviço para enviar os dados para um backend
+  }
 
   novaMeta: { titulo: string; descricao: string } = {
     titulo: '',

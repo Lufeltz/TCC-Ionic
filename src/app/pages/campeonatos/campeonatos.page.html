@@ -18,16 +18,142 @@
   </ion-segment>
 
   <div *ngIf="selectedSegment === 'criacao'">
-    <h2>Criação</h2>
-    <p>Conteúdo relacionado a criação de campeonatos.</p>
+    <div class="container">
+      <ul>
+        <li class="item-lista">
+          <ion-label>Título</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.titulo"
+          ></ion-input>
+        </li>
+        <li class="item-lista">
+          <ion-label>Aposta</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.aposta"
+          ></ion-input>
+        </li>
+        <li class="item-lista">
+          <ion-label>Limite de participantes</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.limiteParticipantes"
+          ></ion-input>
+        </li>
+        <li class="item-lista">
+          <ion-label>Descrição</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.descricao"
+          ></ion-input>
+        </li>
+        <li class="item-lista">
+          <ion-label>Início</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.inicio"
+            placeholder="Selecione a data"
+            readonly
+            (click)="toggleInicioPicker()"
+          >
+            <ion-icon
+              name="calendar"
+              (click)="toggleInicioPicker()"
+              slot="end"
+            ></ion-icon>
+          </ion-input>
+
+          <ion-datetime
+            *ngIf="showInicioPicker"
+            [(ngModel)]="campeonato.inicio"
+            displayFormat="DD/MM/YYYY"
+            pickerFormat="DD/MM/YYYY"
+            (ionCancel)="showInicioPicker = false"
+            (ionChange)="showInicioPicker = false"
+          >
+          </ion-datetime>
+        </li>
+        <li class="item-lista">
+          <ion-label>Fim</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.fim"
+            placeholder="Selecione a data"
+            readonly
+            (click)="toggleFimPicker()"
+          >
+            <ion-icon
+              name="calendar"
+              (click)="toggleFimPicker()"
+              slot="end"
+            ></ion-icon>
+          </ion-input>
+
+          <ion-datetime
+            *ngIf="showFimPicker"
+            [(ngModel)]="campeonato.fim"
+            displayFormat="DD/MM/YYYY"
+            pickerFormat="DD/MM/YYYY"
+            (ionCancel)="showFimPicker = false"
+            (ionChange)="showFimPicker = false"
+          >
+          </ion-datetime>
+        </li>
+        <li class="item-lista">
+          <ion-label>Logradouro</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.logradouro"
+          ></ion-input>
+        </li>
+        <li class="item-lista">
+          <ion-label>Bairro</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.bairro"
+          ></ion-input>
+        </li>
+        <li class="item-lista">
+          <ion-label>Complemento</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.complemento"
+          ></ion-input>
+        </li>
+        <li class="item-lista">
+          <ion-label>Cidade</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.cidade"
+          ></ion-input>
+        </li>
+        <li class="item-lista">
+          <ion-label>UF</ion-label>
+          <ion-input ngDefaultControl [(ngModel)]="campeonato.uf"></ion-input>
+        </li>
+        <li class="item-lista">
+          <ion-label>CEP</ion-label>
+          <ion-input ngDefaultControl [(ngModel)]="campeonato.cep"></ion-input>
+        </li>
+      </ul>
+      <ion-button
+        id="open-toast"
+        expand="small"
+        class="centered-button"
+        (click)="salvarDados()"
+        >Criar</ion-button
+      >
+      <ion-toast
+        trigger="open-toast"
+        message="Dados de perfil atualizados!"
+        [duration]="3000"
+      ></ion-toast>
+    </div>
   </div>
 
   <div *ngIf="selectedSegment === 'listagem-campeonatos'">
-    <div class="toggle">
-      <ion-toggle labelPlacement="end">Meus campeonatos</ion-toggle>
-    </div>
-    <h2>Listagem</h2>
-    <p>Conteúdo relacionado a listagem de campeonatos.</p>
+    <app-listagem-campeonatos></app-listagem-campeonatos>
   </div>
 
   <div *ngIf="selectedSegment === 'historico-campeonatos'">

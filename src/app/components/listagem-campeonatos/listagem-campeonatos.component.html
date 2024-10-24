@@ -66,7 +66,13 @@
                   {{ campeonato.endereco.cep | mask : "000000-000" }}
                 </p>
               </div>
-              <ion-button size="small" expand="block">Inscrever-se</ion-button>
+              <ion-button
+                size="small"
+                expand="block"
+                (click)="inscreverSe(campeonato)"
+              >
+                Inscrever-se
+              </ion-button>
             </div>
           </ion-accordion>
         </ion-accordion-group>

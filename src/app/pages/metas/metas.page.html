@@ -17,27 +17,28 @@
   <div *ngIf="selectedSegment === 'criacao'">
     <div class="container">
       <ul>
-        <li class="item-lista">
-          <ion-label>Título</ion-label>
-          <ion-input [(ngModel)]="novaMeta.titulo"></ion-input>
+        <li class="item-lista2">
+          <ion-label>Titulo</ion-label>
+          <ion-input [(ngModel)]="meta.titulo"></ion-input>
         </li>
-        <li class="item-lista">
+        <li class="item-lista2">
           <ion-label>Descrição</ion-label>
-          <ion-input [(ngModel)]="novaMeta.descricao"></ion-input>
+          <ion-input [(ngModel)]="meta.descricao"></ion-input>
+        </li>
+        <li class="item-lista2">
+          <ion-label>Progresso</ion-label>
+          <ion-input [(ngModel)]="meta.progresso"></ion-input>
         </li>
       </ul>
-      <div class="button-container">
-        <ion-button
-          id="open-toast"
-          expand="small"
-          class="centered-button"
-          (click)="salvarMeta()"
-          >Salvar</ion-button
-        >
-      </div>
+      <ion-button
+        id="open-toast"
+        expand="small"
+        class="centered-button"
+        (click)="salvarDados()"
+      >Criar</ion-button>
       <ion-toast
         trigger="open-toast"
-        message="Meta criada com sucesso!"
+        message="Dados de perfil atualizados!"
         [duration]="3000"
       ></ion-toast>
     </div>
@@ -78,7 +79,13 @@
           {{ meta.nome || meta.esporte }}
           <span class="texto-light">{{ meta.tipo | titlecase }}</span>
         </h3>
-        <p *ngFor="let opcao of meta.opcoes || meta.metas">{{ opcao }}</p>
+        <!-- Exibe a primeira opção para metas diárias e a primeira meta para metas esportivas -->
+        <p *ngIf="meta.tipo === 'diaria' && meta.opcoes && meta.opcoes.length > 0">
+          {{ meta.opcoes[0] }}
+        </p>
+        <p *ngIf="meta.tipo === 'esportiva' && meta.metas && meta.metas.length > 0">
+          {{ meta.metas[0] }}
+        </p>
       </li>
     </ul>
   </div>

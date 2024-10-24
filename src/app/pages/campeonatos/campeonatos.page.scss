@@ -19,26 +19,104 @@ div {
   justify-content: center;
 }
 
-ion-toggle {
-  margin-top: 15px;
-  gap: 15px;
-
-  color: #fff;
-  --handle-width: 20px;
-  --handle-height: 20px;
-
-  --handle-max-height: auto;
-
-  --track-background: #d2caca;
-  --track-background-checked: #333337;
-  --handle-background: #fff;
-  --handle-background-checked: #0daf7f;
+.item-lista ion-label {
+  color: #0daf7f;
+  margin-bottom: 0.5rem;
 }
 
-ion-toggle::part(track) {
-  height: 20px;
-  width: 36px;
+ion-button {
+  --background: #0daf7f;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 
-  /* Required for iOS handle to overflow the height of the track */
-  overflow: visible;
+ion-segment {
+  margin-top: 2.5rem;
+  --background: #121214;
+}
+
+div {
+  h2,
+  p {
+    color: white;
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.item-lista {
+  border-radius: 8px;
+  padding: 1rem;
+  color: white;
+}
+
+.item-lista:hover {
+  background-color: #2e2e2e;
+  transform: translateY(-2px);
+}
+
+.item-lista ion-label {
+  color: var(--text-light);
+}
+
+.item-lista ion-input,
+.item-lista ion-datetime {
+  background-color: #2e2e2e;
+  border-radius: 5px;
+  color: white;
+  padding: 0.5rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  margin-top: 10px;
+}
+
+.item-lista ion-input::placeholder,
+.item-lista ion-datetime::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.container {
+  margin-top: 1rem;
+}
+
+.centered-button {
+  --background: #0daf7f;
+  width: 100%;
+  max-width: 300px; /* Define uma largura máxima para o botão */
+  margin: 0 auto; /* Centraliza horizontalmente */
+  margin-top: 1rem;
+}
+
+.item-lista ion-input {
+  border-right: 1px solid #0daf7f;
+  border-bottom: 1px solid #0daf7f;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+}
+
+.item-lista ion-datetime {
+  background-color: #2e2e2e; /* Fundo do datetime */
+  color: white; /* Texto do datetime */
+  border-radius: 5px; /* Arredondamento dos cantos */
+  padding: 0.5rem; /* Padding interno */
+}
+
+.item-lista ion-datetime::part(native) {
+  border-right: 1px solid #0daf7f; /* Borda direita */
+  border-bottom: 1px solid #0daf7f; /* Borda inferior */
+}
+
+.item-lista ion-datetime::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Cor do placeholder */
+}
+
+ion-input ion-icon {
+  color: #0daf7f;
 }

@@ -1,42 +1,174 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  IonLabel,
+  IonAccordion,
+  IonAccordionGroup,
+  IonItem,
+  IonButton,
+  IonIcon,
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { lockClosed, lockOpen } from 'ionicons/icons';
+import { NgxMaskPipe } from 'ngx-mask';
+
+interface Endereco {
+  cep: string;
+  uf: string;
+  cidade: string;
+  bairro: string;
+  rua: string;
+  numero: number;
+  complemento: string;
+}
+
+interface Campeonato {
+  codigo: string;
+  titulo: string;
+  descricao: string;
+  aposta: string;
+  dataCriacao: string;
+  dataInicio: string;
+  dataFim: string;
+  limiteParticipantes: number;
+  status: 'aberto' | 'iniciado' | 'finalizado';
+  endereco: Endereco;
+  privacidadeCampeonato: 'privado' | 'aberto';
+}
 
 @Component({
   selector: 'app-historico-campeonatos',
   templateUrl: './historico-campeonatos.component.html',
   styleUrls: ['./historico-campeonatos.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    IonIcon,
+    IonButton,
+    IonItem,
+    IonAccordionGroup,
+    IonAccordion,
+    IonLabel,
+    CommonModule,
+    NgxMaskPipe,
+  ],
 })
-export class HistoricoCampeonatosComponent implements OnInit {
-  historicoCampeonatos = [
+export class HistoricoCampeonatosComponent implements OnInit, OnChanges {
+  campeonatos: Campeonato[] = [
     {
-      nome: 'Pingas no SEPT',
-      resultado: 'Campeão',
-      posicao: 1,
-      data: '15/09/2024',
-      descricao: 'Jogo às 15h valendo 10 reais.',
-      modalidade: 'Ping Pong',
+      codigo: 'LKM90',
+      titulo: 'Campeonato de Verão',
+      descricao: 'Competição anual de verão',
+      aposta: 'R$ 500,00',
+      dataCriacao: '2023-01-01',
+      dataInicio: '2023-02-01',
+      dataFim: '2023-03-01',
+      limiteParticipantes: 50,
+      status: 'aberto',
+      endereco: {
+        cep: '12345678',
+        uf: 'SP',
+        cidade: 'São Paulo',
+        bairro: 'Centro',
+        rua: 'Rua das Flores',
+        numero: 100,
+        complemento: 'Próximo ao parque',
+      },
+      privacidadeCampeonato: 'aberto',
     },
     {
-      nome: 'SEPT x EF',
-      resultado: 'Vice-campeão',
-      posicao: 2,
-      data: '30/07/2024',
-      descricao: '5 na linha 1 no gol 16h, no campo próximo à pista de corrida',
-      modalidade: 'Futebol',
+      codigo: 'HGY86',
+      titulo: 'Campeonato de Inverno',
+      descricao: 'Competição anual de inverno',
+      aposta: 'R$ 1000,00',
+      dataCriacao: '2023-06-01',
+      dataInicio: '2023-07-01',
+      dataFim: '2023-08-01',
+      limiteParticipantes: 30,
+      status: 'iniciado',
+      endereco: {
+        cep: '87654321',
+        uf: 'RJ',
+        cidade: 'Rio de Janeiro',
+        bairro: 'Copacabana',
+        rua: 'Avenida Atlântica',
+        numero: 200,
+        complemento: 'Em frente à praia',
+      },
+      privacidadeCampeonato: 'privado',
     },
     {
-      nome: 'Vôlei de areia',
-      resultado: 'Semifinalista',
-      posicao: 4,
-      data: '20/09/2024',
-      descricao: 'Campeonato valendo uma coca',
-      modalidade: 'Vôlei',
+      codigo: 'ASH46',
+      titulo: 'Campeonato de Primavera',
+      descricao: 'Competição anual de primavera',
+      aposta: 'R$ 750,00',
+      dataCriacao: '2023-09-01',
+      dataInicio: '2023-10-01',
+      dataFim: '2023-11-01',
+      limiteParticipantes: 40,
+      status: 'finalizado',
+      endereco: {
+        cep: '11223344',
+        uf: 'MG',
+        cidade: 'Belo Horizonte',
+        bairro: 'Savassi',
+        rua: 'Rua dos Pioneiros',
+        numero: 300,
+        complemento: 'Próximo ao shopping',
+      },
+      privacidadeCampeonato: 'aberto',
     },
   ];
 
-  constructor() {}
+  filteredCampeonatos: Campeonato[] = [];
 
-  ngOnInit() {}
+  @Input() statusToggles: {
+    aberto?: boolean;
+    finalizado?: boolean;
+    iniciado?: boolean;
+  } = {};
+
+  @Input() searchedCampeonatos: string = '';
+
+  constructor() {
+    addIcons({ lockClosed, lockOpen });
+  }
+
+  ngOnInit() {
+    this.filterCampeonatos();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['statusToggles'] || changes['searchedCampeonatos']) {
+      this.filterCampeonatos();
+    }
+  }
+
+  filterCampeonatos() {
+    const {
+      aberto = true,
+      finalizado = true,
+      iniciado = true,
+    } = this.statusToggles;
+
+    const searchTerm = this.searchedCampeonatos.toLowerCase();
+
+    this.filteredCampeonatos = this.campeonatos.filter((campeonato) => {
+      const matchesStatus =
+        (aberto && campeonato.status === 'aberto') ||
+        (finalizado && campeonato.status === 'finalizado') ||
+        (iniciado && campeonato.status === 'iniciado');
+
+      const matchesSearchTerm =
+        campeonato.titulo.toLowerCase().includes(searchTerm) ||
+        campeonato.descricao.toLowerCase().includes(searchTerm);
+
+      return matchesStatus && matchesSearchTerm;
+    });
+  }
 }

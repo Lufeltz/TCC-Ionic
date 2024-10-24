@@ -13,6 +13,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
+import { LucideAngularModule, FileIcon, ArrowBigLeft } from 'lucide-angular';
 
 @Component({
   selector: 'app-pref-notif',
@@ -31,12 +32,17 @@ import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.
     IonLabel,
     IonText,
     IonToast,
+    LucideAngularModule,
   ],
 })
 export class PrefNotifPage implements OnInit {
   pageTitle: string = 'Preferências';
   pageMenu: string = 'pref-notif';
   pageContent: string = 'pref-notif';
+
+  // Lucide icons
+  readonly FileIcon = FileIcon;
+  readonly ArrowBigLeft = ArrowBigLeft
 
   estados = {
     modalidades: {
