@@ -6,12 +6,36 @@
       (click)="navigateToPerfil()"
     >
       <div class="jogador-header">
-        <p class="jogador-nome">{{ academico.username }}</p>
-        <p class="jogador-data">
-          {{ academico.dataCriacao | date: 'dd/MM/yy' }}
-        </p>
+        <div class="username">
+          <lucide-angular
+            [img]="UserRound"
+            class="btn-inscrever-se"
+            [size]="20"
+            color="var(--text-light)"
+          ></lucide-angular>
+          <p class="jogador-nome">{{ academico.username }}</p>
+        </div>
+        <div class="data">
+          <lucide-angular
+            [img]="CalendarArrowUp"
+            class="btn-inscrever-se"
+            [size]="20"
+            color="var(--text-light)"
+          ></lucide-angular>
+          <p class="jogador-data">
+            {{ academico.dataCriacao | date : "dd/MM/yy" }}
+          </p>
+        </div>
       </div>
-      <p class="jogador-curso">{{ academico.curso }}</p>
+      <div class="curso">
+        <lucide-angular
+          [img]="GraduationCap"
+          class="btn-inscrever-se"
+          [size]="20"
+          color="var(--text-white)"
+        ></lucide-angular>
+        <p class="jogador-curso">{{ academico.curso }}</p>
+      </div>
       <p class="jogador-foto">{{ academico.foto }}</p>
     </li>
   </ul>

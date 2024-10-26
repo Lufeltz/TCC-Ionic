@@ -21,6 +21,7 @@ import {
 } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LucideAngularModule, Pencil } from 'lucide-angular';
 
 @Component({
   selector: 'app-feed',
@@ -47,6 +48,7 @@ import { CommonModule } from '@angular/common';
     IonButtons,
     IonItem,
     ListagemCampeonatosComponent,
+    LucideAngularModule
   ],
 })
 export class FeedPage implements OnInit {
@@ -56,6 +58,8 @@ export class FeedPage implements OnInit {
 
   searchTerm: string = '';
   selectedSegment: string = 'campeonatos';
+
+  readonly Pencil = Pencil;
 
   statusToggles: { aberto: boolean; finalizado: boolean; iniciado: boolean } = {
     aberto: true,

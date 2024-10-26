@@ -7,6 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { CalendarArrowUp, GraduationCap, LucideAngularModule, UserRound } from 'lucide-angular';
 import { Academico } from 'src/app/models/academico.model';
 import { AcademicoService } from 'src/app/services/academico.service';
 
@@ -15,7 +16,7 @@ import { AcademicoService } from 'src/app/services/academico.service';
   templateUrl: './jogador.component.html',
   styleUrls: ['./jogador.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
 })
 export class JogadorComponent implements OnInit, OnChanges {
   @Input() searchedJogadores!: string;
@@ -23,6 +24,10 @@ export class JogadorComponent implements OnInit, OnChanges {
   public filteredJogadores: Academico[] = [];
   mensagem!: string;
   mensagem_detalhes!: string;
+
+  readonly UserRound = UserRound;
+  readonly GraduationCap = GraduationCap;
+  readonly CalendarArrowUp = CalendarArrowUp;
 
   constructor(
     private academicoService: AcademicoService,

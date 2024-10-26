@@ -10,7 +10,7 @@ import {
   IonTabBar,
   IonTabButton,
   IonIcon,
-  IonLabel
+  IonLabel,
 } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
@@ -20,6 +20,7 @@ import {
   homeOutline,
   footballOutline,
 } from 'ionicons/icons';
+import { House, Volleyball, LucideAngularModule, Trophy, Zap } from 'lucide-angular';
 
 @Component({
   selector: 'app-homepage',
@@ -37,11 +38,18 @@ import {
     IonTabBar,
     IonTabButton,
     IonIcon,
-    IonLabel
+    IonLabel,
+    LucideAngularModule
   ],
 })
 export class HomepagePage implements OnInit {
   selectedTab: string = '';
+
+  // Lucide icons
+  readonly House = House;
+  readonly Volleyball = Volleyball;
+  readonly Trophy = Trophy;
+  readonly Zap = Zap;
 
   constructor() {
     addIcons({ trophyOutline, flashOutline, homeOutline, footballOutline });

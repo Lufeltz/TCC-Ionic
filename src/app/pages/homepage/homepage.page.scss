@@ -4,6 +4,7 @@ ion-tabs {
 
 ion-tab-button {
   color: #7b7b7b;
+  margin-top: 5px;
 }
 
 ion-tab-bar {
@@ -17,4 +18,13 @@ ion-tab-button.selected {
 
 ion-tab-button ion-icon:hover {
   color: #0daf7f; 
+}
+
+ion-label {
+  font-size: 0.75rem;
+}
+
+.my-icon {
+  font-size: 0.5rem;
+  // color: var(--text-green);
 }

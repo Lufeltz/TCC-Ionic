@@ -34,6 +34,22 @@ import {
   IonIcon,
 } from '@ionic/angular/standalone';
 import { RouterModule } from '@angular/router';
+import {
+  Bell,
+  Calendar1,
+  ChartNoAxesCombined,
+  DiamondPlus,
+  Dumbbell,
+  GraduationCap,
+  LogOut,
+  LucideAngularModule,
+  MessageCirclePlus,
+  Settings,
+  ShieldPlus,
+  SquarePlus,
+  Star,
+  User,
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-menu-perfil',
@@ -57,28 +73,28 @@ import { RouterModule } from '@angular/router';
     IonItemGroup,
     IonIcon,
     RouterModule,
+    LucideAngularModule,
   ],
 })
 export class MenuPerfilComponent implements OnInit {
   @Input() title: string = '';
   @Input() menu: string = '';
   @Input() menuContentId: string = '';
-  constructor() {
-    addIcons({
-      personCircleOutline,
-      schoolOutline,
-      notificationsOutline,
-      medkitOutline,
-      settingsOutline,
-      analyticsOutline,
-      calendarNumberOutline,
-      addCircleOutline,
-      bicycleOutline,
-      starOutline,
-      logOutOutline,
-      eyeOffOutline,
-    });
-  }
+
+  readonly User = User;
+  readonly GraduationCap = GraduationCap;
+  readonly Bell = Bell;
+  readonly ShieldPlus = ShieldPlus;
+  readonly MessageCirclePlus = MessageCirclePlus;
+  readonly ChartNoAxesCombined = ChartNoAxesCombined;
+  readonly Settings = Settings;
+  readonly Calendar1 = Calendar1;
+  readonly DiamondPlus = DiamondPlus;
+  readonly Dumbbell = Dumbbell;
+  readonly Star = Star;
+  readonly LogOut = LogOut;
+
+  constructor() {}
 
   ngOnInit() {}
 }

@@ -130,3 +130,27 @@ ion-button {
 .header strong {
   color: #9b59b6;
 }
+
+ion-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.icon-button .text-container {
+  display: flex;
+  align-items: center;
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Ocupa toda a altura do botão */
+}

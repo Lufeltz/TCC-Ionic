@@ -18,6 +18,7 @@ import { addIcons } from 'ionicons';
 import { lockClosed, lockOpen } from 'ionicons/icons';
 import { NgxMaskPipe } from 'ngx-mask';
 import { AlertController } from '@ionic/angular';
+import { ArrowUpRight, ListCollapse, LucideAngularModule, SquareArrowOutUpRight, SquareArrowUpRight } from 'lucide-angular';
 
 interface Endereco {
   cep: string;
@@ -56,10 +57,14 @@ interface Campeonato {
     IonLabel,
     CommonModule,
     NgxMaskPipe,
+    LucideAngularModule
   ],
   standalone: true,
 })
 export class ListagemCampeonatosComponent implements OnInit, OnChanges {
+
+  readonly SquareArrowUpRight = SquareArrowUpRight;
+
   campeonatos: Campeonato[] = [
     {
       codigo: 'LKM90',

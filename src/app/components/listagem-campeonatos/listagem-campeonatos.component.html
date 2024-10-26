@@ -70,8 +70,16 @@
                 size="small"
                 expand="block"
                 (click)="inscreverSe(campeonato)"
+                class="icon-button"
               >
-                Inscrever-se
+                <div class="text-container">Inscrever-se</div>
+                <div class="icon-align">
+                  <lucide-angular
+                    [img]="SquareArrowUpRight"
+                    class="btn-inscrever-se"
+                    [size]="20"
+                  ></lucide-angular>
+                </div>
               </ion-button>
             </div>
           </ion-accordion>

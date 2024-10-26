@@ -68,3 +68,22 @@ ul {
     font-size: 10px;
   }
 }
+
+.username {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.curso {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.data {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
