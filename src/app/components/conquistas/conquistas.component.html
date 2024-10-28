@@ -1,7 +1,14 @@
 <div>
   <ul>
     <li *ngFor="let esporte of estatisticasEsportivas" class="modalidade">
-      <h3>{{ esporte.esporte }}</h3>
+      <h3>
+        <lucide-angular
+          [img]="Award"
+          class="btn-inscrever-se"
+          [size]="20"
+        ></lucide-angular
+        >{{ esporte.esporte }}
+      </h3>
       <ul>
         <li
           *ngFor="let estatistica of esporte.estatisticas"

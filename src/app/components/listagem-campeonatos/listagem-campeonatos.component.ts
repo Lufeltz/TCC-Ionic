@@ -18,7 +18,13 @@ import { addIcons } from 'ionicons';
 import { lockClosed, lockOpen } from 'ionicons/icons';
 import { NgxMaskPipe } from 'ngx-mask';
 import { AlertController } from '@ionic/angular';
-import { ArrowUpRight, ListCollapse, LucideAngularModule, SquareArrowOutUpRight, SquareArrowUpRight } from 'lucide-angular';
+import {
+  LockOpen,
+  LucideAngularModule,
+  Lock,
+  SquareArrowUpRight,
+  ExternalLink,
+} from 'lucide-angular';
 
 interface Endereco {
   cep: string;
@@ -57,13 +63,15 @@ interface Campeonato {
     IonLabel,
     CommonModule,
     NgxMaskPipe,
-    LucideAngularModule
+    LucideAngularModule,
   ],
   standalone: true,
 })
 export class ListagemCampeonatosComponent implements OnInit, OnChanges {
-
   readonly SquareArrowUpRight = SquareArrowUpRight;
+  readonly Lock = Lock;
+  readonly LockOpen = LockOpen;
+  readonly ExternalLink = ExternalLink;
 
   campeonatos: Campeonato[] = [
     {
@@ -131,6 +139,9 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
     },
   ];
 
+  getIconColor(privacidade: string): string {
+    return privacidade === 'privado' ? 'red' : 'green';
+  }
   filteredCampeonatos: Campeonato[] = [];
 
   @Input() statusToggles: {
@@ -183,7 +194,7 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   async presentAlertPrompt(campeonato: Campeonato, errorMessage: string = '') {
     const alert = await this.alertController.create({
       header: 'Insira a senha',
-      message: errorMessage,  // Mensagem de erro
+      message: errorMessage, // Mensagem de erro
       inputs: [
         {
           name: 'senha',
@@ -207,13 +218,13 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
         },
       ],
     });
-  
+
     await alert.present();
   }
-  
+
   verificarSenha(campeonato: Campeonato, senha: string) {
     const senhaCorreta = 'senha123'; // Defina a senha correta aqui
-  
+
     if (senha === senhaCorreta) {
       console.log('Você entrou no campeonato:', campeonato.titulo);
     } else {
@@ -228,5 +239,4 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
       console.log('Você entrou no campeonato:', campeonato.titulo);
     }
   }
-  
 }

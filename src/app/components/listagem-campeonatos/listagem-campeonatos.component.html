@@ -4,15 +4,19 @@
       <div class="campeonato-header">
         <h3 class="campeonato-nome">
           {{ campeonato.titulo }}
-        </h3>
-        <ion-icon
-          [name]="
-            campeonato.privacidadeCampeonato === 'privado'
-              ? 'lock-closed'
-              : 'lock-open'
-          "
+          <lucide-angular
+          [img]="
+            campeonato.privacidadeCampeonato === 'privado' ? Lock : LockOpen
+            "
           class="cadeado-icon"
-        ></ion-icon>
+          [size]="20"
+          [color]="
+            campeonato.privacidadeCampeonato === 'privado'
+            ? '#e63946'
+            : '#00b4d8'
+            "
+        ></lucide-angular>
+      </h3>
       </div>
       <div class="header">
         <p>
@@ -75,7 +79,7 @@
                 <div class="text-container">Inscrever-se</div>
                 <div class="icon-align">
                   <lucide-angular
-                    [img]="SquareArrowUpRight"
+                    [img]="ExternalLink"
                     class="btn-inscrever-se"
                     [size]="20"
                   ></lucide-angular>

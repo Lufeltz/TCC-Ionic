@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Award, LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-conquistas',
   templateUrl: './conquistas.component.html',
   styleUrls: ['./conquistas.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
 })
 export class ConquistasComponent  implements OnInit {
 
@@ -161,7 +162,7 @@ export class ConquistasComponent  implements OnInit {
     },
   ];
   
-
+  readonly Award = Award;
 
   constructor() { }
 

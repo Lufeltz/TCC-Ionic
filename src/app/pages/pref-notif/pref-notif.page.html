@@ -5,12 +5,15 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <h3>Modalidades</h3>
-  <lucide-angular [img]="FileIcon" class="my-icon"></lucide-angular>
-  <lucide-icon [img]="FileIcon" class="my-icon"></lucide-icon>
-  <i-lucide [img]="FileIcon" class="my-icon"></i-lucide>
-  <span-lucide [img]="ArrowBigLeft" class="my-icon"></span-lucide>
-
+  <h3>
+    <lucide-angular
+      [img]="Volleyball"
+      class="btn-inscrever-se"
+      [size]="20"
+      color="var(--text-green)"
+    ></lucide-angular
+    > Modalidades
+  </h3>
   <div class="toggle">
     <ion-toggle
       id="open-toast"
@@ -78,7 +81,15 @@
     ></ion-toast>
   </div>
 
-  <h3>Privacidade</h3>
+  <h3>
+    <lucide-angular
+      [img]="EyeOff"
+      class="btn-inscrever-se"
+      [size]="20"
+      color="var(--text-green)"
+    ></lucide-angular
+    > Privacidade
+  </h3>
   <div class="toggle">
     <ion-toggle
       id="open-toast5"

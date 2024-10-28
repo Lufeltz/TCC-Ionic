@@ -32,7 +32,7 @@ ul {
 
 .campeonato-header {
   display: flex;
-  justify-content: space-between; /* Isso mantém os elementos nas extremidades */
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
 }
@@ -40,7 +40,9 @@ ul {
 .campeonato-nome {
   font-size: 1.25rem;
   color: var(--text-green);
-  flex-grow: 1; /* Isso permite que o título use todo o espaço disponível à esquerda */
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-around;
 }
 
 .campeonato-curso {
@@ -111,7 +113,8 @@ ion-item {
 
 ion-button {
   margin-top: 16px;
-  --background: var(--text-green);
+  // --background: var(--text-green);
+  --background: #00b4d8;
   --color: var(--text-white);
 }
 
@@ -129,4 +132,8 @@ ion-button {
 
 .header strong {
   color: #9b59b6;
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
 }

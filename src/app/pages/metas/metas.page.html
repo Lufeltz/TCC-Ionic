@@ -35,7 +35,8 @@
         expand="small"
         class="centered-button"
         (click)="salvarDados()"
-      >Criar</ion-button>
+        >Criar</ion-button
+      >
       <ion-toast
         trigger="open-toast"
         message="Dados de perfil atualizados!"
@@ -46,20 +47,38 @@
 
   <div *ngIf="selectedSegment === 'listagem'">
     <ion-item lines="none">
-      <ion-label>Esportivas</ion-label>
-      <ion-toggle
-        slot="end"
-        (ionChange)="toggleFilterEsportivas($event)"
-        [checked]="filterEsportivas"
-      ></ion-toggle>
+      <div class="align-diarias">
+        <div class="icon-label">
+          <lucide-angular
+            [img]="Clock4"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
+          <ion-label>Diárias</ion-label>
+        </div>
+        <ion-toggle
+          slot="end"
+          (ionChange)="toggleFilterDiarias($event)"
+          [checked]="filterDiarias"
+        ></ion-toggle>
+      </div>
     </ion-item>
     <ion-item lines="none">
-      <ion-label>Diárias</ion-label>
-      <ion-toggle
-        slot="end"
-        (ionChange)="toggleFilterDiarias($event)"
-        [checked]="filterDiarias"
-      ></ion-toggle>
+      <div class="align-esportivas">
+        <div class="icon-label">
+          <lucide-angular
+            [img]="BicepsFlexed"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
+          <ion-label>Esportivas</ion-label>
+        </div>
+        <ion-toggle
+          slot="end"
+          (ionChange)="toggleFilterEsportivas($event)"
+          [checked]="filterEsportivas"
+        ></ion-toggle>
+      </div>
     </ion-item>
     <ul>
       <li
@@ -80,10 +99,14 @@
           <span class="texto-light">{{ meta.tipo | titlecase }}</span>
         </h3>
         <!-- Exibe a primeira opção para metas diárias e a primeira meta para metas esportivas -->
-        <p *ngIf="meta.tipo === 'diaria' && meta.opcoes && meta.opcoes.length > 0">
+        <p
+          *ngIf="meta.tipo === 'diaria' && meta.opcoes && meta.opcoes.length > 0"
+        >
           {{ meta.opcoes[0] }}
         </p>
-        <p *ngIf="meta.tipo === 'esportiva' && meta.metas && meta.metas.length > 0">
+        <p
+          *ngIf="meta.tipo === 'esportiva' && meta.metas && meta.metas.length > 0"
+        >
           {{ meta.metas[0] }}
         </p>
       </li>

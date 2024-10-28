@@ -13,7 +13,7 @@ import {
 } from '@ionic/angular/standalone';
 
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
-import { LucideAngularModule, FileIcon, ArrowBigLeft } from 'lucide-angular';
+import { EyeOff, LucideAngularModule, Volleyball } from 'lucide-angular';
 
 @Component({
   selector: 'app-pref-notif',
@@ -32,7 +32,7 @@ import { LucideAngularModule, FileIcon, ArrowBigLeft } from 'lucide-angular';
     IonLabel,
     IonText,
     IonToast,
-    LucideAngularModule,
+    LucideAngularModule
   ],
 })
 export class PrefNotifPage implements OnInit {
@@ -40,9 +40,8 @@ export class PrefNotifPage implements OnInit {
   pageMenu: string = 'pref-notif';
   pageContent: string = 'pref-notif';
 
-  // Lucide icons
-  readonly FileIcon = FileIcon;
-  readonly ArrowBigLeft = ArrowBigLeft
+  readonly Volleyball = Volleyball;
+  readonly EyeOff = EyeOff;
 
   estados = {
     modalidades: {

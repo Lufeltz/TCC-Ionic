@@ -22,7 +22,14 @@
         class="item-lista"
       >
         <h3>
-          {{ modalidade.nome }}
+          <div>
+            <lucide-angular
+              [img]="Medal"
+              class="btn-inscrever-se"
+              [size]="20"
+            ></lucide-angular>
+            {{ modalidade.nome }}
+          </div>
           <span class="jogador-data">
             {{ modalidade.dataCriacao | date: 'dd/MM/yy' }}
           </span>
@@ -40,6 +47,11 @@
           expand="block"
           (click)="setCurrentModalidade(modalidade)"
         >
+          <lucide-angular
+            [img]="CircleX"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
           Cancelar inscrição
         </ion-button>
         <ion-alert
@@ -62,7 +74,15 @@
         class="item-lista item-lista-nao-inscrito"
       >
         <h3>
-          {{ modalidade.nome }}
+          <div>
+            <lucide-angular
+              [img]="Medal"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'#e63946'"
+            ></lucide-angular>
+            {{ modalidade.nome }}
+          </div>
           <span class="jogador-data">
             {{ modalidade.dataCriacao | date: 'dd/MM/yy' }}
           </span>
@@ -81,6 +101,11 @@
           (click)="setCurrentModalidade(modalidade)"
         >
           Inscrever-se
+          <lucide-angular
+            [img]="ExternalLink"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
         </ion-button>
         <ion-alert
           [trigger]="'alerta-inscrever-' + modalidade.nome"

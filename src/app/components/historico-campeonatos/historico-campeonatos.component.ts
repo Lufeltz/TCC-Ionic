@@ -16,6 +16,7 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { lockClosed, lockOpen } from 'ionicons/icons';
+import { CheckCheck, CircleCheckBig, ExternalLink, Lock, LockOpen, LucideAngularModule, SquareArrowUpRight } from 'lucide-angular';
 import { NgxMaskPipe } from 'ngx-mask';
 
 interface Endereco {
@@ -56,9 +57,16 @@ interface Campeonato {
     IonLabel,
     CommonModule,
     NgxMaskPipe,
+    LucideAngularModule
   ],
 })
 export class HistoricoCampeonatosComponent implements OnInit, OnChanges {
+  readonly SquareArrowUpRight = SquareArrowUpRight;
+  readonly Lock = Lock;
+  readonly LockOpen = LockOpen;
+  readonly ExternalLink = ExternalLink;
+  readonly CircleCheckBig = CircleCheckBig;
+
   campeonatos: Campeonato[] = [
     {
       codigo: 'LKM90',

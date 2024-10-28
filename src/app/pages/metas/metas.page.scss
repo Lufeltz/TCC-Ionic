@@ -188,3 +188,33 @@ ion-input {
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
   transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
 }
+
+.btn-inscrever-se {
+  margin-right: 5px;
+}
+
+.align-esportivas,
+.align-diarias {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px; /* Espaço entre os elementos */
+  padding: 0 16px; /* Define o padding lateral específico */
+  margin: auto;
+  text-align: center;
+  width: fit-content;
+}
+
+.align-esportivas {
+  color: #0daf7f;
+}
+
+.align-diarias {
+  color: #e63946;
+}
+
+.icon-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}

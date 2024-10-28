@@ -41,6 +41,8 @@ ul {
   font-size: 1.25rem;
   color: var(--text-green);
   flex-grow: 1; /* Isso permite que o título use todo o espaço disponível à esquerda */
+  display: flex;
+  justify-content: space-around;
 }
 
 .campeonato-curso {

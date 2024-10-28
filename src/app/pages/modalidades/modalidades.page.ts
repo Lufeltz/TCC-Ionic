@@ -14,6 +14,7 @@ import {
   IonAlert,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
+import { CircleX, ExternalLink, LucideAngularModule, Medal, SquareArrowUpRight, SquareX, X } from 'lucide-angular';
 
 interface Modalidade {
   nome: string;
@@ -42,6 +43,7 @@ interface Modalidade {
     IonSegmentButton,
     IonButton,
     IonAlert,
+    LucideAngularModule
   ],
 })
 export class ModalidadesPage implements OnInit {
@@ -52,6 +54,11 @@ export class ModalidadesPage implements OnInit {
   selectedSegment: string = 'inscrito';
   modalidades: Modalidade[] = [];
   currentModalidade: Modalidade | null = null; // Para armazenar a modalidade atual
+
+  readonly SquareArrowUpRight = SquareArrowUpRight;
+  readonly CircleX = CircleX;
+  readonly Medal = Medal;
+  readonly ExternalLink = ExternalLink;
 
   constructor() {}
 

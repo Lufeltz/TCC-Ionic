@@ -122,14 +122,19 @@ ion-content {
   }
 
   h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin-top: 50px;
     color: #0daf7f;
     text-align: center;
+    gap: 7px;
   }
 }
 
 
 //lucide
+
 
 .my-icon {
  color: #0daf7f;

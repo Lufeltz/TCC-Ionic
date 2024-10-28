@@ -20,6 +20,7 @@ import { HistoricoCampeonatosComponent } from '../../components/historico-campeo
 import { ListagemCampeonatosComponent } from '../../components/listagem-campeonatos/listagem-campeonatos.component';
 import { calendar } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { LucideAngularModule, Pencil } from 'lucide-angular';
 
 @Component({
   selector: 'app-campeonatos',
@@ -44,6 +45,7 @@ import { addIcons } from 'ionicons';
     IonLabel,
     HistoricoCampeonatosComponent,
     ListagemCampeonatosComponent,
+    LucideAngularModule
   ],
 })
 export class CampeonatosPage implements OnInit {
@@ -70,6 +72,8 @@ export class CampeonatosPage implements OnInit {
 
   showInicioPicker: boolean = false; // Para controlar o seletor de início
   showFimPicker: boolean = false; // Para controlar o seletor de fim
+
+  readonly Pencil = Pencil;
 
   constructor() {
     addIcons({ calendar });

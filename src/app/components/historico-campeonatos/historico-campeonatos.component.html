@@ -4,15 +4,13 @@
       <div class="campeonato-header">
         <h3 class="campeonato-nome">
           {{ campeonato.titulo }}
+          <lucide-angular
+            [img]="CircleCheckBig"
+            class="cadeado-icon"
+            [size]="20"
+            [color]="'#fff'"
+          ></lucide-angular>
         </h3>
-        <ion-icon
-          [name]="
-            campeonato.privacidadeCampeonato === 'privado'
-              ? 'lock-closed'
-              : 'lock-open'
-          "
-          class="cadeado-icon"
-        ></ion-icon>
       </div>
       <div class="header">
         <p>
@@ -66,7 +64,14 @@
                   {{ campeonato.endereco.cep | mask : "000000-000" }}
                 </p>
               </div>
-              <ion-button size="small" expand="block">Inscrever-se</ion-button>
+              <ion-button size="small" expand="block"
+                >Detalhes
+                <lucide-angular
+                  [img]="ExternalLink"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                ></lucide-angular
+              ></ion-button>
             </div>
           </ion-accordion>
         </ion-accordion-group>
