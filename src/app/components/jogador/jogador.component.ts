@@ -51,8 +51,7 @@ export class JogadorComponent implements OnInit, OnChanges {
           this.academicos = [];
         } else {
           this.academicos = data;
-          this.filteredJogadores = data; // Inicialize filteredJogadores com todos os acadêmicos
-          // this.filterJogadores(); // Filtrar após receber os dados
+          this.filteredJogadores = data;
         }
       },
       error: (err) => {
