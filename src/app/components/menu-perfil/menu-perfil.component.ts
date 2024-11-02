@@ -46,7 +46,6 @@ import {
   MessageCirclePlus,
   Settings,
   ShieldPlus,
-  SquarePlus,
   Star,
   User,
 } from 'lucide-angular';

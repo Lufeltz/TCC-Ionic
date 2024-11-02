@@ -124,3 +124,19 @@ ion-input ion-icon {
 .btn-inscrever-se {
   margin-right: 5px;
 }
+
+.input-container {
+  width: 100%; /* Certifique-se de que a largura é 100% */
+  display: flex;
+  align-items: center; /* Alinhamento vertical */
+}
+
+.cep-button {
+  margin-left: 10px; /* Adiciona espaço entre o input e o botão */
+}
+
+.input-container ion-button {
+  flex: 1;
+  color: var(--text-white);
+  margin-top: 14px;
+}

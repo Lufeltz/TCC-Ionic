@@ -1,6 +1,8 @@
 ion-content {
-  --background: #202024;
+  --background: var(--background-light);
+  // --background: var(--gray-700);
 }
+
 :root {
   --background-light: #202024;
   --background-dark: #121214;
@@ -8,6 +10,21 @@ ion-content {
   --text-green: #0daf7f;
   --text-white: #fff;
   --background-red: #e63946;
+
+  --red: #ef4444;
+  --light-blue: #3b82f6;
+  --dark-blue: #1d4ed8;
+
+  --gray-50: #f9fafb;
+  --gray-100: #f3f4f6;
+  --gray-200: #e5e7eb;
+  --gray-300: #d1d5db;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
+  --gray-600: #4b5563;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #030712;
 }
 
 /*

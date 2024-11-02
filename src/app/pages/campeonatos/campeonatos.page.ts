@@ -20,7 +20,7 @@ import { HistoricoCampeonatosComponent } from '../../components/historico-campeo
 import { ListagemCampeonatosComponent } from '../../components/listagem-campeonatos/listagem-campeonatos.component';
 import { calendar } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { LucideAngularModule, Pencil } from 'lucide-angular';
+import { LucideAngularModule, Pencil, Search } from 'lucide-angular';
 
 @Component({
   selector: 'app-campeonatos',
@@ -60,13 +60,14 @@ export class CampeonatosPage implements OnInit {
     aposta: '',
     limiteParticipantes: '',
     descricao: '',
-    inicio: new Date().toISOString(), // Data e hora atual em formato ISO
-    fim: new Date().toISOString(), // Data e hora atual em formato ISO
+    inicio: '',
+    fim: '',
     logradouro: '',
     bairro: '',
     complemento: '',
     cidade: '',
     uf: '',
+    numero: '',
     cep: '',
   };
 
@@ -74,6 +75,7 @@ export class CampeonatosPage implements OnInit {
   showFimPicker: boolean = false; // Para controlar o seletor de fim
 
   readonly Pencil = Pencil;
+  readonly Search = Search;
 
   constructor() {
     addIcons({ calendar });
@@ -103,4 +105,10 @@ export class CampeonatosPage implements OnInit {
     this.campeonato.fim = event.detail.value; // Atualiza com o valor da data e hora
     this.showFimPicker = false; // Fecha o seletor
   }
+
+  pesquisarCep() {
+    console.log('CEP digitado:', this.campeonato.cep);
+    // Aqui você pode adicionar a lógica para buscar o endereço com base no CEP
+  }
+  
 }
