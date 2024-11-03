@@ -1,10 +1,10 @@
 /* Estilos gerais */
 ion-label {
-  color: #0daf7f;
+  color: var(--light-blue);
 }
 
 ion-button {
-  --background: #0daf7f;
+  --background: var(--light-blue);
 }
 
 ion-segment {
@@ -18,10 +18,10 @@ ion-segment {
 }
 
 .card {
-  background-color: #1c1c1e;
+  background-color: var(--background-dark);
   border-radius: 8px; /* Bordas arredondadas */
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
   padding: 1rem; /* Padding para os itens */
   color: white; /* Cor da fonte */
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
@@ -46,7 +46,8 @@ p {
   width: 100%; /* Largura total */
   border-radius: 8px; /* Bordas arredondadas */
   overflow: hidden; /* Para esconder bordas do select */
-  border: 1px solid white;
+  // border-right: 1px solid var(--light-blue);
+  border-bottom: 1px solid var(--light-blue);
 }
 
 .select-wrapper {
@@ -58,7 +59,7 @@ p {
 
 .custom-select {
   background-color: #202024; /* Cor de fundo */
-  color: #0daf7f; /* Cor do texto */
+  color: var(--light-blue); /* Cor do texto */
   border: none; /* Remove borda padrão */
   border-radius: 8px; /* Bordas arredondadas */
   padding: 1rem; /* Padding */

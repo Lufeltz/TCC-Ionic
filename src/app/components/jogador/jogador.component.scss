@@ -9,16 +9,16 @@ ul {
 }
 
 .jogador {
-  background-color: var(--background-light);
+  background-color: var(--background-dark);
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 16px;
   position: relative;
   z-index: 1;
-  border-right: 1px solid var(--text-green);
-  border-bottom: 1px solid var(--text-green);
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .jogador-header {
@@ -49,7 +49,6 @@ ul {
   margin-top: 4px;
 }
 
-/* Responsividade */
 @media (max-width: 375px) {
   .jogador {
     padding: 12px;

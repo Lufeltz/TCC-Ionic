@@ -1,121 +1,123 @@
-/* Estilos gerais */
 ion-label {
-  color: #0daf7f;
+  color: var(--light-blue);
 }
 
 ion-segment {
   margin-top: 2.5rem;
-  --background: #121214;
+  --background: var(--background-dark);
 }
 
-/* Estilos para a lista */
 ul {
-  margin: 0; /* Remove margem padrão */
+  margin: 0;
   margin-top: 15px;
-  padding: 0; /* Remove padding padrão */
-  list-style-type: none; /* Remove os marcadores da lista */
+  padding: 0;
+  list-style-type: none;
 }
 
 .item-lista {
-  background-color: #1c1c1e;
-  border-bottom: 1px solid white; /* Borda inferior */
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 1rem; /* Padding para os itens */
-  margin-bottom: 1rem; /* Espaçamento entre os itens */
-  color: white; /* Cor da fonte */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  background-color: var(--background-dark);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-white);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .item-lista:hover {
-  background-color: rgba(
-    41,
-    128,
-    185,
-    0.4
-  ); /* Mudança de fundo ao passar o mouse */
-  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+  background-color: rgba(41, 128, 185, 0.4);
+  transform: translateY(-2px);
 }
 
 .item-lista h3 {
-  margin: 0; /* Remove margem do título */
+  margin: 0;
   display: flex;
-  justify-content: space-between; /* Alinha nome e tipo */
-  align-items: center; /* Alinha verticalmente */
+  justify-content: space-between;
+  align-items: center;
 }
 
 .titulo-esportiva {
-  color: #0daf7f; /* Verde para metas esportivas */
+  color: var(--purple-desc);
   font-size: 1.25rem;
 }
 
 .titulo-diaria {
-  color: #e63946; /* Vermelho para metas diárias */
+  color: var(--yellow-desc);
   font-size: 1.25rem;
 }
 
 .item-lista p {
-  margin: 0.25rem 0; /* Margens para os parágrafos */
-  color: rgba(255, 255, 255, 0.9); /* Cor do texto */
+  margin: 0.25rem 0;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .meta-esportiva {
-  border-left: 4px solid #0daf7f; /* Borda para meta esportiva */
+  border-right: 3px solid var(--purple-desc);
+  border-bottom: 2px solid var(--purple-desc);
 }
 
 .meta-diaria {
-  border-left: 4px solid #e63946; /* Borda para meta diária */
+  border-right: 3px solid var(--yellow-desc);
+  border-bottom: 2px solid var(--yellow-desc);
 }
 
 .container {
   margin-top: 2.5rem;
 }
 
-/* Estilos adicionais para os toggles */
 ion-toggle {
-  color: #fff;
+  color: var(--gray-50);
   --handle-width: 20px;
   --handle-height: 20px;
   --track-background: #d2caca;
   --track-background-checked: #333337;
-  --handle-background: #fff;
-  --handle-background-checked: #0daf7f;
+  --handle-background: var(--gray-50);
   margin-right: 2rem;
 }
 
+.label-titulo {
+  font-weight: 600;
+}
+
+.toggle-diarias {
+  --handle-background-checked: var(--yellow-desc);
+}
+
+.toggle-esportivas {
+  --handle-background-checked: var(--purple-desc);
+}
+
 ion-item {
-  --background: #202024;
-  color: #0daf7f;
+  --background: var(--background-light);
+  color: var(--light-blue);
 }
 
 .texto-light {
-  font-size: 0.8rem; /* Ajuste o tamanho conforme necessário */
-  color: var(--text-light); /* Usando a variável CSS para a cor */
+  font-size: 0.8rem;
+  color: var(--text-light);
 }
 
-/* Estilos para a criação de metas */
-
 .centered-button {
-  --background: #0daf7f;
+  --background: var(--light-blue);
   width: 100%;
-  max-width: 300px; /* Define uma largura máxima para o botão */
-  margin: 0 auto; /* Centraliza horizontalmente */
+  max-width: 300px;
+  margin: 0 auto;
   margin-top: 1rem;
 }
 
 .button-container {
-  display: flex; /* Flexbox para centralização */
-  justify-content: center; /* Centraliza horizontalmente */
-  margin-top: 1rem; /* Espaçamento acima do botão */
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
 .item-lista ion-label {
-  color: #0daf7f;
+  color: var(--light-blue);
   margin-bottom: 0.5rem;
 }
 
 ion-button {
-  --background: #0daf7f;
+  --background: var(--light-blue);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -123,13 +125,13 @@ ion-button {
 
 ion-segment {
   margin-top: 2.5rem;
-  --background: #121214;
+  --background: var(--background-dark);
 }
 
 div {
   h2,
   p {
-    color: white;
+    color: var(--text-white);
   }
 }
 
@@ -142,11 +144,11 @@ ul {
 .item-lista2 {
   border-radius: 8px;
   padding: 1rem;
-  color: white;
+  color: var(--text-white);
 }
 
 .item-lista2:hover {
-  background-color: #2e2e2e;
+  background-color: var(--background-hover);
   transform: translateY(-2px);
 }
 
@@ -155,9 +157,9 @@ ul {
 }
 
 .item-lista2 ion-input {
-  background-color: #2e2e2e;
+  background-color: var(--background-dark);
   border-radius: 5px;
-  color: white;
+  color: var(--text-white);
   padding: 0.5rem;
   --padding-start: 0.5rem;
   --padding-end: 0.5rem;
@@ -175,18 +177,18 @@ ul {
 }
 
 .centered-button {
-  --background: #0daf7f;
+  --background: var(--light-blue);
   width: 100%;
-  max-width: 300px; /* Define uma largura máxima para o botão */
-  margin: 0 auto; /* Centraliza horizontalmente */
+  max-width: 300px;
+  margin: 0 auto;
   margin-top: 1rem;
 }
 
 ion-input {
-  border-right: 1px solid #0daf7f;
-  border-bottom: 1px solid #0daf7f;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn-inscrever-se {
@@ -198,21 +200,20 @@ ion-input {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px; /* Espaço entre os elementos */
-  padding: 0 16px; /* Define o padding lateral específico */
+  gap: 16px;
+  padding: 0 16px;
   margin: auto;
   text-align: center;
   width: fit-content;
 }
 
-.align-esportivas {
-  color: #0daf7f;
-}
-
 .align-diarias {
-  color: #e63946;
+  color: var(--yellow-desc);
 }
 
+.align-esportivas {
+  color: var(--purple-desc);
+}
 .icon-label {
   display: flex;
   align-items: center;

@@ -1,10 +1,10 @@
 .item-lista ion-label {
-  color: #0daf7f;
+  color: var(--light-blue);
   margin-bottom: 0.5rem;
 }
 
 ion-button {
-  --background: #0daf7f;
+  --background: var(--light-blue);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -12,13 +12,13 @@ ion-button {
 
 ion-segment {
   margin-top: 2.5rem;
-  --background: #121214;
+  --background: var(--background-darl);
 }
 
 div {
   h2,
   p {
-    color: white;
+    color: var(--text-white);
   }
 }
 
@@ -31,23 +31,22 @@ ul {
 .item-lista {
   border-radius: 8px;
   padding: 1rem;
-  color: white;
+  color: var(--text-white);
 }
 
 .item-lista:hover {
-  background-color: #2e2e2e;
+  background-color: var(--background-hover);
   transform: translateY(-2px);
 }
 
 .item-lista ion-label {
   color: var(--text-light);
-  
 }
 
 .item-lista ion-input {
-  background-color: #2e2e2e;
+  background-color: var(--background-dark);
   border-radius: 5px;
-  color: white;
+  color: var(--text-white);
   padding: 0.5rem;
   --padding-start: 0.5rem;
   --padding-end: 0.5rem;
@@ -65,16 +64,16 @@ ul {
 }
 
 .centered-button {
-  --background: #0daf7f;
+  --background: var(--light-blue);
   width: 100%;
   max-width: 300px; /* Define uma largura máxima para o botão */
   margin: 0 auto; /* Centraliza horizontalmente */
   margin-top: 1rem;
 }
 
-ion-input{
-  border-right: 1px solid #0daf7f;
-  border-bottom: 1px solid #0daf7f;
+ion-input {
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
   transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
 }

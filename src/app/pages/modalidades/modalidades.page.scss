@@ -1,54 +1,50 @@
-/* Estilos gerais */
 ion-label {
-  color: #0daf7f;
+  color: var(--light-blue);
 }
 
 ion-segment {
   margin-top: 2.5rem;
-  --background: #121214;
+  --background: var(--background-dark);
 }
 
-/* Estilos para a lista */
 ul {
-  margin: 0; /* Remove margem padrão */
+  margin: 0;
   margin-top: 15px;
-  padding: 0; /* Remove padding padrão */
-  list-style-type: none; /* Remove os marcadores da lista */
+  padding: 0;
+  list-style-type: none;
 }
 
 .item-lista {
-  background-color: #1c1c1e;
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 1rem; /* Padding para os itens */
-  margin-bottom: 1rem; /* Espaçamento entre os itens */
-  color: white; /* Cor da fonte */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  background-color: var(--background-dark);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .item-lista:hover {
-  background-color: rgba(41, 128, 185, 0.4); /* Mudança de fundo ao passar o mouse */
-  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+  background-color: rgba(41, 128, 185, 0.4);
+  transform: translateY(-2px);
 }
 
 .item-lista h3 {
-  margin: 0; /* Remove margem do título */
-  color: var(--text-green); /* Cor do título */
+  margin: 0;
+  color: var(--text-green);
   display: flex;
-  justify-content: space-between; /* Alinha nome e data */
-  align-items: center; /* Alinha verticalmente */
+  justify-content: space-between;
+  align-items: center;
 }
 
 .item-lista p {
-  margin: 0.25rem 0; /* Margens para os parágrafos */
-  color: rgba(255, 255, 255, 0.9); /* Cor do texto */
+  margin: 0.25rem 0;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .jogador-data {
-  font-size: 12px; /* Tamanho da fonte para a data */
-  color: rgba(255, 255, 255, 0.7); /* Cor da data */
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 .container {
@@ -56,20 +52,30 @@ ul {
 }
 
 .item-lista-nao-inscrito h3 {
-  color: #e63946; /* Cor do título */
+  color: var(--light-red);
+}
+
+.inscrito {
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+}
+
+.item-lista-nao-inscrito {
+  border-right: 2px solid var(--light-red);
+  border-bottom: 2px solid var(--light-red);
 }
 
 .alerta-inscrever {
   margin-top: 1rem;
-  --background: #0daf7f;
+  --background: var(--light-blue);
 }
 
 .alerta-cancelar {
   margin-top: 1rem;
-  --background: #e63946; /* Cor do botão */
+  --background: var(--light-red);
 }
 
-ul li h3{
+ul li h3 {
   margin-bottom: 1rem;
 }
 

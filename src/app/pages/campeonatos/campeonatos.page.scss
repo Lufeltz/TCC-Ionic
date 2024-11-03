@@ -1,17 +1,10 @@
 ion-label {
-  color: #0daf7f;
+  color: var(--light-blue);
 }
 
 ion-segment {
   margin-top: 2.5rem;
-  --background: #121214;
-}
-
-div {
-  h2,
-  p {
-    color: white;
-  }
+  --background: var(--background-dark);
 }
 
 .toggle {
@@ -20,26 +13,21 @@ div {
 }
 
 .item-lista ion-label {
-  color: #0daf7f;
+  color: var(--light-blue);
   margin-bottom: 0.5rem;
 }
 
 ion-button {
-  --background: #0daf7f;
+  --background: var(--light-blue);
   width: 100%;
   display: flex;
   justify-content: center;
 }
 
-ion-segment {
-  margin-top: 2.5rem;
-  --background: #121214;
-}
-
 div {
   h2,
   p {
-    color: white;
+    color: var(--text-white);
   }
 }
 
@@ -52,11 +40,11 @@ ul {
 .item-lista {
   border-radius: 8px;
   padding: 1rem;
-  color: white;
+  color: var(--text-white);
 }
 
 .item-lista:hover {
-  background-color: #2e2e2e;
+  background-color: var(--background-hover);
   transform: translateY(-2px);
 }
 
@@ -66,9 +54,9 @@ ul {
 
 .item-lista ion-input,
 .item-lista ion-datetime {
-  background-color: #2e2e2e;
+  background-color: var(--background-dark);
   border-radius: 5px;
-  color: white;
+  color: var(--text-white);
   padding: 0.5rem;
   --padding-start: 0.5rem;
   --padding-end: 0.5rem;
@@ -87,38 +75,38 @@ ul {
 }
 
 .centered-button {
-  --background: #0daf7f;
+  --background: var(--light-blue);
   width: 100%;
-  max-width: 300px; /* Define uma largura máxima para o botão */
-  margin: 0 auto; /* Centraliza horizontalmente */
+  max-width: 300px;
+  margin: 0 auto;
   margin-top: 1rem;
 }
 
 .item-lista ion-input {
-  border-right: 1px solid #0daf7f;
-  border-bottom: 1px solid #0daf7f;
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .item-lista ion-datetime {
-  background-color: #2e2e2e; /* Fundo do datetime */
-  color: white; /* Texto do datetime */
-  border-radius: 5px; /* Arredondamento dos cantos */
-  padding: 0.5rem; /* Padding interno */
+  background-color: var(--background-hover);
+  color: var(--text-white);
+  border-radius: 5px;
+  padding: 0.5rem;
 }
 
 .item-lista ion-datetime::part(native) {
-  border-right: 1px solid #0daf7f; /* Borda direita */
-  border-bottom: 1px solid #0daf7f; /* Borda inferior */
+  border-right: 1px solid var(--light-blue);
+  border-bottom: 1px solid var(--light-blue);
 }
 
 .item-lista ion-datetime::placeholder {
-  color: rgba(255, 255, 255, 0.7); /* Cor do placeholder */
+  color: rgba(255, 255, 255, 0.7);
 }
 
 ion-input ion-icon {
-  color: #0daf7f;
+  color: var(--light-blue);
 }
 
 .btn-inscrever-se {
@@ -126,13 +114,13 @@ ion-input ion-icon {
 }
 
 .input-container {
-  width: 100%; /* Certifique-se de que a largura é 100% */
+  width: 100%;
   display: flex;
-  align-items: center; /* Alinhamento vertical */
+  align-items: center;
 }
 
 .cep-button {
-  margin-left: 10px; /* Adiciona espaço entre o input e o botão */
+  margin-left: 10px;
 }
 
 .input-container ion-button {

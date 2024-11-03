@@ -4,7 +4,7 @@
     background-color: #202024;
   
     h1 {
-      color: #0daf7f;
+      color: var(--light-blue);
       font-size: 1.6rem;
       font-weight: bolder;
       text-align: center;
@@ -15,18 +15,18 @@
     }
   
     p a {
-      color: #0daf7f;
+      color: var(--light-blue);
       text-decoration: none;
     }
   
     ion-button {
       margin-top: 1.5rem;
-      --background: #0daf7f;
+      --background: var(--light-blue);
     }
   
     ion-item {
       --background: #121214;
-      color: #fff;
+      color: var(--gray-50);
       --border-radius: 5px;
       margin-bottom: 15px;
       --padding-bottom: 10px;
@@ -34,11 +34,11 @@
     }
   
     ion-icon {
-      color: #0daf7f;
+      color: var(--light-blue);
     }
   
     ion-radio-group {
-      color: #fff;
+      color: var(--gray-50);
     }
   
     ion-list {

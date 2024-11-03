@@ -1,11 +1,10 @@
 .cadeado-icon {
   color: var(--text-green);
-  font-size: 1.5rem; /* Ajuste o tamanho conforme necessário */
+  font-size: 1.5rem;
   vertical-align: middle;
-  margin-left: 8px; /* Espaçamento à esquerda do ícone */
+  margin-left: 8px;
 }
 
-/* Restante do seu CSS */
 .campeonatos-container {
   padding: 16px;
 }
@@ -17,22 +16,22 @@ ul {
 }
 
 .campeonato {
-  background-color: var(--background-light);
+  background-color: var(--background-dark);
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 16px;
   margin-top: 16px;
   position: relative;
   z-index: 1;
-  border-right: 1px solid var(--text-green);
-  border-bottom: 1px solid var(--text-green);
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .campeonato-header {
   display: flex;
-  justify-content: space-between; /* Isso mantém os elementos nas extremidades */
+  justify-content: space-between;
   align-items: center;
   margin-bottom: 8px;
 }
@@ -40,7 +39,7 @@ ul {
 .campeonato-nome {
   font-size: 1.25rem;
   color: var(--text-green);
-  flex-grow: 1; /* Isso permite que o título use todo o espaço disponível à esquerda */
+  flex-grow: 1;
   display: flex;
   justify-content: space-around;
 }
@@ -79,23 +78,18 @@ ul {
 }
 
 ion-accordion {
-  background-color: var(--background-light);
-}
-
-ion-accordion-group {
-  background-color: green;
+  background-color: var(--background-dark);
 }
 
 div[slot="header"] {
-  background: var(--background-light);
+  background: var(--background-dark);
 }
 
 ion-item {
-  --background: var(--background-light);
+  --background: var(--background-dark);
   color: var(--text-green);
 }
 
-/* Responsividade */
 @media (max-width: 375px) {
   .campeonato {
     padding: 12px;
@@ -122,15 +116,15 @@ ion-button {
 }
 
 .detalhes strong {
-  color: #ffb703;
+  color: var(--yellow-desc);
 }
 
 .endereco strong {
-  color: #e63946;
+  color: var(--light-red);
 }
 
 .header strong {
-  color: #9b59b6;
+  color: var(--purple-desc);
 }
 
 ion-button {
@@ -154,5 +148,5 @@ ion-button {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%; /* Ocupa toda a altura do botão */
+  height: 100%;
 }

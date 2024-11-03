@@ -1,5 +1,5 @@
 ion-label {
-  color: #0daf7f;
+  color: var(--light-blue);
 }
 
 ion-segment {
@@ -16,7 +16,7 @@ div {
 
 ion-button {
   width: 100%;
-  --background: #0daf7f;
+  --background: var(--light-blue);
   font-size: 1rem;
   margin-top: 2.5rem;
 }

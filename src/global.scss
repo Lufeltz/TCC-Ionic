@@ -1,20 +1,31 @@
 ion-content {
   --background: var(--background-light);
-  // --background: var(--gray-700);
 }
 
 :root {
+  // backgrounds
   --background-light: #202024;
   --background-dark: #121214;
-  --text-light: #7b7b7b;
-  --text-green: #0daf7f;
-  --text-white: #fff;
-  --background-red: #e63946;
+  --background-red: var(--light-red);
+  --background-hover: #2e2e2e;
 
-  --red: #ef4444;
+  // --light-red: #ef4444;
+  // principais
+  --light-red: #dc2626;
   --light-blue: #3b82f6;
   --dark-blue: #1d4ed8;
 
+  // icones
+  --blue-lock: #00b4d8;
+
+  // texto
+  --yellow-desc: #ffb703;
+  --purple-desc: #b666e7;
+  --text-light: #7b7b7b;
+  --text-green: var(--light-blue);
+  --text-white: var(--gray-50);
+
+  // extra
   --gray-50: #f9fafb;
   --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;

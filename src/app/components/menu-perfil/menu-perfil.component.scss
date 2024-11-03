@@ -1,46 +1,49 @@
 .toolbar-tabs {
-  --background: #202024;
-  border-left: 2px solid #0daf7f;
+  // --background: var(--background-light);
+  --background: var(--background-dark);
+  border-left: 2px solid var(--light-blue);
   border-top-left-radius: 30px;
 }
 
 .toolbar-menu {
-  --background: #121214;
-  border-bottom: 1px solid #0daf7f;
+  --background: var(--background-dark);
+  border-bottom: 1px solid var(--light-blue);
 }
 
 ion-menu {
-  --background: #121214;
+  --background: var(--background-dark);
 }
 
 ion-content {
-  --background: #202024;
-  border-left: 2px solid #0daf7f;
+  --background: var(--background-dark);
+  // --background: var(--background-light);
+  border-left: 2px solid var(--light-blue);
 }
 
 ion-item {
-  --background: #202024;
-  color: #fff;
+  --background: var(--background-dark);
+  // --background: var(--background-light);
+  color: var(--gray-50);
 }
 
 ion-label:hover {
-  color: #0daf7f;
+  color: var(--light-blue);
 }
 
 .sublist ion-label:hover {
-  color: #ffb703;
+  color: var(--yellow-desc);
 }
 
 .logout ion-label:hover {
-  color: #e63946;
+  color: var(--light-red);
 }
 
 ion-title {
-  color: #0daf7f;
+  color: var(--light-blue);
 }
 
 ion-menu-button {
-  color: #0daf7f;
+  color: var(--light-blue);
 }
 
 .item {
@@ -50,12 +53,12 @@ ion-menu-button {
 
   .i-tem {
     font-size: 1.5rem;
-    color: #0daf7f;
+    color: var(--light-blue);
   }
 
   .metas {
     font-size: 1.5rem;
-    color: #b666e7;
+    color: var(--purple-desc);
   }
 }
 
@@ -73,7 +76,7 @@ ion-menu-button {
   gap: 10px;
 
   .sub-list {
-    color: #ffb703;
+    color: var(--yellow-desc);
   }
 }
 
@@ -86,6 +89,6 @@ ion-menu-button {
   gap: 10px;
 
   .log-out {
-    color: #e63946;
+    color: var(--light-red);
   }
 }

@@ -3,21 +3,21 @@ ion-content {
     h2 {
       margin-top: 40px;
       text-align: center;
-      color: #fff;
+      color: var(--gray-50);
     }
   
     p {
-      color: #fff;
+      color: var(--gray-50);
     }
   
     ion-toggle,
     ion-text {
-      color: #fff;
+      color: var(--gray-50);
     }
   
     h3 {
       margin-top: 50px;
-      color: #0daf7f;
+      color: var(--light-blue);
       text-align: center;
     }
   }
@@ -31,14 +31,14 @@ ion-content {
   }
   
   ion-toggle {
-    color: #fff;
+    color: var(--gray-50);
   
     --handle-max-height: auto;
   
     --track-background: #d2caca;
-    --track-background-checked: #0daf7f;
-    --handle-background: #fff;
-    --handle-background-checked: #fff;
+    --track-background-checked: var(--light-blue);
+    --handle-background: var(--gray-50);
+    --handle-background-checked: var(--gray-50);
   }
   
   ion-toggle::part(track) {

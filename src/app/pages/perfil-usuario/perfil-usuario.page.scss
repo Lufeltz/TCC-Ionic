@@ -1,16 +1,15 @@
 ion-label {
-    color: #0daf7f;
+  color: var(--light-blue);
+}
+
+ion-segment {
+  margin-top: 2.5rem;
+  --background: var(--background-dark);
+}
+
+div {
+  h2,
+  p {
+    color: var(--text-white);
   }
-  
-  ion-segment {
-    margin-top: 2.5rem;
-    --background: #121214;
-  }
-  
-  div {
-    h2,
-    p {
-      color: white;
-    }
-  }
-  
+}

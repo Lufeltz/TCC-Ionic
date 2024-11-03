@@ -1,59 +1,44 @@
-/* Estilos gerais */
-ion-label {
-  color: #0daf7f;
-}
-
-ion-button {
-  --background: #0daf7f;
-}
-
-ion-segment {
-  margin-top: 2.5rem;
-  --background: #121214;
-}
-
 h2 {
-  color: #0daf7f;
+  color: var(--light-blue);
   margin-bottom: 1rem;
   margin-top: 3rem;
 }
 
-/* Estilos para a lista */
 ul {
-  margin: 0; /* Remove margem padrão */
+  margin: 0;
   margin-top: 3rem;
-  padding: 0; /* Remove padding padrão */
-  list-style-type: none; /* Remove os marcadores da lista */
+  padding: 0;
+  list-style-type: none;
 }
 
 .item-lista {
-  background-color: #1c1c1e;
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 1rem; /* Padding para os itens */
-  margin-bottom: 1rem; /* Espaçamento entre os itens */
-  color: white; /* Cor da fonte */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  background-color: var(--background-dark);
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-white);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .item-lista:hover {
-  background-color: rgba(41, 128, 185, 0.4); /* Mudança de fundo ao passar o mouse */
-  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+  background-color: rgba(41, 128, 185, 0.4);
+  transform: translateY(-2px);
 }
 
 .item-lista h3 {
-  margin: 0; /* Remove margem do título */
-  color: var(--text-green); /* Cor do título */
+  margin: 0;
+  color: var(--text-green);
   display: flex;
   justify-content: center;
   margin-bottom: 1rem;
 }
 
 .item-lista p {
-  margin: 0.25rem 0; /* Margens para os parágrafos */
-  color: rgba(255, 255, 255, 0.9); /* Cor do texto */
+  margin: 0.25rem 0;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .container {

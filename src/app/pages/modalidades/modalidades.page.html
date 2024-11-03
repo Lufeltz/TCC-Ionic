@@ -19,7 +19,7 @@
     <ul>
       <li
         *ngFor="let modalidade of getModalidadesInscritas()"
-        class="item-lista"
+        class="item-lista inscrito"
       >
         <h3>
           <div>
@@ -79,7 +79,7 @@
               [img]="Medal"
               class="btn-inscrever-se"
               [size]="20"
-              [color]="'#e63946'"
+              [color]="'var(--light-red)'"
             ></lucide-angular>
             {{ modalidade.nome }}
           </div>

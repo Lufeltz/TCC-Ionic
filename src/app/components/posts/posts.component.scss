@@ -9,13 +9,16 @@ ul {
 }
 
 li {
-  background-color: var(--background-light);
+  background-color: var(--background-dark);
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 16px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  border-right: 1px solid var(--text-green);
-  border-bottom: 1px solid var(--text-green);
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  // box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  // transition: background-color 0.3s, transform 0.3s;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .publicacao-header,
@@ -51,7 +54,6 @@ li {
 .publicacao-interacoes {
   border-top: 1px solid var(--text-light);
   padding-top: 16px;
-  // background-color: white;
 }
 
 .curtidas-info {
@@ -80,12 +82,13 @@ li {
 .li-curtidas,
 .li-comentarios,
 .li-curtidas-comentarios {
-  // border: 1px solid var(--text-light);
-  background-color: var(--background-dark);
+  background-color: var(--background-light);
   padding: 10px;
   border-radius: 4px;
   margin-bottom: 8px;
   border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .li-curtidas p,
@@ -153,18 +156,14 @@ li {
 }
 
 ion-accordion {
-  background-color: var(--background-light);
-}
-
-ion-accordion-group {
-  background-color: green;
+  background-color: var(--background-dark);
 }
 
 div[slot="header"] {
-  background: var(--background-light);
+  background: var(--background-dark);
 }
 
 ion-item {
-  --background: var(--background-light);
+  --background: var(--background-dark);
   color: var(--text-green);
 }

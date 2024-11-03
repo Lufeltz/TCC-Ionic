@@ -1,6 +1,6 @@
-ion-content {
-  --background: #121214;
-}
+// ion-content {
+//   --background: #121214;
+// }
 
 div {
   h2,
@@ -10,13 +10,13 @@ div {
 }
 
 ion-segment {
-  --background: #202024;
-  color: #0daf7f;
+  --background: var(--background-dark);
+  color: var(--light-blue);
 }
 
 ion-searchbar {
   color: #7b7b7b;
-  --background: #202024;
+  --background: var(--background-dark);
   margin-top: 2rem;
 }
 
@@ -36,7 +36,7 @@ ion-searchbar {
 }
 
 ion-toggle {
-  color: #fff;
+  color: var(--gray-50);
   --handle-width: 20px;
   --handle-height: 20px;
 
@@ -44,8 +44,8 @@ ion-toggle {
 
   --track-background: #d2caca;
   --track-background-checked: #333337;
-  --handle-background: #fff;
-  --handle-background-checked: #0daf7f;
+  --handle-background: var(--gray-50);
+  --handle-background-checked: var(--light-blue);
 }
 
 ion-toggle::part(track) {
@@ -57,7 +57,7 @@ ion-toggle::part(track) {
 }
 
 ion-button {
-  --background: #0daf7f;
+  --background: var(--light-blue);
 }
 
 .criar-post {

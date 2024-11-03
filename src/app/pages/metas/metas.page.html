@@ -19,15 +19,21 @@
       <ul>
         <li class="item-lista2">
           <ion-label>Titulo</ion-label>
-          <ion-input [(ngModel)]="meta.titulo"></ion-input>
+          <ion-input
+            [(ngModel)]="meta.titulo"
+            placeholder="Hidrate-se"
+          ></ion-input>
         </li>
         <li class="item-lista2">
           <ion-label>Descrição</ion-label>
-          <ion-input [(ngModel)]="meta.descricao"></ion-input>
+          <ion-input
+            [(ngModel)]="meta.descricao"
+            placeholder="Beber 2 litros de água durante o dia"
+          ></ion-input>
         </li>
         <li class="item-lista2">
-          <ion-label>Progresso</ion-label>
-          <ion-input [(ngModel)]="meta.progresso"></ion-input>
+          <ion-label>Objetivo</ion-label>
+          <ion-input [(ngModel)]="meta.progresso" placeholder="2"></ion-input>
         </li>
       </ul>
       <ion-button
@@ -54,9 +60,10 @@
             class="btn-inscrever-se"
             [size]="20"
           ></lucide-angular>
-          <ion-label>Diárias</ion-label>
+          <ion-label class="label-titulo">Diárias</ion-label>
         </div>
         <ion-toggle
+          class="toggle-diarias"
           slot="end"
           (ionChange)="toggleFilterDiarias($event)"
           [checked]="filterDiarias"
@@ -71,9 +78,10 @@
             class="btn-inscrever-se"
             [size]="20"
           ></lucide-angular>
-          <ion-label>Esportivas</ion-label>
+          <ion-label class="label-titulo">Esportivas</ion-label>
         </div>
         <ion-toggle
+          class="toggle-esportivas"
           slot="end"
           (ionChange)="toggleFilterEsportivas($event)"
           [checked]="filterEsportivas"

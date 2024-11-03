@@ -1,124 +1,64 @@
-/* Estilos gerais */
-ion-label {
-  color: #0daf7f;
-}
-
-ion-button {
-  --background: #0daf7f;
-}
-
-ion-segment {
-  margin-top: 2.5rem;
-  --background: #121214;
-}
-
 h2 {
-  color: #0daf7f;
+  color: var(--light-blue);
   margin-bottom: 1rem;
   margin-top: 3rem;
 }
 
-/* Estilos para a lista */
 ul {
-  margin: 0; /* Remove margem padrão */
+  margin: 0;
   margin-top: 3rem;
-  padding: 0; /* Remove padding padrão */
-  list-style-type: none; /* Remove os marcadores da lista */
-}
-
-.item-lista {
-  background-color: #1c1c1e;
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 1rem; /* Padding para os itens */
-  margin-bottom: 1rem; /* Espaçamento entre os itens */
-  color: white; /* Cor da fonte */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
-}
-
-.item-lista:hover {
-  background-color: rgba(
-    41,
-    128,
-    185,
-    0.4
-  ); /* Mudança de fundo ao passar o mouse */
-  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
-}
-
-.item-lista h3 {
-  margin: 0; /* Remove margem do título */
-  color: var(--text-green); /* Cor do título */
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-.item-lista p {
-  margin: 0.25rem 0; /* Margens para os parágrafos */
-  color: rgba(255, 255, 255, 0.9); /* Cor do texto */
+  padding: 0;
+  list-style-type: none;
 }
 
 .container {
   margin-top: 2.5rem;
 }
 
-/* Estilos para os toggles */
 .toggle {
   display: flex;
   align-items: center;
   text-align: justify;
   gap: 20px;
   margin-bottom: 20px;
-  background-color: #1c1c1e; /* Fundo mais escuro */
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 10px; /* Padding para o toggle */
-  transition: background-color 0.3s; /* Transição suave no fundo */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+  background-color: var(--background-dark);
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  border-radius: 8px;
+  padding: 10px;
+  transition: background-color 0.3s;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
 }
 
 .toggle:hover {
-  background-color: rgba(13, 175, 127, 0.3); /* Novo fundo ao passar o mouse */
+  background-color: rgba(59, 130, 246, 0.3); /* Usando o light-blue */
 }
 
-/* Estilos para os toggles */
-/* Estilos para os toggles */
 ion-toggle {
-  --handle-background: #0daf7f; /* Cor do handle */
-  --handle-background-checked: #0daf7f; /* Cor do handle quando checado */
-  --track-background: rgba(255, 255, 255, 0.2); /* Cor do track */
-  --track-background-checked: rgba(
-    13,
-    175,
-    127,
-    0.6
-  ); /* Cor do track quando checado (verde claro) */
-  --track-border-radius: 14px; /* Raio da borda do track */
-  --track-height: 24px; /* Altura do track */
-  --track-width: 50px; /* Largura do track */
-  transition: transform 0.3s; /* Transição suave */
+  --handle-background: var(--light-blue);
+  --handle-background-checked: var(--light-blue);
+  --track-background: rgba(255, 255, 255, 0.2);
+  --track-background-checked: rgba(59, 130, 246, 0.6); /* Usando o light-blue */
+  --track-border-radius: 14px;
+  --track-height: 24px;
+  --track-width: 50px;
+  transition: transform 0.3s;
 }
 
 ion-content {
-  --background: #202024;
-
   h2 {
     margin-top: 40px;
     text-align: center;
-    color: #fff;
+    color: var(--gray-50);
   }
 
   p {
-    color: #fff;
+    color: var(--gray-50);
   }
 
   ion-toggle,
   ion-text {
-    color: #fff;
+    color: var(--gray-50);
   }
 
   h3 {
@@ -126,16 +66,12 @@ ion-content {
     justify-content: center;
     align-items: center;
     margin-top: 50px;
-    color: #0daf7f;
+    color: var(--light-blue);
     text-align: center;
     gap: 7px;
   }
 }
 
-
-//lucide
-
-
 .my-icon {
- color: #0daf7f;
+  color: var(--light-blue);
 }

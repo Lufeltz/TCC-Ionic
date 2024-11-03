@@ -17,15 +17,15 @@ ul {
 }
 
 .campeonato {
-  background-color: var(--background-light);
+  background-color: var(--background-dark);
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 16px;
   margin-top: 16px;
   position: relative;
   z-index: 1;
-  border-right: 1px solid var(--text-green);
-  border-bottom: 1px solid var(--text-green);
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
   transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
 }
@@ -79,19 +79,15 @@ ul {
 }
 
 ion-accordion {
-  background-color: var(--background-light);
-}
-
-ion-accordion-group {
-  background-color: green;
+  background-color: var(--background-dark);
 }
 
 div[slot="header"] {
-  background: var(--background-light);
+  background: var(--background-dark);
 }
 
 ion-item {
-  --background: var(--background-light);
+  --background: var(--background-dark);
   color: var(--text-green);
 }
 
@@ -114,7 +110,7 @@ ion-item {
 ion-button {
   margin-top: 16px;
   // --background: var(--text-green);
-  --background: #00b4d8;
+  --background: var(--blue-lock);
   --color: var(--text-white);
 }
 
@@ -123,15 +119,15 @@ ion-button {
 }
 
 .detalhes strong {
-  color: #ffb703;
+  color: var(--yellow-desc);
 }
 
 .endereco strong {
-  color: #e63946;
+  color: var(--light-red);
 }
 
 .header strong {
-  color: #9b59b6;
+  color: var(--purple-desc);
 }
 
 .btn-inscrever-se {
