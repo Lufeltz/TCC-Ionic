@@ -1,4 +1,3 @@
-/* Estilos gerais */
 ion-label {
   color: var(--light-blue);
 }
@@ -12,20 +11,19 @@ ion-segment {
   --background: #121214;
 }
 
-/* Estilos para a lista */
 .container {
   margin-top: 2.5rem;
 }
 
 .card {
   background-color: var(--background-dark);
-  border-radius: 8px; /* Bordas arredondadas */
+  border-radius: 8px;
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
-  padding: 1rem; /* Padding para os itens */
-  color: white; /* Cor da fonte */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  margin-top: 1rem; /* Espaçamento entre o card e outros elementos */
+  padding: 1rem;
+  color: white;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  margin-top: 1rem;
 }
 
 .img-container {
@@ -36,47 +34,47 @@ ion-segment {
 h2,
 h3,
 p {
-  text-align: center; /* Centraliza o texto */
-  margin: 0.5rem 0; /* Margens para os títulos e parágrafos */
-  color: rgba(255, 255, 255, 0.9); /* Cor do texto */
+  text-align: center;
+  margin: 0.5rem 0;
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .custom-select-container {
-  position: relative; /* Para posicionar corretamente se necessário */
-  width: 100%; /* Largura total */
-  border-radius: 8px; /* Bordas arredondadas */
-  overflow: hidden; /* Para esconder bordas do select */
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
   // border-right: 1px solid var(--light-blue);
   border-bottom: 1px solid var(--light-blue);
 }
 
 .select-wrapper {
-  display: flex; /* Flex para alinhar ícones e select */
-  align-items: center; /* Centraliza verticalmente */
-  justify-content: space-between; /* Espaçamento entre select e ícones */
-  cursor: pointer; /* Cursor em forma de ponteiro */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
 .custom-select {
-  background-color: #202024; /* Cor de fundo */
-  color: var(--light-blue); /* Cor do texto */
-  border: none; /* Remove borda padrão */
-  border-radius: 8px; /* Bordas arredondadas */
-  padding: 1rem; /* Padding */
-  width: 100%; /* Largura total */
-  appearance: none; /* Remove a seta padrão do select */
-  -webkit-appearance: none; /* Para Safari */
-  -moz-appearance: none; /* Para Firefox */
-  text-align: center; /* Centraliza o texto do select */
+  background-color: #202024;
+  color: var(--light-blue);
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  text-align: center;
 }
 .custom-select:focus {
-  outline: none; /* Remove o contorno padrão */
+  outline: none;
 }
 
 .caret-icon {
-  font-size: 1.5rem; /* Tamanho do ícone */
-  margin-left: 0.5rem; /* Margem esquerda para espaçamento */
-  margin-right: 0.5rem; /* Margem direita para espaçamento */
+  font-size: 1.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .btn-center {
