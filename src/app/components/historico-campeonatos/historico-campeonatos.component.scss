@@ -1,11 +1,10 @@
 .cadeado-icon {
   color: var(--light-blue);
-  font-size: 1.5rem; /* Ajuste o tamanho conforme necessário */
+  font-size: 1.5rem;
   vertical-align: middle;
-  margin-left: 8px; /* Espaçamento à esquerda do ícone */
+  margin-left: 8px;
 }
 
-/* Restante do seu CSS */
 .campeonatos-container {
   padding: 16px;
 }
@@ -26,8 +25,8 @@ ul {
   z-index: 1;
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .campeonato-header {
@@ -91,7 +90,6 @@ ion-item {
   color: var(--light-blue);
 }
 
-/* Responsividade */
 @media (max-width: 375px) {
   .campeonato {
     padding: 12px;
@@ -132,5 +130,12 @@ ion-button {
 
 .btn-inscrever-se {
   margin-left: 5px;
+}
 
+.detalhes-header {
+  color: var(--light-blue);
+}
+
+ion-accordion:hover .detalhes-header ion-label {
+  color: var(--light-blue);
 }

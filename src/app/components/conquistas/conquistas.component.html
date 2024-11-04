@@ -1,41 +1,41 @@
 <div>
   <ul>
     <li *ngFor="let esporte of estatisticasEsportivas" class="modalidade">
-      <h3>
-        <lucide-angular
-          [img]="Award"
-          class="btn-inscrever-se"
-          [size]="20"
-        ></lucide-angular
-        >{{ esporte.esporte }}
-      </h3>
       <ul>
         <li
           *ngFor="let estatistica of esporte.estatisticas"
-          class="estatistica"
+          class="item-lista"
           [ngClass]="{
-            completo: estatistica.completo,
-            incompleto: !estatistica.completo
+            'meta-esportiva': esporte.esporte.includes('Metas Esportivas'),
+            'meta-diaria': esporte.esporte.includes('Diárias'),
+            'meta-geral':
+              !esporte.esporte.includes('Metas Esportivas') &&
+              !esporte.esporte.includes('Diárias'),
+            'meta-completo': estatistica.completo,
+            'meta-incompleto': !estatistica.completo
           }"
         >
           <div class="estatistica-info">
-            <p class="estatistica-nome">Titulo: {{ estatistica.titulo }}</p>
+            <h3
+              [ngClass]="{
+                'titulo-completo': estatistica.completo,
+                'titulo-incompleto': !estatistica.completo
+              }"
+            >
+              {{ estatistica.titulo }}
+              <span class="texto-light">{{ esporte.esporte }}</span>
+            </h3>
             <p class="estatistica-descricao">
               Descrição: {{ estatistica.descricao }}
             </p>
             <p class="estatistica-progresso">
-              Progresso: {{ estatistica.progresso }}
+              Progresso: {{ estatistica.progresso }} /
+              {{ estatistica.objetivo }}
             </p>
             <p class="estatistica-objetivo">
-              Objetivo: {{ estatistica.objetivo }}
+              Desempenho: 15% da conquista completa
             </p>
           </div>
-
-          <!-- <img
-            alt="{{ estatistica.titulo }}"
-            [src]="estatistica.link"
-            class="estatistica-imagem"
-          /> -->
         </li>
       </ul>
     </li>

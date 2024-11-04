@@ -1,9 +1,44 @@
 <ul>
   <li *ngFor="let canal of canaisDeSaude" class="item-lista">
     <h3>{{ canal.nome }}</h3>
-    <p>Responsável: {{ canal.responsavel }}</p>
-    <p>Telefone: {{ canal.telefone }}</p>
-    <p>Endereço: {{ canal.endereco }}</p>
-    <p>Horário de Funcionamento: {{ canal.horarioFuncionamento }}</p>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="Stethoscope"
+        class="btn-inscrever-se"
+        [size]="20"
+        color="var(--text-new-green)"
+      ></lucide-angular>
+      <p><strong class="user">Responsável:</strong> {{ canal.responsavel }}</p>
+    </div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="Phone"
+        class="btn-inscrever-se"
+        [size]="20"
+        color="var(--text-new-green)"
+      ></lucide-angular>
+      <p><strong class="user">Telefone: </strong>{{ canal.telefone }}</p>
+    </div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="MapPinPlusInside"
+        class="btn-inscrever-se"
+        [size]="20"
+        color="var(--text-new-green)"
+      ></lucide-angular>
+      <p><strong class="user">Endereço: </strong>{{ canal.endereco }}</p>
+    </div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="Clock"
+        class="btn-inscrever-se"
+        [size]="20"
+        color="var(--text-new-green)"
+      ></lucide-angular>
+      <p>
+        <strong class="user">Horário de Funcionamento: </strong
+        >{{ canal.horarioFuncionamento }}
+      </p>
+    </div>
   </li>
 </ul>

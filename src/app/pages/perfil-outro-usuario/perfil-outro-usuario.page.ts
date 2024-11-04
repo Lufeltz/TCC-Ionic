@@ -19,6 +19,7 @@ import { EstatisticasEsportivasComponent } from '../../components/estatisticas-e
 import { EstatisticasPessoaisComponent } from '../../components/estatisticas-pessoais/estatisticas-pessoais.component';
 import { HistoricoCampeonatosComponent } from '../../components/historico-campeonatos/historico-campeonatos.component';
 import { Router } from '@angular/router';
+import { ConquistasComponent } from "../../components/conquistas/conquistas.component";
 
 @Component({
   selector: 'app-perfil-outro-usuario',
@@ -42,7 +43,8 @@ import { Router } from '@angular/router';
     EstatisticasEsportivasComponent,
     EstatisticasPessoaisComponent,
     HistoricoCampeonatosComponent,
-  ],
+    ConquistasComponent
+],
 })
 export class PerfilOutroUsuarioPage implements OnInit {
   pageTitle: string = 'Carlos Ribeiro';

@@ -148,20 +148,19 @@ ion-button {
 }
 
 .icon-align {
-  display: flex; /* Usar flexbox para o alinhamento */
-  align-items: center; /* Alinhamento vertical central */
-  margin-top: 4px; /* Espaçamento acima */
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
 }
 
 .icon-align lucide-angular {
-  margin-right: 5px; /* Espaçamento à direita do ícone */
+  margin-right: 5px;
 }
 
-/* Se necessário, adicione alguma regra para o texto dentro da div */
 .icon-align p {
-  margin: 0; /* Remover margens do parágrafo */
-  color: var(--text-white); /* Cor do texto, se desejar */
-  font-size: 1rem; /* Ajustar o tamanho da fonte */
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
 }
 
 .skeleton {
@@ -192,4 +191,13 @@ ion-button {
       width: 100%;
     }
   }
+}
+.detalhes-header {
+  color: var(--light-blue); /* Define a cor da fonte como --light-blue */
+}
+
+ion-accordion:hover .detalhes-header ion-label {
+  color: var(
+    --light-blue
+  ); /* Garante que a cor permaneça --light-blue ao passar o mouse */
 }

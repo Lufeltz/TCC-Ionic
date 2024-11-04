@@ -1,108 +1,112 @@
 body {
-  background-color: #121212; /* Cor de fundo da página */
-  font-family: Arial, sans-serif; /* Fonte mais legível */
+  background-color: #121212;
+  font-family: "Arial", sans-serif;
 }
 
 p,
 li {
-  color: white;
+  color: var(--text-white);
 }
 
 ul {
-  margin: 0; /* Remove margem padrão */
-  padding: 0; /* Remove padding padrão */
-  list-style-type: none; /* Remove os marcadores da lista */
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 
-li {
-  border-radius: 8px; /* Bordas mais arredondadas */
-  padding: 1rem; /* Uniformizar o padding */
-  margin-bottom: 1rem; /* Espaçamento entre os itens */
-  transition: background 0.3s ease, transform 0.2s ease; /* Transição suave */
+div {
+  margin-top: 15px;
 }
 
-li.completo {
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  background: linear-gradient(
-    135deg,
-    rgba(13, 175, 127, 0.2),
-    rgba(13, 175, 127, 0.4)
-  ); /* Fundo com gradiente verde */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+.item-lista {
+  background-color: var(--background-dark);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-white);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-li.incompleto {
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  background: linear-gradient(
-    135deg,
-    rgba(255, 77, 77, 0.2),
-    rgba(255, 77, 77, 0.4)
-  ); /* Fundo com gradiente vermelho */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+.item-lista:hover {
+  background-color: rgba(41, 128, 185, 0.4);
+  transform: translateY(-2px);
 }
 
-li:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(13, 175, 127, 0.4),
-    rgba(13, 175, 127, 0.6)
-  ); /* Destaque ao passar o mouse */
-  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+.meta-esportiva {
+  border-right: 3px solid var(--purple-desc);
+  border-bottom: 2px solid var(--purple-desc);
 }
 
-.estatistica {
-  display: flex; /* Para alinhar os itens em linha */
-  justify-content: space-between; /* Espaço entre os itens */
-  align-items: center; /* Alinhar verticalmente ao centro */
+.meta-diaria {
+  border-right: 3px solid var(--yellow-desc);
+  border-bottom: 2px solid var(--yellow-desc);
 }
 
-.estatistica-info {
-  flex: 1; /* Permitir que a informação ocupe o espaço disponível */
+.meta-geral {
+  border-right: 3px solid var(--text-new-green);
+  border-bottom: 2px solid var(--text-new-green);
 }
 
-.estatistica-imagem {
-  width: 120px; /* Largura da imagem (ajuste conforme necessário) */
-  height: auto; /* Manter a proporção da imagem */
-  margin-left: 1rem; /* Espaçamento entre a informação e a imagem */
+.meta-completo {
+  border-color: var(--text-new-green);
+}
+
+.meta-incompleto {
+  border-color: var(--light-red);
+}
+
+.titulo-completo {
+  color: var(--text-new-green);
+}
+
+.titulo-incompleto {
+  color: var(--light-red);
+}
+
+
+.item-lista p {
+  margin: 0;
 }
 
 h3 {
-  margin-top: -1px;
-  font-size: 1.5rem; /* Tamanho da fonte */
-  color: white; /* Cor do título */
-  text-align: center; /* Alinhamento centralizado */
-  margin-bottom: 1rem; /* Espaçamento inferior */
-  border-right: 2px solid white;
-  border-bottom: 2px solid white;
-  padding: 0.5rem; /* Padding para o título */
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.1),
-    rgba(255, 255, 255, 0.3)
-  ); /* Fundo com gradiente branco */
-  border-radius: 8px; /* Bordas arredondadas */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
-  transition: background-color 0.3s ease; /* Transição suave */
-}
-
-h3:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.3),
-    rgba(255, 255, 255, 0.5)
-  ); /* Destaque ao passar o mouse */
-}
-
-.modalidade {
-  border-bottom: 2px solid rgba(255, 255, 255, 0.3); /* Linha de separação entre modalidades */
-  padding-bottom: 1rem; /* Padding inferior para espaçamento da linha */
-  margin-bottom: 15px; /* Margem inferior para espaçamento entre as modalidades */
+  margin: 0;
+  color: var(--text-white);
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 .btn-inscrever-se {
   margin-right: 5px;
+}
+
+.estatistica-info {
+  flex: 1;
+}
+
+.titulo-esportiva {
+  color: var(--purple-desc);
+}
+
+.titulo-diaria {
+  color: var(--yellow-desc);
+}
+
+.titulo-geral {
+  color: var(--text-new-green);
+}
+
+.texto-light {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.item-lista h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-lista .estatistica-info {
+  margin-top: 1rem;
 }

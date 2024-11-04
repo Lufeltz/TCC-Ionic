@@ -1,14 +1,20 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { Clock, LucideAngularModule, MapPinPlusInside, Phone, Stethoscope, User } from 'lucide-angular';
 
 @Component({
   selector: 'app-informacoes-saude',
   templateUrl: './informacoes-saude.component.html',
   styleUrls: ['./informacoes-saude.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
 })
 export class InformacoesSaudeComponent implements OnInit {
+  readonly Stethoscope = Stethoscope;
+  readonly Phone = Phone;
+  readonly Clock = Clock;
+  readonly MapPinPlusInside = MapPinPlusInside;
+
   canaisDeSaude = [
     {
       nome: 'Clínica da Família',
