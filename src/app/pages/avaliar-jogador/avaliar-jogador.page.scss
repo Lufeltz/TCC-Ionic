@@ -1,21 +1,31 @@
-ion-label {
-  color: var(--light-blue);
-}
-
-ion-button {
-  --background: var(--light-blue);
-}
-
-ion-segment {
-  margin-top: 2.5rem;
-  --background: #121214;
-}
-
 .container {
-  margin-top: 2.5rem;
+  margin-top: 50px;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.star {
+  width: 2rem; /* Tamanho do ícone */
+  height: 2rem; /* Tamanho do ícone */
+  cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+  transition: fill 0.3s; /* Transição suave ao mudar a cor */
+  color: gray; /* Cor padrão para as estrelas */
+  z-index: 10; /* Define um z-index alto para garantir que as estrelas sejam clicáveis */
+
+  &.active {
+    color: var(--yellow-desc); /* Cor amarela para estrelas ativas */
+  }
 }
 
 .card {
+  display: flex; /* Habilita flexbox no card */
+  flex-direction: column; /* Coloca os itens em coluna */
+  align-items: center; /* Centraliza os itens horizontalmente */
+  justify-content: center; /* Centraliza os itens verticalmente */
   background-color: var(--background-dark);
   border-radius: 8px;
   border-right: 2px solid var(--light-blue);
@@ -39,50 +49,59 @@ p {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.custom-select-container {
-  position: relative;
-  width: 100%;
-  border-radius: 8px;
-  overflow: hidden;
-  // border-right: 1px solid var(--light-blue);
-  border-bottom: 1px solid var(--light-blue);
-}
-
-.select-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  cursor: pointer;
-}
-
-.custom-select {
-  background-color: #202024;
-  color: var(--light-blue);
-  border: none;
-  border-radius: 8px;
-  padding: 1rem;
-  width: 100%;
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  text-align: center;
-}
-.custom-select:focus {
-  outline: none;
-}
-
-.caret-icon {
-  font-size: 1.5rem;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-
 .btn-center {
   margin-top: 1rem;
   display: flex;
   justify-content: center;
 }
 
+// ion-button {
+//   width: 100%;
+// }
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+.icon-align .user {
+  color: var(--text-new-green);
+}
+
+.icon-align .modalidades {
+  color: var(--text-pink);
+}
+
+.icon-align .media {
+  color: var(--purple-desc);
+}
+
+.icon-align .avaliacoes {
+  color: var(--text-orange);
+}
+
+.icon-button .text-container {
+  display: flex;
+  align-items: center;
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+}
+
 ion-button {
-  width: 100%;
+  margin-top: 16px;
+  --background: var(--text-white);
+  --color: var(--background-dark);
 }

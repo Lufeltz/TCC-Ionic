@@ -1,5 +1,5 @@
 .cadeado-icon {
-  color: var(--text-green);
+  color: var(--light-blue);
   font-size: 1.5rem;
   vertical-align: middle;
   margin-left: 8px;
@@ -38,7 +38,7 @@ ul {
 
 .campeonato-nome {
   font-size: 1.25rem;
-  color: var(--text-green);
+  color: var(--light-blue);
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
@@ -88,7 +88,7 @@ div[slot="header"] {
 
 ion-item {
   --background: var(--background-dark);
-  color: var(--text-green);
+  color: var(--light-blue);
 }
 
 @media (max-width: 375px) {
@@ -193,11 +193,160 @@ ion-button {
   }
 }
 .detalhes-header {
-  color: var(--light-blue); /* Define a cor da fonte como --light-blue */
+  --background: var(--background-dark);
+  color: var(--light-blue);
 }
 
 ion-accordion:hover .detalhes-header ion-label {
-  color: var(
-    --light-blue
-  ); /* Garante que a cor permaneça --light-blue ao passar o mouse */
+  color: var(--light-blue);
+}
+
+////// extra
+
+ion-toggle {
+  color: var(--gray-50);
+  --handle-width: 20px;
+  --handle-height: 20px;
+  --track-background: #d2caca;
+  --track-background-checked: #333337;
+  --handle-background: var(--gray-50);
+  margin-right: 2rem;
+}
+
+.label-titulo {
+  font-weight: 600;
+}
+
+.toggle-diarias {
+  --handle-background-checked: var(--yellow-desc);
+}
+
+.toggle-esportivas {
+  --handle-background-checked: var(--text-new-green);
+}
+
+ion-item {
+  --background: var(--background-light);
+  color: var(--light-blue);
+}
+
+.texto-light {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.centered-button {
+  --background: var(--light-blue);
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.item-lista ion-label {
+  color: var(--light-blue);
+  margin-bottom: 0.5rem;
+}
+
+ion-segment {
+  margin-top: 2.5rem;
+  --background: var(--background-dark);
+}
+
+div {
+  h2,
+  p {
+    color: var(--text-white);
+  }
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.item-lista2 {
+  border-radius: 8px;
+  padding: 1rem;
+  color: var(--text-white);
+}
+
+.item-lista2:hover {
+  background-color: var(--background-hover);
+  transform: translateY(-2px);
+}
+
+.item-lista2 ion-label {
+  color: var(--text-light);
+}
+
+.item-lista2 ion-input {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  margin-top: 10px;
+}
+
+.item-lista2 ion-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.container {
+  margin-top: 1rem;
+}
+
+.centered-button {
+  --background: var(--light-blue);
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+// ion-input {
+//   border-right: 2px solid var(--light-blue);
+//   border-bottom: 2px solid var(--light-blue);
+//   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+//   transition: background-color 0.3s, transform 0.3s;
+// }
+
+.btn-inscrever-se {
+  margin-right: 5px;
+}
+
+.align-esportivas,
+.align-diarias {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  margin: auto;
+  text-align: center;
+  width: fit-content;
+}
+
+.align-diarias {
+  color: var(--yellow-desc);
+}
+
+.align-esportivas {
+  color: var(--text-new-green);
+}
+.icon-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

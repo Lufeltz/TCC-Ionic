@@ -139,3 +139,26 @@ ion-button {
 ion-accordion:hover .detalhes-header ion-label {
   color: var(--light-blue);
 }
+
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+ion-button {
+  margin-top: 16px;
+  --background: var(--text-white);
+  --color: var(--background-dark);
+}

@@ -9,6 +9,42 @@
   </ng-container>
 
   <ng-template #content>
+    <ion-item lines="none">
+      <div class="align-diarias">
+        <div class="icon-label">
+          <lucide-angular
+            [img]="NotebookPen"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
+          <ion-label class="label-titulo">Criados</ion-label>
+        </div>
+        <ion-toggle
+          class="toggle-diarias"
+          slot="end"
+          ></ion-toggle>
+          <!-- (ionChange)="toggleFilterDiarias($event)"
+          [checked]="filterDiarias" -->
+      </div>
+    </ion-item>
+    <ion-item lines="none">
+      <div class="align-esportivas">
+        <div class="icon-label">
+          <lucide-angular
+            [img]="UsersRound"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
+          <ion-label class="label-titulo">Participando</ion-label>
+        </div>
+        <ion-toggle
+          class="toggle-esportivas"
+          slot="end"
+          ></ion-toggle>
+          <!-- (ionChange)="toggleFilterEsportivas($event)"
+          [checked]="filterEsportivas" -->
+      </div>
+    </ion-item>
     <ul>
       <li *ngFor="let campeonato of campeonatos" class="campeonato">
         <div class="campeonato-header">

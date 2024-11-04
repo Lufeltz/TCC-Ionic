@@ -13,6 +13,7 @@ import {
   IonItem,
   IonButton,
   IonIcon,
+  IonToggle,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { lockClosed, lockOpen } from 'ionicons/icons';
@@ -37,6 +38,8 @@ import {
   Calendar,
   CircleDollarSign,
   NotebookText,
+  NotebookPen,
+  UsersRound,
 } from 'lucide-angular';
 import { Campeonato } from 'src/app/models/campeonato.model';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
@@ -46,6 +49,7 @@ import { CampeonatoService } from 'src/app/services/campeonato.service';
   templateUrl: './listagem-campeonatos.component.html',
   styleUrls: ['./listagem-campeonatos.component.scss'],
   imports: [
+    IonToggle,
     IonIcon,
     IonButton,
     IonItem,
@@ -64,6 +68,7 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   readonly LockOpen = LockOpen;
   readonly ExternalLink = ExternalLink;
   readonly RotateCw = RotateCw;
+  readonly UsersRound = UsersRound;
   readonly Users = Users;
   readonly User = User;
   readonly Volleyball = Volleyball;
@@ -75,7 +80,7 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   readonly Calendar = Calendar;
   readonly CircleDollarSign = CircleDollarSign;
   readonly NotebookText = NotebookText;
-
+  readonly NotebookPen = NotebookPen;
 
   campeonatos: Campeonato[] = [];
   mensagem!: string;
@@ -129,10 +134,7 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
     // Implementar se necessário
   }
 
-  async presentAlertPrompt(
-    campeonato: Campeonato,
-    errorMessage: string = ''
-  ) {
+  async presentAlertPrompt(campeonato: Campeonato, errorMessage: string = '') {
     const alert = await this.alertController.create({
       header: 'Insira a senha',
       message: errorMessage,

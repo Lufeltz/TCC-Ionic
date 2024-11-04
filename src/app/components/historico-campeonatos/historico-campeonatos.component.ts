@@ -12,11 +12,10 @@ import {
   IonAccordionGroup,
   IonItem,
   IonButton,
-  IonIcon,
-} from '@ionic/angular/standalone';
+  IonIcon, IonToast } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { lockClosed, lockOpen } from 'ionicons/icons';
-import { CheckCheck, CircleCheckBig, ExternalLink, Lock, LockOpen, LucideAngularModule, SquareArrowUpRight } from 'lucide-angular';
+import { BookmarkCheck, CheckCheck, CircleCheckBig, ExternalLink, Lock, LockOpen, LucideAngularModule, RotateCw, SquareArrowUpRight } from 'lucide-angular';
 import { NgxMaskPipe } from 'ngx-mask';
 
 interface Endereco {
@@ -48,7 +47,7 @@ interface Campeonato {
   templateUrl: './historico-campeonatos.component.html',
   styleUrls: ['./historico-campeonatos.component.scss'],
   standalone: true,
-  imports: [
+  imports: [IonToast, 
     IonIcon,
     IonButton,
     IonItem,
@@ -66,6 +65,8 @@ export class HistoricoCampeonatosComponent implements OnInit, OnChanges {
   readonly LockOpen = LockOpen;
   readonly ExternalLink = ExternalLink;
   readonly CircleCheckBig = CircleCheckBig;
+  readonly RotateCw = RotateCw;
+  readonly BookmarkCheck = BookmarkCheck;
 
   campeonatos: Campeonato[] = [
     {

@@ -53,7 +53,13 @@ ion-input.styled-input:focus {
 
 .custom-select:focus {
   outline: none;
-  background-color: var(--light-blue);
+  background-color: var(--background-dark); /* Ajuste aqui para manter a cor de fundo original */
+  border-bottom: 2px solid var(--light-blue); /* Garantir que a borda inferior esteja visível */
+}
+
+.custom-select option {
+  background-color: var(--background-dark);
+  color: var(--text-white);
 }
 
 .custom-select option[value="futebol"]:checked {
@@ -61,9 +67,9 @@ ion-input.styled-input:focus {
   color: var(--light-blue);
 }
 
-.custom-select option {
+.custom-select option:checked {
   background-color: var(--background-dark);
-  color: var(--text-white);
+  color: var(--light-blue);
 }
 
 .custom-select option:hover {
@@ -74,6 +80,7 @@ ion-input.styled-input:focus {
 .custom-select:hover {
   background-color: var(--background-dark);
 }
+
 
 ion-button.btn-enviar {
   width: 100%;

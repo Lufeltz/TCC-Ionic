@@ -6,17 +6,23 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonIcon, IonButton, IonToast } from '@ionic/angular/standalone';
+  IonIcon,
+  IonButton,
+  IonToast,
+} from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.component';
-import { star, starOutline, starHalfOutline, caretDownOutline, caretUpOutline } from 'ionicons/icons';
+import { star, starOutline, starHalfOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
+import { ChartColumn, LucideAngularModule, MousePointerClick, Save, Star, StarHalf, User, Volleyball } from 'lucide-angular';
 
 @Component({
   selector: 'app-avaliar-jogador',
   templateUrl: './avaliar-jogador.page.html',
   styleUrls: ['./avaliar-jogador.page.scss'],
   standalone: true,
-  imports: [IonToast, IonButton, 
+  imports: [
+    IonToast,
+    IonButton,
     IonIcon,
     IonContent,
     IonHeader,
@@ -25,6 +31,7 @@ import { addIcons } from 'ionicons';
     CommonModule,
     FormsModule,
     MenuPerfilComponent,
+    LucideAngularModule,
   ],
 })
 export class AvaliarJogadorPage implements OnInit {
@@ -32,16 +39,26 @@ export class AvaliarJogadorPage implements OnInit {
   pageMenu: string = 'avaliar-jogador';
   pageContent: string = 'avaliar-jogador';
 
-  avaliacoes: number[] = [5, 4, 3, 5, 4, 2, 1, 4, 5, 5, 3, 2, 3]; // Array de avaliações
+  readonly Star = Star;
+  readonly StarHalf = StarHalf;
+  readonly User = User;
+  readonly Volleyball = Volleyball;
+  readonly ChartColumn = ChartColumn;
+  readonly MousePointerClick = MousePointerClick;
+  readonly Save = Save;
+
+  avaliacoes: number[] = [
+    5, 4, 5, 3, 4, 4, 5, 3, 5, 5, 5, 4, 5, 4, 3, 2, 4, 5, 4, 3, 2, 3, 4,
+  ]; // Array de avaliações
   mediaAtual: number = 0; // Média inicial
   quantidadeEstrelas: number = 0;
   temEstrelaMeia: boolean = false;
 
-  selectedValue: string = ''; // Valor selecionado
-  isOpen: boolean = false; // Estado do select
+  selectedRating: number = 0; // Valor da avaliação selecionada pelo usuário
+  stars: number[] = [1, 2, 3, 4, 5]; // Array de estrelas para o ngFor
 
   constructor() {
-    addIcons({ caretDownOutline, caretUpOutline, star, starHalfOutline, starOutline });
+    addIcons({ star, starHalfOutline, starOutline });
   }
 
   ngOnInit() {
@@ -55,28 +72,21 @@ export class AvaliarJogadorPage implements OnInit {
     this.mediaAtual =
       totalAvaliacoes > 0 ? somaAvaliacoes / totalAvaliacoes : 0; // Previne divisão por zero
     this.quantidadeEstrelas = Math.floor(this.mediaAtual); // Estrelas cheias
-    this.temEstrelaMeia =
-      (this.mediaAtual >= 3.5 && this.mediaAtual < 4) ||
-      (this.mediaAtual >= 4.5 && this.mediaAtual < 5); // Estrela meia
+
+    // Verifica se a média está em um intervalo que requer uma estrela meia
+    this.temEstrelaMeia = this.mediaAtual % 1 >= 0.5 && this.mediaAtual % 1 < 1; // Para valores como 0.5, 1.5, 2.5, etc.
   }
 
-  handleChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const selectedValue = selectElement.value;
-    console.log('Valor selecionado:', selectedValue);
-    // Adicione sua lógica aqui
-    this.isOpen = false; // Fecha o select após a seleção
+  rate(stars: number) {
+    this.selectedRating = stars; // Atualiza a avaliação selecionada
+    console.log(`Estrela clicada: ${stars}`); // Log da estrela clicada
+    // Você pode também recalcular a média se desejar
+    this.calcularMedia(); // (Opcional)
   }
 
-  handleFocus() {
-    this.isOpen = true; // Abre o select ao focar
-  }
-
-  handleBlur() {
-    this.isOpen = false; // Fecha o select ao perder foco
-  }
-
-  toggleSelect() {
-    this.isOpen = !this.isOpen; // Alterna o estado do select
+  saveRating() {
+    this.avaliacoes.push(this.selectedRating);
+    this.calcularMedia();
+    console.log('Avaliação salva:', this.selectedRating);
   }
 }

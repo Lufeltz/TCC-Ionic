@@ -34,7 +34,54 @@
             {{ modalidade.dataCriacao | date: 'dd/MM/yy' }}
           </span>
         </h3>
-        <p>{{ modalidade.descricao }}</p>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Notebook"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <p>
+            <strong class="descricao">Descrição: </strong>{{
+            modalidade.descricao }}
+          </p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Users"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-new-green)'"
+          ></lucide-angular>
+          <p><strong class="inscritos">Usuários inscritos: 138</strong></p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Zap"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-orange)'"
+          ></lucide-angular>
+          <p><strong class="concluidas">Metas concluídas: 15</strong></p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="ZapOff"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <p><strong class="atuais">Metas Atuais: 2 / 3</strong></p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Crosshair"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--purple-desc)'"
+          ></lucide-angular>
+          <p><strong class="conquistas">Conquistas: 2 / 4</strong></p>
+        </div>
         <img
           *ngIf="modalidade.foto"
           [src]="modalidade.foto"
@@ -87,7 +134,51 @@
             {{ modalidade.dataCriacao | date: 'dd/MM/yy' }}
           </span>
         </h3>
-        <p>{{ modalidade.descricao }}</p>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Notebook"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <p><strong class="descricao">Descrição: </strong>{{ modalidade.descricao }}</p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Users"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-new-green)'"
+          ></lucide-angular>
+          <p><strong class="inscritos">Usuários inscritos: 138</strong></p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Zap"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-orange)'"
+          ></lucide-angular>
+          <p><strong class="concluidas">Metas concluídas: 15</strong></p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="ZapOff"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <p><strong class="atuais">Metas Atuais: 2 / 3</strong></p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Crosshair"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--purple-desc)'"
+          ></lucide-angular>
+          <p><strong class="conquistas">Conquistas: 2 / 4</strong></p>
+        </div>
         <img
           *ngIf="modalidade.foto"
           [src]="modalidade.foto"

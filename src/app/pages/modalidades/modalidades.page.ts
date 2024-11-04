@@ -14,7 +14,20 @@ import {
   IonAlert,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
-import { CircleX, ExternalLink, LucideAngularModule, Medal, SquareArrowUpRight, SquareX, X } from 'lucide-angular';
+import {
+  CircleX,
+  Crosshair,
+  ExternalLink,
+  LucideAngularModule,
+  Medal,
+  Notebook,
+  SquareArrowUpRight,
+  SquareX,
+  Users,
+  X,
+  Zap,
+  ZapOff,
+} from 'lucide-angular';
 
 interface Modalidade {
   nome: string;
@@ -43,7 +56,7 @@ interface Modalidade {
     IonSegmentButton,
     IonButton,
     IonAlert,
-    LucideAngularModule
+    LucideAngularModule,
   ],
 })
 export class ModalidadesPage implements OnInit {
@@ -59,6 +72,11 @@ export class ModalidadesPage implements OnInit {
   readonly CircleX = CircleX;
   readonly Medal = Medal;
   readonly ExternalLink = ExternalLink;
+  readonly Notebook = Notebook;
+  readonly Zap = Zap;
+  readonly ZapOff = ZapOff;
+  readonly Crosshair = Crosshair;
+  readonly Users = Users;
 
   constructor() {}
 

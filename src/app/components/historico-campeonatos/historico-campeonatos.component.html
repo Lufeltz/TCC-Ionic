@@ -5,9 +5,9 @@
         <h3 class="campeonato-nome">
           {{ campeonato.titulo }}
           <lucide-angular
-            [img]="CircleCheckBig"
+            [img]="BookmarkCheck"
             class="cadeado-icon"
-            [size]="20"
+            [size]="30"
             [color]="'var(--gray-50)'"
           ></lucide-angular>
         </h3>
@@ -78,4 +78,14 @@
       </div>
     </li>
   </ul>
+  <ion-button id="open-toast" size="small" expand="block" class="icon-button">
+    <div class="text-container">Mais Campeonatos</div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="RotateCw"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+    </div>
+  </ion-button>
 </div>

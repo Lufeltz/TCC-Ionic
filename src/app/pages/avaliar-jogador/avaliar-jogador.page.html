@@ -14,65 +14,104 @@
         />
       </div>
 
-      <h2>Carlos Ribeiro</h2>
-      <h3>Principais modalidades</h3>
-      <p>Futebol, Ping Pong</p>
+      <div class="icon-align">
+        <lucide-angular
+          [img]="User"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--text-new-green)'"
+        ></lucide-angular>
+        <h2><strong class="user">Usuário: </strong>Carlos Ribeiro</h2>
+      </div>
+      <div class="icon-align">
+        <lucide-angular
+          [img]="Volleyball"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--text-pink)'"
+        ></lucide-angular>
+        <p>
+          <strong class="modalidades">Modalidades: </strong>Futebol, Ping Pong
+        </p>
+      </div>
 
-      <p>Quantidade avaliações recebidas: {{ avaliacoes.length }}</p>
+      <div class="icon-align">
+        <lucide-angular
+          [img]="MousePointerClick"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--text-orange)'"
+        ></lucide-angular>
+        <p>
+          <strong class="avaliacoes">Avaliações: </strong>{{ avaliacoes.length
+          }}
+        </p>
+      </div>
+      <div class="icon-align">
+        <lucide-angular
+          [img]="ChartColumn"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--purple-desc)'"
+        ></lucide-angular>
+        <p><strong class="media">Média: </strong>{{ mediaAtual.toFixed(2) }}</p>
+      </div>
+
       <p>
-        Média atual: {{ mediaAtual.toFixed(2) }}
         <ng-container
           *ngFor="let star of [].constructor(quantidadeEstrelas); let i = index"
         >
-          <ion-icon name="star"></ion-icon>
+          <lucide-angular
+            [img]="Star"
+            class="star"
+            style="color: var(--yellow-desc)"
+          ></lucide-angular>
         </ng-container>
         <ng-container *ngIf="temEstrelaMeia">
-          <ion-icon name="star-half-outline"></ion-icon>
+          <lucide-angular
+            [img]="StarHalf"
+            class="star"
+            style="color: var(--yellow-desc)"
+          ></lucide-angular>
         </ng-container>
         <ng-container
           *ngFor="let star of [].constructor(5 - quantidadeEstrelas - (temEstrelaMeia ? 1 : 0)); let i = index"
         >
-          <ion-icon name="star-outline"></ion-icon>
+          <lucide-angular
+            [img]="Star"
+            class="star"
+            style="color: gray"
+          ></lucide-angular>
         </ng-container>
       </p>
 
-      <div class="custom-select-container">
-        <div class="select-wrapper" (click)="toggleSelect()">
-          <select
-            aria-label="Nota do jogador"
-            [(ngModel)]="selectedValue"
-            (change)="handleChange($event)"
-            (focus)="handleFocus()"
-            (blur)="handleBlur()"
-            class="custom-select"
-          >
-            <option value="" disabled selected>
-              Escolha uma nota para o jogador
-              <ion-icon
-                name="caret-down-outline"
-                *ngIf="!isOpen"
-                class="caret-icon"
-                style="color: var(--light-blue)"
-              ></ion-icon>
-              <ion-icon
-                name="caret-up-outline"
-                *ngIf="isOpen"
-                class="caret-icon"
-                style="color: var(--light-blue)"
-              ></ion-icon>
-            </option>
-            <option value="nota-1">Nota 1</option>
-            <option value="nota-2">Nota 2</option>
-            <option value="nota-3">Nota 3</option>
-            <option value="nota-4">Nota 4</option>
-            <option value="nota-5">Nota 5</option>
-          </select>
-        </div>
+      <div class="star-rating">
+        <ng-container *ngFor="let star of stars; let i = index">
+          <lucide-angular
+            [img]="Star"
+            class="star"
+            [ngClass]="{'active': i < selectedRating}"
+            (click)="rate(i + 1)"
+          ></lucide-angular>
+        </ng-container>
       </div>
     </div>
-    <div class="btn-center">
-      <ion-button id="open-toast" size="small">Salvar Avaliação</ion-button>
-      <ion-toast trigger="open-toast" message="Avaliação salva com sucesso!" [duration]="3000"></ion-toast>
-    </div>
+    <ion-button id="open-toast" size="small" expand="block" class="icon-button">
+      <div class="text-container">Salvar Avaliação</div>
+      <div class="icon-align">
+        <lucide-angular
+          [img]="Save"
+          class="btn-inscrever-se"
+          [size]="20"
+        ></lucide-angular>
+        <ion-toast
+        position="top"
+        trigger="open-toast"
+        message="Avaliação do usuário salva."
+        position="bottom"
+        [duration]="3000"
+      ></ion-toast>
+      </div>
+    </ion-button>
   </div>
 </ion-content>

@@ -67,12 +67,12 @@ ul {
 
 .alerta-inscrever {
   margin-top: 1rem;
-  --background: var(--light-blue);
+  --background: var(--text-white);
 }
 
 .alerta-cancelar {
   margin-top: 1rem;
-  --background: var(--light-red);
+  --background: var(--text-white);
 }
 
 ul li h3 {
@@ -82,4 +82,48 @@ ul li h3 {
 .btn-inscrever-se {
   margin-left: 5px;
   margin-right: 5px;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+ion-button {
+  margin-top: 16px;
+  --background: var(--text-white);
+  --color: var(--background-dark);
+}
+
+
+
+.icon-align .descricao {
+  color: var(--text-light);
+}
+
+.icon-align .inscritos {
+  color: var(--text-new-green);
+}
+
+.icon-align .concluidas {
+  color: var(--text-orange);
+}
+
+.icon-align .atuais {
+  color: var(--yellow-desc);
+}
+
+.icon-align .conquistas {
+  color: var(--purple-desc);
 }
