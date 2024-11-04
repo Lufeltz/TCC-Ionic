@@ -7,7 +7,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { CalendarArrowUp, GraduationCap, LucideAngularModule, UserRound } from 'lucide-angular';
+import { Bike, CalendarArrowUp, ChartColumn, GraduationCap, LucideAngularModule, Star, Trophy, UserRound } from 'lucide-angular';
 import { Academico } from 'src/app/models/academico.model';
 import { AcademicoService } from 'src/app/services/academico.service';
 
@@ -26,8 +26,11 @@ export class JogadorComponent implements OnInit, OnChanges {
   mensagem_detalhes!: string;
 
   readonly UserRound = UserRound;
-  readonly GraduationCap = GraduationCap;
   readonly CalendarArrowUp = CalendarArrowUp;
+  readonly GraduationCap = GraduationCap;
+  readonly Trophy = Trophy;
+  readonly Star = Star;
+  readonly Bike = Bike;
 
   constructor(
     private academicoService: AcademicoService,

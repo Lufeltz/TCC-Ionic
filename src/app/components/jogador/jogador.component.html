@@ -11,7 +11,7 @@
             [img]="UserRound"
             class="btn-inscrever-se"
             [size]="20"
-            color="var(--text-light)"
+            color="var(--text-new-green)"
           ></lucide-angular>
           <p class="jogador-nome">{{ academico.username }}</p>
         </div>
@@ -27,14 +27,43 @@
           </p>
         </div>
       </div>
-      <div class="curso">
+      <div class="icon-align">
+        <lucide-angular
+          [img]="Bike"
+          class="btn-inscrever-se"
+          [size]="20"
+          color="var(--purple-desc)"
+        ></lucide-angular>
+        <p class="jogador-curso"><strong>Futebol, Vôlei, Basquete</strong></p>
+      </div>
+      <div class="icon-align">
+        <lucide-angular
+          [img]="Star"
+          class="btn-inscrever-se"
+          [size]="20"
+          color="var(--yellow-desc)"
+        ></lucide-angular>
+        <p class="jogador-curso"><strong>3.74(140 avaliações)</strong></p>
+      </div>
+      <div class="icon-align">
+        <lucide-angular
+          [img]="Trophy"
+          class="btn-inscrever-se"
+          [size]="20"
+          color="var(--text-orange)"
+        ></lucide-angular>
+        <p class="jogador-curso"><strong>115 campeonatos</strong></p>
+      </div>
+      <div class="icon-align">
         <lucide-angular
           [img]="GraduationCap"
           class="btn-inscrever-se"
           [size]="20"
-          color="var(--text-white)"
+          color="var(--text-pink)"
         ></lucide-angular>
-        <p class="jogador-curso">{{ academico.curso }}</p>
+        <p class="jogador-curso">
+          <strong>{{ academico.curso }}</strong>
+        </p>
       </div>
       <p class="jogador-foto">{{ academico.foto }}</p>
     </li>

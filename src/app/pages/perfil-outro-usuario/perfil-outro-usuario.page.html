@@ -5,26 +5,28 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <ion-button size="small" (click)="avaliarJogador()">Avaliar Jogador</ion-button>
+  <ion-button size="small" (click)="avaliarJogador()"
+    >Avaliar Jogador</ion-button
+  >
 
   <ion-segment [(ngModel)]="selectedSegment">
-    <ion-segment-button value="modalidades">
-      <ion-label>Modalidades</ion-label>
-    </ion-segment-button>
     <ion-segment-button value="estatisticas">
       <ion-label>Estatísticas</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="conquistas">
+      <ion-label>Conquistas</ion-label>
     </ion-segment-button>
     <ion-segment-button value="historico-campeonatos">
       <ion-label>Histórico</ion-label>
     </ion-segment-button>
   </ion-segment>
 
-  <div *ngIf="selectedSegment === 'modalidades'">
-    <app-estatisticas-esportivas></app-estatisticas-esportivas>
-  </div>
-
   <div *ngIf="selectedSegment === 'estatisticas'">
     <app-estatisticas-pessoais></app-estatisticas-pessoais>
+  </div>
+
+  <div *ngIf="selectedSegment === 'conquistas'">
+    <app-estatisticas-esportivas></app-estatisticas-esportivas>
   </div>
 
   <div *ngIf="selectedSegment === 'historico-campeonatos'">

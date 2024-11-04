@@ -1,53 +1,57 @@
 body {
-  background-color: #121212; /* Cor de fundo da página */
-  font-family: "Arial", sans-serif; /* Fonte mais legível */
+  background-color: #121212;
+  font-family: "Arial", sans-serif;
 }
 
 p,
 li {
-  color: white; /* Cor do texto */
+  color: var(--text-white);
 }
 
 ul {
-  margin: 0; /* Remove margem padrão */
-  padding: 0; /* Remove padding padrão */
-  list-style-type: none; /* Remove os marcadores da lista */
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
 }
 
 div {
   margin-top: 15px;
 }
 
-li {
-  border: none; /* Remove borda padrão */
-  border-right: 1px solid white;
-  border-bottom: 1px solid white;
-  border-radius: 8px; /* Bordas mais arredondadas */
-  padding: 1rem; /* Uniformizar o padding */
-  margin-bottom: 1rem; /* Espaçamento entre os itens */
-  background: linear-gradient(
-    135deg,
-    rgba(155, 89, 182, 0.2),
-    rgba(155, 89, 182, 0.4)
-  ); /* Fundo com gradiente roxo claro */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara para destaque */
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Transição suave */
-  display: flex; /* Usar flexbox para alinhar ícones e texto */
-  align-items: center; /* Alinha os itens no centro verticalmente */
-  justify-content: center; /* Centraliza horizontalmente os itens dentro do li */
+.item-lista {
+  background-color: var(--background-dark);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: var(--text-white);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-li:hover {
-  background: linear-gradient(
-    135deg,
-    rgba(155, 89, 182, 0.4),
-    rgba(155, 89, 182, 0.6)
-  ); /* Destaque ao passar o mouse */
-  transform: translateY(-2px); /* Leve elevação ao passar o mouse */
+.item-lista:hover {
+  background-color: rgba(41, 128, 185, 0.4);
+  transform: translateY(-2px);
 }
 
-.estatistica-icone {
-  margin-right: 12px; /* Espaçamento entre ícone e texto */
-  font-size: 1.5rem; /* Tamanho do ícone */
-  color: #9b59b6; /* Cor do ícone roxo claro */
+.meta-esportiva {
+  border-right: 3px solid var(--purple-desc);
+  border-bottom: 2px solid var(--purple-desc);
+}
+
+.meta-diaria {
+  border-right: 3px solid var(--yellow-desc);
+  border-bottom: 2px solid var(--yellow-desc);
+}
+
+.meta-geral {
+  border-right: 3px solid var(--text-pink);
+  border-bottom: 2px solid var(--text-pink);
+}
+
+.container {
+  margin-top: 2.5rem;
+}
+
+.item-lista p {
+  margin: 0;
 }

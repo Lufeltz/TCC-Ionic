@@ -49,7 +49,7 @@ export class PerfilOutroUsuarioPage implements OnInit {
   pageMenu: string = 'perfil-outro-usuario';
   pageContent: string = 'perfil-outro-usuario';
 
-  selectedSegment: string = 'modalidades';
+  selectedSegment: string = 'estatisticas';
 
   constructor(private router: Router) {}
 

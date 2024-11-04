@@ -1,7 +1,15 @@
 <div>
   <ul>
-      <li *ngFor="let estatistica of estatisticasEsportivas" class="estatistica">
-          <p class="estatistica-nome">{{ estatistica.nome }}: {{ estatistica.valor }}</p>
-      </li>
+    <li
+      *ngFor="let estatistica of estatisticasEsportivas"
+      class="item-lista"
+      [ngClass]="{
+        'meta-esportiva': estatistica.nome.includes('Metas Esportivas'),
+        'meta-diaria': estatistica.nome.includes('Diárias'),
+        'meta-geral': !estatistica.nome.includes('Metas Esportivas') && !estatistica.nome.includes('Diárias')
+      }"
+    >
+      <p>{{ estatistica.nome }}: {{ estatistica.valor }}</p>
+    </li>
   </ul>
 </div>

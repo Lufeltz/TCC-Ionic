@@ -30,7 +30,7 @@ ul {
 
 .jogador-nome {
   font-size: 16px;
-  color: var(--text-light);
+  color: var(--text-new-green);
 }
 
 .jogador-curso {
@@ -85,4 +85,37 @@ ul {
   display: flex;
   align-items: center;
   gap: 7px;
+}
+
+.icon-align {
+  display: flex; /* Usar flexbox para o alinhamento */
+  align-items: center; /* Alinhamento vertical central */
+  margin-top: 4px; /* Espaçamento acima */
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px; /* Espaçamento à direita do ícone */
+}
+
+/* Se necessário, adicione alguma regra para o texto dentro da div */
+.icon-align p {
+  margin: 0; /* Remover margens do parágrafo */
+  color: var(--text-white); /* Cor do texto, se desejar */
+  font-size: 1rem; /* Ajustar o tamanho da fonte */
+}
+
+.icon-align .trophy {
+  color: var(--text-orange);
+}
+
+.icon-align .star {
+  color: var(--yellow-desc);
+}
+
+.icon-align .bike {
+  color: var(--purple-desc);
+}
+
+.icon-align .cap {
+  color: var(--text-pink);
 }
