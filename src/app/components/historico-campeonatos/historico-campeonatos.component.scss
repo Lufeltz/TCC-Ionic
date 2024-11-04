@@ -1,5 +1,5 @@
 .cadeado-icon {
-  color: var(--text-green);
+  color: var(--light-blue);
   font-size: 1.5rem; /* Ajuste o tamanho conforme necessário */
   vertical-align: middle;
   margin-left: 8px; /* Espaçamento à esquerda do ícone */
@@ -39,10 +39,10 @@ ul {
 
 .campeonato-nome {
   font-size: 1.25rem;
-  color: var(--text-green);
+  color: var(--light-blue);
   flex-grow: 1;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .campeonato-curso {
@@ -88,7 +88,7 @@ div[slot="header"] {
 
 ion-item {
   --background: var(--background-dark);
-  color: var(--text-green);
+  color: var(--light-blue);
 }
 
 /* Responsividade */
@@ -109,9 +109,9 @@ ion-item {
 
 ion-button {
   margin-top: 16px;
-  // --background: var(--text-green);
-  --background: var(--blue-lock);
-  --color: var(--text-white);
+  --background: var(--text-white);
+  --color: var(--background-dark);
+  font-weight: 600;
 }
 
 .endereco {
@@ -132,4 +132,5 @@ ion-button {
 
 .btn-inscrever-se {
   margin-left: 5px;
+
 }

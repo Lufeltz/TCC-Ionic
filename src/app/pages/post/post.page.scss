@@ -1,14 +1,26 @@
-div {
-  h2,
-  p {
-    color: white;
-  }
+ion-input.styled-input {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  margin-top: 10px;
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
 }
 
-ion-input {
-  color: var(--light-blue);
-  --background: var(--background-dark);
-  font-weight: 700;
+ion-input.styled-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+ion-input.styled-input:focus {
+  background-color: rgba(41, 128, 185, 0.4);
+  transform: translateY(-2px);
 }
 
 .input-space {
@@ -16,76 +28,56 @@ ion-input {
   margin-bottom: 1rem;
 }
 
-ion-select {
-  --placeholder-color: var(--light-blue);
-  --placeholder-opacity: 1;
-  --background: var(--background-dark);
+.custom-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-select {
+  appearance: none;
+  background-color: var(--background-dark);
+  border: none;
+  border-bottom: 2px solid var(--light-blue);
+  border-radius: 5px;
+  color: var(--light-blue);
+  padding: 0.5rem;
   width: 100%;
   font-weight: 700;
-  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+  text-align: center;
 }
 
-ion-select-option {
-  --background: var(--background-dark);
+.custom-select:focus {
+  outline: none;
+  background-color: var(--light-blue);
 }
 
-ion-item {
-  --background: var(--background-dark);
-}
-
-ion-select::part(placeholder),
-ion-select::part(text) {
-  flex: 0 0 auto;
-}
-
-ion-select::part(text) {
+.custom-select option[value="futebol"]:checked {
+  background-color: var(--background-dark);
   color: var(--light-blue);
 }
 
-ion-select::part(icon) {
-  color: var(--light-blue);
-  opacity: 1;
+.custom-select option {
+  background-color: var(--background-dark);
+  color: var(--text-white);
 }
 
-.aberto-finalizado {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  gap: 15px;
-  margin-bottom: 10px;
-  margin-top: 15px;
+.custom-select option:hover {
+  background-color: var(--light-blue);
+  color: var(--text-white);
 }
 
-.iniciado {
-  display: flex;
-  align-items: center;
-  justify-content: start;
-}
-
-ion-toggle {
-  color: var(--gray-50);
-  --handle-width: 20px;
-  --handle-height: 20px;
-
-  --handle-max-height: auto;
-
-  --track-background: #d2caca;
-  --track-background-checked: #333337;
-  --handle-background: var(--gray-50);
-  --handle-background-checked: var(--light-blue);
-}
-
-ion-toggle::part(track) {
-  height: 20px;
-  width: 36px;
-
-  /* Required for iOS handle to overflow the height of the track */
-  overflow: visible;
+.custom-select:hover {
+  background-color: var(--background-dark);
 }
 
 ion-button.btn-enviar {
   width: 100%;
-  --background: var(--text-green);
+  --background: var(--light-blue);
 }
 
 ion-button.btn-voltar {
@@ -103,3 +95,81 @@ ion-button.btn-voltar:active {
   display: flex;
   justify-content: center;
 }
+
+.margin-tab {
+  margin-top: 50px;
+}
+
+ion-input.styled-input {
+  --border: none;
+  --background: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  margin-top: 10px;
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.message-input {
+  height: 125px;
+  resize: none;
+  width: 100%;
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.message-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.message-input:focus {
+  background-color: rgba(41, 128, 185, 0.4);
+  transform: translateY(-2px);
+}
+
+ion-textarea.styled-textarea {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  margin-top: 10px;
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+  width: 100%;
+  height: 125px;
+  resize: none;
+}
+
+ion-textarea.styled-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+ion-textarea.styled-textarea:focus {
+  background-color: rgba(41, 128, 185, 0.4);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+
+/* Adiciona um estilo específico para o textarea do título */
+ion-textarea.styled-textarea.titulo-input {
+  height: 62.5px; /* Ajusta a altura para metade do que era anteriormente (125px) */
+  resize: none; /* Desabilita o redimensionamento */
+}
+
+/* Outros estilos existentes... */

@@ -1,11 +1,16 @@
 <div class="publicacoes-container">
   <ul>
-    <li
-      *ngFor="let publicacao of filteredPublications"
-      class="publicacao"
-    >
+    <li *ngFor="let publicacao of filteredPublications" class="publicacao">
       <div class="publicacao-header">
-        <p class="usuario-username">{{ publicacao.Usuario.username }}</p>
+        <div class="username">
+          <lucide-angular
+            [img]="UserRound"
+            class="btn-inscrever-se"
+            [size]="20"
+            color="var(--text-new-green)"
+          ></lucide-angular>
+          <p class="usuario-username">{{ publicacao.Usuario.username }}</p>
+        </div>
         <p class="data">
           {{ publicacao.dataPublicacao | date : "dd/MM/yy, hh:mm" }}
         </p>
@@ -15,10 +20,22 @@
         <p class="descricao">{{ publicacao.descricao }}</p>
         <div class="curtidas">
           <div class="curtidas-info" (click)="curtir(publicacao)">
-            <ion-icon
-              [name]="publicacao.isCurtiu ? 'star' : 'star-outline'"
-            ></ion-icon>
-            <span>{{ publicacao.listaUsuarioCurtida.length }}</span>
+            <div class="icon-align">
+              <lucide-angular
+                [img]="Star"
+                class="btn-inscrever-se"
+                [size]="20"
+                [color]="publicacao.isCurtiu ? 'var(--yellow-desc)' : 'gray'"
+              ></lucide-angular>
+            </div>
+            <span
+              [ngClass]="{
+                'text-gray': !publicacao.isCurtiu,
+                'yellow-desc': publicacao.isCurtiu
+              }"
+            >
+              {{ publicacao.listaUsuarioCurtida.length }}
+            </span>
           </div>
         </div>
       </div>
@@ -26,7 +43,7 @@
         <ion-accordion-group>
           <ion-accordion>
             <ion-item slot="header" class="comentarios-header">
-              <ion-label>Comentários</ion-label>
+              <ion-label><strong>Comentários</strong></ion-label>
             </ion-item>
             <div slot="content">
               <ul>
@@ -35,31 +52,65 @@
                   *ngFor="let comentario of publicacao.listaComentario"
                 >
                   <div class="comentario-header">
-                    <p class="comentario-usuario">
-                      {{ comentario.Usuario.username }}
-                    </p>
+                    <div class="username">
+                      <lucide-angular
+                        [img]="UserRound"
+                        class="btn-inscrever-se"
+                        [size]="20"
+                        color="var(--text-new-green)"
+                      ></lucide-angular>
+                      <p class="usuario-username">
+                        {{ comentario.Usuario.username }}
+                      </p>
+                    </div>
                     <p class="comentario-data">
                       {{ comentario.dataComentario | date : "dd/MM/yy, hh:mm" }}
                     </p>
                   </div>
                   <p class="comentario-descricao">{{ comentario.descricao }}</p>
                   <div class="comentario-curtidas">
-                    <div
-                      class="curtidas-info"
-                      (click)="curtirComentario(comentario)"
-                    >
-                      <ion-icon
-                        [name]="comentario.isCurtiu ? 'star' : 'star-outline'"
-                      ></ion-icon>
-                      <span>{{ comentario.listaUsuarioCurtida.length }}</span>
+                    <div class="curtidas-info" (click)="curtir(comentario)">
+                      <div class="icon-align">
+                        <lucide-angular
+                          [img]="Star"
+                          class="btn-inscrever-se"
+                          [size]="20"
+                          [color]="
+                            comentario.isCurtiu ? 'var(--yellow-desc)' : 'gray'
+                          "
+                        ></lucide-angular>
+                      </div>
+                      <span [ngClass]="{ 'text-gray': !comentario.isCurtiu, 'yellow-desc': comentario.isCurtiu }">
+                        {{ comentario.listaUsuarioCurtida.length }}
+                      </span>
                     </div>
                   </div>
                 </li>
               </ul>
+              <ion-button size="small" expand="block" class="icon-button">
+                <div class="text-container">Mais Comentários</div>
+                <div class="icon-align">
+                  <lucide-angular
+                    [img]="RotateCw"
+                    class="btn-inscrever-se"
+                    [size]="20"
+                  ></lucide-angular>
+                </div>
+              </ion-button>
             </div>
           </ion-accordion>
         </ion-accordion-group>
       </div>
     </li>
   </ul>
+  <ion-button size="small" expand="block" class="icon-button">
+    <div class="text-container">Mais Posts</div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="RotateCw"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+    </div>
+  </ion-button>
 </div>

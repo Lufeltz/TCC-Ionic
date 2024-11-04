@@ -62,6 +62,8 @@ li {
   margin-bottom: 8px;
   color: var(--text-green);
   cursor: pointer;
+  position: relative; /* Add this line */
+  z-index: 10; /* Add a higher z-index */
 }
 
 .curtidas-info ion-icon {
@@ -99,7 +101,7 @@ li {
 }
 
 .comentario-usuario {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--text-light) !important;
   margin-bottom: 8px;
 }
@@ -122,7 +124,8 @@ li {
   .usuario-username,
   .comentario-usuario {
     // font-size: 12px !important;
-    color: var(--text-light);
+    // color: var(--text-white);
+    color: var(--text-new-green);
   }
 
   .curtidas-info ion-icon {
@@ -166,4 +169,59 @@ div[slot="header"] {
 ion-item {
   --background: var(--background-dark);
   color: var(--text-green);
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+}
+
+.icon-button .text-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+ion-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 16px;
+  --background: var(--text-white);
+  --color: var(--background-dark);
+}
+
+.username {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+}
+
+.text-gray {
+  color: gray;
+}
+.yellow-desc {
+  color: var(--yellow-desc); /* Use the same yellow as the star icon */
 }

@@ -9,17 +9,22 @@ import {
   starOutline,
   star,
 } from 'ionicons/icons';
+import { LucideAngularModule, RotateCw, Star, UserRound } from 'lucide-angular';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule],
+  imports: [CommonModule, IonicModule, LucideAngularModule],
 })
 export class PostsComponent implements OnInit {
   @Input() searchedPosts!: string;
   public filteredPublications: any[] = [];
+
+  readonly RotateCw = RotateCw;
+  readonly UserRound = UserRound;
+  readonly Star = Star;
 
   constructor() {
     addIcons({ heartOutline, heart, chevronDownOutline, star, starOutline });
@@ -251,11 +256,11 @@ export class PostsComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.filterPublications(); 
+    this.filterPublications();
   }
 
   ngOnChanges() {
-    this.filterPublications(); 
+    this.filterPublications();
   }
 
   filterPublications() {

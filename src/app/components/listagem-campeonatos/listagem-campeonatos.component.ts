@@ -24,33 +24,22 @@ import {
   Lock,
   SquareArrowUpRight,
   ExternalLink,
+  RotateCw,
+  Users,
+  PersonStanding,
+  User,
+  Volleyball,
+  MessageSquareCode,
+  Flag,
+  MapPin,
+  CalendarCheck,
+  CalendarArrowUp,
+  Calendar,
+  CircleDollarSign,
+  NotebookText,
 } from 'lucide-angular';
 import { Campeonato } from 'src/app/models/campeonato.model';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
-
-// interface Endereco {
-//   cep: string;
-//   uf: string;
-//   cidade: string;
-//   bairro: string;
-//   rua: string;
-//   numero: number;
-//   complemento: string;
-// }
-
-// interface Campeonato {
-//   codigo: string;
-//   titulo: string;
-//   descricao: string;
-//   aposta: string;
-//   dataCriacao: string;
-//   dataInicio: string;
-//   dataFim: string;
-//   limiteParticipantes: number;
-//   status: 'aberto' | 'iniciado' | 'finalizado';
-//   endereco: Endereco;
-//   privacidadeCampeonato: 'privado' | 'aberto';
-// }
 
 @Component({
   selector: 'app-listagem-campeonatos',
@@ -74,76 +63,24 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   readonly Lock = Lock;
   readonly LockOpen = LockOpen;
   readonly ExternalLink = ExternalLink;
+  readonly RotateCw = RotateCw;
+  readonly Users = Users;
+  readonly User = User;
+  readonly Volleyball = Volleyball;
+  readonly MessageSquareCode = MessageSquareCode;
+  readonly Flag = Flag;
+  readonly MapPin = MapPin;
+  readonly CalendarCheck = CalendarCheck;
+  readonly CalendarArrowUp = CalendarArrowUp;
+  readonly Calendar = Calendar;
+  readonly CircleDollarSign = CircleDollarSign;
+  readonly NotebookText = NotebookText;
 
-  // campeonatos: Campeonato[] = [
-  //   {
-  //     codigo: 'LKM90',
-  //     titulo: 'Campeonato de Verão',
-  //     descricao: 'Competição anual de verão',
-  //     aposta: 'R$ 500,00',
-  //     dataCriacao: '2023-01-01',
-  //     dataInicio: '2023-02-01',
-  //     dataFim: '2023-03-01',
-  //     limiteParticipantes: 50,
-  //     status: 'aberto',
-  //     endereco: {
-  //       cep: '12345678',
-  //       uf: 'SP',
-  //       cidade: 'São Paulo',
-  //       bairro: 'Centro',
-  //       rua: 'Rua das Flores',
-  //       numero: 100,
-  //       complemento: 'Próximo ao parque',
-  //     },
-  //     privacidadeCampeonato: 'aberto',
-  //   },
-  //   {
-  //     codigo: 'HGY86',
-  //     titulo: 'Campeonato de Inverno',
-  //     descricao: 'Competição anual de inverno',
-  //     aposta: 'R$ 1000,00',
-  //     dataCriacao: '2023-06-01',
-  //     dataInicio: '2023-07-01',
-  //     dataFim: '2023-08-01',
-  //     limiteParticipantes: 30,
-  //     status: 'iniciado',
-  //     endereco: {
-  //       cep: '87654321',
-  //       uf: 'RJ',
-  //       cidade: 'Rio de Janeiro',
-  //       bairro: 'Copacabana',
-  //       rua: 'Avenida Atlântica',
-  //       numero: 200,
-  //       complemento: 'Em frente à praia',
-  //     },
-  //     privacidadeCampeonato: 'privado',
-  //   },
-  //   {
-  //     codigo: 'ASH46',
-  //     titulo: 'Campeonato de Primavera',
-  //     descricao: 'Competição anual de primavera',
-  //     aposta: 'R$ 750,00',
-  //     dataCriacao: '2023-09-01',
-  //     dataInicio: '2023-10-01',
-  //     dataFim: '2023-11-01',
-  //     limiteParticipantes: 40,
-  //     status: 'finalizado',
-  //     endereco: {
-  //       cep: '11223344',
-  //       uf: 'MG',
-  //       cidade: 'Belo Horizonte',
-  //       bairro: 'Savassi',
-  //       rua: 'Rua dos Pioneiros',
-  //       numero: 300,
-  //       complemento: 'Próximo ao shopping',
-  //     },
-  //     privacidadeCampeonato: 'aberto',
-  //   },
-  // ];
 
   campeonatos: Campeonato[] = [];
   mensagem!: string;
   mensagem_detalhes!: string;
+  loading: boolean = true;
 
   getIconColor(privacidade: string): string {
     return privacidade === 'privado' ? 'red' : 'green';
@@ -158,73 +95,47 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
 
   @Input() searchedCampeonatos: string = '';
 
-  constructor(private alertController: AlertController, private campeonatoService: CampeonatoService) {
+  constructor(
+    private alertController: AlertController,
+    private campeonatoService: CampeonatoService
+  ) {
     addIcons({ lockClosed, lockOpen });
   }
 
   ngOnInit() {
-    // this.filterCampeonatos();
-    this.listarCampeonatos()
+    this.listarCampeonatos();
   }
 
-  
   listarCampeonatos(): Campeonato[] {
     this.campeonatoService.getAllCampeonatos().subscribe({
       next: (data: Campeonato[] | null) => {
+        this.loading = false; // Define loading como falso quando os dados são recebidos
         if (data == null) {
           this.campeonatos = [];
         } else {
           this.campeonatos = data;
-          console.log(this.campeonatos)
+          console.log(this.campeonatos);
         }
       },
       error: (err) => {
+        this.loading = false; // Define loading como falso em caso de erro
         this.mensagem = 'Erro buscando lista de funcionários';
         this.mensagem_detalhes = `[${err.status} ${err.message}]`;
       },
     });
     return this.campeonatos;
   }
-
   ngOnChanges(changes: SimpleChanges): void {
-      
+    // Implementar se necessário
   }
 
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if (changes['statusToggles'] || changes['searchedCampeonatos']) {
-  //     this.filterCampeonatos();
-  //   }
-  // }
-
-  // filterCampeonatos() {
-  //   // Definindo valores padrão caso statusToggles não tenha dados
-  //   const {
-  //     aberto = true,
-  //     finalizado = true,
-  //     iniciado = true,
-  //   } = this.statusToggles;
-
-  //   // Utilizando valor padrão para searchedCampeonatos
-  //   const searchTerm = this.searchedCampeonatos.toLowerCase();
-
-  //   this.filteredCampeonatos = this.campeonatos.filter((campeonato) => {
-  //     const matchesStatus =
-  //       (aberto && campeonato.status === 'aberto') ||
-  //       (finalizado && campeonato.status === 'finalizado') ||
-  //       (iniciado && campeonato.status === 'iniciado');
-
-  //     const matchesSearchTerm =
-  //       campeonato.titulo.toLowerCase().includes(searchTerm) ||
-  //       campeonato.descricao.toLowerCase().includes(searchTerm);
-
-  //     return matchesStatus && matchesSearchTerm;
-  //   });
-  // }
-
-  async presentAlertPrompt(campeonato: Campeonato, errorMessage: string = '') {
+  async presentAlertPrompt(
+    campeonato: Campeonato,
+    errorMessage: string = ''
+  ) {
     const alert = await this.alertController.create({
       header: 'Insira a senha',
-      message: errorMessage, // Mensagem de erro
+      message: errorMessage,
       inputs: [
         {
           name: 'senha',
@@ -261,12 +172,4 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
       this.presentAlertPrompt(campeonato, 'Senha errada. Tente novamente.');
     }
   }
-
-  // inscreverSe(campeonato: Campeonato) {
-  //   if (campeonato.privacidadeCampeonato === 'privado') {
-  //     this.presentAlertPrompt(campeonato);
-  //   } else {
-  //     console.log('Você entrou no campeonato:', campeonato.titulo);
-  //   }
-  // }
 }

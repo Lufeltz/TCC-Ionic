@@ -41,7 +41,7 @@ ul {
   color: var(--text-green);
   flex-grow: 1;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .campeonato-curso {
@@ -61,6 +61,7 @@ ul {
 }
 
 .campeonato-interacoes {
+  margin-top: 20px;
   border-top: 1px solid var(--text-light);
   padding-top: 16px;
   color: var(--text-light);
@@ -107,12 +108,14 @@ ion-item {
 
 ion-button {
   margin-top: 16px;
-  --background: var(--text-green);
-  --color: var(--text-white);
+  --background: var(--text-white);
+  --color: var(--background-dark);
 }
 
 .endereco {
   border-top: 1px solid var(--text-light);
+  padding-top: 20px;
+  margin-top: 20px;
 }
 
 .detalhes strong {
@@ -145,8 +148,48 @@ ion-button {
 }
 
 .icon-align {
+  display: flex; /* Usar flexbox para o alinhamento */
+  align-items: center; /* Alinhamento vertical central */
+  margin-top: 4px; /* Espaçamento acima */
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px; /* Espaçamento à direita do ícone */
+}
+
+/* Se necessário, adicione alguma regra para o texto dentro da div */
+.icon-align p {
+  margin: 0; /* Remover margens do parágrafo */
+  color: var(--text-white); /* Cor do texto, se desejar */
+  font-size: 1rem; /* Ajustar o tamanho da fonte */
+}
+
+.skeleton {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 16px;
+
+  &-header {
+    height: 20px;
+    width: 70%;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+
+  &-body {
+    display: flex;
+    flex-direction: column;
+
+    .skeleton-line {
+      height: 14px;
+      background-color: #e0e0e0;
+      margin: 4px 0;
+      border-radius: 4px;
+      width: 100%;
+    }
+  }
 }

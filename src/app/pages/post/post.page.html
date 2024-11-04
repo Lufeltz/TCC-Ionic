@@ -5,45 +5,58 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <ion-input
-    class="input-space"
-    label="Título"
-    labelPlacement="floating"
-    [counter]="true"
-    maxlength="50"
-  ></ion-input>
+  <div class="margin-tab">
+    <ion-textarea
+      class="input-space styled-textarea titulo-input"
+      label="Título"
+      labelPlacement="floating"
+      placeholder="Digite o título (máx 50 caracteres)"
+      maxlength="50"
+    ></ion-textarea>
 
-  <ion-input
-    id="custom-input"
-    label="Mensagem"
-    labelPlacement="floating"
-    [counter]="true"
-    maxlength="200"
-    [counterFormatter]="customCounterFormatter"
-  ></ion-input>
+    <ion-textarea
+      class="input-space styled-textarea message-input"
+      label="Mensagem"
+      labelPlacement="floating"
+      placeholder="Digite sua mensagem (máx 150 caracteres)"
+      maxlength="150"
+    ></ion-textarea>
 
-  <ion-toast
-    trigger="open-toast"
-    message="Post criado com sucesso, redirecionando..."
-    [duration]="2500"
-  ></ion-toast>
+    <ion-toast
+      trigger="open-toast"
+      message="Post criado com sucesso, redirecionando..."
+      [duration]="2500"
+    ></ion-toast>
 
-  <ion-list class="input-space">
-    <ion-item>
-      <ion-select placeholder="Selecione a modalidade">
-        <!-- Trocar para um for com todas as modalidades -->
-        <ion-select-option value="futebol">Futebol</ion-select-option>
-        <ion-select-option value="volei">Vôlei</ion-select-option>
-        <ion-select-option value="basquete">Basquete</ion-select-option>
-        <ion-select-option value="ping-pong">Ping Pong</ion-select-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
+    <div class="input-space">
+      <div class="custom-select-wrapper">
+        <select
+          class="custom-select"
+          id="modalidade-select"
+          (change)="onSelectChange($event)"
+        >
+          <option value="futebol" selected>Futebol</option>
+          <option value="volei">Vôlei</option>
+          <option value="basquete">Basquete</option>
+          <option value="ping-pong">Ping Pong</option>
+        </select>
+      </div>
+    </div>
 
-  <ion-button size="small" id="open-toast" class="btn-enviar" (click)="voltarComunidadePostCriado()"
-    >Enviar</ion-button
-  >
-  <ion-button size="small" class="btn-voltar" (click)="voltarComunidadeSemCriarPost()"
-    >Voltar</ion-button
-  >
+    <ion-button
+      size="small"
+      id="open-toast"
+      class="btn-enviar"
+      (click)="voltarComunidadePostCriado()"
+    >
+      Enviar
+    </ion-button>
+    <ion-button
+      size="small"
+      class="btn-voltar"
+      (click)="voltarComunidadeSemCriarPost()"
+    >
+      Voltar
+    </ion-button>
+  </div>
 </ion-content>

@@ -11,10 +11,7 @@ import {
   IonToast,
   IonList,
   IonItem,
-  IonSelect,
-  IonSelectOption,
-  IonText,
-} from '@ionic/angular/standalone';
+  IonText, IonTextarea } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.component';
 import { Router } from '@angular/router';
 
@@ -23,7 +20,7 @@ import { Router } from '@angular/router';
   templateUrl: './post.page.html',
   styleUrls: ['./post.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonTextarea, 
     IonButton,
     IonContent,
     IonHeader,
@@ -36,8 +33,6 @@ import { Router } from '@angular/router';
     IonToast,
     IonList,
     IonItem,
-    IonSelect,
-    IonSelectOption,
     IonText,
   ],
 })
@@ -62,5 +57,11 @@ export class PostPage implements OnInit {
 
   customCounterFormatter(inputLength: number, maxLength: number) {
     return `${maxLength - inputLength} caracteres restantes`;
+  }
+
+  onSelectChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedValue = selectElement.value;
+    console.log('Modalidade selecionada:', selectedValue);
   }
 }
