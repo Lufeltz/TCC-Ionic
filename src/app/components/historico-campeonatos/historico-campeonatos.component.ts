@@ -12,10 +12,35 @@ import {
   IonAccordionGroup,
   IonItem,
   IonButton,
-  IonIcon, IonToast } from '@ionic/angular/standalone';
+  IonIcon,
+  IonToast,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { lockClosed, lockOpen } from 'ionicons/icons';
-import { BookmarkCheck, CheckCheck, CircleCheckBig, ExternalLink, Lock, LockOpen, LucideAngularModule, RotateCw, SquareArrowUpRight } from 'lucide-angular';
+import {
+  BookmarkCheck,
+  Calendar,
+  CalendarArrowUp,
+  CalendarCheck,
+  CheckCheck,
+  CircleCheckBig,
+  CircleDollarSign,
+  ExternalLink,
+  Flag,
+  Lock,
+  LockOpen,
+  LucideAngularModule,
+  MapPin,
+  MessageSquareCode,
+  NotebookPen,
+  NotebookText,
+  RotateCw,
+  SquareArrowUpRight,
+  User,
+  Users,
+  UsersRound,
+  Volleyball,
+} from 'lucide-angular';
 import { NgxMaskPipe } from 'ngx-mask';
 
 interface Endereco {
@@ -47,7 +72,8 @@ interface Campeonato {
   templateUrl: './historico-campeonatos.component.html',
   styleUrls: ['./historico-campeonatos.component.scss'],
   standalone: true,
-  imports: [IonToast, 
+  imports: [
+    IonToast,
     IonIcon,
     IonButton,
     IonItem,
@@ -56,7 +82,7 @@ interface Campeonato {
     IonLabel,
     CommonModule,
     NgxMaskPipe,
-    LucideAngularModule
+    LucideAngularModule,
   ],
 })
 export class HistoricoCampeonatosComponent implements OnInit, OnChanges {
@@ -67,6 +93,19 @@ export class HistoricoCampeonatosComponent implements OnInit, OnChanges {
   readonly CircleCheckBig = CircleCheckBig;
   readonly RotateCw = RotateCw;
   readonly BookmarkCheck = BookmarkCheck;
+  readonly UsersRound = UsersRound;
+  readonly Users = Users;
+  readonly User = User;
+  readonly Volleyball = Volleyball;
+  readonly MessageSquareCode = MessageSquareCode;
+  readonly Flag = Flag;
+  readonly MapPin = MapPin;
+  readonly CalendarCheck = CalendarCheck;
+  readonly CalendarArrowUp = CalendarArrowUp;
+  readonly Calendar = Calendar;
+  readonly CircleDollarSign = CircleDollarSign;
+  readonly NotebookText = NotebookText;
+  readonly NotebookPen = NotebookPen;
 
   campeonatos: Campeonato[] = [
     {

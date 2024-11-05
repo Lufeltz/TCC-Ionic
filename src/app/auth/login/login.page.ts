@@ -20,6 +20,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { AcademicoService } from 'src/app/services/academico.service';
 import { LoginRequest } from 'src/app/models/login-request.model';
 import { jwtDecode } from 'jwt-decode';
+import { Lock, LucideAngularModule, User } from 'lucide-angular';
 
 @Component({
   selector: 'app-login',
@@ -39,9 +40,13 @@ import { jwtDecode } from 'jwt-decode';
     IonItem,
     IonInput,
     RouterModule,
+    LucideAngularModule,
   ],
 })
 export class LoginPage implements OnInit {
+  readonly Lock = Lock;
+  readonly User = User;
+
   constructor(
     private loginService: LoginService,
     private router: Router,
@@ -72,9 +77,9 @@ export class LoginPage implements OnInit {
   logar(): void {
     this.loading = true;
     if (true) {
-      this.router.navigate(['/homepage']);}
-      else {
-    // if (this.formLogin.form.valid) {
+      this.router.navigate(['/homepage']);
+    } else {
+      // if (this.formLogin.form.valid) {
       this.loginService.login(this.login).subscribe({
         next: (token) => {
           if (token != null) {
@@ -107,7 +112,7 @@ export class LoginPage implements OnInit {
           this.message = `Erro efetuando login: ${err.message}`;
         },
       });
-    // } else {
+      // } else {
       this.loading = false;
     }
   }

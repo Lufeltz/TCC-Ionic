@@ -18,26 +18,41 @@
       <p>Acesse a sua conta.</p>
       <ion-list lines="none">
         <ion-item>
-          <ion-icon name="mail-outline"></ion-icon>
-          <ion-input
-            type="text"
-            name="username"
-            id="username"
-            placeholder="Usuário"
-            [(ngModel)]="login.username"
-            #username="ngModel"
-          ></ion-input>
+          <!-- <ion-icon name="mail-outline"></ion-icon> -->
+          <div class="icon-align">
+            <lucide-angular
+              [img]="User"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--light-blue)'"
+            ></lucide-angular>
+            <ion-input
+              type="text"
+              name="username"
+              id="username"
+              placeholder="Usuário"
+              [(ngModel)]="login.username"
+              #username="ngModel"
+            ></ion-input>
+          </div>
         </ion-item>
         <ion-item>
-          <ion-icon name="lock-closed-outline"></ion-icon>
-          <ion-input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Senha"
-            [(ngModel)]="login.password"
-            #password="ngModel"
-          ></ion-input>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="Lock"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--light-blue)'"
+            ></lucide-angular>
+            <ion-input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Senha"
+              [(ngModel)]="login.password"
+              #password="ngModel"
+            ></ion-input>
+          </div>
         </ion-item>
       </ion-list>
       <ion-button expand="block" (click)="logar()"> Entrar </ion-button>

@@ -12,18 +12,58 @@
           ></lucide-angular>
         </h3>
       </div>
+
       <div class="header">
-        <p>
-          <strong>Data de Criação: </strong>
-          {{ campeonato.dataCriacao | date : "dd/MM/yyyy" }}
-        </p>
-        <p><strong>Aposta: </strong> {{ campeonato.aposta }}</p>
-        <p>
-          <strong>Limite de Participantes: </strong>
-          {{ campeonato.limiteParticipantes }}
-        </p>
-        <p><strong>Código: </strong> {{ campeonato.codigo }}</p>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Flag"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--purple-desc)'"
+          ></lucide-angular>
+          <p><strong>Status: </strong>Finalizado</p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Users"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--purple-desc)'"
+          ></lucide-angular>
+          <p><strong> Times: </strong>4 / 4</p>
+        </div>
+        <div class="icon-align">
+          <p>
+            <lucide-angular
+              [img]="User"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--purple-desc)'"
+            ></lucide-angular>
+            <strong>Jogadores: </strong>
+            16 / 20
+          </p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Volleyball"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--purple-desc)'"
+          ></lucide-angular>
+          <p><strong>Modalidade: </strong>Futebol</p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="MessageSquareCode"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--purple-desc)'"
+          ></lucide-angular>
+          <p><strong>Código: </strong> {{ campeonato.codigo }}</p>
+        </div>
       </div>
+
       <div class="campeonato-interacoes">
         <ion-accordion-group>
           <ion-accordion>
@@ -31,47 +71,143 @@
               <ion-label><strong>Mais Informações</strong></ion-label>
             </ion-item>
             <div slot="content" class="detalhes">
-              <p><strong>Descrição:</strong> {{ campeonato.descricao }}</p>
-              <p>
-                <strong>Status:</strong> {{ campeonato.status | titlecase }}
-              </p>
-              <p>
-                <strong>Início:</strong>
-                {{ campeonato.dataInicio | date : "dd/MM/yyyy" }}
-              </p>
-              <p>
-                <strong>Fim:</strong>
-                {{ campeonato.dataFim | date : "dd/MM/yyyy" }}
-              </p>
-              <div class="endereco">
-                <p>
-                  <strong>Logradouro: </strong> {{ campeonato.endereco.rua }},
-                  {{ campeonato.endereco.numero }}
-                </p>
-                <p>
-                  <strong>Bairro: </strong> {{ campeonato.endereco.bairro }}
-                </p>
-                <p>
-                  <strong>Complemento: </strong>
-                  {{ campeonato.endereco.complemento }}
-                </p>
-                <p>
-                  <strong>Cidade/UF: </strong>
-                  {{ campeonato.endereco.cidade }}/{{ campeonato.endereco.uf }}
-                </p>
-                <p>
-                  <strong>CEP: </strong>
-                  {{ campeonato.endereco.cep | mask : "000000-000" }}
-                </p>
-              </div>
-              <ion-button size="small" expand="block"
-                >Detalhes
+              <div class="icon-align">
                 <lucide-angular
-                  [img]="ExternalLink"
+                  [img]="NotebookText"
                   class="btn-inscrever-se"
                   [size]="20"
-                ></lucide-angular
-              ></ion-button>
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <p><strong>Descrição:</strong> {{ campeonato.descricao }}</p>
+              </div>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="Calendar"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <p>
+                  <strong>Criação: </strong>
+                  {{ campeonato.dataCriacao | date : "dd/MM/yyyy" }}
+                </p>
+              </div>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="User"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <p><strong>Criador: </strong>math_aa</p>
+              </div>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="CircleDollarSign"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <p><strong>Aposta: </strong> {{ campeonato.aposta }}</p>
+              </div>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="CalendarArrowUp"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <p>
+                  <strong>Início:</strong>
+                  {{ campeonato.dataInicio | date : "dd/MM/yyyy" }}
+                </p>
+              </div>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="CalendarCheck"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <p>
+                  <strong>Fim:</strong>
+                  {{ campeonato.dataFim | date : "dd/MM/yyyy" }}
+                </p>
+              </div>
+              <div class="endereco">
+                <div class="icon-align">
+                  <lucide-angular
+                    [img]="MapPin"
+                    class="btn-inscrever-se"
+                    [size]="20"
+                    [color]="'var(--light-red)'"
+                  ></lucide-angular>
+                  <p>
+                    <strong>Logradouro: </strong>
+                    {{ campeonato.endereco.rua }},
+                    {{ campeonato.endereco.numero }}
+                  </p>
+                </div>
+                <div class="icon-align">
+                  <lucide-angular
+                    [img]="MapPin"
+                    class="btn-inscrever-se"
+                    [size]="20"
+                    [color]="'var(--light-red)'"
+                  ></lucide-angular>
+                  <p>
+                    <strong>Complemento: </strong>
+                    {{ campeonato.endereco.complemento }}
+                  </p>
+                </div>
+                <div class="icon-align">
+                  <lucide-angular
+                    [img]="MapPin"
+                    class="btn-inscrever-se"
+                    [size]="20"
+                    [color]="'var(--light-red)'"
+                  ></lucide-angular>
+                  <p>
+                    <strong>Cidade/UF: </strong>
+                    {{ campeonato.endereco.cidade }}/{{
+                      campeonato.endereco.uf
+                    }}
+                  </p>
+                </div>
+                <div class="icon-align">
+                  <lucide-angular
+                    [img]="MapPin"
+                    class="btn-inscrever-se"
+                    [size]="20"
+                    [color]="'var(--light-red)'"
+                  ></lucide-angular>
+                  <p>
+                    <strong>Bairro: </strong> {{ campeonato.endereco.bairro }}
+                  </p>
+                </div>
+                <div class="icon-align">
+                  <lucide-angular
+                    [img]="MapPin"
+                    class="btn-inscrever-se"
+                    [size]="20"
+                    [color]="'var(--light-red)'"
+                  ></lucide-angular>
+                  <p>
+                    <strong>CEP: </strong>
+                    {{ campeonato.endereco.cep | mask : "000000-000" }}
+                  </p>
+                </div>
+              </div>
+              <ion-button size="small" expand="block" class="icon-button">
+                <div class="text-container">Inscrever-se</div>
+                <div class="icon-align">
+                  <lucide-angular
+                    [img]="ExternalLink"
+                    class="btn-inscrever-se"
+                    [size]="20"
+                  ></lucide-angular>
+                </div>
+              </ion-button>
             </div>
           </ion-accordion>
         </ion-accordion-group>

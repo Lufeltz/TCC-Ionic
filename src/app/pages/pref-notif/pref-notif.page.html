@@ -5,7 +5,7 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <h3>
+  <!-- <h3>
     <lucide-angular
       [img]="Volleyball"
       class="btn-inscrever-se"
@@ -79,7 +79,7 @@
       message="4 Preferência atualizada."
       [duration]="3000"
     ></ion-toast>
-  </div>
+  </div> -->
 
   <h3>
     <lucide-angular
@@ -87,8 +87,8 @@
       class="btn-inscrever-se"
       [size]="20"
       color="var(--text-green)"
-    ></lucide-angular
-    > Privacidade
+    ></lucide-angular>
+    Privacidade
   </h3>
   <div class="toggle">
     <ion-toggle
@@ -98,7 +98,7 @@
       (click)="mostrarEstadoToggle(estados.privacidade.privModalidadesEsportivas)"
     ></ion-toggle>
     <ion-text
-      >Permitir que outros usuários vejam detalhes das minhas modalidades
+      >Permitir que outros usuários vejam as minhas estatisticas de desempenho
       esportivas</ion-text
     >
     <ion-toast
@@ -108,6 +108,23 @@
       [duration]="3000"
     ></ion-toast>
   </div>
+
+  <div class="toggle">
+    <ion-toggle
+      id="open-toast8"
+      labelPlacement="end"
+      [(ngModel)]="estados.privacidade.privConquistas"
+      (click)="mostrarEstadoToggle(estados.privacidade.privConquistas)"
+    ></ion-toggle>
+    <ion-text>Permitir que outros usuários vejam as minhas conquistas</ion-text>
+    <ion-toast
+      position="top"
+      trigger="open-toast8"
+      message="4 Privacidade atualizada."
+      [duration]="3000"
+    ></ion-toast>
+  </div>
+
   <div class="toggle">
     <ion-toggle
       id="open-toast6"
@@ -123,39 +140,6 @@
       position="top"
       trigger="open-toast6"
       message="2 Privacidade atualizada."
-      [duration]="3000"
-    ></ion-toast>
-  </div>
-  <div class="toggle">
-    <ion-toggle
-      id="open-toast7"
-      labelPlacement="end"
-      [(ngModel)]="estados.privacidade.privEstatisticasModalidades"
-      (click)="mostrarEstadoToggle(estados.privacidade.privEstatisticasModalidades)"
-    ></ion-toggle>
-    <ion-text
-      >Permitir que outros usuários vejam as minhas estatísticas nas modalidades
-      esportivas</ion-text
-    >
-    <ion-toast
-      position="top"
-      trigger="open-toast7"
-      message="3 Privacidade atualizada."
-      [duration]="3000"
-    ></ion-toast>
-  </div>
-  <div class="toggle">
-    <ion-toggle
-      id="open-toast8"
-      labelPlacement="end"
-      [(ngModel)]="estados.privacidade.privConquistas"
-      (click)="mostrarEstadoToggle(estados.privacidade.privConquistas)"
-    ></ion-toggle>
-    <ion-text>Permitir que outros usuários vejam as minhas conquistas</ion-text>
-    <ion-toast
-      position="top"
-      trigger="open-toast8"
-      message="4 Privacidade atualizada."
       [duration]="3000"
     ></ion-toast>
   </div>

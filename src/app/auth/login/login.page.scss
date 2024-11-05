@@ -1,54 +1,75 @@
 .container {
-    padding: 2rem;
-    height: 100vh;
-    background-color: #202024;
-  
-    h1 {
-      color: var(--light-blue);
-      font-size: 1.6rem;
-      font-weight: bolder;
-      text-align: center;
-    }
-  
-    p {
-      color: #7b7b7b;
-    }
-  
-    p a {
-      color: var(--light-blue);
-      text-decoration: none;
-    }
-  
-    ion-button {
-      margin-top: 1.5rem;
-      --background: var(--light-blue);
-    }
-  
-    ion-item {
-      --background: #121214;
-      color: var(--gray-50);
-      --border-radius: 5px;
-      margin-bottom: 15px;
-      --padding-bottom: 10px;
-      --padding-top: 10px;
-    }
-  
-    ion-icon {
-      color: var(--light-blue);
-    }
-  
-    ion-radio-group {
-      color: var(--gray-50);
-    }
-  
-    ion-list {
-      margin-bottom: 15px;
-      background-color: #202024;
-      border-radius: 5px;
-    }
-  
-    ion-icon {
-      margin-right: 15px;
-    }
+  padding: 2rem;
+  height: 100vh;
+  background-color: #202024;
+
+  h1 {
+    color: var(--light-blue);
+    font-size: 1.6rem;
+    font-weight: bolder;
+    text-align: center;
   }
-  
+
+  p {
+    color: #7b7b7b;
+  }
+
+  p a {
+    color: var(--light-blue);
+    text-decoration: none;
+  }
+
+  ion-button {
+    margin-top: 1.5rem;
+    --background: var(--light-blue);
+  }
+
+  ion-item {
+    --background: #121214;
+    color: var(--gray-50);
+    --border-radius: 5px;
+    margin-bottom: 15px;
+    --padding-bottom: 10px;
+    --padding-top: 10px;
+  }
+
+  ion-icon {
+    color: var(--light-blue);
+  }
+
+  ion-radio-group {
+    color: var(--gray-50);
+  }
+
+  ion-list {
+    margin-bottom: 15px;
+    background-color: #202024;
+    border-radius: 5px;
+  }
+
+  ion-icon {
+    margin-right: 15px;
+  }
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  gap: 10px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+

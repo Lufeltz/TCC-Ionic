@@ -104,18 +104,22 @@
           }"
         >
           {{ meta.nome || meta.esporte }}
+
           <span class="texto-light">{{ meta.tipo | titlecase }}</span>
         </h3>
-        <!-- Exibe a primeira opção para metas diárias e a primeira meta para metas esportivas -->
         <p
           *ngIf="meta.tipo === 'diaria' && meta.opcoes && meta.opcoes.length > 0"
         >
-          {{ meta.opcoes[0] }}
+          <!-- 100 / {{ meta.opcoes[0] }} -->
+          <br />Beber 2 litros de água <br /><br />
+          100 / 2000 ml
         </p>
         <p
           *ngIf="meta.tipo === 'esportiva' && meta.metas && meta.metas.length > 0"
         >
-          {{ meta.metas[0] }}
+          <!-- {{ meta.metas[0] }} -->
+          <br />Realizar 25 gols <br /><br />
+          12 / 25 gols
         </p>
       </li>
     </ul>
