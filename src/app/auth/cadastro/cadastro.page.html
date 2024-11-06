@@ -18,7 +18,14 @@
       <p>Faça seu cadastro abaixo.</p>
       <ion-list lines="none">
         <ion-item>
-          <ion-icon name="person-outline"></ion-icon>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="User"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--light-blue)'"
+            ></lucide-angular>
+          </div>
           <ion-input
             type="text"
             name="nome"
@@ -29,7 +36,14 @@
           ></ion-input>
         </ion-item>
         <ion-item lines="none">
-          <ion-icon name="mail-outline"></ion-icon>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="AtSign"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--light-blue)'"
+            ></lucide-angular>
+          </div>
           <ion-input
             type="email"
             name="email"
@@ -40,7 +54,14 @@
           ></ion-input>
         </ion-item>
         <ion-item>
-          <ion-icon name="lock-closed-outline"></ion-icon>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="Lock"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--light-blue)'"
+            ></lucide-angular>
+          </div>
           <ion-input
             type="password"
             name="password"
@@ -59,7 +80,21 @@
         ><br />
         <ion-radio value="outro" labelPlacement="end">Outro</ion-radio><br />
       </ion-radio-group>
-      <ion-button expand="block" (click)="cadastrar()">Cadastrar</ion-button>
+      <ion-button
+        size="small"
+        expand="block"
+        (click)="cadastrar()"
+        class="icon-button"
+      >
+        <div class="text-container">Registrar</div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="SaveAll"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
+        </div>
+      </ion-button>
       <p>Já possui uma conta? <a routerLink="/login">Log in</a></p>
     </div>
   </form>

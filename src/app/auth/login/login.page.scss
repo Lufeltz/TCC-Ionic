@@ -20,9 +20,11 @@
   }
 
   ion-button {
-    margin-top: 1.5rem;
-    --background: var(--light-blue);
+    margin-top: 16px;
+    --background: var(--text-white);
+    --color: var(--background-dark);
   }
+  
 
   ion-item {
     --background: #121214;
@@ -73,3 +75,24 @@
   font-size: 1rem;
 }
 
+
+
+.btn-inscrever-se {
+  margin-left: 5px;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}

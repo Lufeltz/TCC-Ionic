@@ -20,6 +20,7 @@ import { mailOutline, lockClosedOutline, personOutline } from 'ionicons/icons';
 import { Router, RouterModule } from '@angular/router';
 import { AcademicoService } from 'src/app/services/academico.service';
 import { Academico } from 'src/app/models/academico.model';
+import { AtSign, Lock, LucideAngularModule, SaveAll, User } from 'lucide-angular';
 
 @Component({
   selector: 'app-cadastro',
@@ -41,9 +42,16 @@ import { Academico } from 'src/app/models/academico.model';
     IonRadio,
     IonRadioGroup,
     RouterModule,
+    LucideAngularModule
   ],
 })
 export class CadastroPage {
+
+  readonly SaveAll = SaveAll;
+  readonly User = User;
+  readonly AtSign = AtSign;
+  readonly Lock = Lock;
+
   @ViewChild('formCadastro') formCadastro!: NgForm;
   message!: string;
   academico: Academico = new Academico();

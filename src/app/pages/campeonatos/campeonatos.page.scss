@@ -17,13 +17,6 @@ ion-segment {
   margin-bottom: 0.5rem;
 }
 
-ion-button {
-  --background: var(--light-blue);
-  width: 100%;
-  display: flex;
-  justify-content: center;
-}
-
 div {
   h2,
   p {
@@ -75,7 +68,7 @@ ul {
 }
 
 .centered-button {
-  --background: var(--light-blue);
+  --background: var(--text-white);
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
@@ -113,18 +106,62 @@ ion-input ion-icon {
   margin-right: 5px;
 }
 
+.cep-button {
+  margin-left: 10px;
+}
+
 .input-container {
   width: 100%;
   display: flex;
   align-items: center;
 }
 
-.cep-button {
-  margin-left: 10px;
+.input-container ion-input {
+  flex: 1;
+  margin: 0;
 }
 
 .input-container ion-button {
-  flex: 1;
-  color: var(--text-white);
-  margin-top: 14px;
+  width: auto; /* Define a largura do botão */
+  flex-shrink: 0; /* Impede que o botão encolha */
+  margin-left: 10px;
+  margin-top: 0;
+  align-self: center;
+}
+
+ion-button {
+  --background: var(--text-white);
+  --color: var(--background-dark);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+  --color: var(--background-dark);
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  color: var(--background-dark);
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+  --color: var(--background-dark);
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--background-dark);
+  font-size: 1rem;
+}
+
+.cep-button {
+  border: none; /* Remove the border */
+  margin-left: 10px; /* Maintain the margin-left */
+  --border-width: 0; /* Ensure any border width is set to 0 */
 }

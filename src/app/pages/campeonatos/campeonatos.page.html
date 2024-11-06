@@ -110,6 +110,7 @@
                 [img]="Search"
                 class="btn-inscrever-se"
                 [size]="20"
+                [color]="'var(--background-dark)'"
               ></lucide-angular>
             </ion-button>
           </div>
@@ -170,18 +171,16 @@
         class="centered-button"
         (click)="salvarDados()"
       >
-        <lucide-angular
-          [img]="Pencil"
-          class="btn-inscrever-se"
-          [size]="20"
-        ></lucide-angular>
-        Criar</ion-button
-      >
-      <ion-toast
-        trigger="open-toast"
-        message="Dados de perfil atualizados!"
-        [duration]="3000"
-      ></ion-toast>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Pencil"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--background-dark)'"
+          ></lucide-angular>
+          <p>Criar</p>
+        </div>
+      </ion-button>
     </div>
   </div>
 

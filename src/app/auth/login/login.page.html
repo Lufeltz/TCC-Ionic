@@ -55,7 +55,21 @@
           </div>
         </ion-item>
       </ion-list>
-      <ion-button expand="block" (click)="logar()"> Entrar </ion-button>
+      <ion-button
+        size="small"
+        expand="block"
+        (click)="logar()"
+        class="icon-button"
+      >
+        <div class="text-container">Entrar</div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="LogIn"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
+        </div>
+      </ion-button>
       <p>Não tem uma conta? <a routerLink="/cadastro">Cadastrar</a></p>
     </div>
   </form>

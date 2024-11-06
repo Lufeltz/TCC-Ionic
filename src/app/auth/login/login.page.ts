@@ -20,7 +20,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { AcademicoService } from 'src/app/services/academico.service';
 import { LoginRequest } from 'src/app/models/login-request.model';
 import { jwtDecode } from 'jwt-decode';
-import { Lock, LucideAngularModule, User } from 'lucide-angular';
+import { Lock, LogIn, LucideAngularModule, RotateCw, User } from 'lucide-angular';
 
 @Component({
   selector: 'app-login',
@@ -46,6 +46,7 @@ import { Lock, LucideAngularModule, User } from 'lucide-angular';
 export class LoginPage implements OnInit {
   readonly Lock = Lock;
   readonly User = User;
+  readonly LogIn = LogIn;
 
   constructor(
     private loginService: LoginService,

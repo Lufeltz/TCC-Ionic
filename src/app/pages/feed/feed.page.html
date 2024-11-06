@@ -55,12 +55,14 @@
   <div *ngIf="selectedSegment === 'posts'">
     <div class="criar-post">
       <ion-button size="small" (click)="criarPost()">
-        <lucide-angular
-          [img]="Pencil"
-          class="btn-inscrever-se"
-          [size]="20"
-        ></lucide-angular
-        >Criar Post</ion-button
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Pencil"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular
+          >Criar Post
+        </div></ion-button
       >
     </div>
     <app-posts [searchedPosts]="searchTerm"></app-posts>
