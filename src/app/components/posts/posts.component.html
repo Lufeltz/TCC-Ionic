@@ -19,13 +19,14 @@
         <p class="comentarios-header">Titulo da publicação</p>
         <p class="descricao">{{ publicacao.descricao }}</p>
         <div class="curtidas">
-          <div class="curtidas-info" (click)="curtir(publicacao)">
+          <div class="curtidas-info">
             <div class="icon-align">
               <lucide-angular
                 [img]="Star"
                 class="btn-inscrever-se"
                 [size]="20"
                 [color]="publicacao.isCurtiu ? 'var(--yellow-desc)' : 'gray'"
+                (click)="curtir(publicacao)"
               ></lucide-angular>
             </div>
             <span
@@ -33,8 +34,11 @@
                 'text-gray': !publicacao.isCurtiu,
                 'yellow-desc': publicacao.isCurtiu
               }"
+              class="link-curtidas"
+              (click)="abrirModalCurtidas(publicacao.listaUsuarioCurtida)"
+              style="cursor: pointer"
             >
-              {{ publicacao.listaUsuarioCurtida.length }}
+              {{ publicacao.listaUsuarioCurtida.length }} Curtidas
             </span>
           </div>
         </div>
@@ -68,8 +72,13 @@
                     </p>
                   </div>
                   <p class="comentario-descricao">{{ comentario.descricao }}</p>
+
+                  <!-- Comentário -->
                   <div class="comentario-curtidas">
-                    <div class="curtidas-info" (click)="curtir(comentario)">
+                    <div
+                      class="curtidas-info"
+                      (click)="curtirComentario(comentario)"
+                    >
                       <div class="icon-align">
                         <lucide-angular
                           [img]="Star"
@@ -80,8 +89,18 @@
                           "
                         ></lucide-angular>
                       </div>
-                      <span [ngClass]="{ 'text-gray': !comentario.isCurtiu, 'yellow-desc': comentario.isCurtiu }">
-                        {{ comentario.listaUsuarioCurtida.length }}
+                      <span
+                        [ngClass]="{
+                          'text-gray': !comentario.isCurtiu,
+                          'yellow-desc': comentario.isCurtiu
+                        }"
+                        (click)="
+                          abrirModalCurtidas(comentario.listaUsuarioCurtida);
+                          $event.stopPropagation()
+                        "
+                        style="cursor: pointer"
+                      >
+                        {{ comentario.listaUsuarioCurtida.length }} Curtidas
                       </span>
                     </div>
                   </div>
@@ -114,3 +133,10 @@
     </div>
   </ion-button>
 </div>
+
+<!-- Modal de Curtidas -->
+<app-modal-curtidas
+  *ngIf="modalCurtidasVisible"
+  [listaUsuarioCurtida]="curtidasParaExibir"
+  (close)="closeModal()"
+></app-modal-curtidas>

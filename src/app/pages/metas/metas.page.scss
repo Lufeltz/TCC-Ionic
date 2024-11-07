@@ -98,7 +98,6 @@ ion-item {
 }
 
 .centered-button {
-  --background: var(--light-blue);
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
@@ -114,13 +113,6 @@ ion-item {
 .item-lista ion-label {
   color: var(--light-blue);
   margin-bottom: 0.5rem;
-}
-
-ion-button {
-  --background: var(--light-blue);
-  width: 100%;
-  display: flex;
-  justify-content: center;
 }
 
 ion-segment {
@@ -177,7 +169,6 @@ ul {
 }
 
 .centered-button {
-  --background: var(--light-blue);
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
@@ -218,4 +209,35 @@ ion-input {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+ion-button {
+  --background: var(--text-white);
+  --color: var(--background-dark);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+  --color: var(--background-dark);
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  color: var(--background-dark);
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+  --color: var(--background-dark);
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--background-dark);
+  font-size: 1rem;
 }

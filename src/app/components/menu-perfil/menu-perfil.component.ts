@@ -41,6 +41,7 @@ import {
   DiamondPlus,
   Dumbbell,
   GraduationCap,
+  HeartPulse,
   LogOut,
   LucideAngularModule,
   MessageCirclePlus,
@@ -84,7 +85,7 @@ export class MenuPerfilComponent implements OnInit {
   readonly GraduationCap = GraduationCap;
   readonly Bell = Bell;
   readonly ShieldPlus = ShieldPlus;
-  readonly MessageCirclePlus = MessageCirclePlus;
+  readonly HeartPulse = HeartPulse;
   readonly ChartNoAxesCombined = ChartNoAxesCombined;
   readonly Settings = Settings;
   readonly Calendar1 = Calendar1;

@@ -25,16 +25,50 @@
               {{ estatistica.titulo }}
               <span class="texto-light">{{ esporte.esporte }}</span>
             </h3>
-            <p class="estatistica-descricao">
-              Descrição: {{ estatistica.descricao }}
-            </p>
-            <p class="estatistica-progresso">
-              Progresso: {{ estatistica.progresso }} /
-              {{ estatistica.objetivo }}
-            </p>
-            <p class="estatistica-objetivo">
-              Desempenho: 15% da conquista completa
-            </p>
+
+            <div class="icon-align">
+              <lucide-angular
+                [img]="Target"
+                class="btn-inscrever-se"
+                [size]="20"
+                [ngClass]="{
+                  'icon-completo': estatistica.completo,
+                  'icon-incompleto': !estatistica.completo
+                }"
+              ></lucide-angular>
+
+              <p class="estatistica-descricao">
+                Descrição: {{ estatistica.descricao }}
+              </p>
+            </div>
+            <div class="icon-align">
+              <lucide-angular
+                [img]="CircleDashed"
+                class="btn-inscrever-se"
+                [size]="20"
+                [ngClass]="{
+                  'icon-completo': estatistica.completo,
+                  'icon-incompleto': !estatistica.completo
+                }"
+              ></lucide-angular>
+              <p class="estatistica-progresso">
+                Progresso: {{ estatistica.progresso }} / {{ estatistica.objetivo }}
+              </p>
+            </div>
+            <div class="icon-align">
+              <lucide-angular
+                [img]="SignalHigh"
+                class="btn-inscrever-se"
+                [size]="20"
+                [ngClass]="{
+                  'icon-completo': estatistica.completo,
+                  'icon-incompleto': !estatistica.completo
+                }"
+              ></lucide-angular>
+              <p class="estatistica-objetivo">
+                Desempenho: 15% da conquista completa
+              </p>
+            </div>
           </div>
         </li>
       </ul>

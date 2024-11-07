@@ -1,0 +1,51 @@
+<div class="modal-background" (click)="closeModal()"></div>
+<div class="modal-content">
+  <!-- Título e ícone lado a lado -->
+  <div class="title-icon">
+    <h2 class="title">Curtidas</h2>
+    <lucide-angular
+      class="btn-inscrever-se"
+      [img]="Star"
+      [size]="20"
+      [color]="'var(--yellow-desc)'"
+    ></lucide-angular>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="curtidas-lista">
+    <ul>
+      <li *ngFor="let user of listaUsuarioCurtida">
+        <div class="user-icon">
+          <lucide-angular
+            class="btn-inscrever-se"
+            [img]="User"
+            [size]="20"
+            [color]="'var(--text-new-green)'"
+          ></lucide-angular>
+        </div>
+        <span>{{ user.username }}</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Linha separadora -->
+  <div class="divider"></div>
+
+  <!-- Botão de fechar com ícone -->
+  <ion-button
+    size="small"
+    expand="block"
+    class="icon-button"
+    (click)="closeModal()"
+  >
+    <div class="icon-align">
+      <lucide-angular
+        [img]="CircleX"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+      <div class="text-container">Fechar</div>
+    </div>
+  </ion-button>
+</div>

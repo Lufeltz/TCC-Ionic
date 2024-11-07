@@ -20,6 +20,7 @@ import { EstatisticasPessoaisComponent } from '../../components/estatisticas-pes
 import { HistoricoCampeonatosComponent } from '../../components/historico-campeonatos/historico-campeonatos.component';
 import { Router } from '@angular/router';
 import { ConquistasComponent } from "../../components/conquistas/conquistas.component";
+import { LucideAngularModule, Star } from 'lucide-angular';
 
 @Component({
   selector: 'app-perfil-outro-usuario',
@@ -43,13 +44,16 @@ import { ConquistasComponent } from "../../components/conquistas/conquistas.comp
     EstatisticasEsportivasComponent,
     EstatisticasPessoaisComponent,
     HistoricoCampeonatosComponent,
-    ConquistasComponent
+    ConquistasComponent,
+    LucideAngularModule
 ],
 })
 export class PerfilOutroUsuarioPage implements OnInit {
   pageTitle: string = 'Carlos Ribeiro';
   pageMenu: string = 'perfil-outro-usuario';
   pageContent: string = 'perfil-outro-usuario';
+
+  readonly Star = Star;
 
   selectedSegment: string = 'estatisticas';
 

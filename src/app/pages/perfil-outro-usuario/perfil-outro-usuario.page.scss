@@ -10,15 +10,17 @@ ion-segment {
 div {
   h2,
   p {
-    color: white;
+    color: var(--text-white);
   }
 }
 
 ion-button {
   width: 100%;
-  --background: var(--light-blue);
+  --background: var(--text-white);
+  color: var(--background-dark);
   font-size: 1rem;
   margin-top: 2.5rem;
+  // font-weight: 600;
 }
 
 .content-bg {
@@ -31,10 +33,31 @@ ion-header ion-toolbar {
 
 ion-content {
   p {
-    color: white;
+    color: var(--text-white);
   }
 }
 
 ion-title {
-  color: white;
+  color: var(--text-white);
+}
+
+
+.btn-inscrever-se {
+  margin-left: 5px;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
 }

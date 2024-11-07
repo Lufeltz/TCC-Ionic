@@ -36,13 +36,24 @@
           <ion-input [(ngModel)]="meta.progresso" placeholder="2"></ion-input>
         </li>
       </ul>
+
       <ion-button
         id="open-toast"
         expand="small"
         class="centered-button"
         (click)="salvarDados()"
-        >Criar</ion-button
       >
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Pencil"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--background-dark)'"
+          ></lucide-angular>
+          <p>Criar</p>
+        </div>
+      </ion-button>
+
       <ion-toast
         trigger="open-toast"
         message="Dados de perfil atualizados!"

@@ -10,17 +10,25 @@ import {
   star,
 } from 'ionicons/icons';
 import { LucideAngularModule, RotateCw, Star, UserRound } from 'lucide-angular';
+import { ModalCurtidasComponent } from '../modal-curtidas/modal-curtidas.component';
 
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonicModule, LucideAngularModule],
+  imports: [
+    CommonModule,
+    IonicModule,
+    LucideAngularModule,
+    ModalCurtidasComponent,
+  ],
 })
 export class PostsComponent implements OnInit {
   @Input() searchedPosts!: string;
   public filteredPublications: any[] = [];
+  public modalCurtidasVisible = false;
+  public curtidasParaExibir: any[] = [];
 
   readonly RotateCw = RotateCw;
   readonly UserRound = UserRound;
@@ -54,6 +62,222 @@ export class PostsComponent implements OnInit {
           {
             username: 'maira_sm',
             nome: 'Maíra Silverado Mendes',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'marcelo_ls',
+            nome: 'Marcelo Leite Silveira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'muriel_ln',
+            nome: 'Muriel Leon Nogueira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'michaela_ac',
+            nome: 'Michaela Antonela Churatto',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'mauro_vm',
+            nome: 'Mauro Vieira Marçal',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'marcelo_ls',
+            nome: 'Marcelo Leite Silveira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'muriel_ln',
+            nome: 'Muriel Leon Nogueira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'michaela_ac',
+            nome: 'Michaela Antonela Churatto',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'mauro_vm',
+            nome: 'Mauro Vieira Marçal',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'marcelo_ls',
+            nome: 'Marcelo Leite Silveira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'muriel_ln',
+            nome: 'Muriel Leon Nogueira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'michaela_ac',
+            nome: 'Michaela Antonela Churatto',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'mauro_vm',
+            nome: 'Mauro Vieira Marçal',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'marcelo_ls',
+            nome: 'Marcelo Leite Silveira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'muriel_ln',
+            nome: 'Muriel Leon Nogueira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'michaela_ac',
+            nome: 'Michaela Antonela Churatto',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'mauro_vm',
+            nome: 'Mauro Vieira Marçal',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'marcelo_ls',
+            nome: 'Marcelo Leite Silveira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'muriel_ln',
+            nome: 'Muriel Leon Nogueira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'michaela_ac',
+            nome: 'Michaela Antonela Churatto',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'mauro_vm',
+            nome: 'Mauro Vieira Marçal',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'marcelo_ls',
+            nome: 'Marcelo Leite Silveira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'muriel_ln',
+            nome: 'Muriel Leon Nogueira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'michaela_ac',
+            nome: 'Michaela Antonela Churatto',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'mauro_vm',
+            nome: 'Mauro Vieira Marçal',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'marcelo_ls',
+            nome: 'Marcelo Leite Silveira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'muriel_ln',
+            nome: 'Muriel Leon Nogueira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'michaela_ac',
+            nome: 'Michaela Antonela Churatto',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'mauro_vm',
+            nome: 'Mauro Vieira Marçal',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'marcelo_ls',
+            nome: 'Marcelo Leite Silveira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'muriel_ln',
+            nome: 'Muriel Leon Nogueira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'michaela_ac',
+            nome: 'Michaela Antonela Churatto',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'mauro_vm',
+            nome: 'Mauro Vieira Marçal',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'marcelo_ls',
+            nome: 'Marcelo Leite Silveira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'muriel_ln',
+            nome: 'Muriel Leon Nogueira',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'michaela_ac',
+            nome: 'Michaela Antonela Churatto',
+            foto: null,
+            permissao: 'ACADEMICO',
+          },
+          {
+            username: 'mauro_vm',
+            nome: 'Mauro Vieira Marçal',
             foto: null,
             permissao: 'ACADEMICO',
           },
@@ -311,5 +535,14 @@ export class PostsComponent implements OnInit {
 
     // Exibe no console a lista de usuários que curtiram
     console.log(comentario.listaUsuarioCurtida);
+  }
+
+  abrirModalCurtidas(listaCurtidas: any[]) {
+    this.curtidasParaExibir = listaCurtidas;
+    this.modalCurtidasVisible = true;
+  }
+
+  closeModal() {
+    this.modalCurtidasVisible = false;
   }
 }

@@ -61,10 +61,11 @@ export class FeedPage implements OnInit {
 
   readonly Pencil = Pencil;
 
-  statusToggles: { aberto: boolean; finalizado: boolean; iniciado: boolean } = {
+  statusToggles: { aberto: boolean; finalizado: boolean; iniciado: boolean; participando:boolean } = {
     aberto: true,
     finalizado: false,
     iniciado: false,
+    participando: true,
   };
 
   constructor(private router: Router) {}
@@ -75,7 +76,7 @@ export class FeedPage implements OnInit {
     this.router.navigate(['/app-post']);
   }
 
-  updateStatus(status: 'aberto' | 'finalizado' | 'iniciado', event: any) {
+  updateStatus(status: 'aberto' | 'finalizado' | 'iniciado' | 'participando', event: any) {
     this.statusToggles = {
       ...this.statusToggles,
       [status]: event.detail.checked,

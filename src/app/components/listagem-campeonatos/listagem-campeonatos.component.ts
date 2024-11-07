@@ -43,6 +43,7 @@ import {
 } from 'lucide-angular';
 import { Campeonato } from 'src/app/models/campeonato.model';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-listagem-campeonatos',
@@ -59,6 +60,7 @@ import { CampeonatoService } from 'src/app/services/campeonato.service';
     CommonModule,
     NgxMaskPipe,
     LucideAngularModule,
+    FormsModule
   ],
   standalone: true,
 })
@@ -96,7 +98,8 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
     aberto?: boolean;
     finalizado?: boolean;
     iniciado?: boolean;
-  } = {};
+    participando?: boolean;  // Ensure this is a boolean value
+  } = { participando: true };
 
   @Input() searchedCampeonatos: string = '';
 

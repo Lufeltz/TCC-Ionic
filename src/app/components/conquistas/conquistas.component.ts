@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Award, LucideAngularModule } from 'lucide-angular';
+import { Award, CircleDashed, Ellipsis, LucideAngularModule, NotebookText, SignalHigh, Target } from 'lucide-angular';
 
 @Component({
   selector: 'app-conquistas',
@@ -147,6 +147,10 @@ export class ConquistasComponent implements OnInit {
   ];
 
   readonly Award = Award;
+  readonly NotebookText = NotebookText;
+  readonly Target = Target;
+  readonly CircleDashed = CircleDashed;
+  readonly SignalHigh = SignalHigh;
 
   constructor() {}
 

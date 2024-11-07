@@ -225,3 +225,30 @@ ion-button {
 .yellow-desc {
   color: var(--yellow-desc); /* Use the same yellow as the star icon */
 }
+
+/* Manter o sublinhado no texto das curtidas, mesmo quando a estrela é dourada */
+.link-curtidas {
+  color: var(--text-highlight); /* Cor normal para o texto */
+  text-decoration: underline; /* Texto sublinhado */
+  cursor: pointer; /* Cursor de pointer */
+  margin-left: 8px; /* Pequeno espaçamento */
+  font-size: 14px; /* Tamanho da fonte */
+}
+
+.text-gray {
+  color: gray;
+}
+
+.yellow-desc {
+  color: var(--yellow-desc); /* Cor dourada */
+}
+
+/* Manter o sublinhado para a estrela dourada também */
+.curtidas-info .yellow-desc {
+  text-decoration: underline !important; /* Força o sublinhado quando a estrela é dourada */
+}
+
+/* Manter o sublinhado para os comentários também */
+.comentario-curtidas span {
+  text-decoration: underline; /* Texto sublinhado */
+}

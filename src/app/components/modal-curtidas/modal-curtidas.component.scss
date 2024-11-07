@@ -1,0 +1,146 @@
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+}
+
+.modal-content {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(
+    --background-dark
+  ); /* Cor do fundo do modal igual ao do post */
+  padding: 20px;
+  border-radius: 8px;
+  z-index: 1001;
+  border-right: 2px solid var(--yellow-desc); /* Borda direita amarela */
+  border-bottom: 2px solid var(--yellow-desc); /* Borda inferior amarela */
+  color: var(--text-white); /* Cor do texto do modal */
+  width: 86%; /* Largura do modal proporcional ao tamanho da tela */
+  max-width: 800px; /* Largura máxima, igual ao tamanho do post */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+h2 {
+  font-size: 20px;
+  color: var(--text-highlight); /* Cor do título do modal */
+  text-align: center; /* Centraliza o título */
+}
+
+.curtidas-lista {
+  max-height: 175px; /* Altura máxima ajustada para 150px */
+  overflow-y: auto; /* Adiciona a rolagem vertical quando necessário */
+  margin-bottom: 20px; /* Espaçamento entre lista e botão */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza a lista dentro do modal */
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  width: 100%; /* Faz a lista ocupar toda a largura disponível */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza os itens da lista */
+}
+
+li {
+  margin: 10px 0;
+  font-size: 16px;
+  color: var(--text-white);
+  display: flex;
+  align-items: center; /* Alinha o ícone e o nome na mesma linha */
+  justify-content: center; /* Centraliza o conteúdo do item (ícone e nome) */
+}
+
+.user-icon {
+  margin-right: 10px; /* Espaçamento entre o ícone e o nome */
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: var(--text-white); /* Fundo branco para o botão */
+  color: var(--background-dark); /* Texto escuro para o botão */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza o ícone e o texto dentro do botão */
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--yellow-desc); /* Cor do botão quando passar o mouse */
+}
+
+.button-icon {
+  margin-right: 8px; /* Espaçamento entre o ícone e o texto */
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+}
+
+.icon-button .text-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+ion-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  margin-top: 20px;
+  --background: var(--text-white);
+  --color: var(--background-dark);
+}
+
+.title {
+  margin-bottom: 20px;
+  // margin-top: -5px;
+  margin-right: 10px; /* Espaçamento entre o título e o ícone */
+  // line-height: 1; /* Garantir que a altura da linha do título seja mínima para centralizar melhor */
+}
+
+.title-icon {
+  display: flex;
+  align-items: center; /* Alinha o título e o ícone verticalmente */
+  justify-content: center; /* Alinha os itens na horizontal */
+}
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--yellow-desc); /* Cor da linha */
+  margin-bottom: 20px;
+}

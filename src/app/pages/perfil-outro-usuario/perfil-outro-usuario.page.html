@@ -5,9 +5,20 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <ion-button size="small" (click)="avaliarJogador()"
-    >Avaliar Jogador</ion-button
-  >
+  <ion-button
+        size="small"
+        (click)="avaliarJogador()"
+        class="icon-button"
+      >
+        <div class="text-container">Avaliar Jogador</div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Star"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
+        </div>
+      </ion-button>
 
   <ion-segment [(ngModel)]="selectedSegment">
     <ion-segment-button value="estatisticas">
