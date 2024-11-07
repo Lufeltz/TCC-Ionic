@@ -13,9 +13,9 @@ import {
   IonItem,
   IonToast,
   IonButton,
-  IonInput, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/angular/standalone';
+  IonInput, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonAccordionGroup, IonAccordion, IonIcon, IonList } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
-import { BicepsFlexed, Clock4, LucideAngularModule, Pencil } from 'lucide-angular';
+import { BicepsFlexed, ChevronDown, Clock4, LucideAngularModule, Pencil } from 'lucide-angular';
 
 interface Meta {
   tipo: 'diaria' | 'esportiva';
@@ -30,7 +30,7 @@ interface Meta {
   templateUrl: './metas.page.html',
   styleUrls: ['./metas.page.scss'],
   standalone: true,
-  imports: [IonCardContent, IonCardTitle, IonCardHeader, IonCard, 
+  imports: [IonList, IonIcon, IonAccordion, IonAccordionGroup, IonCardContent, IonCardTitle, IonCardHeader, IonCard, 
     IonInput,
     IonButton,
     IonToast,
@@ -57,10 +57,13 @@ export class MetasPage implements OnInit {
   selectedSegment: string = 'criacao';
   filterEsportivas: boolean = false;
   filterDiarias: boolean = true;
+  
 
   readonly Clock4 = Clock4;
   readonly BicepsFlexed = BicepsFlexed;
   readonly Pencil = Pencil;
+  readonly ChevronDown = ChevronDown;
+  
 
   metasDiarias: Meta[] = [
     {

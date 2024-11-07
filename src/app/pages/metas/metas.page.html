@@ -115,7 +115,6 @@
           }"
         >
           {{ meta.nome || meta.esporte }}
-
           <span class="texto-light">{{ meta.tipo | titlecase }}</span>
         </h3>
         <p
@@ -132,6 +131,29 @@
           <br />Realizar 25 gols <br /><br />
           12 / 25 gols
         </p>
+
+        <ion-accordion-group>
+          <ion-accordion>
+            <ion-item slot="header">
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="ChevronDown"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--background-dark)'"
+                ></lucide-angular>
+                <ion-label>Detalhes da Meta</ion-label>
+              </div>
+            </ion-item>
+            <ion-item slot="content">
+              <!-- Conteúdo de Teste -->
+              <p><strong>Detalhes:</strong> Esta meta é sobre manter-se ativo ou atingir uma meta diária de saúde.</p>
+              <p><strong>Objetivo:</strong> Atingir 25 gols ou beber 2000 ml de água até o fim da semana.</p>
+              <p><strong>Progresso:</strong> 12/25 gols ou 1000 ml/2000 ml completados.</p>
+            </ion-item>
+          </ion-accordion>
+        </ion-accordion-group>
+        
       </li>
     </ul>
   </div>

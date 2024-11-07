@@ -51,7 +51,7 @@ export class PostsComponent implements OnInit {
           foto: null,
           permissao: 'ACADEMICO',
         },
-        isCurtiu: false, // Propriedade para controlar se o usuário curtiu a publicação
+        isCurtiu: false,
         listaUsuarioCurtida: [
           {
             username: 'michael_ac',
@@ -77,234 +77,6 @@ export class PostsComponent implements OnInit {
             foto: null,
             permissao: 'ACADEMICO',
           },
-          {
-            username: 'michaela_ac',
-            nome: 'Michaela Antonela Churatto',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'mauro_vm',
-            nome: 'Mauro Vieira Marçal',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'marcelo_ls',
-            nome: 'Marcelo Leite Silveira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'muriel_ln',
-            nome: 'Muriel Leon Nogueira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'michaela_ac',
-            nome: 'Michaela Antonela Churatto',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'mauro_vm',
-            nome: 'Mauro Vieira Marçal',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'marcelo_ls',
-            nome: 'Marcelo Leite Silveira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'muriel_ln',
-            nome: 'Muriel Leon Nogueira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'michaela_ac',
-            nome: 'Michaela Antonela Churatto',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'mauro_vm',
-            nome: 'Mauro Vieira Marçal',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'marcelo_ls',
-            nome: 'Marcelo Leite Silveira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'muriel_ln',
-            nome: 'Muriel Leon Nogueira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'michaela_ac',
-            nome: 'Michaela Antonela Churatto',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'mauro_vm',
-            nome: 'Mauro Vieira Marçal',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'marcelo_ls',
-            nome: 'Marcelo Leite Silveira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'muriel_ln',
-            nome: 'Muriel Leon Nogueira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'michaela_ac',
-            nome: 'Michaela Antonela Churatto',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'mauro_vm',
-            nome: 'Mauro Vieira Marçal',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'marcelo_ls',
-            nome: 'Marcelo Leite Silveira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'muriel_ln',
-            nome: 'Muriel Leon Nogueira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'michaela_ac',
-            nome: 'Michaela Antonela Churatto',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'mauro_vm',
-            nome: 'Mauro Vieira Marçal',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'marcelo_ls',
-            nome: 'Marcelo Leite Silveira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'muriel_ln',
-            nome: 'Muriel Leon Nogueira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'michaela_ac',
-            nome: 'Michaela Antonela Churatto',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'mauro_vm',
-            nome: 'Mauro Vieira Marçal',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'marcelo_ls',
-            nome: 'Marcelo Leite Silveira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'muriel_ln',
-            nome: 'Muriel Leon Nogueira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'michaela_ac',
-            nome: 'Michaela Antonela Churatto',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'mauro_vm',
-            nome: 'Mauro Vieira Marçal',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'marcelo_ls',
-            nome: 'Marcelo Leite Silveira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'muriel_ln',
-            nome: 'Muriel Leon Nogueira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'michaela_ac',
-            nome: 'Michaela Antonela Churatto',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'mauro_vm',
-            nome: 'Mauro Vieira Marçal',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'marcelo_ls',
-            nome: 'Marcelo Leite Silveira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'muriel_ln',
-            nome: 'Muriel Leon Nogueira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'michaela_ac',
-            nome: 'Michaela Antonela Churatto',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'mauro_vm',
-            nome: 'Mauro Vieira Marçal',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
         ],
         listaComentario: [
           {
@@ -316,7 +88,7 @@ export class PostsComponent implements OnInit {
               foto: null,
               permissao: 'ACADEMICO',
             },
-            isCurtiu: false, // Propriedade para controlar se o usuário curtiu o comentário
+            isCurtiu: false,
             listaUsuarioCurtida: [
               {
                 username: 'math_aa',
@@ -341,7 +113,7 @@ export class PostsComponent implements OnInit {
               foto: null,
               permissao: 'ACADEMICO',
             },
-            isCurtiu: false, // Propriedade para controlar se o usuário curtiu o comentário
+            isCurtiu: false,
             listaUsuarioCurtida: [
               {
                 username: 'murilo_scn',
@@ -360,7 +132,7 @@ export class PostsComponent implements OnInit {
               foto: null,
               permissao: 'ACADEMICO',
             },
-            isCurtiu: false, // Propriedade para controlar se o usuário curtiu o comentário
+            isCurtiu: false,
             listaUsuarioCurtida: [],
           },
         ],
@@ -376,29 +148,11 @@ export class PostsComponent implements OnInit {
           foto: null,
           permissao: 'ACADEMICO',
         },
-        isCurtiu: false, // Propriedade para controlar se o usuário curtiu a publicação
+        isCurtiu: false,
         listaUsuarioCurtida: [
           {
             username: 'michael_ac',
             nome: 'Michael Andrew Curry',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'maira_sm',
-            nome: 'Maíra Silverado Mendes',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'marcelo_ls',
-            nome: 'Marcelo Leite Silveira',
-            foto: null,
-            permissao: 'ACADEMICO',
-          },
-          {
-            username: 'muriel_ln',
-            nome: 'Muriel Leon Nogueira',
             foto: null,
             permissao: 'ACADEMICO',
           },
@@ -425,7 +179,7 @@ export class PostsComponent implements OnInit {
               foto: null,
               permissao: 'ACADEMICO',
             },
-            isCurtiu: false, // Propriedade para controlar se o usuário curtiu o comentário
+            isCurtiu: false,
             listaUsuarioCurtida: [
               {
                 username: 'math_aa',
@@ -450,7 +204,7 @@ export class PostsComponent implements OnInit {
               foto: null,
               permissao: 'ACADEMICO',
             },
-            isCurtiu: false, // Propriedade para controlar se o usuário curtiu o comentário
+            isCurtiu: false,
             listaUsuarioCurtida: [
               {
                 username: 'murilo_scn',
@@ -469,13 +223,11 @@ export class PostsComponent implements OnInit {
               foto: null,
               permissao: 'ACADEMICO',
             },
-            isCurtiu: false, // Propriedade para controlar se o usuário curtiu o comentário
+            isCurtiu: false,
             listaUsuarioCurtida: [],
           },
         ],
       },
-
-      // Adicione mais objetos de publicação conforme necessário
     ],
   };
 
