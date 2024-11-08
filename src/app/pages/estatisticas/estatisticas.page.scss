@@ -4,7 +4,7 @@
 }
 
 ion-button {
-  --background: var(--light-blue);
+  // --background: var(--light-blue);
   width: 100%;
   display: flex;
   justify-content: center;
@@ -64,7 +64,7 @@ ul {
 }
 
 .centered-button {
-  --background: var(--light-blue);
+  // --background: var(--light-blue);
   width: 100%;
   max-width: 300px; /* Define uma largura máxima para o botão */
   margin: 0 auto; /* Centraliza horizontalmente */
@@ -76,4 +76,36 @@ ion-input {
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
   transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+}
+
+
+ion-button {
+  --background: var(--text-white);
+  --color: var(--background-dark);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+  --color: var(--background-dark);
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  color: var(--background-dark);
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+  --color: var(--background-dark);
+}
+
+.icon-align p, .icon-align ion-label {
+  margin: 0;
+  color: var(--text-light);
+  font-size: 1rem;
 }

@@ -9,18 +9,19 @@ import {
   IonSegmentButton,
   IonLabel,
   IonButton,
-  IonInput, IonToast } from '@ionic/angular/standalone';
-import { EstatisticasPessoaisComponent } from '../../components/estatisticas-pessoais/estatisticas-pessoais.component';
-import { ConquistasComponent } from '../../components/conquistas/conquistas.component';
-import { EstatisticasEsportivasComponent } from '../../components/estatisticas-esportivas/estatisticas-esportivas.component';
+  IonInput,
+  IonToast,
+} from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.component';
+import { AtSign, CaseSensitive, GraduationCap, LucideAngularModule, Phone, SaveAll, User } from 'lucide-angular';
 
 @Component({
   selector: 'app-estatisticas',
   templateUrl: './estatisticas.page.html',
   styleUrls: ['./estatisticas.page.scss'],
   standalone: true,
-  imports: [IonToast, 
+  imports: [
+    IonToast,
     IonInput,
     IonButton,
     IonLabel,
@@ -32,6 +33,7 @@ import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.co
     CommonModule,
     FormsModule,
     MenuPerfilComponent,
+    LucideAngularModule
   ],
 })
 export class EstatisticasPage implements OnInit {
@@ -39,14 +41,20 @@ export class EstatisticasPage implements OnInit {
   pageMenu: string = 'meu-perfil';
   pageContent: string = 'meu-perfil';
 
+  readonly SaveAll = SaveAll;
+  readonly GraduationCap = GraduationCap;
+  readonly Phone = Phone;
+  readonly AtSign = AtSign;
+  readonly User = User;
+  readonly CaseSensitive = CaseSensitive;
+
   usuario = {
     nome: 'Carlos Ribeiro',
     username: 'carlosr',
     email: 'carlos.ribeiro@example.com',
     telefone: '(11) 99999-9999',
-    curso: "Análise e Desenvolvimento de Sistemas"
+    curso: 'Análise e Desenvolvimento de Sistemas',
   };
-  
 
   salvarDados() {
     // Lógica para salvar os dados do usuário

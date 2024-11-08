@@ -8,23 +8,68 @@
   <div class="container">
     <ul>
       <li class="item-lista">
-        <ion-label>Nome</ion-label>
+        <div class="icon-align">
+          <lucide-angular
+          [img]="CaseSensitive"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <ion-label>Nome</ion-label>
+        </div>       
+        
         <ion-input [(ngModel)]="usuario.nome"></ion-input>
       </li>
       <li class="item-lista">
-        <ion-label>Username</ion-label>
+        <div class="icon-align">
+          <lucide-angular
+          [img]="User"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <ion-label>Username</ion-label>
+        </div>        
+        
         <ion-input [(ngModel)]="usuario.username"></ion-input>
       </li>
       <li class="item-lista">
-        <ion-label>Email</ion-label>
+        <div class="icon-align">
+          <lucide-angular
+          [img]="AtSign"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <ion-label>Email</ion-label>
+        </div>
+        
         <ion-input [(ngModel)]="usuario.email"></ion-input>
       </li>
       <li class="item-lista">
-        <ion-label>Telefone</ion-label>
+        <div class="icon-align">
+          <lucide-angular
+          [img]="Phone"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <ion-label>Telefone</ion-label>
+        </div>
+        
         <ion-input [(ngModel)]="usuario.telefone"></ion-input>
       </li>
       <li class="item-lista">
-        <ion-label>Curso</ion-label>
+        <div class="icon-align">
+          <lucide-angular
+          [img]="GraduationCap"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <ion-label>Curso</ion-label>
+        </div>
+        
         <ion-input [(ngModel)]="usuario.curso"></ion-input>
       </li>
     </ul>
@@ -33,8 +78,17 @@
       expand="small"
       class="centered-button"
       (click)="salvarDados()"
-      >Salvar</ion-button
     >
+      <div class="icon-align">
+        <p>Salvar</p>
+        <lucide-angular
+          [img]="SaveAll"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--background-dark)'"
+        ></lucide-angular>
+      </div>
+    </ion-button>
     <ion-toast
       trigger="open-toast"
       message="Dados de perfil atualizados!"

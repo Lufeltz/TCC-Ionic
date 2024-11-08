@@ -11,6 +11,9 @@ import {
 } from 'ionicons/icons';
 import { LucideAngularModule, RotateCw, Star, UserRound } from 'lucide-angular';
 import { ModalCurtidasComponent } from '../modal-curtidas/modal-curtidas.component';
+import { HttpClient } from '@angular/common/http';
+import { catchError, map, Observable } from 'rxjs';
+import { PostService } from 'src/app/services/post.service';
 
 @Component({
   selector: 'app-posts',
@@ -29,12 +32,15 @@ export class PostsComponent implements OnInit {
   public filteredPublications: any[] = [];
   public modalCurtidasVisible = false;
   public curtidasParaExibir: any[] = [];
+  // Nova variável para controle de paginação
+  private currentPage = 0;
+  private pageSize = 10;
 
   readonly RotateCw = RotateCw;
   readonly UserRound = UserRound;
   readonly Star = Star;
 
-  constructor() {
+  constructor(private _http: HttpClient, private postsService: PostService) {
     addIcons({ heartOutline, heart, chevronDownOutline, star, starOutline });
   }
 
@@ -231,9 +237,9 @@ export class PostsComponent implements OnInit {
     ],
   };
 
-  ngOnInit() {
-    this.filterPublications();
-  }
+  // ngOnInit() {
+  //   this.filterPublications();
+  // }
 
   ngOnChanges() {
     this.filterPublications();
@@ -296,5 +302,24 @@ export class PostsComponent implements OnInit {
 
   closeModal() {
     this.modalCurtidasVisible = false;
+  }
+
+  ngOnInit() {
+    this.listarPosts(); // Carregar posts ao iniciar
+  }
+
+  listarPosts() {
+    this.postsService.getAllPosts(this.currentPage, this.pageSize).subscribe(
+      (posts) => {
+        console.log(posts);  // Exibe os posts no console
+        if (posts && posts.length > 0) {
+          this.filteredPublications = [...this.filteredPublications, ...posts];
+          this.currentPage++; // Incrementa a página para próxima requisição
+        }
+      },
+      (err) => {
+        console.error('Erro ao carregar posts', err);
+      }
+    );
   }
 }
