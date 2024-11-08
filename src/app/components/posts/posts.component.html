@@ -1,3 +1,4 @@
+<!-- Componente Principal -->
 <div class="publicacoes-container">
   <ul>
     <li *ngFor="let publicacao of filteredPublications" class="publicacao">
@@ -16,7 +17,7 @@
         </p>
       </div>
       <div class="publicacao-usuario">
-        <p class="comentarios-header">Titulo da publicação</p>
+        <p class="comentarios-header">{{publicacao.titulo}}</p>
         <p class="descricao">{{ publicacao.descricao }}</p>
         <div class="curtidas">
           <div class="curtidas-info">
@@ -106,7 +107,12 @@
                   </div>
                 </li>
               </ul>
-              <ion-button size="small" expand="block" class="icon-button">
+              <ion-button
+                size="small"
+                expand="block"
+                class="icon-button"
+                (click)="listarMaisComentarios(publicacao)"
+              >
                 <div class="text-container">Mais Comentários</div>
                 <div class="icon-align">
                   <lucide-angular
