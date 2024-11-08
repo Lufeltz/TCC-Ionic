@@ -13,11 +13,11 @@
           <p class="usuario-username">{{ publicacao.Usuario.username }}</p>
         </div>
         <p class="data">
-          {{ publicacao.dataPublicacao | date : "dd/MM/yy, hh:mm" }}
+          {{ publicacao.dataPublicacao | date: "dd/MM/yy, hh:mm" }}
         </p>
       </div>
       <div class="publicacao-usuario">
-        <p class="comentarios-header">{{publicacao.titulo}}</p>
+        <p class="comentarios-header">{{ publicacao.titulo }}</p>
         <p class="descricao">{{ publicacao.descricao }}</p>
         <div class="curtidas">
           <div class="curtidas-info">
@@ -69,7 +69,7 @@
                       </p>
                     </div>
                     <p class="comentario-data">
-                      {{ comentario.dataComentario | date : "dd/MM/yy, hh:mm" }}
+                      {{ comentario.dataComentario | date: "dd/MM/yy, hh:mm" }}
                     </p>
                   </div>
                   <p class="comentario-descricao">{{ comentario.descricao }}</p>
@@ -107,6 +107,22 @@
                   </div>
                 </li>
               </ul>
+              <div class="comentario-input-container">
+                <input
+                  type="text"
+                  class="comentario-input"
+                  [(ngModel)]="novoComentario[publicacao.idPublicacao]"
+                  placeholder="Digite seu comentário"
+                />
+                <button
+                  ion-button
+                  size="small"
+                  class="comentar-button"
+                  (click)="comentar(publicacao)"
+                >
+                  Comentar
+                </button>
+              </div>
               <ion-button
                 size="small"
                 expand="block"

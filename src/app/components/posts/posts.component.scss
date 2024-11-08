@@ -252,3 +252,26 @@ ion-button {
 .comentario-curtidas span {
   text-decoration: underline; /* Texto sublinhado */
 }
+
+.comentario-input-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.comentario-input {
+  flex: 1;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+.comentar-button {
+  padding: 5px 10px;
+  background-color: var(--ion-color-primary);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}

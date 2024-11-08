@@ -1,22 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-import { addIcons } from 'ionicons';
-import {
-  heartOutline,
-  heart,
-  chevronDownOutline,
-  starOutline,
-  star,
-} from 'ionicons/icons';
-import { LucideAngularModule, RotateCw, Star, UserRound } from 'lucide-angular';
-import { ModalCurtidasComponent } from '../modal-curtidas/modal-curtidas.component';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, map, Observable } from 'rxjs';
 import { PostService } from 'src/app/services/post.service';
-import { PostApiResponse } from 'src/app/models/post-api-response.model';
 import { ComentarioService } from 'src/app/services/comentario.service';
+import { PostApiResponse } from 'src/app/models/post-api-response.model';
 import { ComentarioApiResponse } from 'src/app/models/comentario-api-response.model';
+import { Comentario } from 'src/app/models/comentario.model'; // Certifique-se de que o caminho esteja correto
+import { LucideAngularModule, RotateCw, Star, UserRound } from 'lucide-angular';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';  // Adicionado o IonicModule
+import { ModalCurtidasComponent } from '../modal-curtidas/modal-curtidas.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-posts',
@@ -25,20 +18,21 @@ import { ComentarioApiResponse } from 'src/app/models/comentario-api-response.mo
   standalone: true,
   imports: [
     CommonModule,
-    IonicModule,
+    IonicModule,  // Adicionando o módulo Ionic
     LucideAngularModule,
     ModalCurtidasComponent,
+    FormsModule
   ],
 })
-export class PostsComponent implements OnInit {
+export class PostsComponent implements OnInit, OnChanges {
   @Input() searchedPosts!: string;
   public filteredPublications: any[] = [];
   public modalCurtidasVisible = false;
   public curtidasParaExibir: any[] = [];
-  // Nova variável para controle de paginação
+  public novoComentario: { [key: string]: string } = {}; // Para armazenar novos comentários
   private currentPage = 0;
   private pageSize = 10;
-  private comentarioSize= 5;
+  private comentarioSize = 5;
 
   readonly RotateCw = RotateCw;
   readonly UserRound = UserRound;
@@ -48,9 +42,7 @@ export class PostsComponent implements OnInit {
     private _http: HttpClient,
     private postsService: PostService,
     private comentarioService: ComentarioService
-  ) {
-    addIcons({ heartOutline, heart, chevronDownOutline, star, starOutline });
-  }
+  ) {}
 
   ngOnChanges() {
     this.filterPublications();
@@ -131,38 +123,75 @@ export class PostsComponent implements OnInit {
 
   listarComentarios() {
     this.filteredPublications.forEach((publicacao) => {
-      this.comentarioService.getAllComentarios(publicacao.idPublicacao, 0, this.comentarioSize).subscribe(
-        (response: ComentarioApiResponse) => {
-          console.log(response.content); // Exibe somente os comentários
-          if (response && response.content.length > 0) {
-            publicacao.listaComentario = response.content;
-          } else {
-            publicacao.listaComentario = [];
+      this.comentarioService
+        .getAllComentarios(publicacao.idPublicacao, 0, this.comentarioSize)
+        .subscribe(
+          (response: ComentarioApiResponse) => {
+            console.log(response.content); // Exibe somente os comentários
+            if (response && response.content.length > 0) {
+              publicacao.listaComentario = response.content;
+            } else {
+              publicacao.listaComentario = [];
+            }
+          },
+          (err) => {
+            console.error('Erro ao carregar comentários', err);
           }
-        },
-        (err) => {
-          console.error('Erro ao carregar comentários', err);
-        }
-      );
+        );
     });
   }
 
   listarMaisComentarios(publicacao: any) {
     const nextPage = publicacao.currentPage + 1 || 1;
-    this.comentarioService.getAllComentarios(publicacao.idPublicacao, nextPage, this.comentarioSize).subscribe(
-      (response: ComentarioApiResponse) => {
-        if (response && response.content.length > 0) {
-          publicacao.listaComentario = [
-            ...publicacao.listaComentario,
-            ...response.content,
-          ];
-          publicacao.currentPage = nextPage; // Atualiza a página atual para a publicação
+    this.comentarioService
+      .getAllComentarios(publicacao.idPublicacao, nextPage, this.comentarioSize)
+      .subscribe(
+        (response: ComentarioApiResponse) => {
+          if (response && response.content.length > 0) {
+            publicacao.listaComentario = [
+              ...publicacao.listaComentario,
+              ...response.content,
+            ];
+            publicacao.currentPage = nextPage; // Atualiza a página atual para a publicação
+          }
+        },
+        (err) => {
+          console.error('Erro ao carregar mais comentários', err);
+        }
+      );
+  }
+
+  comentar(publicacao: any) {
+    const novoComentarioTexto = this.novoComentario[publicacao.idPublicacao];
+    if (!novoComentarioTexto) {
+      return;
+    }
+
+    const comentario: Comentario = {
+      idComentario: 0,
+      descricao: novoComentarioTexto,
+      dataComentario: new Date(),
+      idPublicacao: publicacao.idPublicacao,
+      Usuario: {
+        idUsuario: 6, // Substitua pelo ID do usuário atual
+        username: 'usuario_atual', // Substitua pelo username do usuário atual
+        nome: 'Nome do Usuário Atual', // Substitua pelo nome do usuário atual
+        foto: null,
+        permissao: 'ACADEMICO', // Substitua pela permissão do usuário atual, se necessário
+      },
+      listaUsuarioCurtida: [],
+    };
+
+    this.comentarioService.postComentario(comentario).subscribe(
+      (comentarioCriado) => {
+        if (comentarioCriado) {
+          publicacao.listaComentario.push(comentarioCriado);
+          this.novoComentario[publicacao.idPublicacao] = ''; // Limpa o campo de comentário
         }
       },
       (err) => {
-        console.error('Erro ao carregar mais comentários', err);
+        console.error('Erro ao postar comentário', err);
       }
     );
   }
-  
 }

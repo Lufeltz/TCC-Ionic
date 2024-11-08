@@ -2,16 +2,15 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ComentarioApiResponse } from '../models/comentario-api-response.model';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { Comentario } from '../models/comentario.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ComentarioService {
-
   private readonly NEW_URL = 'http://localhost:8081';
 
   httpOptions = {
-    observe: 'response' as 'response',
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
     }),
@@ -27,7 +26,7 @@ export class ComentarioService {
   ): Observable<ComentarioApiResponse> {
     const url = `${this.NEW_URL}/comentario/${postId}/comentarios?page=${page}&size=${size}&sort=${sort}`;
 
-    return this._http.get<ComentarioApiResponse>(url, this.httpOptions).pipe(
+    return this._http.get<ComentarioApiResponse>(url, { observe: 'response' }).pipe(
       map((resp: HttpResponse<ComentarioApiResponse>) => {
         if (resp.status === 200 && resp.body) {
           return resp.body;
@@ -65,5 +64,26 @@ export class ComentarioService {
         }
       })
     );
+  }
+
+  postComentario(comentario: Comentario): Observable<Comentario | null> {
+    return this._http
+      .post<Comentario>(
+        `${this.NEW_URL}/comentario/cadastrarComentario`,
+        JSON.stringify(comentario),
+        { ...this.httpOptions, observe: 'response' }
+      )
+      .pipe(
+        map((resp: HttpResponse<Comentario>) => {
+          if (resp.status === 201) {
+            return resp.body;
+          } else {
+            return null;
+          }
+        }),
+        catchError((err) => {
+          return throwError(() => err);
+        })
+      );
   }
 }
