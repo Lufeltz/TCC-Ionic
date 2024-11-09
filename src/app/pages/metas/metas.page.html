@@ -104,7 +104,7 @@
     </div>
   </div>
 
-  
+  <!-- Listagem -->
 
   <div *ngIf="selectedSegment === 'listagem'">
     <ion-item lines="none">
@@ -143,39 +143,66 @@
         ></ion-toggle>
       </div>
     </ion-item>
+
     <ul>
       <li
-        *ngFor="let meta of filteredMetas"
+        *ngFor="let meta of metaDiaria"
         class="item-lista"
         [ngClass]="{
-          'meta-esportiva': meta.tipo === 'esportiva',
-          'meta-diaria': meta.tipo === 'diaria'
+          'meta-esportiva': filteredMetas[0].tipo === 'esportiva',
+          'meta-diaria': filteredMetas[0].tipo === 'diaria'
         }"
       >
         <h3
           [ngClass]="{
-            'titulo-esportiva': meta.tipo === 'esportiva',
-            'titulo-diaria': meta.tipo === 'diaria'
+            'titulo-esportiva': filteredMetas[0].tipo === 'esportiva',
+            'titulo-diaria': filteredMetas[0].tipo === 'diaria'
           }"
         >
-          {{ meta.nome || meta.esporte }}
-          <span class="texto-light">{{ meta.tipo | titlecase }}</span>
+          {{ meta.titulo || filteredMetas[0].esporte }}
+          <span class="texto-light"
+            >{{ filteredMetas[0].tipo | titlecase }}</span
+          >
         </h3>
-        <p
-          *ngIf="meta.tipo === 'diaria' && meta.opcoes && meta.opcoes.length > 0"
-        >
-          <!-- 100 / {{ meta.opcoes[0] }} -->
-          <br />Beber 2 litros de água <br /><br />
-          100 / 2000 ml
-        </p>
-        <p
-          *ngIf="meta.tipo === 'esportiva' && meta.metas && meta.metas.length > 0"
-        >
-          <!-- {{ meta.metas[0] }} -->
-          <br />Realizar 25 gols <br /><br />
-          12 / 25 gols
-        </p>
 
+        <!-- Iterando sobre o array de metas diárias -->
+        <!-- <div *ngFor="let meta of filteredMetas" *ngIf="meta.tipo === 'diaria'"> -->
+        <!-- <div *ngFor="let meta of metaDiaria"> -->
+        <div *ngIf="meta.titulo">
+          <p>
+            <strong>Objetivo:</strong> {{ meta.objetivo || 'Não definido' }}
+          </p>
+          <p>
+            <strong>Progresso Atual:</strong> {{ meta.progressoAtual }} {{
+            meta.progressoItem }}
+          </p>
+          <p>
+            <strong>Progresso Máximo:</strong> {{ meta.progressoMaximo }} {{
+            meta.progressoItem }}
+          </p>
+          <p>
+            <strong>Quantidade Concluída:</strong> {{ meta.quantidadeConcluido
+            }} {{ meta.progressoItem }}
+          </p>
+          <p>
+            <strong>Situação:</strong> {{ meta.situacaoMetaDiaria === 0 ?
+            'Pendente' : 'Concluída' }}
+          </p>
+        </div>
+        <!-- </div> -->
+
+        <!-- Iterando sobre as metas esportivas -->
+        <!-- <div
+          *ngFor="let meta of filteredMetas"
+          *ngIf="meta.tipo === 'esportiva'"
+        > -->
+
+        <!-- <div
+          *ngFor="let meta of filteredMetas"
+        >
+          <p><strong>Esporte:</strong> {{ meta.esporte }}</p>
+          <p><strong>Metas:</strong> {{ meta.metas?.join(', ') }}</p>
+        </div> -->
 
         <div class="button-group">
           <ion-button
@@ -224,11 +251,8 @@
             </div>
           </ion-button>
         </div>
-                
-
-
-
       </li>
     </ul>
   </div>
+  <!--  -->
 </ion-content>

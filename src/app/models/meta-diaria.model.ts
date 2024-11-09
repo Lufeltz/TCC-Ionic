@@ -4,7 +4,7 @@ export class MetaDiaria {
   objetivo: string = '';
   quantidadeConcluido: number = 0;
   progressoAtual: number = 0;
-  progressoMaximo: number = 0;
+  progressoMaximo: number | null = null;
   progressoItem: string = '';
   idAcademico: number = 1;
   situacaoMetaDiaria: number = 0;

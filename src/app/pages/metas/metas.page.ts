@@ -91,23 +91,32 @@ export class MetasPage implements OnInit {
   filterDiarias: boolean = true;
 
   idAcademico: number = 1; // definir o valor da variável aqui
-  metaDiaria: MetaDiaria = new MetaDiaria();
+  metaDiaria: MetaDiaria[] = [];
   metaDiaria2: MetaDiaria = new MetaDiaria();
 
   constructor(private metaDiariaService: MetaDiariaService) {}
   
   ngOnInit(): void {
+    this.listarMetaDiarias();  // Chama a função listarMetaDiarias
+  }
+  
+  listarMetaDiarias(): void {
     this.metaDiariaService.getMetaDiariaByAcademicoId(this.idAcademico).subscribe({
-      next: (data) => {
-        this.metaDiaria = data || new MetaDiaria(); // Garantir que metaDiaria nunca seja null
-        console.log(this.metaDiaria);
+      next: (data: MetaDiaria[] | null) => {
+        // Verifica se os dados são nulos ou um array
+        if (data === null) {
+          this.metaDiaria = [];  // Se não houver dados, atribui um array vazio
+        } else {
+          this.metaDiaria = data;  // Atribui o array de dados
+          console.log('Dados da meta diária:', this.metaDiaria);  // Log dos dados recebidos
+        }
       },
       error: (err) => {
-        console.error('Erro ao buscar meta diária:', err);
+        console.error('Erro ao buscar meta diária:', err);  // Log do erro
       }
     });
   }
-
+  
   salvarDados(): void {
     if (this.metaDiaria2) {
       // Certifique-se de que o idAcademico está sendo atribuído corretamente

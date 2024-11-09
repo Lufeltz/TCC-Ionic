@@ -18,26 +18,27 @@ export class MetaDiariaService {
     }),
   };
 
-  getMetaDiariaByAcademicoId(idAcademico: number): Observable<MetaDiaria | null> {
+  getMetaDiariaByAcademicoId(idAcademico: number): Observable<MetaDiaria[] | null> {
     return this._http
-      .get<MetaDiaria>(`${this.NEW_URL}/listar/${idAcademico}`, this.httpOptions)
+      .get<MetaDiaria[]>(`${this.NEW_URL}/listar/${idAcademico}`, this.httpOptions)
       .pipe(
-        map((resp: HttpResponse<MetaDiaria>) => {
-          if (resp.status == 200) {
-            return resp.body;
+        map((resp: HttpResponse<MetaDiaria[]>) => {
+          if (resp.status === 200) {
+            return resp.body;  // Agora retorna um array de MetaDiaria[]
           } else {
             return null;
           }
         }),
-        catchError((err, caught) => {
-          if (err.status == 404) {
-            return of(null);
+        catchError((err) => {
+          if (err.status === 404) {
+            return of(null);  // Retorna null se não houver dados
           } else {
-            return throwError(() => err);
+            return throwError(() => err);  // Retorna o erro para tratamento posterior
           }
         })
       );
   }
+  
 
   getMetaDiariaById(id: number): Observable<MetaDiaria | null> {
     return this._http
