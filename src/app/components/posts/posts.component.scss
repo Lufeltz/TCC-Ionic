@@ -259,19 +259,100 @@ ion-button {
   margin-bottom: 10px;
 }
 
+.comentario-card {
+  background-color: var(--background-light);
+  padding: 16px; /* Adicionado padding ao card */
+  border-radius: 8px;
+  border-right: 2px solid var(--text-orange);
+  border-bottom: 2px solid var(--text-orange);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column; /* Garantir que os elementos fiquem em coluna */
+  align-items: center; /* Centralizar os elementos dentro do card */
+  justify-content: flex-start; /* Certificar-se de que o conteúdo comece do topo */
+}
+
 .comentario-input {
-  flex: 1;
-  padding: 5px;
-  border: 1px solid #ccc;
+  width: 100%; /* Garantir que o input ocupe toda a largura do card */
+  padding: 8px;
+  height: 10rem; /* Aumentar a altura do input */
+  border: none;
   border-radius: 4px;
-  margin-right: 10px;
+  background-color: var(--background-dark);
+  color: var(--text-white);
+  font-size: 14px;
+  margin-bottom: 8px; /* Adicionar espaçamento entre o input e o botão */
+  --placeholder-color: rgba(255, 255, 255, 0.7); /* Placeholder styling */
+  --placeholder-font-style: italic;
+}
+
+.comentario-input::placeholder {
+  color: var(--placeholder-color);
+}
+
+.comentario-input:focus {
+  // background-color: rgba(41, 128, 185, 0.4);
+  transform: translateY(-2px);
+  outline: none;
 }
 
 .comentar-button {
-  padding: 5px 10px;
-  background-color: var(--ion-color-primary);
-  color: #fff;
+  width: auto; /* O botão agora tem largura automática */
+  padding: 8px 16px; /* Define padding adequado ao tamanho do texto */
+  background-color: var(--text-white);
+  color: var(--background-dark);
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
+  display: block; /* Garante que o botão seja um bloco */
+  margin-top: 8px; /* Adicionado espaçamento entre o input e o botão */
+  align-self: center; /* Alinha o botão à direita */
+}
+
+.comentar-button:hover {
+  // background-color: var(--highlight-color); /* Mudar para cor de hover */
+  color: var(--background-dark);
+}
+
+/* Adicionar estilos específicos para textarea */
+textarea.styled-textarea {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  margin-top: 10px;
+  border-right: 2px solid var(--text-orange);
+  border-bottom: 2px solid var(--text-orange);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+  width: 100%;
+  height: 4rem; /* Altura ajustada */
+  resize: none;
+}
+
+textarea.styled-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+textarea.styled-textarea:focus {
+  // background-color: rgba(41, 128, 185, 0.4);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* Específico para textarea do título */
+textarea.styled-textarea.titulo-input {
+  height: 5rem; /* Altura ajustada */
+}
+
+
+p {
+  color: var(--text-orange);
+  margin-bottom: 1px;
+}
+
+.no-padding-button {
+  padding: 0 !important;
 }

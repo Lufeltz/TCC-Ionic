@@ -63,11 +63,11 @@ export class CampeonatoService {
   }
 
 
-  postCampeonato(funcionario: Campeonato): Observable<Campeonato | null> {
+  postCampeonato(campeonato: Campeonato): Observable<Campeonato | null> {
     return this._http
       .post<Campeonato>(
         `${this.NEW_URL}`,
-        JSON.stringify(funcionario),
+        JSON.stringify(campeonato),
         this.httpOptions
       )
       .pipe(

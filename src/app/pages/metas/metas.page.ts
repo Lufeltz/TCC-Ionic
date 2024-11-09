@@ -15,7 +15,7 @@ import {
   IonButton,
   IonInput, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonAccordionGroup, IonAccordion, IonIcon, IonList } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
-import { BicepsFlexed, ChevronDown, Clock4, LucideAngularModule, Pencil } from 'lucide-angular';
+import { BicepsFlexed, CaseUpper, ChevronDown, CircleX, Clock4, LucideAngularModule, NotebookText, Pencil, SquareCheckBig, SquarePen, Target, Trash2 } from 'lucide-angular';
 
 interface Meta {
   tipo: 'diaria' | 'esportiva';
@@ -62,6 +62,12 @@ export class MetasPage implements OnInit {
   readonly Clock4 = Clock4;
   readonly BicepsFlexed = BicepsFlexed;
   readonly Pencil = Pencil;
+  readonly Target = Target;
+  readonly SquarePen = SquarePen;
+  readonly SquareCheckBig = SquareCheckBig;
+  readonly Trash2 = Trash2;
+  readonly CaseUpper = CaseUpper;
+  readonly NotebookText = NotebookText;
   readonly ChevronDown = ChevronDown;
   
 

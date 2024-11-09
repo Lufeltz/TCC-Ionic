@@ -242,3 +242,13 @@ ion-button {
   font-size: 1rem;
 }
 
+.button-group {
+  display: flex;
+  justify-content: space-between; /* Espaçamento igual entre os botões */
+  align-items: center;
+}
+
+.button-group ion-button {
+  flex: 1;
+  margin: 0 5px; /* Espaçamento entre os botões */
+}

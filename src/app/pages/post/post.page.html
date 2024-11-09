@@ -12,6 +12,7 @@
       labelPlacement="floating"
       placeholder="Digite o título (máx 50 caracteres)"
       maxlength="50"
+      [(ngModel)]="publicacao.titulo"
     ></ion-textarea>
 
     <ion-textarea
@@ -20,6 +21,7 @@
       labelPlacement="floating"
       placeholder="Digite sua mensagem (máx 150 caracteres)"
       maxlength="150"
+      [(ngModel)]="publicacao.descricao"
     ></ion-textarea>
 
     <ion-toast
@@ -47,10 +49,11 @@
       size="small"
       id="open-toast"
       class="btn-enviar"
-      (click)="voltarComunidadePostCriado()"
+      (click)="onSubmit()"
     >
       Enviar
     </ion-button>
+
     <ion-button
       size="small"
       class="btn-voltar"

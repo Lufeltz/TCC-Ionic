@@ -18,21 +18,45 @@
     <div class="container">
       <ul>
         <li class="item-lista2">
-          <ion-label>Titulo</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="CaseUpper"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--text-light)'"
+            ></lucide-angular>
+            <ion-label>Titulo</ion-label>
+          </div>
           <ion-input
             [(ngModel)]="meta.titulo"
             placeholder="Hidrate-se"
           ></ion-input>
         </li>
         <li class="item-lista2">
-          <ion-label>Descrição</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="NotebookText"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--text-light)'"
+            ></lucide-angular>
+            <ion-label>Descrição</ion-label>
+          </div>
           <ion-input
             [(ngModel)]="meta.descricao"
             placeholder="Beber 2 litros de água durante o dia"
           ></ion-input>
         </li>
         <li class="item-lista2">
-          <ion-label>Objetivo</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="Target"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--text-light)'"
+            ></lucide-angular>
+            <ion-label>Objetivo</ion-label>
+          </div>
           <ion-input [(ngModel)]="meta.progresso" placeholder="2"></ion-input>
         </li>
       </ul>
@@ -132,28 +156,61 @@
           12 / 25 gols
         </p>
 
-        <ion-accordion-group>
-          <ion-accordion>
-            <ion-item slot="header">
-              <div class="icon-align">
-                <lucide-angular
-                  [img]="ChevronDown"
-                  class="btn-inscrever-se"
-                  [size]="20"
-                  [color]="'var(--background-dark)'"
-                ></lucide-angular>
-                <ion-label>Detalhes da Meta</ion-label>
-              </div>
-            </ion-item>
-            <ion-item slot="content">
-              <!-- Conteúdo de Teste -->
-              <p><strong>Detalhes:</strong> Esta meta é sobre manter-se ativo ou atingir uma meta diária de saúde.</p>
-              <p><strong>Objetivo:</strong> Atingir 25 gols ou beber 2000 ml de água até o fim da semana.</p>
-              <p><strong>Progresso:</strong> 12/25 gols ou 1000 ml/2000 ml completados.</p>
-            </ion-item>
-          </ion-accordion>
-        </ion-accordion-group>
+
+        <div class="button-group">
+          <ion-button
+            id="open-toast"
+            expand="small"
+            class="centered-button"
+            (click)="salvarDados()"
+          >
+            <div class="icon-align">
+              <lucide-angular
+                [img]="SquarePen"
+                class="btn-inscrever-se"
+                [size]="20"
+                [color]="'var(--background-dark)'"
+              ></lucide-angular>
+              <!-- <p>Editar</p> -->
+            </div>
+          </ion-button>
+          <ion-button
+            id="open-toast"
+            expand="small"
+            class="centered-button"
+            (click)="salvarDados()"
+          >
+            <div class="icon-align">
+              <lucide-angular
+                [img]="SquareCheckBig"
+                class="btn-inscrever-se"
+                [size]="20"
+                [color]="'var(--background-dark)'"
+              ></lucide-angular>
+              <!-- <p>Concluir</p> -->
+            </div>
+          </ion-button>
+          <ion-button
+            id="open-toast"
+            expand="small"
+            class="centered-button"
+            (click)="salvarDados()"
+          >
+            <div class="icon-align">
+              <lucide-angular
+                [img]="Trash2"
+                class="btn-inscrever-se"
+                [size]="20"
+                [color]="'var(--background-dark)'"
+              ></lucide-angular>
+              <!-- <p>Deletar</p> -->
+            </div>
+          </ion-button>
+        </div>
         
+
+
+
       </li>
     </ul>
   </div>

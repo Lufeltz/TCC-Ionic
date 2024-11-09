@@ -81,4 +81,8 @@ export class JogadorComponent implements OnInit, OnChanges {
       );
     }
   }
+
+  getModalidades(academico: any): string {
+    return academico.modalidades.map((modalidade: any) => modalidade.nomeModalidade).join(', ');
+  }
 }

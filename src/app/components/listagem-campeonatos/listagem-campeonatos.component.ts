@@ -40,6 +40,7 @@ import {
   NotebookText,
   NotebookPen,
   UsersRound,
+  ArrowDownToDot,
 } from 'lucide-angular';
 import { Campeonato } from 'src/app/models/campeonato.model';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
@@ -83,6 +84,7 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   readonly CircleDollarSign = CircleDollarSign;
   readonly NotebookText = NotebookText;
   readonly NotebookPen = NotebookPen;
+  readonly ArrowDownToDot = ArrowDownToDot;
 
   campeonatos: Campeonato[] = [];
   mensagem!: string;

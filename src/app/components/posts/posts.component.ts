@@ -5,7 +5,7 @@ import { ComentarioService } from 'src/app/services/comentario.service';
 import { PostApiResponse } from 'src/app/models/post-api-response.model';
 import { ComentarioApiResponse } from 'src/app/models/comentario-api-response.model';
 import { Comentario } from 'src/app/models/comentario.model'; // Certifique-se de que o caminho esteja correto
-import { LucideAngularModule, RotateCw, Star, UserRound } from 'lucide-angular';
+import { ArrowDown, ArrowDownToDot, LucideAngularModule, MessageCircleMore, RotateCw, Star, UserRound } from 'lucide-angular';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';  // Adicionado o IonicModule
 import { ModalCurtidasComponent } from '../modal-curtidas/modal-curtidas.component';
@@ -37,6 +37,8 @@ export class PostsComponent implements OnInit, OnChanges {
   readonly RotateCw = RotateCw;
   readonly UserRound = UserRound;
   readonly Star = Star;
+  readonly ArrowDownToDot = ArrowDownToDot;
+  readonly MessageCircleMore = MessageCircleMore;
 
   constructor(
     private _http: HttpClient,

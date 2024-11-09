@@ -13,7 +13,7 @@
           <p class="usuario-username">{{ publicacao.Usuario.username }}</p>
         </div>
         <p class="data">
-          {{ publicacao.dataPublicacao | date: "dd/MM/yy, hh:mm" }}
+          {{ publicacao.dataPublicacao | date : "dd/MM/yy, hh:mm" }}
         </p>
       </div>
       <div class="publicacao-usuario">
@@ -50,6 +50,7 @@
             <ion-item slot="header" class="comentarios-header">
               <ion-label><strong>Comentários</strong></ion-label>
             </ion-item>
+
             <div slot="content">
               <ul>
                 <li
@@ -69,7 +70,7 @@
                       </p>
                     </div>
                     <p class="comentario-data">
-                      {{ comentario.dataComentario | date: "dd/MM/yy, hh:mm" }}
+                      {{ comentario.dataComentario | date : "dd/MM/yy, hh:mm" }}
                     </p>
                   </div>
                   <p class="comentario-descricao">{{ comentario.descricao }}</p>
@@ -107,22 +108,36 @@
                   </div>
                 </li>
               </ul>
-              <div class="comentario-input-container">
-                <input
-                  type="text"
-                  class="comentario-input"
+
+              <!-- Campo de comentário com botão -->
+              <div class="comentario-card">
+                <p>Faça seu comentário</p>
+                <textarea
+                  class="comentario-input styled-textarea"
                   [(ngModel)]="novoComentario[publicacao.idPublicacao]"
-                  placeholder="Digite seu comentário"
-                />
-                <button
-                  ion-button
+                  label="Comentário"
+                  labelPlacement="floating"
+                  placeholder="máx 150 caracteres"
+                  maxlength="150"
+                ></textarea>
+
+                <ion-button
                   size="small"
-                  class="comentar-button"
+                  expand="block"
+                  class="comentar-button no-padding-button"
                   (click)="comentar(publicacao)"
                 >
-                  Comentar
-                </button>
+                  <div class="text-container">Comentar</div>
+                  <div class="icon-align">
+                    <lucide-angular
+                      [img]="MessageCircleMore"
+                      class="btn-inscrever-se"
+                      [size]="20"
+                    ></lucide-angular>
+                  </div>
+                </ion-button>
               </div>
+
               <ion-button
                 size="small"
                 expand="block"
@@ -132,7 +147,7 @@
                 <div class="text-container">Mais Comentários</div>
                 <div class="icon-align">
                   <lucide-angular
-                    [img]="RotateCw"
+                    [img]="ArrowDownToDot"
                     class="btn-inscrever-se"
                     [size]="20"
                   ></lucide-angular>
@@ -153,7 +168,7 @@
     <div class="text-container">Mais Posts</div>
     <div class="icon-align">
       <lucide-angular
-        [img]="RotateCw"
+        [img]="ArrowDownToDot"
         class="btn-inscrever-se"
         [size]="20"
       ></lucide-angular>

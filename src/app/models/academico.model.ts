@@ -1,5 +1,5 @@
 export class Academico {
-  idAcademico: number = 1;
+  idAcademico: number = 0;
   curso: string = 'tads';
   username: string = 'jamessla';
   email: string = 'james@ufpr.br';
@@ -12,4 +12,5 @@ export class Academico {
   dataCriacao: string = '2024-11-01T00:07:52Z';
   ativo: boolean = true;
   permissao: string = 'ACADEMICO';
+  modalidades: { idModalidade: number, nomeModalidade: string }[] = [];
 }
