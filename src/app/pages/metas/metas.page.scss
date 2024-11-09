@@ -246,9 +246,10 @@ ion-button {
   display: flex;
   justify-content: space-between; /* Espaçamento igual entre os botões */
   align-items: center;
+  margin-top: 20px;
 }
 
 .button-group ion-button {
   flex: 1;
-  margin: 0 5px; /* Espaçamento entre os botões */
+  margin: 0 15px; /* Espaçamento entre os botões */
 }

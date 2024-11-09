@@ -25,10 +25,10 @@
               [size]="20"
               [color]="'var(--text-light)'"
             ></lucide-angular>
-            <ion-label>Titulo</ion-label>
+            <ion-label>Título</ion-label>
           </div>
           <ion-input
-            [(ngModel)]="meta.titulo"
+            [(ngModel)]="metaDiaria2.titulo"
             placeholder="Hidrate-se"
           ></ion-input>
         </li>
@@ -43,7 +43,7 @@
             <ion-label>Descrição</ion-label>
           </div>
           <ion-input
-            [(ngModel)]="meta.descricao"
+            [(ngModel)]="metaDiaria2.objetivo"
             placeholder="Beber 2 litros de água durante o dia"
           ></ion-input>
         </li>
@@ -57,7 +57,25 @@
             ></lucide-angular>
             <ion-label>Objetivo</ion-label>
           </div>
-          <ion-input [(ngModel)]="meta.progresso" placeholder="2"></ion-input>
+          <ion-input
+            [(ngModel)]="metaDiaria2.progressoMaximo"
+            placeholder="2"
+          ></ion-input>
+        </li>
+        <li class="item-lista2">
+          <div class="icon-align">
+            <lucide-angular
+              [img]="Target"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--text-light)'"
+            ></lucide-angular>
+            <ion-label>Divisor</ion-label>
+          </div>
+          <ion-input
+            [(ngModel)]="metaDiaria2.progressoItem"
+            placeholder="Litros, Quilômetros, Páginas"
+          ></ion-input>
         </li>
       </ul>
 
@@ -85,6 +103,8 @@
       ></ion-toast>
     </div>
   </div>
+
+  
 
   <div *ngIf="selectedSegment === 'listagem'">
     <ion-item lines="none">
@@ -161,7 +181,7 @@
           <ion-button
             id="open-toast"
             expand="small"
-            class="centered-button"
+            class="centered-button meta-button"
             (click)="salvarDados()"
           >
             <div class="icon-align">
@@ -171,13 +191,12 @@
                 [size]="20"
                 [color]="'var(--background-dark)'"
               ></lucide-angular>
-              <!-- <p>Editar</p> -->
             </div>
           </ion-button>
           <ion-button
             id="open-toast"
             expand="small"
-            class="centered-button"
+            class="centered-button meta-button"
             (click)="salvarDados()"
           >
             <div class="icon-align">
@@ -187,13 +206,12 @@
                 [size]="20"
                 [color]="'var(--background-dark)'"
               ></lucide-angular>
-              <!-- <p>Concluir</p> -->
             </div>
           </ion-button>
           <ion-button
             id="open-toast"
             expand="small"
-            class="centered-button"
+            class="centered-button meta-button"
             (click)="salvarDados()"
           >
             <div class="icon-align">
@@ -203,11 +221,10 @@
                 [size]="20"
                 [color]="'var(--background-dark)'"
               ></lucide-angular>
-              <!-- <p>Deletar</p> -->
             </div>
           </ion-button>
         </div>
-        
+                
 
 
 

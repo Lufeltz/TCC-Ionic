@@ -13,9 +13,33 @@ import {
   IonItem,
   IonToast,
   IonButton,
-  IonInput, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonAccordionGroup, IonAccordion, IonIcon, IonList } from '@ionic/angular/standalone';
+  IonInput,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonAccordionGroup,
+  IonAccordion,
+  IonIcon,
+  IonList,
+} from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
-import { BicepsFlexed, CaseUpper, ChevronDown, CircleX, Clock4, LucideAngularModule, NotebookText, Pencil, SquareCheckBig, SquarePen, Target, Trash2 } from 'lucide-angular';
+import {
+  BicepsFlexed,
+  CaseUpper,
+  ChevronDown,
+  CircleX,
+  Clock4,
+  LucideAngularModule,
+  NotebookText,
+  Pencil,
+  SquareCheckBig,
+  SquarePen,
+  Target,
+  Trash2,
+} from 'lucide-angular';
+import { MetaDiaria } from 'src/app/models/meta-diaria.model';
+import { MetaDiariaService } from 'src/app/services/meta-diaria.service';
 
 interface Meta {
   tipo: 'diaria' | 'esportiva';
@@ -30,7 +54,15 @@ interface Meta {
   templateUrl: './metas.page.html',
   styleUrls: ['./metas.page.scss'],
   standalone: true,
-  imports: [IonList, IonIcon, IonAccordion, IonAccordionGroup, IonCardContent, IonCardTitle, IonCardHeader, IonCard, 
+  imports: [
+    IonList,
+    IonIcon,
+    IonAccordion,
+    IonAccordionGroup,
+    IonCardContent,
+    IonCardTitle,
+    IonCardHeader,
+    IonCard,
     IonInput,
     IonButton,
     IonToast,
@@ -46,7 +78,7 @@ interface Meta {
     IonLabel,
     IonSegment,
     IonToggle,
-    LucideAngularModule
+    LucideAngularModule,
   ],
 })
 export class MetasPage implements OnInit {
@@ -57,6 +89,44 @@ export class MetasPage implements OnInit {
   selectedSegment: string = 'criacao';
   filterEsportivas: boolean = false;
   filterDiarias: boolean = true;
+
+  idAcademico: number = 1; // definir o valor da variável aqui
+  metaDiaria: MetaDiaria = new MetaDiaria();
+  metaDiaria2: MetaDiaria = new MetaDiaria();
+
+  constructor(private metaDiariaService: MetaDiariaService) {}
+  
+  ngOnInit(): void {
+    this.metaDiariaService.getMetaDiariaByAcademicoId(this.idAcademico).subscribe({
+      next: (data) => {
+        this.metaDiaria = data || new MetaDiaria(); // Garantir que metaDiaria nunca seja null
+        console.log(this.metaDiaria);
+      },
+      error: (err) => {
+        console.error('Erro ao buscar meta diária:', err);
+      }
+    });
+  }
+
+  salvarDados(): void {
+    if (this.metaDiaria2) {
+      // Certifique-se de que o idAcademico está sendo atribuído corretamente
+      this.metaDiaria2.idAcademico = this.idAcademico; 
+  
+      console.log('MetaDiaria antes de salvar:', this.metaDiaria2);  // Verifique os valores no console
+  
+      this.metaDiariaService.postMetaDiaria(this.metaDiaria2).subscribe({
+        next: (data) => {
+          console.log('Meta Diária criada com sucesso:', data);
+        },
+        error: (err) => {
+          console.error('Erro ao criar Meta Diária:', err);
+          console.log('MetaDiaria:', this.metaDiaria2);  // Veja o conteúdo do objeto enviado
+        }
+      });
+    }
+  }
+  
   
 
   readonly Clock4 = Clock4;
@@ -69,7 +139,6 @@ export class MetasPage implements OnInit {
   readonly CaseUpper = CaseUpper;
   readonly NotebookText = NotebookText;
   readonly ChevronDown = ChevronDown;
-  
 
   metasDiarias: Meta[] = [
     {
@@ -123,7 +192,6 @@ export class MetasPage implements OnInit {
       opcoes: ['1 página', '2 páginas', '3 páginas'],
     },
   ];
-  
 
   metasEsportivas: Meta[] = [
     {
@@ -216,18 +284,6 @@ export class MetasPage implements OnInit {
     },
   ];
 
-  meta: any = {
-    titulo: '',
-    descricao: '',
-    progresso: '',
-  };
-
-  salvarDados() {
-    // Lógica para salvar os dados do usuário
-    console.log('Dados do usuário salvos:', this.meta);
-    // Aqui você pode chamar um serviço para enviar os dados para um backend
-  }
-
   novaMeta: { titulo: string; descricao: string } = {
     titulo: '',
     descricao: '',
@@ -238,10 +294,6 @@ export class MetasPage implements OnInit {
     console.log('Meta salva:', this.novaMeta);
     this.novaMeta = { titulo: '', descricao: '' }; // Limpar campos após salvar
   }
-
-  constructor() {}
-
-  ngOnInit() {}
 
   toggleFilterEsportivas(event: any) {
     if (event.detail.checked) {
