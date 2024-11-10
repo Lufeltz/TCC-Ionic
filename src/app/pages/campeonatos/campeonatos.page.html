@@ -21,6 +21,7 @@
     <div class="container">
       <ul>
         <li class="item-lista">
+          <ion-label>Título</ion-label>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.titulo"
@@ -28,6 +29,7 @@
           ></ion-input>
         </li>
         <li class="item-lista">
+          <ion-label>Aposta</ion-label>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.aposta"
@@ -35,6 +37,7 @@
           ></ion-input>
         </li>
         <li class="item-lista">
+          <ion-label>Limite de Participantes</ion-label>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.limiteParticipantes"
@@ -42,60 +45,74 @@
           ></ion-input>
         </li>
         <li class="item-lista">
+          <ion-label>Descrição</ion-label>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.descricao"
             placeholder="Descrição"
           ></ion-input>
         </li>
-        <li class="item-lista">
-          <ion-input
-            ngDefaultControl
-            [(ngModel)]="campeonato.inicio"
-            placeholder="Data inicio"
-            readonly
-            (click)="toggleInicioPicker()"
-          >
-            <ion-icon
-              name="calendar"
-              (click)="toggleInicioPicker()"
-              slot="end"
-            ></ion-icon>
-          </ion-input>
 
-          <ion-datetime
-            *ngIf="showInicioPicker"
-            [(ngModel)]="campeonato.inicio"
-            (ionCancel)="showFimPicker = false"
-            (ionChange)="showFimPicker = false"
-          ></ion-datetime>
-        </li>
-        <li class="item-lista">
-          <ion-input
-            ngDefaultControl
-            [(ngModel)]="campeonato.fim"
-            placeholder="Data fim"
-            readonly
-            (click)="toggleFimPicker()"
-          >
-            <ion-icon
-              name="calendar"
-              (click)="toggleFimPicker()"
-              slot="end"
-            ></ion-icon>
-          </ion-input>
 
-          <ion-datetime
-            *ngIf="showFimPicker"
-            [(ngModel)]="campeonato.fim"
-            displayFormat="DD/MM/YYYY"
-            pickerFormat="DD/MM/YYYY"
-            (ionCancel)="showFimPicker = false"
-            (ionChange)="showFimPicker = false"
-          ></ion-datetime>
+        <li class="item-lista">
+          <div class="input-data-hora-container" style="display: flex; gap: 10px;">
+            <div style="flex: 8;">
+              <label for="inicio" class="input-label">Data de Início</label>
+              <input
+                type="date"
+                id="inicio"
+                name="inicio"
+                required
+                [(ngModel)]="campeonato.inicio"
+                class="styled-input"
+              />
+            </div>
+            <div style="flex: 2;">
+              <label for="hora-inicio" class="input-label">Hora</label>
+              <input
+                type="time"
+                id="hora-inicio"
+                name="hora-inicio"
+                required
+                
+                class="styled-input"
+              />
+            </div>
+          </div>
         </li>
+        
+        <li class="item-lista">
+          <div class="input-data-hora-container" style="display: flex; gap: 10px;">
+            <div style="flex: 8;">
+              <label for="fim" class="input-label">Data de Término</label>
+              <input
+                type="date"
+                id="fim"
+                name="fim"
+                required
+                
+                class="styled-input"
+              />
+            </div>
+            <div style="flex: 2;">
+              <label for="hora-fim" class="input-label">Hora</label>
+              <input
+                type="time"
+                id="hora-fim"
+                name="hora-fim"
+                required
+                
+                class="styled-input"
+              />
+            </div>
+          </div>
+        </li>
+        
+
+        
         <li class="item-lista">
           <div class="input-container">
+            <ion-label class="input-label">CEP</ion-label> <!-- Rótulo agora acima -->
             <ion-input
               ngDefaultControl
               [(ngModel)]="campeonato.cep"
@@ -118,8 +135,10 @@
             </ion-button>
           </div>
         </li>
+        
 
         <li class="item-lista">
+          <ion-label>Logradouro</ion-label>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.logradouro"
@@ -128,31 +147,43 @@
           ></ion-input>
         </li>
         <li class="item-lista">
+          <ion-label>Número</ion-label>
           <ion-input
             ngDefaultControl
             placeholder="Número"
             [(ngModel)]="campeonato.numero"
           ></ion-input>
         </li>
+        
         <li class="item-lista">
-          <div class="input-container">
-            <ion-input
-              ngDefaultControl
-              [(ngModel)]="campeonato.cidade"
-              placeholder="Cidade"
-              style="flex: 4; margin-right: 10px"
-              readonly
-            ></ion-input>
-            <ion-input
-              ngDefaultControl
-              [(ngModel)]="campeonato.uf"
-              placeholder="UF"
-              style="flex: 1"
-              readonly
-            ></ion-input>
+          <div class="input-cidade-uf-container" style="display: flex; gap: 10px;">
+            <div style="flex: 8;">
+              <ion-label>Cidade</ion-label>
+              <ion-input
+                ngDefaultControl
+                [(ngModel)]="campeonato.cidade"
+                placeholder="Cidade"
+                class="input-cidade"
+                readonly
+              ></ion-input>
+            </div>
+            <div style="flex: 2;">
+              <ion-label>UF</ion-label>
+              <ion-input
+                ngDefaultControl
+                [(ngModel)]="campeonato.uf"
+                placeholder="UF"
+                class="input-uf"
+                readonly
+              ></ion-input>
+            </div>
           </div>
         </li>
+        
+        
+
         <li class="item-lista">
+          <ion-label>Bairro</ion-label>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.bairro"
@@ -161,6 +192,7 @@
           ></ion-input>
         </li>
         <li class="item-lista">
+          <ion-label>Complemento</ion-label>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.complemento"

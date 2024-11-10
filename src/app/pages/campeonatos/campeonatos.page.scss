@@ -1,3 +1,4 @@
+/* Estilo Geral */
 ion-label {
   color: var(--light-blue);
 }
@@ -122,8 +123,8 @@ ion-input ion-icon {
 }
 
 .input-container ion-button {
-  width: auto; /* Define a largura do botão */
-  flex-shrink: 0; /* Impede que o botão encolha */
+  width: auto;
+  flex-shrink: 0;
   margin-left: 10px;
   margin-top: 0;
   align-self: center;
@@ -161,7 +162,69 @@ ion-button {
 }
 
 .cep-button {
-  border: none; /* Remove the border */
-  margin-left: 10px; /* Maintain the margin-left */
-  --border-width: 0; /* Ensure any border width is set to 0 */
+  border: none;
+  margin-left: 10px;
+  --border-width: 0;
+}
+
+.input-label {
+  color: var(--text-light);
+  margin-bottom: 0.5rem;
+  // font-weight: bold;
+}
+
+.styled-input::-webkit-calendar-picker-indicator {
+  color: var(--light-blue);
+  cursor: pointer;
+  z-index: 10;
+}
+
+.styled-input {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  // font-weight: bold;
+  padding: 0.5rem;
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: none;
+  transition: background-color 0.3s, transform 0.3s;
+  margin-top: 10px;
+  width: 100%;
+  z-index: 100;
+  position: relative;
+}
+
+.styled-input::placeholder {
+  color: var(--text-white);
+}
+
+.styled-input:focus {
+  background-color: var(--background-hover);
+}
+
+/* Alterações para garantir que Cidade e UF fiquem lado a lado */
+.input-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Espaçamento entre os campos */
+}
+
+.input-container ion-label {
+  color: var(--text-light);
+  flex-basis: 100%; /* Garante que os rótulos ocupem a largura total antes dos campos de entrada */
+  margin-bottom: 0.5rem;
+}
+
+ion-label {
+  font-weight: bold;
+}
+
+.input-container ion-input {
+  background-color: var(--background-dark);
+  color: var(--text-white);
+  padding: 0.5rem;
+  border-radius: 5px;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
 }
