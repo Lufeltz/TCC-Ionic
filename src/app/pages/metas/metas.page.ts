@@ -33,6 +33,7 @@ import {
   LucideAngularModule,
   NotebookText,
   Pencil,
+  Ruler,
   SquareCheckBig,
   SquarePen,
   Target,
@@ -40,6 +41,8 @@ import {
 } from 'lucide-angular';
 import { MetaDiaria } from 'src/app/models/meta-diaria.model';
 import { MetaDiariaService } from 'src/app/services/meta-diaria.service';
+import { AlertController } from '@ionic/angular';
+import { ModalEditarMetaDiariaComponent } from '../../components/modal-editar-meta-diaria/modal-editar-meta-diaria.component';
 
 interface Meta {
   tipo: 'diaria' | 'esportiva';
@@ -79,6 +82,7 @@ interface Meta {
     IonSegment,
     IonToggle,
     LucideAngularModule,
+    ModalEditarMetaDiariaComponent,
   ],
 })
 export class MetasPage implements OnInit {
@@ -90,58 +94,18 @@ export class MetasPage implements OnInit {
   filterEsportivas: boolean = false;
   filterDiarias: boolean = true;
 
-  idAcademico: number = 1; // definir o valor da variável aqui
+  idAcademico: number = 1;
   metaDiaria: MetaDiaria[] = [];
   metaDiaria2: MetaDiaria = new MetaDiaria();
 
-  constructor(private metaDiariaService: MetaDiariaService) {}
-  
-  ngOnInit(): void {
-    this.listarMetaDiarias();  // Chama a função listarMetaDiarias
-  }
-  
-  listarMetaDiarias(): void {
-    this.metaDiariaService.getMetaDiariaByAcademicoId(this.idAcademico).subscribe({
-      next: (data: MetaDiaria[] | null) => {
-        // Verifica se os dados são nulos ou um array
-        if (data === null) {
-          this.metaDiaria = [];  // Se não houver dados, atribui um array vazio
-        } else {
-          this.metaDiaria = data;  // Atribui o array de dados
-          console.log('Dados da meta diária:', this.metaDiaria);  // Log dos dados recebidos
-        }
-      },
-      error: (err) => {
-        console.error('Erro ao buscar meta diária:', err);  // Log do erro
-      }
-    });
-  }
-  
-  salvarDados(): void {
-    if (this.metaDiaria2) {
-      // Certifique-se de que o idAcademico está sendo atribuído corretamente
-      this.metaDiaria2.idAcademico = this.idAcademico; 
-  
-      console.log('MetaDiaria antes de salvar:', this.metaDiaria2);  // Verifique os valores no console
-  
-      this.metaDiariaService.postMetaDiaria(this.metaDiaria2).subscribe({
-        next: (data) => {
-          console.log('Meta Diária criada com sucesso:', data);
-        },
-        error: (err) => {
-          console.error('Erro ao criar Meta Diária:', err);
-          console.log('MetaDiaria:', this.metaDiaria2);  // Veja o conteúdo do objeto enviado
-        }
-      });
-    }
-  }
-  
-  
+  modalEditarVisivel: boolean = false;
+  metaParaEditar!: MetaDiaria;
 
   readonly Clock4 = Clock4;
   readonly BicepsFlexed = BicepsFlexed;
   readonly Pencil = Pencil;
   readonly Target = Target;
+  readonly Ruler = Ruler;
   readonly SquarePen = SquarePen;
   readonly SquareCheckBig = SquareCheckBig;
   readonly Trash2 = Trash2;
@@ -149,56 +113,160 @@ export class MetasPage implements OnInit {
   readonly NotebookText = NotebookText;
   readonly ChevronDown = ChevronDown;
 
+  constructor(
+    private metaDiariaService: MetaDiariaService,
+    private alertController: AlertController
+  ) {}
+
+  ngOnInit(): void {
+    this.listarMetaDiarias();
+  }
+
+  abrirModalEditar(meta: any) {
+    this.metaParaEditar = meta;
+    console.log(this.metaParaEditar);
+    this.modalEditarVisivel = true;
+  }
+
+  fecharModal() {
+    this.modalEditarVisivel = false;
+  }
+
+  listarMetaDiarias(): void {
+    this.metaDiariaService
+      .getMetaDiariaByAcademicoId(this.idAcademico)
+      .subscribe({
+        next: (data: MetaDiaria[] | null) => {
+          if (data === null) {
+            this.metaDiaria = [];
+          } else {
+            this.metaDiaria = data;
+            console.log('Dados da meta diária:', this.metaDiaria);
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao buscar meta diária:', err);
+        },
+      });
+  }
+
+  salvarDados(): void {
+    if (this.metaDiaria2) {
+      this.metaDiaria2.idAcademico = this.idAcademico;
+
+      console.log('MetaDiaria antes de salvar:', this.metaDiaria2);
+
+      this.metaDiariaService.postMetaDiaria(this.metaDiaria2).subscribe({
+        next: (data) => {
+          console.log('Meta Diária criada com sucesso:', data);
+        },
+        error: (err) => {
+          console.error('Erro ao criar Meta Diária:', err);
+          console.log('MetaDiaria:', this.metaDiaria2);
+        },
+      });
+    }
+  }
+
+  async excluirPresentAlert(meta: MetaDiaria) {
+    const alert = await this.alertController.create({
+      header: 'Exclusão de meta',
+      message: '',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Alert canceled');
+          },
+        },
+        {
+          text: 'Excluir',
+          handler: () => {
+            console.log('Meta confirmada:', meta);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+
+    const alertElement = document.querySelector('ion-alert') as HTMLElement;
+    const messageElement = alertElement.querySelector('.alert-message');
+
+    if (messageElement) {
+      messageElement.innerHTML = `
+        <strong>Título:</strong> ${meta.titulo} <br>
+        <strong>Objetivo:</strong> ${meta.objetivo || 'Não definido'} <br>
+        <strong>Progresso Atual:</strong> ${meta.progressoAtual} ${
+        meta.progressoItem
+      } <br>
+        <strong>Progresso Máximo:</strong> ${meta.progressoMaximo} ${
+        meta.progressoItem
+      } <br>
+        <strong>Situação:</strong> ${
+          meta.situacaoMetaDiaria === 0 ? 'Pendente' : 'Concluída'
+        }
+      `;
+    }
+  }
+
+  async concluirPresentAlert(meta: MetaDiaria) {
+    const alert = await this.alertController.create({
+      header: 'Conclusão de meta',
+      message: '',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Alert canceled');
+          },
+        },
+        {
+          text: 'Concluir',
+          handler: () => {
+            console.log('Meta confirmada:', meta);
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+
+    const alertElement = document.querySelector('ion-alert') as HTMLElement;
+    const messageElement = alertElement.querySelector('.alert-message');
+
+    if (messageElement) {
+      messageElement.innerHTML = `
+          <strong>Título:</strong> ${meta.titulo} <br>
+          <strong>Objetivo:</strong> ${meta.objetivo || 'Não definido'} <br>
+          <strong>Progresso Atual:</strong> ${meta.progressoAtual} ${
+        meta.progressoItem
+      } <br>
+          <strong>Progresso Máximo:</strong> ${meta.progressoMaximo} ${
+        meta.progressoItem
+      } <br>
+          <strong>Situação:</strong> ${
+            meta.situacaoMetaDiaria === 0 ? 'Pendente' : 'Concluída'
+          }
+        `;
+    }
+  }
+
+  concluirMeta(meta: MetaDiaria) {
+    this.concluirPresentAlert(meta);
+  }
+
+  excluirMeta(meta: MetaDiaria) {
+    this.excluirPresentAlert(meta);
+  }
+
   metasDiarias: Meta[] = [
     {
       tipo: 'diaria',
       nome: 'Beber água',
       opcoes: ['1L', '2L', '3L'],
-    },
-    {
-      tipo: 'diaria',
-      nome: 'Comer uma fruta',
-      opcoes: ['1 fruta', '2 frutas'],
-    },
-    {
-      tipo: 'diaria',
-      nome: 'Ler páginas de um livro',
-      opcoes: ['5 páginas', '7 páginas', '10 páginas'],
-    },
-    {
-      tipo: 'diaria',
-      nome: 'Dar uma quantidade específica de passos',
-      opcoes: ['50 passos', '200 passos', '500 passos'],
-    },
-    {
-      tipo: 'diaria',
-      nome: 'Fazer polichinelos',
-      opcoes: ['15 polichinelos', '30 polichinelos', '45 polichinelos'],
-    },
-    {
-      tipo: 'diaria',
-      nome: 'Fazer flexões',
-      opcoes: ['5 flexões', '8 flexões', '12 flexões'],
-    },
-    {
-      tipo: 'diaria',
-      nome: 'Fazer abdominais',
-      opcoes: ['10 abdominais', '20 abdominais', '30 abdominais'],
-    },
-    {
-      tipo: 'diaria',
-      nome: 'Meditar',
-      opcoes: ['5 minutos', '10 minutos', '20 minutos'],
-    },
-    {
-      tipo: 'diaria',
-      nome: 'Fazer caminhada',
-      opcoes: ['15 minutos', '30 minutos', '1 hora'],
-    },
-    {
-      tipo: 'diaria',
-      nome: 'Escrever no diário',
-      opcoes: ['1 página', '2 páginas', '3 páginas'],
     },
   ];
 
@@ -214,95 +282,7 @@ export class MetasPage implements OnInit {
         'Conquistas obtidas',
       ],
     },
-    {
-      tipo: 'esportiva',
-      esporte: 'Futebol', // Nova instância
-      metas: [
-        'Jogo vencido',
-        'Cartões recebidos',
-        'Faltas cometidas',
-        'Gols de cabeça',
-        'Passes certos',
-      ],
-    },
-    {
-      tipo: 'esportiva',
-      esporte: 'Futebol', // Nova instância
-      metas: [
-        'Total de minutos jogados',
-        'Substituições realizadas',
-        'Gols de fora da área',
-        'Chances criadas',
-        'Lesões sofridas',
-      ],
-    },
-    {
-      tipo: 'esportiva',
-      esporte: 'Futebol', // Nova instância
-      metas: [
-        'Dribles bem-sucedidos',
-        'Cruzamentos feitos',
-        'Gols em jogos decisivos',
-        'Recordes pessoais',
-        'Assistências em finais',
-      ],
-    },
-    {
-      tipo: 'esportiva',
-      esporte: 'Futebol', // Nova instância
-      metas: [
-        'Jogos jogados na temporada',
-        'Gols contra',
-        'Faltas sofridas',
-        'Defesas do goleiro',
-        'Gols de pênalti convertidos',
-      ],
-    },
-    {
-      tipo: 'esportiva',
-      esporte: 'Tênis de mesa',
-      metas: [
-        'Pontos feitos',
-        'Pontos no saque',
-        'Vitórias',
-        'Jogos sem levar pontos',
-        'Conquistas obtidas',
-      ],
-    },
-    {
-      tipo: 'esportiva',
-      esporte: 'Vôlei',
-      metas: [
-        'Cortes feitos',
-        'Bloqueios',
-        'Saques realizados',
-        'Levantamentos',
-        'Conquistas obtidas',
-      ],
-    },
-    {
-      tipo: 'esportiva',
-      esporte: 'Basquete',
-      metas: [
-        'Cestas de dois pontos',
-        'Cestas de três pontos',
-        'Saques realizados',
-        'Levantamentos',
-        'Conquistas obtidas',
-      ],
-    },
   ];
-
-  novaMeta: { titulo: string; descricao: string } = {
-    titulo: '',
-    descricao: '',
-  };
-
-  salvarMeta() {
-    // Lógica para salvar a nova meta
-    console.log('Meta salva:', this.novaMeta);
-    this.novaMeta = { titulo: '', descricao: '' }; // Limpar campos após salvar
-  }
 
   toggleFilterEsportivas(event: any) {
     if (event.detail.checked) {

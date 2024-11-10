@@ -65,12 +65,12 @@
         <li class="item-lista2">
           <div class="icon-align">
             <lucide-angular
-              [img]="Target"
+              [img]="Ruler"
               class="btn-inscrever-se"
               [size]="20"
               [color]="'var(--text-light)'"
             ></lucide-angular>
-            <ion-label>Divisor</ion-label>
+            <ion-label>Medida</ion-label>
           </div>
           <ion-input
             [(ngModel)]="metaDiaria2.progressoItem"
@@ -165,9 +165,6 @@
           >
         </h3>
 
-        <!-- Iterando sobre o array de metas diárias -->
-        <!-- <div *ngFor="let meta of filteredMetas" *ngIf="meta.tipo === 'diaria'"> -->
-        <!-- <div *ngFor="let meta of metaDiaria"> -->
         <div *ngIf="meta.titulo">
           <p>
             <strong>Objetivo:</strong> {{ meta.objetivo || 'Não definido' }}
@@ -189,27 +186,13 @@
             'Pendente' : 'Concluída' }}
           </p>
         </div>
-        <!-- </div> -->
-
-        <!-- Iterando sobre as metas esportivas -->
-        <!-- <div
-          *ngFor="let meta of filteredMetas"
-          *ngIf="meta.tipo === 'esportiva'"
-        > -->
-
-        <!-- <div
-          *ngFor="let meta of filteredMetas"
-        >
-          <p><strong>Esporte:</strong> {{ meta.esporte }}</p>
-          <p><strong>Metas:</strong> {{ meta.metas?.join(', ') }}</p>
-        </div> -->
 
         <div class="button-group">
+          <!-- Botão de Editar -->
           <ion-button
-            id="open-toast"
             expand="small"
             class="centered-button meta-button"
-            (click)="salvarDados()"
+            (click)="abrirModalEditar(meta)"
           >
             <div class="icon-align">
               <lucide-angular
@@ -220,11 +203,12 @@
               ></lucide-angular>
             </div>
           </ion-button>
+
+          <!-- Botão de Confirmar -->
           <ion-button
-            id="open-toast"
             expand="small"
             class="centered-button meta-button"
-            (click)="salvarDados()"
+            (click)="concluirMeta(meta)"
           >
             <div class="icon-align">
               <lucide-angular
@@ -235,11 +219,12 @@
               ></lucide-angular>
             </div>
           </ion-button>
+
+          <!-- Botão de Excluir -->
           <ion-button
-            id="open-toast"
             expand="small"
             class="centered-button meta-button"
-            (click)="salvarDados()"
+            (click)="excluirMeta(meta)"
           >
             <div class="icon-align">
               <lucide-angular
@@ -254,5 +239,10 @@
       </li>
     </ul>
   </div>
-  <!--  -->
+
+  <app-modal-editar-meta-diaria
+    *ngIf="modalEditarVisivel"
+    [meta]="metaParaEditar"
+    (close)="fecharModal()"
+  ></app-modal-editar-meta-diaria>
 </ion-content>

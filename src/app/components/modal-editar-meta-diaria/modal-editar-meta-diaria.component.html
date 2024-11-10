@@ -1,0 +1,114 @@
+<div class="modal-background" (click)="closeModal()"></div>
+<div class="modal-content">
+  <div class="meta-details">
+    <h3>{{ meta.titulo }}</h3>
+
+    <ul>
+      <li class="item-lista2">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="CaseUpper"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <ion-label>Título</ion-label>
+        </div>
+        <ion-input
+          [(ngModel)]="meta.titulo"
+          placeholder="Exemplo: Hidratação"
+          class="styled-input"
+        ></ion-input>
+      </li>
+
+      <li class="item-lista2">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="NotebookText"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <ion-label>Descrição</ion-label>
+        </div>
+        <ion-input
+          [(ngModel)]="meta.objetivo"
+          placeholder="Exemplo: Beber 2 litros de água"
+          class="styled-input"
+        ></ion-input>
+      </li>
+
+      <li class="item-lista2">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Ruler"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <ion-label>Progresso Atual</ion-label>
+        </div>
+        <ion-input
+          [(ngModel)]="meta.progressoAtual"
+          placeholder="Exemplo: 1.5"
+          class="styled-input"
+        ></ion-input>
+      </li>
+
+      <li class="item-lista2">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Target"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <ion-label>Objetivo</ion-label>
+        </div>
+        <ion-input
+          [(ngModel)]="meta.progressoMaximo"
+          placeholder="Exemplo: 2"
+          class="styled-input"
+        ></ion-input>
+      </li>
+
+      <li class="item-lista2">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Ruler"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-light)'"
+          ></lucide-angular>
+          <ion-label>Medida</ion-label>
+        </div>
+        <ion-input
+          [(ngModel)]="meta.progressoItem"
+          placeholder="Exemplo: 1.5"
+          class="styled-input"
+        ></ion-input>
+      </li>
+
+    </ul>
+  </div>
+
+  <div class="button-group">
+    <ion-button size="small" expand="block" (click)="closeModal()">
+      <lucide-angular
+        [img]="CircleX"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+      <div class="text-container">Fechar</div>
+    </ion-button>
+
+    <ion-button size="small" expand="block" (click)="editarDados()">
+      <lucide-angular
+        [img]="Save"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+      <div class="text-container">Salvar</div>
+    </ion-button>
+  </div>
+</div>
