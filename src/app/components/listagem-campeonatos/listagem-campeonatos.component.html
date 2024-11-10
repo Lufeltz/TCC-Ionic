@@ -19,11 +19,8 @@
           ></lucide-angular>
           <ion-label class="label-titulo">Criados</ion-label>
         </div>
-        <ion-toggle
-          class="toggle-diarias"
-          slot="end"
-          ></ion-toggle>
-          <!-- (ionChange)="toggleFilterDiarias($event)"
+        <ion-toggle class="toggle-diarias" slot="end"></ion-toggle>
+        <!-- (ionChange)="toggleFilterDiarias($event)"
           [checked]="filterDiarias" -->
       </div>
     </ion-item>
@@ -41,8 +38,8 @@
           class="toggle-esportivas"
           slot="end"
           [(ngModel)]="statusToggles.participando"
-          ></ion-toggle>
-          <!-- (ionChange)="toggleFilterEsportivas($event)"
+        ></ion-toggle>
+        <!-- (ionChange)="toggleFilterEsportivas($event)"
           [checked]="filterEsportivas" -->
       </div>
     </ion-item>
@@ -53,11 +50,11 @@
           <h3 class="campeonato-nome">
             {{ campeonato.titulo }}
             <lucide-angular
-              [img]="Lock"
-              class="cadeado-icon"
-              [size]="20"
-              [color]="'#00b4d8'"
-            ></lucide-angular>
+            [img]="Lock"
+            class="cadeado-icon"
+            [size]="20"
+            [color]="getLockColor(campeonato.privacidadeCampeonato)"
+          ></lucide-angular>          
           </h3>
         </div>
 
@@ -69,7 +66,10 @@
               [size]="20"
               [color]="'var(--purple-desc)'"
             ></lucide-angular>
-            <p><strong>Status: </strong>Aberto</p>
+            <p>
+              <strong>Status: </strong
+              >{{ campeonato.situacaoCampeonato | titleCase }}
+            </p>
           </div>
           <div class="icon-align">
             <lucide-angular
@@ -111,7 +111,7 @@
             <p><strong>Código: </strong> {{ campeonato.codigo }}</p>
           </div>
         </div>
-        
+
         <div class="campeonato-interacoes">
           <ion-accordion-group>
             <ion-accordion>

@@ -45,6 +45,9 @@ import {
 import { Campeonato } from 'src/app/models/campeonato.model';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { FormsModule } from '@angular/forms';
+import { TitleCasePipe } from 'src/app/pipes/title-case.pipe';
+import { EnderecoService } from 'src/app/services/endereco.service';
+import { Endereco } from 'src/app/models/endereco.model';
 
 @Component({
   selector: 'app-listagem-campeonatos',
@@ -61,7 +64,8 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     NgxMaskPipe,
     LucideAngularModule,
-    FormsModule
+    FormsModule,
+    TitleCasePipe,
   ],
   standalone: true,
 })
@@ -90,17 +94,13 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   mensagem!: string;
   mensagem_detalhes!: string;
   loading: boolean = true;
-
-  getIconColor(privacidade: string): string {
-    return privacidade === 'privado' ? 'red' : 'green';
-  }
   filteredCampeonatos: Campeonato[] = [];
 
   @Input() statusToggles: {
     aberto?: boolean;
     finalizado?: boolean;
     iniciado?: boolean;
-    participando?: boolean;  // Ensure this is a boolean value
+    participando?: boolean; // Ensure this is a boolean value
   } = { participando: true };
 
   @Input() searchedCampeonatos: string = '';
@@ -108,10 +108,13 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   constructor(
     private alertController: AlertController,
     private campeonatoService: CampeonatoService
-  ) {
-    addIcons({ lockClosed, lockOpen });
-  }
+  ) {}
 
+  getLockColor(privacidade: string): string {
+    return privacidade === 'PRIVADO'
+      ? 'var(--light-red)'
+      : 'var(--text-new-green)'; // 'red' para 'privado', 'green' para 'público'
+  }
   ngOnInit() {
     this.listarCampeonatos();
   }

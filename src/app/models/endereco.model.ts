@@ -4,7 +4,7 @@ export class Endereco {
     cidade: string = '';
     bairro: string = '';
     rua: string = '';
-    numero: number = 0;
+    numero: number | null = null;
     complemento: string | null = null;
   }
   

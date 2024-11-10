@@ -21,6 +21,9 @@ import { ListagemCampeonatosComponent } from '../../components/listagem-campeona
 import { calendar } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
 import { LucideAngularModule, Pencil, Search } from 'lucide-angular';
+import { Endereco } from 'src/app/models/endereco.model';
+import { EnderecoService } from 'src/app/services/endereco.service';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-campeonatos',
@@ -45,13 +48,14 @@ import { LucideAngularModule, Pencil, Search } from 'lucide-angular';
     IonLabel,
     HistoricoCampeonatosComponent,
     ListagemCampeonatosComponent,
-    LucideAngularModule
+    LucideAngularModule,
   ],
 })
 export class CampeonatosPage implements OnInit {
   pageTitle: string = 'Campeonatos';
   pageMenu: string = 'campeonato-menu';
   pageContent: string = 'campeonato';
+  endereco: Endereco = new Endereco();
 
   selectedSegment: string = 'criacao';
 
@@ -74,10 +78,12 @@ export class CampeonatosPage implements OnInit {
   showInicioPicker: boolean = false; // Para controlar o seletor de início
   showFimPicker: boolean = false; // Para controlar o seletor de fim
 
+  isCepValid: boolean = false; // Para controlar a validade do CEP
+
   readonly Pencil = Pencil;
   readonly Search = Search;
 
-  constructor() {
+  constructor(private enderecoService: EnderecoService) {
     addIcons({ calendar });
   }
 
@@ -85,7 +91,35 @@ export class CampeonatosPage implements OnInit {
 
   salvarDados() {
     console.log('Dados do usuário salvos:', this.campeonato);
-    // Aqui você pode chamar um serviço para enviar os dados para um backend
+  }
+
+  validarCep() {
+    // Valida que o CEP contém apenas números
+    const cepRegex = /^[0-9]{8}$/; // Apenas 8 dígitos numéricos
+    this.isCepValid = cepRegex.test(this.campeonato.cep);
+  }
+
+  pesquisarCep(cep: string) {
+    this.enderecoService.getEnderecoByCep(cep).subscribe({
+      next: (endereco) => {
+        if (endereco) {
+          this.endereco = endereco; // Armazenando o endereço retornado
+
+          // Preenchendo os campos com os dados do endereço
+          this.campeonato.logradouro = this.endereco.rua || '';
+          this.campeonato.bairro = this.endereco.bairro || '';
+          this.campeonato.cidade = this.endereco.cidade || '';
+          this.campeonato.uf = this.endereco.uf || '';
+
+          console.log('Endereço encontrado:', this.endereco);
+        } else {
+          console.log('Endereço não encontrado');
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao consultar endereço:', err);
+      },
+    });
   }
 
   toggleInicioPicker() {
@@ -105,10 +139,4 @@ export class CampeonatosPage implements OnInit {
     this.campeonato.fim = event.detail.value; // Atualiza com o valor da data e hora
     this.showFimPicker = false; // Fecha o seletor
   }
-
-  pesquisarCep() {
-    console.log('CEP digitado:', this.campeonato.cep);
-    // Aqui você pode adicionar a lógica para buscar o endereço com base no CEP
-  }
-  
 }

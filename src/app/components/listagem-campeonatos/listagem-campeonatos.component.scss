@@ -201,8 +201,6 @@ ion-accordion:hover .detalhes-header ion-label {
   color: var(--light-blue);
 }
 
-////// extra
-
 ion-toggle {
   color: var(--gray-50);
   --handle-width: 20px;
@@ -315,13 +313,6 @@ ul {
   margin-top: 1rem;
 }
 
-// ion-input {
-//   border-right: 2px solid var(--light-blue);
-//   border-bottom: 2px solid var(--light-blue);
-//   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-//   transition: background-color 0.3s, transform 0.3s;
-// }
-
 .btn-inscrever-se {
   margin-right: 5px;
 }
@@ -359,27 +350,5 @@ ion-button {
 }
 
 ion-button:active {
-  // --background: var(--background-dark); /* Fundo desejado ao passar o mouse ou clicar */
-  --color: var(--text-white); /* Cor do texto desejada */
+  --color: var(--text-white);
 }
-
-// /* Remover o hover padrão */
-// ion-button:hover,
-// ion-button:active,
-// ion-button:focus {
-//   --background: var(--background-dark); /* Fundo desejado ao passar o mouse ou clicar */
-//   --color: var(--text-white); /* Cor do texto desejada */
-//   border-radius: 5px;
-//   // border-right: 2px solid var(--text-white);
-//   border-bottom: 2px solid var(--text-white);
-//   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-//   transition: background-color 0.3s, transform 0.3s;
-// }
-
-// /* Opcional: Para garantir que o fundo não fique azul no estado de foco */
-// ion-button:focus {
-//   --background: var(--background-dark);
-//   --color: var(--text-white);
-//   outline: none; /* Remover o contorno padrão do foco */
-// }
-

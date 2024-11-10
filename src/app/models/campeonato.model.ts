@@ -14,4 +14,9 @@ export class Campeonato {
   limiteParticipantes: number = 0;
   ativo: boolean = true;
   endereco: Endereco = new Endereco();
+
+  privacidadeCampeonato: string = '';
+  idAcademico: number = 1;
+  idModalidadeEsportiva: number = 1;
+  situacaoCampeonato: string = 'EM_ABERTO';
 }

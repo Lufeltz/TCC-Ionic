@@ -99,10 +99,13 @@
             <ion-input
               ngDefaultControl
               [(ngModel)]="campeonato.cep"
+              mask="000000-000"
               placeholder="CEP"
+              (ngModelChange)="validarCep()"
             ></ion-input>
             <ion-button
-              (click)="pesquisarCep()"
+              (click)="pesquisarCep(campeonato.cep)"
+              [disabled]="!isCepValid"
               fill="outline"
               class="cep-button"
             >
