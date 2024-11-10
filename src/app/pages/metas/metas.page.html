@@ -29,7 +29,7 @@
           </div>
           <ion-input
             [(ngModel)]="metaDiaria2.titulo"
-            placeholder="Hidrate-se"
+            placeholder="Exemplo: Hidrate-se"
           ></ion-input>
         </li>
         <li class="item-lista2">
@@ -44,7 +44,7 @@
           </div>
           <ion-input
             [(ngModel)]="metaDiaria2.objetivo"
-            placeholder="Beber 2 litros de água durante o dia"
+            placeholder="Exemplo: Beber 2 litros de água"
           ></ion-input>
         </li>
         <li class="item-lista2">
@@ -59,7 +59,7 @@
           </div>
           <ion-input
             [(ngModel)]="metaDiaria2.progressoMaximo"
-            placeholder="2"
+            placeholder="Exemplo: 2"
           ></ion-input>
         </li>
         <li class="item-lista2">
@@ -74,7 +74,7 @@
           </div>
           <ion-input
             [(ngModel)]="metaDiaria2.progressoItem"
-            placeholder="Litros, Quilômetros, Páginas"
+            placeholder="Exemplo: Litros, Quilômetros, Páginas"
           ></ion-input>
         </li>
       </ul>
@@ -170,17 +170,14 @@
             <strong>Objetivo:</strong> {{ meta.objetivo || 'Não definido' }}
           </p>
           <p>
-            <strong>Progresso Atual:</strong> {{ meta.progressoAtual }} {{
-            meta.progressoItem }}
+            <strong>Progresso:</strong> {{ meta.progressoAtual }} / {{
+            meta.progressoMaximo }} {{ meta.progressoItem }}
           </p>
-          <p>
-            <strong>Progresso Máximo:</strong> {{ meta.progressoMaximo }} {{
-            meta.progressoItem }}
-          </p>
-          <p>
+
+          <!-- <p>
             <strong>Quantidade Concluída:</strong> {{ meta.quantidadeConcluido
             }} {{ meta.progressoItem }}
-          </p>
+          </p> -->
           <p>
             <strong>Situação:</strong> {{ meta.situacaoMetaDiaria === 0 ?
             'Pendente' : 'Concluída' }}
@@ -222,22 +219,20 @@
 
           <!-- Botão de Excluir -->
           <ion-button
-          expand="small"
-          class="centered-button meta-button"
-          (click)="excluirMeta(meta)"
-        >
-          <div class="icon-align">
-            <lucide-angular
-              [img]="Trash2"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--background-dark)'"
-            ></lucide-angular>
-          </div>
-        </ion-button>
-        
+            expand="small"
+            class="centered-button meta-button"
+            (click)="excluirMeta(meta)"
+          >
+            <div class="icon-align">
+              <lucide-angular
+                [img]="Trash2"
+                class="btn-inscrever-se"
+                [size]="20"
+                [color]="'var(--background-dark)'"
+              ></lucide-angular>
+            </div>
+          </ion-button>
         </div>
-
       </li>
     </ul>
   </div>

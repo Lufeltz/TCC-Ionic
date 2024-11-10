@@ -189,23 +189,26 @@ export class MetasPage implements OnInit {
         },
       ],
     });
-  
+
     await alert.present();
-  
+
     const alertElement = document.querySelector('ion-alert') as HTMLElement;
     const messageElement = alertElement.querySelector('.alert-message');
-  
+
     if (messageElement) {
       messageElement.innerHTML = `
         <strong>Título:</strong> ${meta.titulo} <br>
         <strong>Objetivo:</strong> ${meta.objetivo || 'Não definido'} <br>
-        <strong>Progresso Atual:</strong> ${meta.progressoAtual} ${meta.progressoItem} <br>
-        <strong>Progresso Máximo:</strong> ${meta.progressoMaximo} ${meta.progressoItem} <br>
-        <strong>Situação:</strong> ${meta.situacaoMetaDiaria === 0 ? 'Pendente' : 'Concluída'}
+        <strong>Progresso:</strong> ${meta.progressoAtual} / ${
+        meta.progressoMaximo
+      } ${meta.progressoItem} <br>
+        <strong>Situação:</strong> ${
+          meta.situacaoMetaDiaria === 0 ? 'Pendente' : 'Concluída'
+        }
       `;
     }
   }
-  
+
   excluirMetaConfirmada(id: string) {
     this.metaDiariaService.deleteMetaDiaria(id).subscribe({
       next: (result) => {
@@ -214,10 +217,9 @@ export class MetasPage implements OnInit {
       },
       error: (err) => {
         console.error('Erro ao excluir meta:', err);
-      }
+      },
     });
   }
-  
 
   async concluirPresentAlert(meta: MetaDiaria) {
     const alert = await this.alertController.create({
@@ -247,18 +249,15 @@ export class MetasPage implements OnInit {
 
     if (messageElement) {
       messageElement.innerHTML = `
-          <strong>Título:</strong> ${meta.titulo} <br>
-          <strong>Objetivo:</strong> ${meta.objetivo || 'Não definido'} <br>
-          <strong>Progresso Atual:</strong> ${meta.progressoAtual} ${
-        meta.progressoItem
-      } <br>
-          <strong>Progresso Máximo:</strong> ${meta.progressoMaximo} ${
-        meta.progressoItem
-      } <br>
-          <strong>Situação:</strong> ${
-            meta.situacaoMetaDiaria === 0 ? 'Pendente' : 'Concluída'
-          }
-        `;
+        <strong>Título:</strong> ${meta.titulo} <br>
+        <strong>Objetivo:</strong> ${meta.objetivo || 'Não definido'} <br>
+        <strong>Progresso:</strong> ${meta.progressoAtual} / ${
+        meta.progressoMaximo
+      } ${meta.progressoItem} <br>
+        <strong>Situação:</strong> ${
+          meta.situacaoMetaDiaria === 0 ? 'Pendente' : 'Concluída'
+        }
+      `;
     }
   }
 
@@ -269,8 +268,6 @@ export class MetasPage implements OnInit {
   excluirMeta(meta: MetaDiaria) {
     this.excluirPresentAlert(meta);
   }
-
-
 
   metasDiarias: Meta[] = [
     {
