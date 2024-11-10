@@ -184,32 +184,40 @@ export class MetasPage implements OnInit {
           text: 'Excluir',
           handler: () => {
             console.log('Meta confirmada:', meta);
+            this.excluirMetaConfirmada(meta.idMetaDiaria.toString()); // Chama a função de exclusão ao confirmar
           },
         },
       ],
     });
-
+  
     await alert.present();
-
+  
     const alertElement = document.querySelector('ion-alert') as HTMLElement;
     const messageElement = alertElement.querySelector('.alert-message');
-
+  
     if (messageElement) {
       messageElement.innerHTML = `
         <strong>Título:</strong> ${meta.titulo} <br>
         <strong>Objetivo:</strong> ${meta.objetivo || 'Não definido'} <br>
-        <strong>Progresso Atual:</strong> ${meta.progressoAtual} ${
-        meta.progressoItem
-      } <br>
-        <strong>Progresso Máximo:</strong> ${meta.progressoMaximo} ${
-        meta.progressoItem
-      } <br>
-        <strong>Situação:</strong> ${
-          meta.situacaoMetaDiaria === 0 ? 'Pendente' : 'Concluída'
-        }
+        <strong>Progresso Atual:</strong> ${meta.progressoAtual} ${meta.progressoItem} <br>
+        <strong>Progresso Máximo:</strong> ${meta.progressoMaximo} ${meta.progressoItem} <br>
+        <strong>Situação:</strong> ${meta.situacaoMetaDiaria === 0 ? 'Pendente' : 'Concluída'}
       `;
     }
   }
+  
+  excluirMetaConfirmada(id: string) {
+    this.metaDiariaService.deleteMetaDiaria(id).subscribe({
+      next: (result) => {
+        console.log('Meta excluída com sucesso:', result);
+        this.listarMetaDiarias(); // Atualiza a lista de metas após exclusão
+      },
+      error: (err) => {
+        console.error('Erro ao excluir meta:', err);
+      }
+    });
+  }
+  
 
   async concluirPresentAlert(meta: MetaDiaria) {
     const alert = await this.alertController.create({
@@ -261,6 +269,8 @@ export class MetasPage implements OnInit {
   excluirMeta(meta: MetaDiaria) {
     this.excluirPresentAlert(meta);
   }
+
+
 
   metasDiarias: Meta[] = [
     {

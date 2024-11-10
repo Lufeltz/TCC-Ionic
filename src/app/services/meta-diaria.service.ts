@@ -105,16 +105,16 @@ export class MetaDiariaService {
 
   deleteMetaDiaria(id: string): Observable<MetaDiaria | null> {
     return this._http
-      .delete<MetaDiaria>(`${this.NEW_URL}/aeroportos/${id}`, this.httpOptions)
+      .delete<MetaDiaria>(`${this.NEW_URL}/excluir/${id}`, { observe: 'response' })
       .pipe(
         map((resp: HttpResponse<MetaDiaria>) => {
-          if (resp.status == 200) {
+          if (resp.status === 200) {
             return resp.body;
           } else {
             return null;
           }
         }),
-        catchError((err, caught) => {
+        catchError((err) => {
           return throwError(() => err);
         })
       );
