@@ -85,13 +85,13 @@ export class MetaDiariaService {
   putMetaDiaria(metaDiaria: MetaDiaria): Observable<MetaDiaria | null> {
     return this._http
       .put<MetaDiaria>(
-        `${this.NEW_URL}/campeonatos/${metaDiaria.idMetaDiaria}`,
-        JSON.stringify(metaDiaria),
+        `${this.NEW_URL}`, // Endpoint já correto
+        JSON.stringify(metaDiaria), // Enviando o objeto metaDiaria diretamente
         this.httpOptions
       )
       .pipe(
         map((resp: HttpResponse<MetaDiaria>) => {
-          if (resp.status == 200) {
+          if (resp.status === 200) {
             return resp.body;
           } else {
             return null;
@@ -102,6 +102,7 @@ export class MetaDiariaService {
         })
       );
   }
+  
 
   deleteMetaDiaria(id: string): Observable<MetaDiaria | null> {
     return this._http

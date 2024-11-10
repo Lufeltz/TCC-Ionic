@@ -48,6 +48,16 @@ export class ModalEditarMetaDiariaComponent {
   }
 
   editarDados() {
-    console.log(this.meta);
+    // Chama o método putMetaDiaria para atualizar a meta
+    this.metaDiariaService.putMetaDiaria(this.meta).subscribe({
+      next: (result) => {
+        console.log('Meta atualizada com sucesso:', result);
+        this.closeModal(); // Fecha o modal após a atualização
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar meta:', err);
+      }
+    });
   }
+  
 }
