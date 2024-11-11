@@ -16,14 +16,31 @@ import {
   IonIcon,
   IonItem,
   IonRadio,
-  IonRadioGroup
+  IonRadioGroup,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 import { HistoricoCampeonatosComponent } from '../../components/historico-campeonatos/historico-campeonatos.component';
 import { ListagemCampeonatosComponent } from '../../components/listagem-campeonatos/listagem-campeonatos.component';
 import { calendar } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { LucideAngularModule, Pencil, Search } from 'lucide-angular';
+import {
+  ALargeSmall,
+  AlarmClock,
+  ArrowUp10,
+  CalendarArrowUp,
+  CalendarCheck,
+  CircleDollarSign,
+  EyeOff,
+  Key,
+  LucideAngularModule,
+  MapPinHouse,
+  MapPinned,
+  NotebookText,
+  Pencil,
+  Search,
+  User,
+  Users,
+} from 'lucide-angular';
 import { Endereco } from 'src/app/models/endereco.model';
 import { EnderecoService } from 'src/app/services/endereco.service';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
@@ -72,12 +89,24 @@ export class CampeonatosPage implements OnInit {
 
   selectedSegment: string = 'criacao';
 
-  isPublico: boolean = true; // Variável para controlar o toggle
+  isPublico: boolean = true;
 
-  isCepValid: boolean = false; // Para controlar a validade do CEP
+  isCepValid: boolean = false;
 
   readonly Pencil = Pencil;
   readonly Search = Search;
+  readonly ALargeSmall = ALargeSmall;
+  readonly EyeOff = EyeOff;
+  readonly CircleDollarSign = CircleDollarSign;
+  readonly Key = Key;
+  readonly Users = Users;
+  readonly User = User;
+  readonly NotebookText = NotebookText;
+  readonly CalendarArrowUp = CalendarArrowUp;
+  readonly CalendarCheck = CalendarCheck;
+  readonly AlarmClock = AlarmClock;
+  readonly MapPinHouse = MapPinHouse;
+  readonly MapPinned = MapPinned;
 
   constructor(
     private enderecoService: EnderecoService,
@@ -92,11 +121,12 @@ export class CampeonatosPage implements OnInit {
 
   onToggleChange(event: any) {
     this.isPublico = event.detail.checked;
-    this.campeonato.privacidadeCampeonato = this.isPublico ? 'PUBLICO' : 'PRIVADO';
+    this.campeonato.privacidadeCampeonato = this.isPublico
+      ? 'PUBLICO'
+      : 'PRIVADO';
   }
 
   salvarDados() {
-    // Combine as datas e horas
     this.campeonato.dataInicio = this.combineDateAndTime(
       this.dataInicio,
       this.horaInicio
@@ -108,7 +138,6 @@ export class CampeonatosPage implements OnInit {
 
     console.log('Dados do campeonato:', this.campeonato);
 
-    // Chama o serviço para enviar os dados
     this.campeonatoService.postCampeonato(this.campeonato).subscribe({
       next: (campeonatoCriado) => {
         if (campeonatoCriado) {
@@ -136,8 +165,7 @@ export class CampeonatosPage implements OnInit {
   }
 
   validarCep() {
-    // Valida que o CEP contém apenas números
-    const cepRegex = /^[0-9]{8}$/; // Apenas 8 dígitos numéricos
+    const cepRegex = /^[0-9]{8}$/;
     this.isCepValid = cepRegex.test(this.campeonato.endereco.cep);
   }
 
@@ -145,9 +173,8 @@ export class CampeonatosPage implements OnInit {
     this.enderecoService.getEnderecoByCep(cep).subscribe({
       next: (endereco) => {
         if (endereco) {
-          this.endereco = endereco; // Armazenando o endereço retornado
+          this.endereco = endereco;
 
-          // Preenchendo os campos com os dados do endereço
           this.campeonato.endereco.rua = this.endereco.rua || '';
           this.campeonato.endereco.bairro = this.endereco.bairro || '';
           this.campeonato.endereco.cidade = this.endereco.cidade || '';

@@ -1,4 +1,3 @@
-/* Estilo Geral */
 ion-label {
   color: var(--light-blue);
 }
@@ -43,7 +42,7 @@ ul {
 }
 
 .item-lista ion-label {
-  color: var(--text-light);
+  color: var(--yellow-desc);
 }
 
 .item-lista ion-input,
@@ -155,10 +154,11 @@ ion-button {
   --color: var(--background-dark);
 }
 
-.icon-align p {
+.icon-align p,
+.icon-align ion-label {
   margin: 0;
-  color: var(--background-dark);
-  font-size: 1rem;
+  // color: var(--background-dark);
+  // font-size: 1rem;
 }
 
 .cep-button {
@@ -168,9 +168,9 @@ ion-button {
 }
 
 .input-label {
-  color: var(--text-light);
+  color: var(--yellow-desc);
   margin-bottom: 0.5rem;
-  // font-weight: bold;
+  font-weight: bold;
 }
 
 .styled-input::-webkit-calendar-picker-indicator {
@@ -193,7 +193,7 @@ ion-button {
   width: 100%;
   z-index: 100;
   position: relative;
-  outline: none; /* Adicione esta linha para remover o contorno de foco */
+  outline: none;
 }
 
 .styled-input::placeholder {
@@ -204,16 +204,15 @@ ion-button {
   background-color: var(--background-hover);
 }
 
-/* Alterações para garantir que Cidade e UF fiquem lado a lado */
 .input-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px; /* Espaçamento entre os campos */
+  gap: 10px;
 }
 
 .input-container ion-label {
   color: var(--text-light);
-  flex-basis: 100%; /* Garante que os rótulos ocupem a largura total antes dos campos de entrada */
+  flex-basis: 100%;
   margin-bottom: 0.5rem;
 }
 
@@ -230,7 +229,6 @@ ion-label {
   --padding-end: 0.5rem;
 }
 
-/* Estilo para o ion-radio-group e ion-radio */
 ion-radio-group {
   display: flex;
   flex-direction: column;
@@ -283,12 +281,11 @@ ion-radio-group {
   color: var(--background-dark);
 }
 
-
 ion-item {
   --background: var(--background-dark);
 }
 
-.align-it{
+.align-it {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -317,25 +314,101 @@ ion-item {
 
 .radio-item:hover {
   background-color: var(--background-hover);
-  transform: translateY(-2px); /* Adiciona o efeito de hover */
+  transform: translateY(-2px);
 }
 
 .item-lista ion-textarea {
-  background-color: var(--background-dark); /* Fundo preto */
-  border-radius: 5px; /* Borda arredondada */
-  color: var(--text-white); /* Texto branco */
-  padding: 0.5rem; /* Espaçamento interno */
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
   --padding-start: 0.5rem;
   --padding-end: 0.5rem;
   --padding-top: 0.5rem;
   --padding-bottom: 0.5rem;
   margin-top: 10px;
-  border-bottom: 2px solid var(--light-blue); /* Borda azul clara */
-  border-right: 2px solid var(--light-blue); /* Borda azul clara */
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra suave */
+  border-bottom: 2px solid var(--light-blue);
+  border-right: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   transition: background-color 0.3s, transform 0.3s;
 }
 
 .item-lista ion-textarea::placeholder {
-  color: rgba(255, 255, 255, 0.7); /* Cor do texto do placeholder */
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.input-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cep-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.cep-header lucide-angular {
+  margin-right: 10px;
+}
+
+.cep-header ion-label {
+  margin: 0;
+  color: var(--yellow-desc);
+}
+
+.cep-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
+.cep-footer ion-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.cep-button {
+  margin-left: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+ion-datetime {
+  --background: var(--background-dark);
+  --color: var(--text-white);
+  --border-radius: 10px;
+}
+
+ion-datetime .button {
+  --background: var(--light-blue);
+  --color: var(--background-dark);
+  --border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+ion-datetime .button:hover {
+  --background: var(--yellow-desc);
+  --color: var(--background-dark);
+}
+
+ion-datetime .days .day {
+  color: var(--text-white);
+  background-color: var(--background-dark);
+  border-radius: 5px;
+}
+
+ion-datetime .days .day:hover {
+  background-color: var(--light-blue);
+  color: var(--background-dark);
+}
+
+ion-datetime .days .day.selected {
+  background-color: var(--yellow-desc);
+  color: var(--background-dark);
 }

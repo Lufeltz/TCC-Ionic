@@ -21,7 +21,15 @@
     <div class="container">
       <ul>
         <li class="item-lista">
-          <ion-label>Título</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="ALargeSmall"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Título</ion-label>
+          </div>
           <ion-textarea
             ngDefaultControl
             [(ngModel)]="campeonato.titulo"
@@ -32,7 +40,15 @@
 
         <!-- AQUI -->
         <li class="item-lista">
-          <ion-label class="input-label">Privacidade</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="EyeOff"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label class="input-label">Privacidade</ion-label>
+          </div>
           <ion-radio-group
             [(ngModel)]="campeonato.privacidadeCampeonato"
             [allowEmptySelection]="false"
@@ -73,7 +89,15 @@
           class="item-lista"
           *ngIf="campeonato.privacidadeCampeonato === 'PRIVADO'"
         >
-          <ion-label>Senha</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="Key"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Senha</ion-label>
+          </div>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.senha"
@@ -82,7 +106,15 @@
         </li>
 
         <li class="item-lista">
-          <ion-label>Aposta</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="CircleDollarSign"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Aposta</ion-label>
+          </div>
           <ion-textarea
             ngDefaultControl
             [(ngModel)]="campeonato.aposta"
@@ -92,7 +124,15 @@
         </li>
 
         <li class="item-lista">
-          <ion-label>Limite de Times</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="Users"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Limite de Times</ion-label>
+          </div>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.limiteTimes"
@@ -100,7 +140,15 @@
           ></ion-input>
         </li>
         <li class="item-lista">
-          <ion-label>Limite de Participantes</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="User"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Limite de Participantes</ion-label>
+          </div>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.limiteParticipantes"
@@ -109,7 +157,15 @@
         </li>
 
         <li class="item-lista">
-          <ion-label>Descrição</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="NotebookText"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Descrição</ion-label>
+          </div>
           <ion-textarea
             ngDefaultControl
             [(ngModel)]="campeonato.descricao"
@@ -118,13 +174,23 @@
           ></ion-textarea>
         </li>
 
+
+        
         <li class="item-lista">
           <div
             class="input-data-hora-container"
             style="display: flex; gap: 10px"
           >
             <div style="flex: 8">
-              <label for="inicio" class="input-label">Data de Início</label>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="CalendarArrowUp"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <label for="inicio" class="input-label">Data de Início</label>
+              </div>
               <input
                 type="date"
                 id="inicio"
@@ -135,7 +201,15 @@
               />
             </div>
             <div style="flex: 2">
-              <label for="hora-inicio" class="input-label">Hora</label>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="AlarmClock"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <label for="hora-inicio" class="input-label">Hora</label>
+              </div>
               <input
                 type="time"
                 id="hora-inicio"
@@ -154,7 +228,15 @@
             style="display: flex; gap: 10px"
           >
             <div style="flex: 8">
-              <label for="fim" class="input-label">Data de Término</label>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="CalendarCheck"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <label for="fim" class="input-label">Data de Término</label>
+              </div>
               <input
                 type="date"
                 id="fim"
@@ -165,7 +247,15 @@
               />
             </div>
             <div style="flex: 2">
-              <label for="hora-fim" class="input-label">Hora</label>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="AlarmClock"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <label for="hora-fim" class="input-label">Hora</label>
+              </div>
               <input
                 type="time"
                 id="hora-fim"
@@ -178,35 +268,58 @@
           </div>
         </li>
 
+
+        
         <li class="item-lista">
           <div class="input-container">
-            <ion-label class="input-label">CEP</ion-label>
-            <!-- Rótulo agora acima -->
-            <ion-input
-              ngDefaultControl
-              [(ngModel)]="campeonato.endereco.cep"
-              mask="000000-000"
-              placeholder="Exemplo: 81280-000"
-              (ngModelChange)="validarCep()"
-            ></ion-input>
-            <ion-button
-              (click)="pesquisarCep(campeonato.endereco.cep)"
-              [disabled]="!isCepValid"
-              fill="outline"
-              class="cep-button"
-            >
+            <!-- Linha 1: ícone e label do CEP -->
+            <div class="cep-header">
               <lucide-angular
-                [img]="Search"
+                [img]="MapPinned"
                 class="btn-inscrever-se"
                 [size]="20"
-                [color]="'var(--background-dark)'"
+                [color]="'var(--yellow-desc)'"
               ></lucide-angular>
-            </ion-button>
+              <ion-label class="input-label">CEP</ion-label>
+            </div>
+            
+            <!-- Linha 2: campo de entrada e botão -->
+            <div class="cep-footer">
+              <ion-input
+                ngDefaultControl
+                [(ngModel)]="campeonato.endereco.cep"
+                mask="000000-000"
+                placeholder="Exemplo: 81280-000"
+                (ngModelChange)="validarCep()"
+              ></ion-input>
+              <ion-button
+                (click)="pesquisarCep(campeonato.endereco.cep)"
+                [disabled]="!isCepValid"
+                fill="outline"
+                class="cep-button"
+              >
+                <lucide-angular
+                  [img]="Search"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--background-dark)'"
+                ></lucide-angular>
+              </ion-button>
+            </div>
           </div>
         </li>
 
+
         <li class="item-lista">
-          <ion-label>Logradouro</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="MapPinHouse"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Logradouro</ion-label>
+          </div>
           <ion-textarea
             ngDefaultControl
             [(ngModel)]="campeonato.endereco.rua"
@@ -216,7 +329,15 @@
           ></ion-textarea>
         </li>
         <li class="item-lista">
-          <ion-label>Número</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="MapPinHouse"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Número</ion-label>
+          </div>
           <ion-input
             ngDefaultControl
             placeholder="Número"
@@ -230,7 +351,15 @@
             style="display: flex; gap: 10px"
           >
             <div style="flex: 8">
-              <ion-label>Cidade</ion-label>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="MapPinHouse"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <ion-label>Cidade</ion-label>
+              </div>
               <ion-input
                 ngDefaultControl
                 [(ngModel)]="campeonato.endereco.cidade"
@@ -240,7 +369,15 @@
               ></ion-input>
             </div>
             <div style="flex: 2">
-              <ion-label>UF</ion-label>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="MapPinHouse"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                  [color]="'var(--yellow-desc)'"
+                ></lucide-angular>
+                <ion-label>UF</ion-label>
+              </div>
               <ion-input
                 ngDefaultControl
                 [(ngModel)]="campeonato.endereco.uf"
@@ -253,7 +390,15 @@
         </li>
 
         <li class="item-lista">
-          <ion-label>Bairro</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="MapPinHouse"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Bairro</ion-label>
+          </div>
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.endereco.bairro"
@@ -263,7 +408,15 @@
         </li>
 
         <li class="item-lista">
-          <ion-label>Complemento</ion-label>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="MapPinHouse"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Complemento</ion-label>
+          </div>
           <ion-textarea
             ngDefaultControl
             [(ngModel)]="campeonato.endereco.complemento"
@@ -271,9 +424,6 @@
             auto-grow="true"
           ></ion-textarea>
         </li>
-
-        
-
       </ul>
       <ion-button
         id="open-toast"
