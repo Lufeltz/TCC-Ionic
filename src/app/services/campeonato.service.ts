@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Campeonato } from '../models/campeonato.model';
+import { CampeonatoCriacao } from '../models/campeonato-criacao.model';
 
 @Injectable({
   providedIn: 'root'
@@ -63,15 +64,15 @@ export class CampeonatoService {
   }
 
 
-  postCampeonato(campeonato: Campeonato): Observable<Campeonato | null> {
+  postCampeonato(campeonato: CampeonatoCriacao): Observable<CampeonatoCriacao | null> {
     return this._http
-      .post<Campeonato>(
+      .post<CampeonatoCriacao>(
         `${this.NEW_URL}`,
         JSON.stringify(campeonato),
         this.httpOptions
       )
       .pipe(
-        map((resp: HttpResponse<Campeonato>) => {
+        map((resp: HttpResponse<CampeonatoCriacao>) => {
           if (resp.status == 201) {
             return resp.body;
           } else {

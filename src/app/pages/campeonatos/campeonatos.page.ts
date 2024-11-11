@@ -14,6 +14,9 @@ import {
   IonInput,
   IonDatetime,
   IonIcon,
+  IonItem,
+  IonRadio,
+  IonRadioGroup
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 import { HistoricoCampeonatosComponent } from '../../components/historico-campeonatos/historico-campeonatos.component';
@@ -23,7 +26,8 @@ import { addIcons } from 'ionicons';
 import { LucideAngularModule, Pencil, Search } from 'lucide-angular';
 import { Endereco } from 'src/app/models/endereco.model';
 import { EnderecoService } from 'src/app/services/endereco.service';
-import { NgxMaskDirective } from 'ngx-mask';
+import { CampeonatoService } from 'src/app/services/campeonato.service';
+import { CampeonatoCriacao } from 'src/app/models/campeonato-criacao.model';
 
 @Component({
   selector: 'app-campeonatos',
@@ -31,6 +35,8 @@ import { NgxMaskDirective } from 'ngx-mask';
   styleUrls: ['./campeonatos.page.scss'],
   standalone: true,
   imports: [
+    IonRadio,
+    IonItem,
     IonIcon,
     IonDatetime,
     IonInput,
@@ -49,6 +55,7 @@ import { NgxMaskDirective } from 'ngx-mask';
     HistoricoCampeonatosComponent,
     ListagemCampeonatosComponent,
     LucideAngularModule,
+    IonRadioGroup,
   ],
 })
 export class CampeonatosPage implements OnInit {
@@ -56,47 +63,82 @@ export class CampeonatosPage implements OnInit {
   pageMenu: string = 'campeonato-menu';
   pageContent: string = 'campeonato';
   endereco: Endereco = new Endereco();
+  campeonato: CampeonatoCriacao = new CampeonatoCriacao();
+
+  dataInicio: string = '';
+  horaInicio: string = '';
+  dataFim: string = '';
+  horaFim: string = '';
 
   selectedSegment: string = 'criacao';
 
-  campeonato = {
-    titulo: '',
-    aposta: '',
-    limiteParticipantes: '',
-    descricao: '',
-    inicio: '',
-    fim: '',
-    logradouro: '',
-    bairro: '',
-    complemento: '',
-    cidade: '',
-    uf: '',
-    numero: '',
-    cep: '',
-  };
-
-  showInicioPicker: boolean = false; // Para controlar o seletor de início
-  showFimPicker: boolean = false; // Para controlar o seletor de fim
+  isPublico: boolean = true; // Variável para controlar o toggle
 
   isCepValid: boolean = false; // Para controlar a validade do CEP
 
   readonly Pencil = Pencil;
   readonly Search = Search;
 
-  constructor(private enderecoService: EnderecoService) {
+  constructor(
+    private enderecoService: EnderecoService,
+    private campeonatoService: CampeonatoService
+  ) {
     addIcons({ calendar });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.campeonato.privacidadeCampeonato = 'PUBLICO';
+  }
+
+  onToggleChange(event: any) {
+    this.isPublico = event.detail.checked;
+    this.campeonato.privacidadeCampeonato = this.isPublico ? 'PUBLICO' : 'PRIVADO';
+  }
 
   salvarDados() {
-    console.log('Dados do usuário salvos:', this.campeonato);
+    // Combine as datas e horas
+    this.campeonato.dataInicio = this.combineDateAndTime(
+      this.dataInicio,
+      this.horaInicio
+    );
+    this.campeonato.dataFim = this.combineDateAndTime(
+      this.dataFim,
+      this.horaFim
+    );
+
+    console.log('Dados do campeonato:', this.campeonato);
+
+    // Chama o serviço para enviar os dados
+    this.campeonatoService.postCampeonato(this.campeonato).subscribe({
+      next: (campeonatoCriado) => {
+        if (campeonatoCriado) {
+          console.log('Campeonato criado com sucesso:', campeonatoCriado);
+        } else {
+          console.log('Erro ao criar campeonato');
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao enviar os dados:', err);
+      },
+    });
+  }
+
+  onCheckboxChange(value: string) {
+    if (value === 'PUBLICO') {
+      this.campeonato.privacidadeCampeonato = 'PUBLICO';
+    } else {
+      this.campeonato.privacidadeCampeonato = 'PRIVADO';
+    }
+  }
+
+  combineDateAndTime(date: string, time: string): string {
+    return `${date}T${time}:00Z`;
   }
 
   validarCep() {
     // Valida que o CEP contém apenas números
     const cepRegex = /^[0-9]{8}$/; // Apenas 8 dígitos numéricos
-    this.isCepValid = cepRegex.test(this.campeonato.cep);
+    this.isCepValid = cepRegex.test(this.campeonato.endereco.cep);
   }
 
   pesquisarCep(cep: string) {
@@ -106,10 +148,10 @@ export class CampeonatosPage implements OnInit {
           this.endereco = endereco; // Armazenando o endereço retornado
 
           // Preenchendo os campos com os dados do endereço
-          this.campeonato.logradouro = this.endereco.rua || '';
-          this.campeonato.bairro = this.endereco.bairro || '';
-          this.campeonato.cidade = this.endereco.cidade || '';
-          this.campeonato.uf = this.endereco.uf || '';
+          this.campeonato.endereco.rua = this.endereco.rua || '';
+          this.campeonato.endereco.bairro = this.endereco.bairro || '';
+          this.campeonato.endereco.cidade = this.endereco.cidade || '';
+          this.campeonato.endereco.uf = this.endereco.uf || '';
 
           console.log('Endereço encontrado:', this.endereco);
         } else {
@@ -120,23 +162,5 @@ export class CampeonatosPage implements OnInit {
         console.error('Erro ao consultar endereço:', err);
       },
     });
-  }
-
-  toggleInicioPicker() {
-    this.showInicioPicker = !this.showInicioPicker;
-  }
-
-  toggleFimPicker() {
-    this.showFimPicker = !this.showFimPicker;
-  }
-
-  onInicioChange(event: any) {
-    this.campeonato.inicio = event.detail.value; // Atualiza com o valor da data e hora
-    this.showInicioPicker = false; // Fecha o seletor
-  }
-
-  onFimChange(event: any) {
-    this.campeonato.fim = event.detail.value; // Atualiza com o valor da data e hora
-    this.showFimPicker = false; // Fecha o seletor
   }
 }

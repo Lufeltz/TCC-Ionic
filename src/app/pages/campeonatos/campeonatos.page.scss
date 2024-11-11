@@ -177,13 +177,13 @@ ion-button {
   color: var(--light-blue);
   cursor: pointer;
   z-index: 10;
+  filter: invert(0.6) sepia(1) saturate(5) hue-rotate(175deg);
 }
 
 .styled-input {
   background-color: var(--background-dark);
   border-radius: 5px;
   color: var(--text-white);
-  // font-weight: bold;
   padding: 0.5rem;
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
@@ -193,6 +193,7 @@ ion-button {
   width: 100%;
   z-index: 100;
   position: relative;
+  outline: none; /* Adicione esta linha para remover o contorno de foco */
 }
 
 .styled-input::placeholder {
@@ -227,4 +228,114 @@ ion-label {
   border-radius: 5px;
   --padding-start: 0.5rem;
   --padding-end: 0.5rem;
+}
+
+/* Estilo para o ion-radio-group e ion-radio */
+ion-radio-group {
+  display: flex;
+  flex-direction: column;
+  color: var(--background-dark);
+  margin-bottom: 1rem;
+}
+
+ion-radio {
+  --border-radius: 4px;
+  --color: var(--background-dark);
+  --color-checked: var(--light-blue);
+  --inner-border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+ion-radio.ios::part(container) {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
+
+.radio-checked.ios::part(container) {
+  border-color: var(--light-blue);
+}
+
+.radio-item ion-label {
+  color: var(--text-light);
+}
+
+.radio-item ion-radio {
+  --border-radius: 4px;
+  --color: var(--background-dark);
+  --color-checked: var(--light-blue);
+  --inner-border-radius: 4px;
+}
+
+.radio-item ion-radio.ios::part(container) {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
+
+.radio-item .radio-checked.ios::part(container) {
+  border-color: var(--light-blue);
+}
+
+ion-radio-group {
+  color: var(--background-dark);
+}
+
+
+ion-item {
+  --background: var(--background-dark);
+}
+
+.align-it{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 7px;
+}
+
+.items {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: -15px;
+}
+
+.item-up {
+  // border-top-left-radius: 10px;
+  // border-top-right-radius: 10px;
+  border-radius: 10px;
+}
+
+.item-bottom {
+  // border-bottom-left-radius: 10px;
+  // border-bottom-right-radius: 10px;
+  border-radius: 10px;
+}
+
+.radio-item:hover {
+  background-color: var(--background-hover);
+  transform: translateY(-2px); /* Adiciona o efeito de hover */
+}
+
+.item-lista ion-textarea {
+  background-color: var(--background-dark); /* Fundo preto */
+  border-radius: 5px; /* Borda arredondada */
+  color: var(--text-white); /* Texto branco */
+  padding: 0.5rem; /* Espaçamento interno */
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  margin-top: 10px;
+  border-bottom: 2px solid var(--light-blue); /* Borda azul clara */
+  border-right: 2px solid var(--light-blue); /* Borda azul clara */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra suave */
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.item-lista ion-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7); /* Cor do texto do placeholder */
 }

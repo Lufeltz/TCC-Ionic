@@ -22,18 +22,81 @@
       <ul>
         <li class="item-lista">
           <ion-label>Título</ion-label>
-          <ion-input
+          <ion-textarea
             ngDefaultControl
             [(ngModel)]="campeonato.titulo"
-            placeholder="Título"
-          ></ion-input>
+            placeholder="Exemplo: Fut no SEPT(máx 50 caracteres)"
+            auto-grow="true"
+          ></ion-textarea>
         </li>
+
+        <!-- AQUI -->
         <li class="item-lista">
-          <ion-label>Aposta</ion-label>
+          <ion-label class="input-label">Privacidade</ion-label>
+          <ion-radio-group
+            [(ngModel)]="campeonato.privacidadeCampeonato"
+            [allowEmptySelection]="false"
+          >
+            <div class="items">
+              <ion-item lines="none" class="radio-item item-up">
+                <div class="align-it">
+                  <ion-radio
+                    slot="start"
+                    value="PUBLICO"
+                    class="styled-radio"
+                  ></ion-radio>
+                  <ion-label
+                    (click)="campeonato.privacidadeCampeonato = 'PUBLICO'"
+                    >Público</ion-label
+                  >
+                </div>
+              </ion-item>
+              <ion-item lines="none" class="radio-item item-bottom">
+                <div class="align-it">
+                  <ion-radio
+                    slot="start"
+                    value="PRIVADO"
+                    class="styled-radio"
+                  ></ion-radio>
+                  <ion-label
+                    (click)="campeonato.privacidadeCampeonato = 'PRIVADO'"
+                    >Privado</ion-label
+                  >
+                </div>
+              </ion-item>
+            </div>
+          </ion-radio-group>
+        </li>
+
+        <!-- Exibir o campo senha apenas se o valor de privacidadeCampeonato for "PRIVADO" -->
+        <li
+          class="item-lista"
+          *ngIf="campeonato.privacidadeCampeonato === 'PRIVADO'"
+        >
+          <ion-label>Senha</ion-label>
           <ion-input
             ngDefaultControl
+            [(ngModel)]="campeonato.senha"
+            placeholder="Exemplo: azx2817"
+          ></ion-input>
+        </li>
+
+        <li class="item-lista">
+          <ion-label>Aposta</ion-label>
+          <ion-textarea
+            ngDefaultControl
             [(ngModel)]="campeonato.aposta"
-            placeholder="Aposta"
+            placeholder="Exemplo: Uma coca 2L"
+            auto-grow="true"
+          ></ion-textarea>
+        </li>
+
+        <li class="item-lista">
+          <ion-label>Limite de Times</ion-label>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.limiteTimes"
+            placeholder="Exemplo: 15"
           ></ion-input>
         </li>
         <li class="item-lista">
@@ -41,87 +104,93 @@
           <ion-input
             ngDefaultControl
             [(ngModel)]="campeonato.limiteParticipantes"
-            placeholder="Limite de participantes"
+            placeholder="Exemplo: 20"
           ></ion-input>
         </li>
+
         <li class="item-lista">
           <ion-label>Descrição</ion-label>
-          <ion-input
+          <ion-textarea
             ngDefaultControl
             [(ngModel)]="campeonato.descricao"
-            placeholder="Descrição"
-          ></ion-input>
+            placeholder="Exemplo: Na quadra ao lado do SEPT, levem caneleiras"
+            auto-grow="true"
+          ></ion-textarea>
         </li>
 
-
         <li class="item-lista">
-          <div class="input-data-hora-container" style="display: flex; gap: 10px;">
-            <div style="flex: 8;">
+          <div
+            class="input-data-hora-container"
+            style="display: flex; gap: 10px"
+          >
+            <div style="flex: 8">
               <label for="inicio" class="input-label">Data de Início</label>
               <input
                 type="date"
                 id="inicio"
                 name="inicio"
                 required
-                [(ngModel)]="campeonato.inicio"
+                [(ngModel)]="dataInicio"
                 class="styled-input"
               />
             </div>
-            <div style="flex: 2;">
+            <div style="flex: 2">
               <label for="hora-inicio" class="input-label">Hora</label>
               <input
                 type="time"
                 id="hora-inicio"
                 name="hora-inicio"
                 required
-                
+                [(ngModel)]="horaInicio"
                 class="styled-input"
               />
             </div>
           </div>
         </li>
-        
+
         <li class="item-lista">
-          <div class="input-data-hora-container" style="display: flex; gap: 10px;">
-            <div style="flex: 8;">
+          <div
+            class="input-data-hora-container"
+            style="display: flex; gap: 10px"
+          >
+            <div style="flex: 8">
               <label for="fim" class="input-label">Data de Término</label>
               <input
                 type="date"
                 id="fim"
                 name="fim"
                 required
-                
+                [(ngModel)]="dataFim"
                 class="styled-input"
               />
             </div>
-            <div style="flex: 2;">
+            <div style="flex: 2">
               <label for="hora-fim" class="input-label">Hora</label>
               <input
                 type="time"
                 id="hora-fim"
                 name="hora-fim"
                 required
-                
+                [(ngModel)]="horaFim"
                 class="styled-input"
               />
             </div>
           </div>
         </li>
-        
 
-        
         <li class="item-lista">
           <div class="input-container">
-            <ion-label class="input-label">CEP</ion-label> <!-- Rótulo agora acima -->
+            <ion-label class="input-label">CEP</ion-label>
+            <!-- Rótulo agora acima -->
             <ion-input
               ngDefaultControl
-              [(ngModel)]="campeonato.cep"
+              [(ngModel)]="campeonato.endereco.cep"
               mask="000000-000"
-              placeholder="CEP"
+              placeholder="Exemplo: 81280-000"
               (ngModelChange)="validarCep()"
             ></ion-input>
             <ion-button
-              (click)="pesquisarCep(campeonato.cep)"
+              (click)="pesquisarCep(campeonato.endereco.cep)"
               [disabled]="!isCepValid"
               fill="outline"
               class="cep-button"
@@ -135,43 +204,46 @@
             </ion-button>
           </div>
         </li>
-        
 
         <li class="item-lista">
           <ion-label>Logradouro</ion-label>
-          <ion-input
+          <ion-textarea
             ngDefaultControl
-            [(ngModel)]="campeonato.logradouro"
+            [(ngModel)]="campeonato.endereco.rua"
             placeholder="Logradouro"
             readonly
-          ></ion-input>
+            auto-grow="true"
+          ></ion-textarea>
         </li>
         <li class="item-lista">
           <ion-label>Número</ion-label>
           <ion-input
             ngDefaultControl
             placeholder="Número"
-            [(ngModel)]="campeonato.numero"
+            [(ngModel)]="campeonato.endereco.numero"
           ></ion-input>
         </li>
-        
+
         <li class="item-lista">
-          <div class="input-cidade-uf-container" style="display: flex; gap: 10px;">
-            <div style="flex: 8;">
+          <div
+            class="input-cidade-uf-container"
+            style="display: flex; gap: 10px"
+          >
+            <div style="flex: 8">
               <ion-label>Cidade</ion-label>
               <ion-input
                 ngDefaultControl
-                [(ngModel)]="campeonato.cidade"
+                [(ngModel)]="campeonato.endereco.cidade"
                 placeholder="Cidade"
                 class="input-cidade"
                 readonly
               ></ion-input>
             </div>
-            <div style="flex: 2;">
+            <div style="flex: 2">
               <ion-label>UF</ion-label>
               <ion-input
                 ngDefaultControl
-                [(ngModel)]="campeonato.uf"
+                [(ngModel)]="campeonato.endereco.uf"
                 placeholder="UF"
                 class="input-uf"
                 readonly
@@ -179,26 +251,29 @@
             </div>
           </div>
         </li>
-        
-        
 
         <li class="item-lista">
           <ion-label>Bairro</ion-label>
           <ion-input
             ngDefaultControl
-            [(ngModel)]="campeonato.bairro"
+            [(ngModel)]="campeonato.endereco.bairro"
             placeholder="Bairro"
             readonly
           ></ion-input>
         </li>
+
         <li class="item-lista">
           <ion-label>Complemento</ion-label>
-          <ion-input
+          <ion-textarea
             ngDefaultControl
-            [(ngModel)]="campeonato.complemento"
-            placeholder="Complemento"
-          ></ion-input>
+            [(ngModel)]="campeonato.endereco.complemento"
+            placeholder="Exemplo: Próximo da quadra de corrida"
+            auto-grow="true"
+          ></ion-textarea>
         </li>
+
+        
+
       </ul>
       <ion-button
         id="open-toast"
