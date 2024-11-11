@@ -1,6 +1,15 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Clock, LucideAngularModule, MapPinPlusInside, Phone, Stethoscope, User } from 'lucide-angular';
+import {
+  Clock,
+  LucideAngularModule,
+  MapPinPlusInside,
+  Phone,
+  Stethoscope,
+  User,
+} from 'lucide-angular';
+import { Saude } from 'src/app/models/saude.model';
+import { SaudeService } from 'src/app/services/saude.service';
 
 @Component({
   selector: 'app-informacoes-saude',
@@ -10,10 +19,14 @@ import { Clock, LucideAngularModule, MapPinPlusInside, Phone, Stethoscope, User 
   imports: [CommonModule, LucideAngularModule],
 })
 export class InformacoesSaudeComponent implements OnInit {
+  constructor(private saudeService: SaudeService) {}
+
   readonly Stethoscope = Stethoscope;
   readonly Phone = Phone;
   readonly Clock = Clock;
   readonly MapPinPlusInside = MapPinPlusInside;
+
+  contatosSaude: Saude[] = [];
 
   canaisDeSaude = [
     {
@@ -39,7 +52,21 @@ export class InformacoesSaudeComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  ngOnInit() {
+    // Chama a função que realiza a requisição e salva os dados
+    this.loadContatosSaude();
+  }
 
-  ngOnInit() {}
+  // Função para realizar a requisição e salvar os dados
+  loadContatosSaude() {
+    this.saudeService.getContatosSaude().subscribe({
+      next: (data: Saude[] | null) => {
+        this.contatosSaude = data || [];
+        console.log('Dados de saúde recebidos:', this.contatosSaude);
+      },
+      error: (err) => {
+        console.error('Erro ao buscar dados de saúde:', err);
+      },
+    });
+  }
 }

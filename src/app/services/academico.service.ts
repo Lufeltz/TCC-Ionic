@@ -39,7 +39,7 @@ export class AcademicoService {
       );
   }
 
-    getAllAcademicos(): Observable<Academico[] | null> {
+  getAllAcademicos(): Observable<Academico[] | null> {
     return this._http
       .get<Academico[]>(`${this.NEW_URL}/listar`, this.httpOptions)
       .pipe(
@@ -56,6 +56,44 @@ export class AcademicoService {
           } else {
             return throwError(() => err);
           }
+        })
+      );
+  }
+
+  getAcademicoById(id: number): Observable<Academico | null> {
+    return this._http
+      .get<Academico>(`${this.NEW_URL}/consultar/${id}`, this.httpOptions)
+      .pipe(
+        map((resp: HttpResponse<Academico>) => {
+          if (resp.status == 200) {
+            return resp.body;
+          } else {
+            return null;
+          }
+        }),
+        catchError((err, caught) => {
+          return throwError(() => err);
+        })
+      );
+  }
+
+  atualizar(id: number, academico: Academico): Observable<Academico | null> {
+    return this._http
+      .put<Academico>(
+        `${this.NEW_URL}/atualizar/${id}`,
+        JSON.stringify(academico),
+        this.httpOptions
+      )
+      .pipe(
+        map((resp: HttpResponse<Academico>) => {
+          if (resp.status == 200) {
+            return resp.body;
+          } else {
+            return null;
+          }
+        }),
+        catchError((err, caught) => {
+          return throwError(() => err);
         })
       );
   }

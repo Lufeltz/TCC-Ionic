@@ -13,7 +13,9 @@ import {
   IonToast,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.component';
-import { AtSign, CaseSensitive, GraduationCap, LucideAngularModule, Phone, SaveAll, User } from 'lucide-angular';
+import { AtSign, Cake, CaseSensitive, GraduationCap, Key, LucideAngularModule, Phone, SaveAll, User, Eye, EyeOff } from 'lucide-angular';
+import { AcademicoService } from 'src/app/services/academico.service';
+import { Academico } from 'src/app/models/academico.model';
 
 @Component({
   selector: 'app-estatisticas',
@@ -41,28 +43,57 @@ export class EstatisticasPage implements OnInit {
   pageMenu: string = 'meu-perfil';
   pageContent: string = 'meu-perfil';
 
+  academico: Academico = new Academico(); // Usando o construtor da classe Academico
+
+  showPassword: boolean = false;  // Variável para controlar visibilidade da senha
+
   readonly SaveAll = SaveAll;
   readonly GraduationCap = GraduationCap;
   readonly Phone = Phone;
   readonly AtSign = AtSign;
   readonly User = User;
+  readonly Key = Key;
+  readonly Cake = Cake;
   readonly CaseSensitive = CaseSensitive;
+  readonly Eye = Eye;
+  readonly EyeOff = EyeOff;
 
-  usuario = {
-    nome: 'Carlos Ribeiro',
-    username: 'carlosr',
-    email: 'carlos.ribeiro@example.com',
-    telefone: '(11) 99999-9999',
-    curso: 'Análise e Desenvolvimento de Sistemas',
-  };
+  constructor(private academicoService: AcademicoService) {}
 
-  salvarDados() {
-    // Lógica para salvar os dados do usuário
-    console.log('Dados do usuário salvos:', this.usuario);
-    // Aqui você pode chamar um serviço para enviar os dados para um backend
+  ngOnInit() {
+    // Carregar os dados do acadêmico com o id desejado (exemplo: 1)
+    this.carregarDadosUsuario(1);
   }
 
-  constructor() {}
+  carregarDadosUsuario(id: number) {
+    this.academicoService.getAcademicoById(id).subscribe({
+      next: (data) => {
+        this.academico = data!;
+        console.log('Dados do acadêmico carregados:', this.academico);
+      },
+      error: (err) => {
+        console.error('Erro ao carregar dados do acadêmico:', err);
+      },
+    });
+  }
 
-  ngOnInit() {}
+  salvarDados() {
+    // Chamando o serviço para atualizar os dados do acadêmico
+    this.academicoService.atualizar(this.academico.idAcademico, this.academico).subscribe({
+      next: (data: Academico | null) => {
+        if (data) {
+          console.log('Dados do acadêmico atualizados:', data);
+        } else {
+          console.log('Falha ao atualizar os dados do acadêmico.');
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar os dados do acadêmico:', err);
+      },
+    });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;  // Alterna o valor da variável
+  }
 }

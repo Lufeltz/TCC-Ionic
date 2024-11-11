@@ -10,67 +10,114 @@
       <li class="item-lista">
         <div class="icon-align">
           <lucide-angular
-          [img]="CaseSensitive"
-          class="btn-inscrever-se"
-          [size]="20"
-          [color]="'var(--text-light)'"
+            [img]="CaseSensitive"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
           ></lucide-angular>
           <ion-label>Nome</ion-label>
-        </div>       
-        
-        <ion-input [(ngModel)]="usuario.nome"></ion-input>
+        </div>
+
+        <ion-input [(ngModel)]="academico.nome"></ion-input>
       </li>
       <li class="item-lista">
         <div class="icon-align">
           <lucide-angular
-          [img]="User"
-          class="btn-inscrever-se"
-          [size]="20"
-          [color]="'var(--text-light)'"
+            [img]="User"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
           ></lucide-angular>
           <ion-label>Username</ion-label>
-        </div>        
-        
-        <ion-input [(ngModel)]="usuario.username"></ion-input>
+        </div>
+
+        <ion-input [(ngModel)]="academico.username"></ion-input>
       </li>
+
       <li class="item-lista">
         <div class="icon-align">
           <lucide-angular
-          [img]="AtSign"
-          class="btn-inscrever-se"
-          [size]="20"
-          [color]="'var(--text-light)'"
+            [img]="Key"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Senha</ion-label>
+        </div>
+      
+        <ion-input
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="*******"
+          [(ngModel)]="academico.password"
+          class="input-with-icon"
+        >
+          <!-- Ícone de visibilidade -->
+          <div slot="end" class="eye-icon" (click)="togglePasswordVisibility()">
+            <lucide-angular
+              [img]="showPassword ? Eye : EyeOff"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+          </div>
+        </ion-input>
+      </li>
+      
+      
+      
+
+      
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="AtSign"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
           ></lucide-angular>
           <ion-label>Email</ion-label>
         </div>
-        
-        <ion-input [(ngModel)]="usuario.email"></ion-input>
+
+        <ion-input [(ngModel)]="academico.email"></ion-input>
       </li>
       <li class="item-lista">
         <div class="icon-align">
           <lucide-angular
-          [img]="Phone"
-          class="btn-inscrever-se"
-          [size]="20"
-          [color]="'var(--text-light)'"
+            [img]="Cake"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Data de Nascimento</ion-label>
+        </div>
+
+        <ion-input [(ngModel)]="academico.dataNascimento"></ion-input>
+      </li>
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Phone"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
           ></lucide-angular>
           <ion-label>Telefone</ion-label>
         </div>
-        
-        <ion-input [(ngModel)]="usuario.telefone"></ion-input>
+
+        <ion-input [(ngModel)]="academico.telefone"></ion-input>
       </li>
       <li class="item-lista">
         <div class="icon-align">
           <lucide-angular
-          [img]="GraduationCap"
-          class="btn-inscrever-se"
-          [size]="20"
-          [color]="'var(--text-light)'"
+            [img]="GraduationCap"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
           ></lucide-angular>
           <ion-label>Curso</ion-label>
         </div>
-        
-        <ion-input [(ngModel)]="usuario.curso"></ion-input>
+
+        <ion-input [(ngModel)]="academico.curso"></ion-input>
       </li>
     </ul>
     <ion-button
