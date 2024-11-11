@@ -18,7 +18,7 @@
   <div *ngIf="selectedSegment === 'inscrito'">
     <ul>
       <li
-        *ngFor="let modalidade of getModalidadesInscritas()"
+        *ngFor="let modalidade of modalidadesInscritas"
         class="item-lista inscrito"
       >
         <h3>
@@ -55,7 +55,6 @@
           ></lucide-angular>
           <p><strong class="inscritos">Usuários inscritos: 138</strong></p>
         </div>
-
         <div class="icon-align">
           <lucide-angular
             [img]="ZapOff"
@@ -79,26 +78,44 @@
           [src]="modalidade.foto"
           alt="{{ modalidade.nome }}"
         />
-        <ion-button
-          class="alerta-cancelar"
-          [id]="'alerta-cancelar-' + modalidade.nome"
-          size="small"
-          expand="block"
-          (click)="setCurrentModalidade(modalidade)"
-        >
+        <div class="button-group">
+          <!-- Botão Editar -->
+          <!-- <ion-button
+            class="editar-inscricao"
+            [id]="'alerta-editar-' + modalidade.nome"
+            size="small"
+            expand="block"
+            (click)="abrirModalEditar(modalidade)"
+          >
           <lucide-angular
-            [img]="CircleX"
-            class="btn-inscrever-se"
-            [size]="20"
-          ></lucide-angular>
-          Cancelar inscrição
-        </ion-button>
+          [img]="SquarePen"
+          class="btn-inscrever-se"
+          [size]="20"
+          
+        ></lucide-angular>
+            Editar
+          </ion-button> -->
+
+          <ion-button
+            class="alerta-cancelar"
+            [id]="'alerta-cancelar-' + modalidade.nome"
+            size="small"
+            expand="block"
+          >
+            <lucide-angular
+              [img]="CircleX"
+              class="btn-inscrever-se"
+              [size]="20"
+            ></lucide-angular>
+            Remover Inscrição
+          </ion-button>
+        </div>
         <ion-alert
           [trigger]="'alerta-cancelar-' + modalidade.nome"
           header="Cancelar inscrição?"
           [subHeader]="'Modalidade: ' + modalidade.nome"
           message="Ao cancelar sua inscrição você não receberá mais informações sobre essa modalidade no seu feed"
-          [buttons]="alertButtons"
+          [buttons]="getCancelAlertButtons(modalidade.idModalidadeEsportiva)"
           (didDismiss)="setResult($event)"
         ></ion-alert>
       </li>
@@ -109,7 +126,7 @@
   <div *ngIf="selectedSegment === 'nao-inscrito'">
     <ul>
       <li
-        *ngFor="let modalidade of getModalidadesNaoInscritas()"
+        *ngFor="let modalidade of modalidadesDiferentes"
         class="item-lista item-lista-nao-inscrito"
       >
         <h3>
@@ -175,7 +192,6 @@
           class="alerta-inscrever"
           size="small"
           expand="block"
-          (click)="setCurrentModalidade(modalidade)"
         >
           Inscrever-se
           <lucide-angular
@@ -189,10 +205,16 @@
           header="Inscrever-se?"
           [subHeader]="'Modalidade: ' + modalidade.nome"
           message="Ao realizar a inscrição você passará a receber informações sobre essa modalidade no seu feed"
-          [buttons]="alertButtons"
+          [buttons]="getAlertButtons(modalidade.idModalidadeEsportiva)"
           (didDismiss)="setResult($event)"
         ></ion-alert>
       </li>
     </ul>
   </div>
+
+  <app-modal-editar-modalidade
+    *ngIf="modalEditarVisivel"
+    [modalidade]="modalidadeParaEditar"
+    (close)="fecharModal()"
+  ></app-modal-editar-modalidade>
 </ion-content>

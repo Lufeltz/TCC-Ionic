@@ -25,7 +25,6 @@ ul {
 }
 
 .item-lista:hover {
-  background-color: rgba(41, 128, 185, 0.4);
   transform: translateY(-2px);
 }
 
@@ -106,8 +105,6 @@ ion-button {
   --color: var(--background-dark);
 }
 
-
-
 .icon-align .descricao {
   color: var(--text-light);
 }
@@ -127,3 +124,17 @@ ion-button {
 .icon-align .conquistas {
   color: var(--purple-desc);
 }
+
+
+
+// se depois eu quiser colocar o botao centralizado no meio, ficou mais legal
+/* Alterações para os botões ficarem lado a lado com espaçamento "space-around" */
+// .button-group {
+//   display: flex;
+//   gap: 10px; /* Espaço entre os botões */
+//   justify-content: space-around; /* Espaçamento ao redor dos botões */
+// }
+
+// button {
+//   flex: 1;
+// }

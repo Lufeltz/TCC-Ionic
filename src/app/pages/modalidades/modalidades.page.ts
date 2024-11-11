@@ -12,6 +12,7 @@ import {
   IonSegmentButton,
   IonButton,
   IonAlert,
+  AlertButton,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 import {
@@ -22,20 +23,14 @@ import {
   Medal,
   Notebook,
   SquareArrowUpRight,
-  SquareX,
+  SquarePen,
   Users,
-  X,
   Zap,
   ZapOff,
 } from 'lucide-angular';
-
-interface Modalidade {
-  nome: string;
-  descricao: string;
-  foto: string | null;
-  dataCriacao: string;
-  inscrito: boolean;
-}
+import { ModalidadesService } from 'src/app/services/modalidades.service';
+import { forkJoin } from 'rxjs';
+import { ModalEditarModalidadeComponent } from 'src/app/components/modal-editar-modalidade/modal-editar-modalidade.component';
 
 @Component({
   selector: 'app-modalidades',
@@ -57,6 +52,7 @@ interface Modalidade {
     IonButton,
     IonAlert,
     LucideAngularModule,
+    ModalEditarModalidadeComponent
   ],
 })
 export class ModalidadesPage implements OnInit {
@@ -64,9 +60,7 @@ export class ModalidadesPage implements OnInit {
   pageMenu: string = 'modalidades-menu';
   pageContent: string = 'modalidades';
 
-  selectedSegment: string = 'inscrito';
-  modalidades: Modalidade[] = [];
-  currentModalidade: Modalidade | null = null; // Para armazenar a modalidade atual
+  selectedSegment: string = 'inscrito'; // Segmento selecionado: 'inscrito' ou 'gerais'
 
   readonly SquareArrowUpRight = SquareArrowUpRight;
   readonly CircleX = CircleX;
@@ -77,85 +71,155 @@ export class ModalidadesPage implements OnInit {
   readonly ZapOff = ZapOff;
   readonly Crosshair = Crosshair;
   readonly Users = Users;
+  readonly SquarePen = SquarePen;
 
-  constructor() {}
+  // Variáveis para armazenar os resultados
+  modalidadesInscritas: any;
+  todasModalidades: any;
+  modalidadesDiferentes: any; // Nova variável para armazenar as modalidades diferentes
 
-  public alertButtons = [
-    {
-      text: 'Voltar',
-      role: 'voltar',
-      handler: () => {
-        console.log('Alert canceled');
-      },
-    },
-    {
-      text: 'Confirmar',
-      role: 'confirmar',
-      handler: () => {
-        if (this.currentModalidade) {
-          // Aqui você altera a lógica dependendo do estado atual
-          this.currentModalidade.inscrito = !this.currentModalidade.inscrito;
-          const action = this.currentModalidade.inscrito
-            ? 'inscrito'
-            : 'cancelado';
-          console.log(
-            `Modalidade ${this.currentModalidade.nome} agora está ${action}: ${this.currentModalidade.inscrito}`
-          );
-        }
-      },
-    },
-  ];
+  alertButtons: AlertButton[] = [];
 
-  setResult(ev: any) {
-    console.log(`Dismissed with role: ${ev.detail.role}`);
-  }
+  modalEditarVisivel: boolean = false;
+  modalidadeParaEditar!: any;
+
+  constructor(private modalidadesService: ModalidadesService) {}
 
   ngOnInit() {
-    this.modalidades = [
-      {
-        nome: 'Futebol',
-        descricao:
-          'Esporte jogado por dois times, onde o objetivo é marcar gols movendo a bola com os pés. Vence quem marcar mais gols em dois tempos de partida.',
-        foto: null,
-        dataCriacao: '2024-10-09T17:38:29Z',
-        inscrito: true,
+    const usuarioId = 2; // Definindo o ID do usuário como 2
+
+    // Usando forkJoin para chamar ambos os serviços
+    forkJoin({
+      modalidadesInscritas:
+        this.modalidadesService.getModalidadesInscritas(usuarioId),
+      todasModalidades: this.modalidadesService.getAllModalidades(),
+    }).subscribe({
+      next: (result) => {
+        // Salvando os resultados separadamente nas variáveis
+        this.modalidadesInscritas = result.modalidadesInscritas;
+        this.todasModalidades = result.todasModalidades;
+
+        // Comparar as duas variáveis e salvar os valores diferentes
+        this.modalidadesDiferentes = this.compararModalidades(
+          this.modalidadesInscritas,
+          this.todasModalidades
+        );
+
+        // Imprimindo os resultados no console
+        console.log('Modalidades Inscritas:', this.modalidadesInscritas);
+        console.log('Todas as Modalidades:', this.todasModalidades);
+        console.log('Modalidades Diferentes:', this.modalidadesDiferentes);
       },
-      {
-        nome: 'Vôlei',
-        descricao:
-          'Dois times tentam fazer a bola tocar o chão do lado adversário, passando-a por cima de uma rede. Vence quem ganhar 3 sets.',
-        foto: null,
-        dataCriacao: '2024-10-09T17:38:29Z',
-        inscrito: false,
+      error: (err) => {
+        console.error('Erro ao carregar modalidades:', err);
       },
+    });
+
+    this.alertButtons = [
       {
-        nome: 'Basquete',
-        descricao:
-          'Dois times tentam marcar pontos arremessando a bola na cesta do adversário. Ganha quem fizer mais pontos em quatro períodos.',
-        foto: null,
-        dataCriacao: '2024-10-09T17:38:29Z',
-        inscrito: true,
-      },
-      {
-        nome: 'Tênis de Mesa',
-        descricao:
-          'Jogadores usam raquetes para golpear uma bola em uma mesa com rede. O objetivo é fazer o adversário errar a devolução. Vence quem ganhar mais sets.',
-        foto: null,
-        dataCriacao: '2024-10-09T17:38:29Z',
-        inscrito: false,
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          console.log('Inscrição cancelada');
+        },
       },
     ];
   }
 
-  getModalidadesInscritas() {
-    return this.modalidades.filter((modalidade) => modalidade.inscrito);
+  compararModalidades(inscritas: any[], todas: any[]): any[] {
+    // Criando arrays apenas com os IDs de cada modalidade para facilitar a comparação
+    const inscritasIds = inscritas.map((mod) => mod.idModalidadeEsportiva);
+    const todasIds = todas.map((mod) => mod.idModalidadeEsportiva);
+
+    // Encontrando as modalidades que estão em 'todas' mas não em 'inscritas'
+    const modalidadesDiferentes = todas.filter(
+      (mod) => !inscritasIds.includes(mod.idModalidadeEsportiva)
+    );
+
+    return modalidadesDiferentes;
   }
 
-  getModalidadesNaoInscritas() {
-    return this.modalidades.filter((modalidade) => !modalidade.inscrito);
+  inscreverModalidade(modalidadeId: number) {
+    const usuarioId = 2; // Assumindo que o ID do usuário é 2, você pode substituir por uma variável dinâmica se necessário
+
+    this.modalidadesService.inscreverModalidade(usuarioId, modalidadeId).subscribe({
+      next: (resp) => {
+        console.log('Inscrição realizada com sucesso:', resp);
+        // Atualize a lista de modalidades inscritas após a inscrição
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.error('Erro ao realizar inscrição:', err);
+      },
+    });
   }
 
-  setCurrentModalidade(modalidade: Modalidade) {
-    this.currentModalidade = modalidade;
+  removerInscricaoModalidade(modalidadeId: number) {
+    const usuarioId = 2; // Assumindo que o ID do usuário é 2, você pode substituir por uma variável dinâmica se necessário
+
+    this.modalidadesService.removerModalidade(usuarioId, modalidadeId).subscribe({
+      next: (resp) => {
+        console.log('Inscrição cancelada com sucesso:', resp);
+        // Atualize a lista de modalidades inscritas após a inscrição
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.error('Erro ao cancelar inscrição:', err);
+      },
+    });
+  }
+
+  setResult(event: any) {
+    if (event.detail.role === 'confirm') {
+      console.log('Confirmação realizada');
+    } else {
+      console.log('Ação cancelada');
+    }
+  }
+
+  getAlertButtons(modalidadeId: number): AlertButton[] {
+    return [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          console.log('Inscrição cancelada');
+        },
+      },
+      {
+        text: 'Confirmar',
+        handler: () => {
+          this.inscreverModalidade(modalidadeId);
+        },
+      },
+    ];
+  }
+
+  getCancelAlertButtons(modalidadeId: number): AlertButton[] {
+    return [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancelamento de inscrição abortado');
+        },
+      },
+      {
+        text: 'Confirmar',
+        handler: () => {
+          this.removerInscricaoModalidade(modalidadeId);
+        },
+      },
+    ];
+  }
+
+  abrirModalEditar(meta: any) {
+    this.modalidadeParaEditar = meta;
+    console.log(this.modalidadeParaEditar);
+    this.modalEditarVisivel = true;
+  }
+
+  fecharModal() {
+    this.modalEditarVisivel = false;
   }
 }
