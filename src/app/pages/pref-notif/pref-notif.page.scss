@@ -75,3 +75,33 @@ ion-content {
 .my-icon {
   color: var(--light-blue);
 }
+
+ion-button {
+  margin-top: 16px;
+  --background: var(--text-white);
+  --color: var(--background-dark);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+ion-button:active {
+  --color: var(--text-white);
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+.btn-inscrever-se {
+  margin-left: 5px;
+}

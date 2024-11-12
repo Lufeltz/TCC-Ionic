@@ -5,82 +5,6 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <!-- <h3>
-    <lucide-angular
-      [img]="Volleyball"
-      class="btn-inscrever-se"
-      [size]="20"
-      color="var(--text-green)"
-    ></lucide-angular
-    > Modalidades
-  </h3>
-  <div class="toggle">
-    <ion-toggle
-      id="open-toast"
-      labelPlacement="end"
-      [(ngModel)]="estados.modalidades.notifCampeonatos"
-      (click)="mostrarEstadoToggle(estados.modalidades.notifCampeonatos)"
-    ></ion-toggle>
-    <ion-text
-      >Notificar sobre novos campeonatos criados nas modalidades que estou
-      inscrito</ion-text
-    >
-    <ion-toast
-      position="top"
-      trigger="open-toast"
-      message="1 Preferência atualizada."
-      [duration]="3000"
-    ></ion-toast>
-  </div>
-  <div class="toggle">
-    <ion-toggle
-      id="open-toast2"
-      labelPlacement="end"
-      [(ngModel)]="estados.modalidades.notifPosts"
-      (click)="mostrarEstadoToggle(estados.modalidades.notifPosts)"
-    ></ion-toggle>
-    <ion-text
-      >Notificar sobre novos posts criados nas modalidades que estou
-      inscrito</ion-text
-    >
-    <ion-toast
-      position="top"
-      trigger="open-toast2"
-      message="2 Preferência atualizada."
-      [duration]="3000"
-    ></ion-toast>
-  </div>
-  <div class="toggle">
-    <ion-toggle
-      id="open-toast3"
-      labelPlacement="end"
-      [(ngModel)]="estados.modalidades.notifComentarios"
-      (click)="mostrarEstadoToggle(estados.modalidades.notifComentarios)"
-    ></ion-toggle>
-    <ion-text>Notificar sobre comentários feitos nos meus posts</ion-text>
-    <ion-toast
-      position="top"
-      trigger="open-toast3"
-      message="3 Preferência atualizada."
-      [duration]="3000"
-    ></ion-toast>
-  </div>
-  <div class="toggle">
-    <ion-toggle
-      id="open-toast4"
-      labelPlacement="end"
-      [(ngModel)]="estados.modalidades.notifLikes"
-      (click)="mostrarEstadoToggle(estados.modalidades.notifLikes)"
-    ></ion-toggle>
-    <ion-text>Notificar sobre likes nos meus posts</ion-text>
-    <ion-toast
-      position="top"
-      trigger="open-toast4"
-      message="4 Preferência atualizada."
-      [duration]="3000"
-    ></ion-toast>
-  </div> -->
-
   <h3>
     <lucide-angular
       [img]="EyeOff"
@@ -90,17 +14,36 @@
     ></lucide-angular>
     Privacidade
   </h3>
+
+  <div class="toggle">
+    <ion-toggle
+      id="open-toast6"
+      labelPlacement="end"
+      [(ngModel)]="privacidades.mostrarHistoricoCampeonatos"
+      (ionChange)="mostrarEstadoToggle(privacidades.mostrarHistoricoCampeonatos)"
+    ></ion-toggle>
+    <ion-text>
+      Permitir que outros usuários acessem o meu histórico de campeonatos
+    </ion-text>
+    <ion-toast
+      position="top"
+      trigger="open-toast6"
+      message="2 Privacidade atualizada."
+      [duration]="3000"
+    ></ion-toast>
+  </div>
+
   <div class="toggle">
     <ion-toggle
       id="open-toast5"
       labelPlacement="end"
-      [(ngModel)]="estados.privacidade.privModalidadesEsportivas"
-      (click)="mostrarEstadoToggle(estados.privacidade.privModalidadesEsportivas)"
+      [(ngModel)]="privacidades.mostrarEstatisticasModalidadesEsportivas"
+      (ionChange)="mostrarEstadoToggle(privacidades.mostrarEstatisticasModalidadesEsportivas)"
     ></ion-toggle>
-    <ion-text
-      >Permitir que outros usuários vejam as minhas estatisticas de desempenho
-      esportivas</ion-text
-    >
+    <ion-text>
+      Permitir que outros usuários vejam as minhas estatísticas de desempenho
+      esportivas
+    </ion-text>
     <ion-toast
       position="top"
       trigger="open-toast5"
@@ -113,8 +56,8 @@
     <ion-toggle
       id="open-toast8"
       labelPlacement="end"
-      [(ngModel)]="estados.privacidade.privConquistas"
-      (click)="mostrarEstadoToggle(estados.privacidade.privConquistas)"
+      [(ngModel)]="privacidades.mostrarConquistas"
+      (ionChange)="mostrarEstadoToggle(privacidades.mostrarConquistas)"
     ></ion-toggle>
     <ion-text>Permitir que outros usuários vejam as minhas conquistas</ion-text>
     <ion-toast
@@ -125,22 +68,14 @@
     ></ion-toast>
   </div>
 
-  <div class="toggle">
-    <ion-toggle
-      id="open-toast6"
-      labelPlacement="end"
-      [(ngModel)]="estados.privacidade.privHistoricoCampeonatos"
-      (click)="mostrarEstadoToggle(estados.privacidade.privHistoricoCampeonatos)"
-    ></ion-toggle>
-    <ion-text
-      >Permitir que outros usuários acessem o meu histórico de
-      campeonatos</ion-text
-    >
-    <ion-toast
-      position="top"
-      trigger="open-toast6"
-      message="2 Privacidade atualizada."
-      [duration]="3000"
-    ></ion-toast>
-  </div>
+  <ion-button (click)="atualizarPrivacidade()" size="small" expand="block" class="icon-button">
+    <div class="text-container">Salvar</div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="SaveAll"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+    </div>
+  </ion-button>
 </ion-content>

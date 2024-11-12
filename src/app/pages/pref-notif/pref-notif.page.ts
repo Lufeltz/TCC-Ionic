@@ -10,10 +10,18 @@ import {
   IonLabel,
   IonText,
   IonToast,
+  IonButton,
 } from '@ionic/angular/standalone';
 
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
-import { EyeOff, LucideAngularModule, Volleyball } from 'lucide-angular';
+import {
+  EyeOff,
+  LucideAngularModule,
+  SaveAll,
+  Volleyball,
+} from 'lucide-angular';
+import { PrivacidadeService } from 'src/app/services/privacidade.service';
+import { Privacidade } from 'src/app/models/privacidade.model';
 
 @Component({
   selector: 'app-pref-notif',
@@ -21,6 +29,7 @@ import { EyeOff, LucideAngularModule, Volleyball } from 'lucide-angular';
   styleUrls: ['./pref-notif.page.scss'],
   standalone: true,
   imports: [
+    IonButton,
     IonContent,
     IonHeader,
     IonTitle,
@@ -32,7 +41,7 @@ import { EyeOff, LucideAngularModule, Volleyball } from 'lucide-angular';
     IonLabel,
     IonText,
     IonToast,
-    LucideAngularModule
+    LucideAngularModule,
   ],
 })
 export class PrefNotifPage implements OnInit {
@@ -42,27 +51,42 @@ export class PrefNotifPage implements OnInit {
 
   readonly Volleyball = Volleyball;
   readonly EyeOff = EyeOff;
+  readonly SaveAll = SaveAll;
 
-  estados = {
-    modalidades: {
-      notifCampeonatos: false,
-      notifPosts: false,
-      notifComentarios: false,
-      notifLikes: false,
-    },
-    privacidade: {
-      privModalidadesEsportivas: false,
-      privHistoricoCampeonatos: false,
-      privEstatisticasModalidades: false,
-      privConquistas: false,
-    },
-  };
+  privacidades: Privacidade = new Privacidade();
 
-  constructor() {}
+  constructor(private privacidadeService: PrivacidadeService) {}
 
   mostrarEstadoToggle(estado: boolean): void {
     console.log(!estado);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.getPrivacidades(1);
+  }
+
+  getPrivacidades(id: number) {
+    this.privacidadeService.getPrivacidades(id).subscribe({
+      next: (data: Privacidade | null) => {
+        // Se for null, usa o valor padrão ou trata como necessário
+        this.privacidades = data || new Privacidade(); // Aqui você pode garantir que privacidades seja sempre um objeto válido
+        console.log('Privacidade recebida:', this.privacidades);
+      },
+      error: (err) => {
+        console.error('Erro ao buscar dados de privacidade:', err);
+      },
+    });
+  }
+
+  atualizarPrivacidade() {
+    this.privacidadeService.atualizarPrivacidade(this.privacidades).subscribe({
+      next: (data) => {
+        console.log('Privacidade atualizada:', data);
+        // Você pode exibir uma notificação ou atualizar o estado local do componente
+      },
+      error: (err) => {
+        console.error('Erro ao atualizar privacidade:', err);
+      },
+    });
+  }
 }
