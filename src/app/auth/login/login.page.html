@@ -12,13 +12,12 @@
   ></button>
 </div>
 <ion-content [fullscreen]="true">
-  <form #formLogin="ngForm">
+  <form #formLogin="ngForm" (ngSubmit)="logar()">
     <div class="container">
       <h1>Sportfy</h1>
       <p>Acesse a sua conta.</p>
       <ion-list lines="none">
         <ion-item>
-          <!-- <ion-icon name="mail-outline"></ion-icon> -->
           <div class="icon-align">
             <lucide-angular
               [img]="User"
@@ -32,7 +31,7 @@
               id="username"
               placeholder="Usuário"
               [(ngModel)]="login.username"
-              #username="ngModel"
+              required
             ></ion-input>
           </div>
         </ion-item>
@@ -50,17 +49,12 @@
               id="password"
               placeholder="Senha"
               [(ngModel)]="login.password"
-              #password="ngModel"
+              required
             ></ion-input>
           </div>
         </ion-item>
       </ion-list>
-      <ion-button
-        size="small"
-        expand="block"
-        (click)="logar()"
-        class="icon-button"
-      >
+      <ion-button size="small" expand="block" type="submit" class="icon-button">
         <div class="text-container">Entrar</div>
         <div class="icon-align">
           <lucide-angular

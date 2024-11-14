@@ -38,71 +38,22 @@
           ></ion-textarea>
         </li>
 
-        <!-- AQUI -->
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
-              [img]="EyeOff"
+              [img]="NotebookText"
               class="btn-inscrever-se"
               [size]="20"
               [color]="'var(--yellow-desc)'"
             ></lucide-angular>
-            <ion-label class="input-label">Privacidade</ion-label>
+            <ion-label>Descrição</ion-label>
           </div>
-          <ion-radio-group
-            [(ngModel)]="campeonato.privacidadeCampeonato"
-            [allowEmptySelection]="false"
-          >
-            <div class="items">
-              <ion-item lines="none" class="radio-item item-up">
-                <div class="align-it">
-                  <ion-radio
-                    slot="start"
-                    value="PUBLICO"
-                    class="styled-radio"
-                  ></ion-radio>
-                  <ion-label
-                    (click)="campeonato.privacidadeCampeonato = 'PUBLICO'"
-                    >Público</ion-label
-                  >
-                </div>
-              </ion-item>
-              <ion-item lines="none" class="radio-item item-bottom">
-                <div class="align-it">
-                  <ion-radio
-                    slot="start"
-                    value="PRIVADO"
-                    class="styled-radio"
-                  ></ion-radio>
-                  <ion-label
-                    (click)="campeonato.privacidadeCampeonato = 'PRIVADO'"
-                    >Privado</ion-label
-                  >
-                </div>
-              </ion-item>
-            </div>
-          </ion-radio-group>
-        </li>
-
-        <!-- Exibir o campo senha apenas se o valor de privacidadeCampeonato for "PRIVADO" -->
-        <li
-          class="item-lista"
-          *ngIf="campeonato.privacidadeCampeonato === 'PRIVADO'"
-        >
-          <div class="icon-align">
-            <lucide-angular
-              [img]="Key"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--yellow-desc)'"
-            ></lucide-angular>
-            <ion-label>Senha</ion-label>
-          </div>
-          <ion-input
+          <ion-textarea
             ngDefaultControl
-            [(ngModel)]="campeonato.senha"
-            placeholder="Exemplo: azx2817"
-          ></ion-input>
+            [(ngModel)]="campeonato.descricao"
+            placeholder="Exemplo: Na quadra ao lado do SEPT, levem caneleiras"
+            auto-grow="true"
+          ></ion-textarea>
         </li>
 
         <li class="item-lista">
@@ -156,26 +107,6 @@
           ></ion-input>
         </li>
 
-        <li class="item-lista">
-          <div class="icon-align">
-            <lucide-angular
-              [img]="NotebookText"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--yellow-desc)'"
-            ></lucide-angular>
-            <ion-label>Descrição</ion-label>
-          </div>
-          <ion-textarea
-            ngDefaultControl
-            [(ngModel)]="campeonato.descricao"
-            placeholder="Exemplo: Na quadra ao lado do SEPT, levem caneleiras"
-            auto-grow="true"
-          ></ion-textarea>
-        </li>
-
-
-        
         <li class="item-lista">
           <div
             class="input-data-hora-container"
@@ -268,8 +199,72 @@
           </div>
         </li>
 
+        <li class="item-lista">
+          <div class="icon-align">
+            <lucide-angular
+              [img]="EyeOff"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label class="input-label">Privacidade do Campeonato</ion-label>
+          </div>
+          <ion-radio-group
+            [(ngModel)]="campeonato.privacidadeCampeonato"
+            [allowEmptySelection]="false"
+          >
+            <div class="items">
+              <ion-item lines="none" class="radio-item item-up">
+                <div class="align-it">
+                  <ion-radio
+                    slot="start"
+                    value="PUBLICO"
+                    class="styled-radio"
+                  ></ion-radio>
+                  <ion-label
+                    (click)="campeonato.privacidadeCampeonato = 'PUBLICO'"
+                    >Público</ion-label
+                  >
+                </div>
+              </ion-item>
+              <ion-item lines="none" class="radio-item item-bottom">
+                <div class="align-it">
+                  <ion-radio
+                    slot="start"
+                    value="PRIVADO"
+                    class="styled-radio"
+                  ></ion-radio>
+                  <ion-label
+                    (click)="campeonato.privacidadeCampeonato = 'PRIVADO'"
+                    >Privado</ion-label
+                  >
+                </div>
+              </ion-item>
+            </div>
+          </ion-radio-group>
+        </li>
 
-        
+        <!-- Exibir o campo senha apenas se o valor de privacidadeCampeonato for "PRIVADO" -->
+        <li
+          class="item-lista"
+          *ngIf="campeonato.privacidadeCampeonato === 'PRIVADO'"
+        >
+          <div class="icon-align">
+            <lucide-angular
+              [img]="Key"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Senha</ion-label>
+          </div>
+          <ion-input
+            ngDefaultControl
+            [(ngModel)]="campeonato.senha"
+            placeholder="Exemplo: azx2817"
+          ></ion-input>
+        </li>
+
         <li class="item-lista">
           <div class="input-container">
             <!-- Linha 1: ícone e label do CEP -->
@@ -282,7 +277,7 @@
               ></lucide-angular>
               <ion-label class="input-label">CEP</ion-label>
             </div>
-            
+
             <!-- Linha 2: campo de entrada e botão -->
             <div class="cep-footer">
               <ion-input
@@ -309,7 +304,6 @@
           </div>
         </li>
 
-
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
@@ -324,7 +318,6 @@
             ngDefaultControl
             [(ngModel)]="campeonato.endereco.rua"
             placeholder="Logradouro"
-            readonly
             auto-grow="true"
           ></ion-textarea>
         </li>
@@ -365,7 +358,6 @@
                 [(ngModel)]="campeonato.endereco.cidade"
                 placeholder="Cidade"
                 class="input-cidade"
-                readonly
               ></ion-input>
             </div>
             <div style="flex: 2">
@@ -383,7 +375,6 @@
                 [(ngModel)]="campeonato.endereco.uf"
                 placeholder="UF"
                 class="input-uf"
-                readonly
               ></ion-input>
             </div>
           </div>
@@ -403,7 +394,6 @@
             ngDefaultControl
             [(ngModel)]="campeonato.endereco.bairro"
             placeholder="Bairro"
-            readonly
           ></ion-input>
         </li>
 

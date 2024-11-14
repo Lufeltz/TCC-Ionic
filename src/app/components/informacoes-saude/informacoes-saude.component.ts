@@ -8,7 +8,9 @@ import {
   Stethoscope,
   User,
 } from 'lucide-angular';
+import { Academico } from 'src/app/models/academico.model';
 import { Saude } from 'src/app/models/saude.model';
+import { AuthService } from 'src/app/services/auth.service';
 import { SaudeService } from 'src/app/services/saude.service';
 
 @Component({
@@ -19,7 +21,10 @@ import { SaudeService } from 'src/app/services/saude.service';
   imports: [CommonModule, LucideAngularModule],
 })
 export class InformacoesSaudeComponent implements OnInit {
-  constructor(private saudeService: SaudeService) {}
+  constructor(
+    private saudeService: SaudeService,
+    private authService: AuthService
+  ) {}
 
   readonly Stethoscope = Stethoscope;
   readonly Phone = Phone;
@@ -52,9 +57,12 @@ export class InformacoesSaudeComponent implements OnInit {
     },
   ];
 
+  user: Academico | null = null;
+
   ngOnInit() {
     // Chama a função que realiza a requisição e salva os dados
     this.loadContatosSaude();
+    this.getUsuarioLogado()
   }
 
   // Função para realizar a requisição e salvar os dados
@@ -69,4 +77,17 @@ export class InformacoesSaudeComponent implements OnInit {
       },
     });
   }
+
+  getUsuarioLogado() {
+    this.authService.getAcademicoLogado().subscribe({
+      next: (academico) => {
+        this.user = academico;
+        console.log('Dados do acadêmico logado:', this.user);
+      },
+      error: (error) => {
+        console.error('Erro ao obter os dados do acadêmico logado:', error);
+      }
+    });
+  }
+  
 }

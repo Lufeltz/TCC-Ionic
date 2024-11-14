@@ -16,8 +16,7 @@ import {
   IonIcon,
   IonItem,
   IonRadio,
-  IonRadioGroup,
-} from '@ionic/angular/standalone';
+  IonRadioGroup, IonTextarea } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 import { HistoricoCampeonatosComponent } from '../../components/historico-campeonatos/historico-campeonatos.component';
 import { ListagemCampeonatosComponent } from '../../components/listagem-campeonatos/listagem-campeonatos.component';
@@ -51,7 +50,7 @@ import { CampeonatoCriacao } from 'src/app/models/campeonato-criacao.model';
   templateUrl: './campeonatos.page.html',
   styleUrls: ['./campeonatos.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonTextarea, 
     IonRadio,
     IonItem,
     IonIcon,

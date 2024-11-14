@@ -16,11 +16,17 @@ import {
 import { addIcons } from 'ionicons';
 import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { LoginService } from 'src/app/services/login.service';
 import { AcademicoService } from 'src/app/services/academico.service';
-import { LoginRequest } from 'src/app/models/login-request.model';
 import { jwtDecode } from 'jwt-decode';
-import { Lock, LogIn, LucideAngularModule, RotateCw, User } from 'lucide-angular';
+import {
+  Lock,
+  LogIn,
+  LucideAngularModule,
+  RotateCw,
+  User,
+} from 'lucide-angular';
+import { AuthService } from 'src/app/services/auth.service';
+import { LoginRequest } from 'src/app/models/login-request';
 
 @Component({
   selector: 'app-login',
@@ -49,76 +55,52 @@ export class LoginPage implements OnInit {
   readonly LogIn = LogIn;
 
   constructor(
-    private loginService: LoginService,
+    private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute,
-    private academicoService: AcademicoService
+    private route: ActivatedRoute
   ) {
-    addIcons({ mailOutline, lockClosedOutline });
+    
   }
+
+  
 
   @ViewChild('formLogin') formLogin!: NgForm;
   login: LoginRequest = new LoginRequest();
   loading: boolean = false;
   message!: string;
 
-  loginError: boolean = false;
-
   ngOnInit(): void {
-    // if (this.loginService.usuarioLogado || true) {
-    if (true) {
-      this.router.navigate(['/login']);
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/homepage']);
     } else {
+      // Captura a mensagem de erro da query params, se existir
       this.route.queryParams.subscribe((params) => {
-        this.message = params['error'];
+        this.message = params['error']; // A mensagem que o AuthGuard passa
       });
     }
   }
 
   logar(): void {
     this.loading = true;
-    if (true) {
-      this.router.navigate(['/homepage']);
-    } else {
-      // if (this.formLogin.form.valid) {
-      this.loginService.login(this.login).subscribe({
-        next: (token) => {
-          if (token != null) {
-            // Decodificando o token JWT
-            const decodedToken: any = jwtDecode(JSON.stringify(token));
-            console.log(decodedToken);
-
-            this.loginService.usuarioLogado = decodedToken.sub;
-
-            this.loading = false;
-            if (decodedToken.role == 'ACADEMICO' || true) {
-              // this.clienteService.consultarPorIdUsuario(decodedToken.idUsuario)
-              this.router.navigate(['/homepage']);
-              console.log('ACADEMICO');
-            } else if (decodedToken.role == 'ADMINISTRADOR') {
-              // this.clienteService.consultarPorIdUsuario(decodedToken.idUsuario)
-              // this.router.navigate(['/homepage-cliente']);
-              console.log('ADMINISTRADOR');
-            } else if (decodedToken.role == 'ADMINISTRADOR_MASTER') {
-              // this.clienteService.consultarPorIdUsuario(decodedToken.idUsuario)
-              // this.router.navigate(['/homepage-cliente']);
-              console.log('ADMINISTRADOR_MASTER');
-            }
-          } else {
-            this.message = 'Usuário/Senha invállidos.';
-          }
-        },
-        error: (err) => {
-          this.loading = false;
-          this.message = `Erro efetuando login: ${err.message}`;
-        },
-      });
-      // } else {
-      this.loading = false;
-    }
+    this.authService.login(this.login).subscribe({
+      next: (token) => {
+        if (token) {
+          const decodedToken: any = jwtDecode(token);
+          console.log(decodedToken);
+          this.router.navigate(['/homepage']);
+        } else {
+          this.message = 'Usuário/Senha inválidos.';
+        }
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
+        this.message = `Erro efetuando login: ${err.message}`;
+      },
+    });
   }
 
   clearLoginError() {
-    this.loginError = false;
+    this.message = '';
   }
 }

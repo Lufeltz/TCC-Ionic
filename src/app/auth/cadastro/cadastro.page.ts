@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import {
@@ -15,12 +15,22 @@ import {
   IonRadioGroup,
 } from '@ionic/angular/standalone';
 
-import { addIcons } from 'ionicons';
-import { mailOutline, lockClosedOutline, personOutline } from 'ionicons/icons';
 import { Router, RouterModule } from '@angular/router';
 import { AcademicoService } from 'src/app/services/academico.service';
-import { Academico } from 'src/app/models/academico.model';
-import { AtSign, Lock, LucideAngularModule, SaveAll, User } from 'lucide-angular';
+import { Cadastro } from 'src/app/models/cadastro.model';
+import { AuthService } from 'src/app/services/auth.service';
+import {
+  ALargeSmall,
+  AtSign,
+  CalendarArrowUp,
+  GraduationCap,
+  Lock,
+  LucideAngularModule,
+  Phone,
+  SaveAll,
+  Smartphone,
+  User,
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-cadastro',
@@ -42,61 +52,63 @@ import { AtSign, Lock, LucideAngularModule, SaveAll, User } from 'lucide-angular
     IonRadio,
     IonRadioGroup,
     RouterModule,
-    LucideAngularModule
+    LucideAngularModule,
   ],
 })
 export class CadastroPage {
-
   readonly SaveAll = SaveAll;
   readonly User = User;
   readonly AtSign = AtSign;
   readonly Lock = Lock;
+  readonly CalendarArrowUp = CalendarArrowUp;
+  readonly ALargeSmall = ALargeSmall;
+  readonly Phone = Phone;
+  readonly GraduationCap = GraduationCap;
 
   @ViewChild('formCadastro') formCadastro!: NgForm;
+  @ViewChild('dateInput') dateInput!: ElementRef;
   message!: string;
-  academico: Academico = new Academico();
+  academico: Cadastro = new Cadastro();
 
-  constructor(
-    private academicoService: AcademicoService,
-    private router: Router
-  ) {
-    addIcons({ mailOutline, lockClosedOutline, personOutline });
+  constructor(private authService: AuthService, private router: Router) {}
+
+  // Método para formatar a data
+  formatDateToFullDate(dateString: string): string {
+    const date = new Date(dateString); // Cria um objeto Date a partir da string
+
+    // Formatação manual para adicionar o fuso horário e os milissegundos
+    const formattedDate = date.toISOString(); // Formata para o formato UTC ISO
+    const localOffset = date.getTimezoneOffset() * 60000; // Calcula o offset do fuso horário
+
+    const localDate = new Date(date.getTime() - localOffset); // Ajusta a data para o horário local
+    const finalDate = localDate.toISOString().split('.')[0]; // Remove milissegundos e finaliza a formatação
+    
+    // Retorna a data no formato desejado
+    return finalDate + '-03:00'; // Adiciona o fuso horário de Brasília
   }
 
+  // Função chamada ao clicar em Registrar
   cadastrar() {
-    // if (this.formCadastro.form.valid) {
-    this.academicoService.cadastrar(this.academico).subscribe({
+    // Se houver dataNascimento, formata antes de salvar ou enviar
+    if (this.academico.dataNascimento) {
+      this.academico.dataNascimento = this.formatDateToFullDate(this.academico.dataNascimento);
+    }
+
+    console.log(this.academico);
+
+    // Envia os dados para o serviço de cadastro
+    this.authService.cadastrar(this.academico).subscribe({
       next: (academico) => {
-        // alert('Cadastro realizado com sucesso!');
         this.router.navigate(['/login']);
       },
       error: (err) => {
         console.log('Erro ao cadastrar academico', err);
-        // alert('Erro ao cadastrar academico');
       },
     });
-    // }
   }
 
-  // Arrumar
-  // consultarPorIdUsuario(idUsuario: number): Observable<ClienteDto | null> {
-  //   return this._http
-  //     .get<ClienteDto>(`${this.NEW_URL}/consultar/${idUsuario}`, this.httpOptions)
-  //     .pipe(
-  //       map((resp: HttpResponse<ClienteDto>) => {
-  //         if (resp.status == 200) {
-  //           return resp.body;
-  //         } else {
-  //           return null;
-  //         }
-  //       }),
-  //       catchError((err, caught) => {
-  //         if (err.status == 404) {
-  //           return of(null);
-  //         } else {
-  //           return throwError(() => err);
-  //         }
-  //       })
-  //     );
-  // }
+  openDatePicker() {
+    // Simula o clique no campo de data
+    this.dateInput.nativeElement.click();
+  }
 }

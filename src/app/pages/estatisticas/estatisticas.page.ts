@@ -13,7 +13,7 @@ import {
   IonToast,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.component';
-import { AtSign, Cake, CaseSensitive, GraduationCap, Key, LucideAngularModule, Phone, SaveAll, User, Eye, EyeOff } from 'lucide-angular';
+import { AtSign, Cake, CaseSensitive, GraduationCap, Key, LucideAngularModule, Phone, SaveAll, User, Eye, EyeOff, UserRound } from 'lucide-angular';
 import { AcademicoService } from 'src/app/services/academico.service';
 import { Academico } from 'src/app/models/academico.model';
 
@@ -57,6 +57,7 @@ export class EstatisticasPage implements OnInit {
   readonly CaseSensitive = CaseSensitive;
   readonly Eye = Eye;
   readonly EyeOff = EyeOff;
+  readonly UserRound = UserRound;
 
   constructor(private academicoService: AcademicoService) {}
 

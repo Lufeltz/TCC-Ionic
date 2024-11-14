@@ -7,9 +7,19 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { Bike, CalendarArrowUp, ChartColumn, GraduationCap, LucideAngularModule, Star, Trophy, UserRound } from 'lucide-angular';
+import {
+  Bike,
+  CalendarArrowUp,
+  ChartColumn,
+  GraduationCap,
+  LucideAngularModule,
+  Star,
+  Trophy,
+  UserRound,
+} from 'lucide-angular';
 import { Academico } from 'src/app/models/academico.model';
 import { AcademicoService } from 'src/app/services/academico.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-jogador',
@@ -34,8 +44,11 @@ export class JogadorComponent implements OnInit, OnChanges {
 
   constructor(
     private academicoService: AcademicoService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) {}
+
+  user: Academico | null = null;
 
   ngOnInit() {
     this.getUsuarios();
@@ -83,6 +96,8 @@ export class JogadorComponent implements OnInit, OnChanges {
   }
 
   getModalidades(academico: any): string {
-    return academico.modalidades.map((modalidade: any) => modalidade.nomeModalidade).join(', ');
+    return academico.modalidades
+      .map((modalidade: any) => modalidade.nomeModalidade)
+      .join(', ');
   }
 }

@@ -17,7 +17,6 @@
 
   <div class="toggle">
     <ion-toggle
-      id="open-toast6"
       labelPlacement="end"
       [(ngModel)]="privacidades.mostrarHistoricoCampeonatos"
       (ionChange)="mostrarEstadoToggle(privacidades.mostrarHistoricoCampeonatos)"
@@ -25,17 +24,10 @@
     <ion-text>
       Permitir que outros usuários acessem o meu histórico de campeonatos
     </ion-text>
-    <ion-toast
-      position="top"
-      trigger="open-toast6"
-      message="2 Privacidade atualizada."
-      [duration]="3000"
-    ></ion-toast>
   </div>
 
   <div class="toggle">
     <ion-toggle
-      id="open-toast5"
       labelPlacement="end"
       [(ngModel)]="privacidades.mostrarEstatisticasModalidadesEsportivas"
       (ionChange)="mostrarEstadoToggle(privacidades.mostrarEstatisticasModalidadesEsportivas)"
@@ -44,31 +36,24 @@
       Permitir que outros usuários vejam as minhas estatísticas de desempenho
       esportivas
     </ion-text>
-    <ion-toast
-      position="top"
-      trigger="open-toast5"
-      message="1 Privacidade atualizada."
-      [duration]="3000"
-    ></ion-toast>
   </div>
 
   <div class="toggle">
     <ion-toggle
-      id="open-toast8"
       labelPlacement="end"
       [(ngModel)]="privacidades.mostrarConquistas"
       (ionChange)="mostrarEstadoToggle(privacidades.mostrarConquistas)"
     ></ion-toggle>
     <ion-text>Permitir que outros usuários vejam as minhas conquistas</ion-text>
-    <ion-toast
-      position="top"
-      trigger="open-toast8"
-      message="4 Privacidade atualizada."
-      [duration]="3000"
-    ></ion-toast>
   </div>
 
-  <ion-button (click)="atualizarPrivacidade()" size="small" expand="block" class="icon-button">
+  <ion-button
+    id="open-toast8"
+    (click)="atualizarPrivacidade()"
+    size="small"
+    expand="block"
+    class="icon-button"
+  >
     <div class="text-container">Salvar</div>
     <div class="icon-align">
       <lucide-angular
@@ -78,4 +63,10 @@
       ></lucide-angular>
     </div>
   </ion-button>
+  <ion-toast
+    position="bottom"
+    trigger="open-toast8"
+    message="Privacidades salvas com sucesso!"
+    [duration]="3000"
+  ></ion-toast>
 </ion-content>

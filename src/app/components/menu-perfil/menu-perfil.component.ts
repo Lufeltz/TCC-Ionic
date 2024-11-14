@@ -50,6 +50,7 @@ import {
   Star,
   User,
 } from 'lucide-angular';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-menu-perfil',
@@ -94,7 +95,11 @@ export class MenuPerfilComponent implements OnInit {
   readonly Star = Star;
   readonly LogOut = LogOut;
 
-  constructor() {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {}
+
+  logout() {
+    this.authService.logout();
+  }
 }

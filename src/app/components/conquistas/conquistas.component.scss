@@ -26,12 +26,15 @@ div {
   margin-bottom: 1rem;
   color: var(--text-white);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
+  transition: background-color 0.3s, transform 0.3s, z-index 0.3s;
+  position: relative;
+  z-index: 1;
 }
 
 .item-lista:hover {
-  background-color: rgba(41, 128, 185, 0.4);
+  // background-color: var(--background-dark);
   transform: translateY(-2px);
+  z-index: 10;
 }
 
 .meta-esportiva {

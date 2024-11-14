@@ -253,3 +253,19 @@ ion-button {
   flex: 1;
   margin: 0 15px; /* Espaçamento entre os botões */
 }
+
+.item-lista2 ion-textarea {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  margin-top: 10px;
+  border-bottom: 2px solid var(--light-blue);
+  border-right: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+}

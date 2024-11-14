@@ -1,3 +1,3 @@
 export class LoginResponse {
-    jwtToken: string = ''
+    token: string = '';
 }

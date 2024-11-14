@@ -22,6 +22,7 @@ import {
   IonAccordion,
   IonIcon,
   IonList,
+  IonTextarea
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 import {
@@ -83,6 +84,7 @@ interface Meta {
     IonToggle,
     LucideAngularModule,
     ModalEditarMetaDiariaComponent,
+    IonTextarea
   ],
 })
 export class MetasPage implements OnInit {

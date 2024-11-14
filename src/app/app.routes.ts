@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './auth/auth.guard';
 
 export const routes: Routes = [
   {
@@ -80,6 +81,7 @@ export const routes: Routes = [
     path: 'homepage',
     loadComponent: () =>
       import('./pages/homepage/homepage.page').then((m) => m.HomepagePage),
+    canActivate:[AuthGuard],
     children: [
       {
         path: 'feed',

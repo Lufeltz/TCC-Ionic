@@ -34,9 +34,9 @@
           [size]="20"
           color="var(--purple-desc)"
         ></lucide-angular>
-        
+
         <p class="jogador-curso">
-          <strong>{{ getModalidades(academico) }}</strong>
+          {{ getModalidades(academico) }}
         </p>
       </div>
       <div class="icon-align">
@@ -46,7 +46,7 @@
           [size]="20"
           color="var(--yellow-desc)"
         ></lucide-angular>
-        <p class="jogador-curso"><strong>3.74(140 avaliações) ---> X</strong></p>
+        <p class="jogador-curso">3.74(140 avaliações) ---> X</p>
       </div>
       <div class="icon-align">
         <lucide-angular
@@ -55,7 +55,7 @@
           [size]="20"
           color="var(--text-orange)"
         ></lucide-angular>
-        <p class="jogador-curso"><strong>115 campeonatos ---> X</strong></p>
+        <p class="jogador-curso">115 campeonatos ---> X</p>
       </div>
       <div class="icon-align">
         <lucide-angular
@@ -65,7 +65,7 @@
           color="var(--text-pink)"
         ></lucide-angular>
         <p class="jogador-curso">
-          <strong>{{ academico.curso }}</strong>
+          {{ academico.curso }}
         </p>
       </div>
       <p class="jogador-foto">{{ academico.foto }}</p>

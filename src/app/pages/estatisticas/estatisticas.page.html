@@ -109,6 +109,20 @@
       <li class="item-lista">
         <div class="icon-align">
           <lucide-angular
+            [img]="UserRound"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Gênero</ion-label>
+        </div>
+
+        <ion-input [(ngModel)]="academico.genero"></ion-input>
+      </li>
+
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
             [img]="GraduationCap"
             class="btn-inscrever-se"
             [size]="20"

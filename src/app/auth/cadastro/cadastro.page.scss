@@ -19,7 +19,6 @@
     text-decoration: none;
   }
 
-  
   ion-item {
     --background: #121214;
     color: var(--gray-50);
@@ -28,15 +27,15 @@
     --padding-bottom: 10px;
     --padding-top: 10px;
   }
-  
+
   ion-icon {
-    color: var(--light-blue);
+    color: var(--light-blue); /* Cor do ícone para --light-blue */
   }
-  
+
   ion-radio-group {
     color: var(--gray-50);
   }
-  
+
   ion-list {
     margin-bottom: 15px;
     background-color: #202024;
@@ -46,33 +45,23 @@
   ion-icon {
     margin-right: 15px;
   }
-  
+
   ion-radio {
     --border-radius: 4px;
     --color: #ddd;
     --color-checked: var(--light-blue);
     --inner-border-radius: 4px;
   }
-  
-  ion-radio.ios::part(container) {
-    width: 20px;
-    height: 20px;
-    
-    border: 2px solid #ddd;
-    border-radius: 4px;
-  }
-  
+
   .radio-checked.ios::part(container) {
     border-color: var(--light-blue);
   }
 }
 
-
 ion-button {
   margin-top: 1.5rem;
   --background: var(--light-blue);
 }
-
 
 ion-button {
   margin-top: 16px;
@@ -98,4 +87,75 @@ ion-button {
   margin: 0;
   color: var(--text-white);
   font-size: 1rem;
+}
+
+/* Estilo para o campo de data */
+.styled-input {
+  background-color: #121214; /* Fundo preto */
+  color: var(--text-light); /* Cor do texto */
+  border: 1px solid #444; /* Borda */
+  border-radius: 5px;
+  padding: 10px;
+  width: 100%;
+  font-size: 1rem;
+}
+
+/* Estilo para o placeholder */
+.styled-input::placeholder {
+  color: var(--text-light)
+}
+
+/* Estilo para o placeholder simulado */
+.placeholder {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  color: #aaa;
+  font-size: 1rem;
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Esconde o placeholder simulado quando o campo é preenchido */
+.styled-input:focus + .placeholder,
+.styled-input:not(:placeholder-shown) + .placeholder {
+  display: none;
+}
+
+/* Ajustes específicos para o campo de data de nascimento */
+ion-item[type="date"] {
+  --background: #121214; /* Fundo preto para o item */
+  padding: 0; /* Remove o padding extra */
+}
+
+.styled-input[type="date"] {
+  background-color: #121214; /* Fundo preto */
+  color: var(--text-light); /* Cor do texto */
+  border: none; /* Remove a borda interna do campo */
+  padding: 0 10px; /* Adiciona um pouco de padding ao redor */
+}
+
+.styled-input[type="date"]::-webkit-calendar-picker-indicator {
+  color: var(--light-blue); /* Cor do ícone do calendário */
+  background-color: transparent;
+}
+
+/* Remover a borda e outline ao focar no campo de data */
+.styled-input[type="date"]:focus {
+  outline: none; /* Remove o outline (borda de foco) */
+  border: none; /* Remove qualquer borda extra ao focar */
+}
+
+/* Ajustes específicos para o campo de curso */
+ion-item[id="curso"] {
+  --background: #121214; /* Fundo preto para o item */
+  padding: 0; /* Remove o padding extra */
+}
+
+.styled-input[id="curso"] {
+  background-color: #121214; /* Fundo preto */
+  color: var(--text-light); /* Cor do texto */
+  border: none; /* Remove a borda interna do campo */
+  padding: 0 10px; /* Adiciona um pouco de padding ao redor */
+  
 }

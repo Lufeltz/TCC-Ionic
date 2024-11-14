@@ -1,16 +1,3 @@
-<div
-  *ngIf="message"
-  class="alert alert-danger alert-dismissible fade show"
-  role="alert"
->
-  {{ message }}
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="alert"
-    aria-label="Close"
-  ></button>
-</div>
 <ion-content [fullscreen]="true">
   <form #formLogin="ngForm">
     <div class="container">
@@ -23,7 +10,7 @@
               [img]="User"
               class="btn-inscrever-se"
               [size]="20"
-              [color]="'var(--light-blue)'"
+              [color]="'var(--yellow-desc)'"
             ></lucide-angular>
           </div>
           <ion-input
@@ -35,13 +22,33 @@
             #nome="ngModel"
           ></ion-input>
         </ion-item>
+
+        <ion-item>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="ALargeSmall"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+          </div>
+          <ion-input
+            type="text"
+            name="username"
+            id="username"
+            placeholder="Nome de Usuario"
+            [(ngModel)]="academico.username"
+            #username="ngModel"
+          ></ion-input>
+        </ion-item>
+
         <ion-item lines="none">
           <div class="icon-align">
             <lucide-angular
               [img]="AtSign"
               class="btn-inscrever-se"
               [size]="20"
-              [color]="'var(--light-blue)'"
+              [color]="'var(--yellow-desc)'"
             ></lucide-angular>
           </div>
           <ion-input
@@ -53,33 +60,80 @@
             #email="ngModel"
           ></ion-input>
         </ion-item>
+
         <ion-item>
           <div class="icon-align">
             <lucide-angular
-              [img]="Lock"
+              [img]="Phone"
               class="btn-inscrever-se"
               [size]="20"
-              [color]="'var(--light-blue)'"
+              [color]="'var(--yellow-desc)'"
             ></lucide-angular>
           </div>
           <ion-input
-            type="password"
-            name="password"
-            id="password"
-            placeholder="Senha"
-            [(ngModel)]="academico.password"
-            #password="ngModel"
+            type="number"
+            name="telefone"
+            id="telefone"
+            placeholder="Telefone"
+            [(ngModel)]="academico.telefone"
+            #telefone="ngModel"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="CalendarArrowUp"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+          </div>
+          <ion-input
+            type="date"
+            id="dataNascimento"
+            name="dataNascimento"
+          
+            [(ngModel)]="academico.dataNascimento"
+            #dataNascimento
+            class="styled-input"
+          ></ion-input>
+        </ion-item>
+
+        <ion-item id="curso">
+          <div class="icon-align">
+            <lucide-angular
+              [img]="GraduationCap"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+          </div>
+          <ion-input
+            type="string"
+            name="curso"
+            id="curso"
+            placeholder="Curso"
+            [(ngModel)]="academico.curso"
+            #curso="ngModel"
+            class="styled-input"
           ></ion-input>
         </ion-item>
       </ion-list>
-      <p>Gênero:</p>
-      <ion-radio-group [allowEmptySelection]="false" value="masculino">
+
+      <!-- <p>Gênero:</p>
+      <ion-radio-group
+        [(ngModel)]="academico.genero"
+        [allowEmptySelection]="false"
+        name="genero"
+      >
         <ion-radio value="feminino" labelPlacement="end">Feminino</ion-radio
         ><br />
         <ion-radio value="masculino" labelPlacement="end">Masculino</ion-radio
         ><br />
         <ion-radio value="outro" labelPlacement="end">Outro</ion-radio><br />
-      </ion-radio-group>
+      </ion-radio-group> -->
+
       <ion-button
         size="small"
         expand="block"

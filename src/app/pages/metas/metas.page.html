@@ -27,10 +27,10 @@
             ></lucide-angular>
             <ion-label>Título</ion-label>
           </div>
-          <ion-input
+          <ion-textarea
             [(ngModel)]="metaDiaria2.titulo"
             placeholder="Exemplo: Hidrate-se"
-          ></ion-input>
+          ></ion-textarea>
         </li>
         <li class="item-lista2">
           <div class="icon-align">
@@ -42,10 +42,10 @@
             ></lucide-angular>
             <ion-label>Descrição</ion-label>
           </div>
-          <ion-input
+          <ion-textarea
             [(ngModel)]="metaDiaria2.objetivo"
             placeholder="Exemplo: Beber 2 litros de água"
-          ></ion-input>
+          ></ion-textarea>
         </li>
         <li class="item-lista2">
           <div class="icon-align">
@@ -98,7 +98,7 @@
 
       <ion-toast
         trigger="open-toast"
-        message="Dados de perfil atualizados!"
+        message="Meta criada com sucesso!"
         [duration]="3000"
       ></ion-toast>
     </div>
