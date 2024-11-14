@@ -20,19 +20,19 @@ export class CampeonatoService {
     }),
   };
 
-  getAllCampeonatos(): Observable<Campeonato[] | null> {
+  getAllCampeonatos(page: number, size: number): Observable<Campeonato[] | null> {
     return this._http
-      .get<Campeonato[]>(`${this.NEW_URL}/listar`, this.httpOptions)
+      .get<Campeonato[]>(`${this.NEW_URL}/listar?page=${page}&size=${size}`, this.httpOptions)
       .pipe(
         map((resp: HttpResponse<Campeonato[]>) => {
-          if (resp.status == 200) {
+          if (resp.status === 200) {
             return resp.body;
           } else {
             return [];
           }
         }),
-        catchError((err, caught) => {
-          if (err.status == 404) {
+        catchError((err) => {
+          if (err.status === 404) {
             return of([]);
           } else {
             return throwError(() => err);

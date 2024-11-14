@@ -18,7 +18,7 @@
           <ion-label>Nome</ion-label>
         </div>
 
-        <ion-input [(ngModel)]="academico.nome"></ion-input>
+        <ion-input *ngIf="academico" [(ngModel)]="academico.nome"></ion-input>
       </li>
       <li class="item-lista">
         <div class="icon-align">
@@ -31,7 +31,10 @@
           <ion-label>Username</ion-label>
         </div>
 
-        <ion-input [(ngModel)]="academico.username"></ion-input>
+        <ion-input
+          *ngIf="academico"
+          [(ngModel)]="academico.username"
+        ></ion-input>
       </li>
 
       <li class="item-lista">
@@ -44,10 +47,11 @@
           ></lucide-angular>
           <ion-label>Senha</ion-label>
         </div>
-      
+
         <ion-input
           [type]="showPassword ? 'text' : 'password'"
           placeholder="*******"
+          *ngIf="academico"
           [(ngModel)]="academico.password"
           class="input-with-icon"
         >
@@ -62,11 +66,7 @@
           </div>
         </ion-input>
       </li>
-      
-      
-      
 
-      
       <li class="item-lista">
         <div class="icon-align">
           <lucide-angular
@@ -78,8 +78,9 @@
           <ion-label>Email</ion-label>
         </div>
 
-        <ion-input [(ngModel)]="academico.email"></ion-input>
+        <ion-input *ngIf="academico" [(ngModel)]="academico.email"></ion-input>
       </li>
+
       <li class="item-lista">
         <div class="icon-align">
           <lucide-angular
@@ -90,9 +91,16 @@
           ></lucide-angular>
           <ion-label>Data de Nascimento</ion-label>
         </div>
-
-        <ion-input [(ngModel)]="academico.dataNascimento"></ion-input>
+      
+        <ion-input
+          *ngIf="academico"
+          [(ngModel)]="academico.dataNascimento"
+          [value]="academico.dataNascimento | date:'short'"
+        ></ion-input>
       </li>
+      
+      
+
       <li class="item-lista">
         <div class="icon-align">
           <lucide-angular
@@ -104,7 +112,10 @@
           <ion-label>Telefone</ion-label>
         </div>
 
-        <ion-input [(ngModel)]="academico.telefone"></ion-input>
+        <ion-input
+          *ngIf="academico"
+          [(ngModel)]="academico.telefone"
+        ></ion-input>
       </li>
       <li class="item-lista">
         <div class="icon-align">
@@ -117,7 +128,11 @@
           <ion-label>Gênero</ion-label>
         </div>
 
-        <ion-input [(ngModel)]="academico.genero"></ion-input>
+        <ion-input
+          *ngIf="academico"
+          placeholder="Masculino, Feminino, Outros..."
+          [(ngModel)]="academico.genero"
+        ></ion-input>
       </li>
 
       <li class="item-lista">
@@ -131,7 +146,7 @@
           <ion-label>Curso</ion-label>
         </div>
 
-        <ion-input [(ngModel)]="academico.curso"></ion-input>
+        <ion-input *ngIf="academico" [(ngModel)]="academico.curso"></ion-input>
       </li>
     </ul>
     <ion-button

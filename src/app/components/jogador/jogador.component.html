@@ -34,11 +34,21 @@
           [size]="20"
           color="var(--purple-desc)"
         ></lucide-angular>
-
         <p class="jogador-curso">
           {{ getModalidades(academico) }}
         </p>
       </div>
+      
+      <!-- <div class="icon-align">
+        <lucide-angular
+          [img]="Star"
+          class="btn-inscrever-se"
+          [size]="20"
+          color="var(--yellow-desc)"
+        ></lucide-angular>
+        <p class="jogador-curso">3.74(140 avaliações)  X</p>
+      </div> -->
+
       <div class="icon-align">
         <lucide-angular
           [img]="Star"
@@ -46,8 +56,9 @@
           [size]="20"
           color="var(--yellow-desc)"
         ></lucide-angular>
-        <p class="jogador-curso">3.74(140 avaliações) ---> X</p>
+        <p class="jogador-curso">14 Vitórias / 17 Derrotas </p>
       </div>
+
       <div class="icon-align">
         <lucide-angular
           [img]="Trophy"
@@ -71,4 +82,21 @@
       <p class="jogador-foto">{{ academico.foto }}</p>
     </li>
   </ul>
+
+  <!-- Botão para carregar mais jogadores -->
+  <ion-button
+    size="small"
+    expand="block"
+    class="icon-button"
+    (click)="loadMore()"
+  >
+    <div class="text-container">Mais Jogadores</div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="ArrowDownToDot"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+    </div>
+  </ion-button>
 </div>

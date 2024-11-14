@@ -96,6 +96,10 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   loading: boolean = true;
   filteredCampeonatos: Campeonato[] = [];
 
+  currentPage: number = 0;
+  pageSize: number = 5;
+  totalPages: number = 0;
+
   @Input() statusToggles: {
     aberto?: boolean;
     finalizado?: boolean;
@@ -115,31 +119,44 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
       ? 'var(--light-red)'
       : 'var(--text-new-green)'; // 'red' para 'privado', 'green' para 'público'
   }
+
   ngOnInit() {
     this.listarCampeonatos();
   }
 
-  listarCampeonatos(): Campeonato[] {
-    this.campeonatoService.getAllCampeonatos().subscribe({
-      next: (data: Campeonato[] | null) => {
+  listarCampeonatos(): void {
+    this.campeonatoService.getAllCampeonatos(this.currentPage, this.pageSize).subscribe({
+      next: (data: any) => {
         this.loading = false; // Define loading como falso quando os dados são recebidos
-        if (data == null) {
+        if (data.content == null) {
           this.campeonatos = [];
         } else {
-          this.campeonatos = data;
+          if (this.currentPage === 0) {
+            this.campeonatos = data.content;
+          } else {
+            this.campeonatos = [...this.campeonatos, ...data.content];  // Concatenando os novos dados
+          }
+          this.totalPages = data.totalPages;
           console.log(this.campeonatos);
         }
       },
       error: (err) => {
         this.loading = false; // Define loading como falso em caso de erro
-        this.mensagem = 'Erro buscando lista de funcionários';
+        this.mensagem = 'Erro buscando lista de campeonatos';
         this.mensagem_detalhes = `[${err.status} ${err.message}]`;
       },
     });
-    return this.campeonatos;
   }
+
   ngOnChanges(changes: SimpleChanges): void {
     // Implementar se necessário
+  }
+
+  loadMore(): void {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++;
+      this.listarCampeonatos();
+    }
   }
 
   async presentAlertPrompt(campeonato: Campeonato, errorMessage: string = '') {

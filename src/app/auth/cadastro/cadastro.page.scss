@@ -92,17 +92,17 @@ ion-button {
 /* Estilo para o campo de data */
 .styled-input {
   background-color: #121214; /* Fundo preto */
-  color: var(--text-light); /* Cor do texto */
-  border: 1px solid #444; /* Borda */
+  color: var(--text-white); /* Cor do texto */
+  // border: 1px solid #444; /* Borda */
   border-radius: 5px;
   padding: 10px;
   width: 100%;
-  font-size: 1rem;
+  // font-size: 1rem;
 }
 
 /* Estilo para o placeholder */
 .styled-input::placeholder {
-  color: var(--text-light)
+  color: var(--text-white)
 }
 
 /* Estilo para o placeholder simulado */
@@ -110,7 +110,7 @@ ion-button {
   position: absolute;
   top: 10px;
   left: 10px;
-  color: #aaa;
+  color: var(--text-white);
   font-size: 1rem;
   pointer-events: none;
   transition: all 0.3s ease;
@@ -130,7 +130,7 @@ ion-item[type="date"] {
 
 .styled-input[type="date"] {
   background-color: #121214; /* Fundo preto */
-  color: var(--text-light); /* Cor do texto */
+  color: var(--text-white); /* Cor do texto */
   border: none; /* Remove a borda interna do campo */
   padding: 0 10px; /* Adiciona um pouco de padding ao redor */
 }
@@ -141,10 +141,10 @@ ion-item[type="date"] {
 }
 
 /* Remover a borda e outline ao focar no campo de data */
-.styled-input[type="date"]:focus {
-  outline: none; /* Remove o outline (borda de foco) */
-  border: none; /* Remove qualquer borda extra ao focar */
-}
+// .styled-input[type="date"]:focus {
+//   outline: none; /* Remove o outline (borda de foco) */
+//   border: none; /* Remove qualquer borda extra ao focar */
+// }
 
 /* Ajustes específicos para o campo de curso */
 ion-item[id="curso"] {
@@ -154,8 +154,9 @@ ion-item[id="curso"] {
 
 .styled-input[id="curso"] {
   background-color: #121214; /* Fundo preto */
-  color: var(--text-light); /* Cor do texto */
+  color: var(--gray-50);
   border: none; /* Remove a borda interna do campo */
   padding: 0 10px; /* Adiciona um pouco de padding ao redor */
   
 }
+

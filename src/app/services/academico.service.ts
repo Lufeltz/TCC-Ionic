@@ -18,19 +18,41 @@ export class AcademicoService {
     }),
   };
 
-  getAllAcademicos(): Observable<Academico[] | null> {
+  // getAllAcademicos(): Observable<Academico[] | null> {
+  //   return this._http
+  //     .get<Academico[]>(`${this.NEW_URL}/listar`, this.httpOptions)
+  //     .pipe(
+  //       map((resp: HttpResponse<Academico[]>) => {
+  //         if (resp.status == 200) {
+  //           return resp.body;
+  //         } else {
+  //           return [];
+  //         }
+  //       }),
+  //       catchError((err, caught) => {
+  //         if (err.status == 404) {
+  //           return of([]);
+  //         } else {
+  //           return throwError(() => err);
+  //         }
+  //       })
+  //     );
+  // }
+
+  getAllAcademicos(page: number, size: number): Observable<Academico[] | null> {
+    const url = `${this.NEW_URL}/listar?page=${page}&size=${size}&sort=curso,desc`;
     return this._http
-      .get<Academico[]>(`${this.NEW_URL}/listar`, this.httpOptions)
+      .get<Academico[]>(url, this.httpOptions)
       .pipe(
         map((resp: HttpResponse<Academico[]>) => {
-          if (resp.status == 200) {
+          if (resp.status === 200) {
             return resp.body;
           } else {
             return [];
           }
         }),
-        catchError((err, caught) => {
-          if (err.status == 404) {
+        catchError((err) => {
+          if (err.status === 404) {
             return of([]);
           } else {
             return throwError(() => err);
@@ -38,6 +60,8 @@ export class AcademicoService {
         })
       );
   }
+  
+  
 
   getAcademicoById(id: number): Observable<Academico | null> {
     return this._http

@@ -1,5 +1,5 @@
 export class Cadastro {
-  curso: string = 'tads';
+  curso: string = '';
   username: string = '';
   email: string = '';
   password: null = null;
