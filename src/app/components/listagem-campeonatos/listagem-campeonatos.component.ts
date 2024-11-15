@@ -48,6 +48,12 @@ import { FormsModule } from '@angular/forms';
 import { TitleCasePipe } from 'src/app/pipes/title-case.pipe';
 import { EnderecoService } from 'src/app/services/endereco.service';
 import { Endereco } from 'src/app/models/endereco.model';
+import {
+  ModalidadeEsportiva,
+  Modalidades,
+} from 'src/app/models/modalidades.model';
+import { ModalidadesService } from 'src/app/services/modalidades.service';
+import { Academico } from 'src/app/models/academico.model';
 
 @Component({
   selector: 'app-listagem-campeonatos',
@@ -91,10 +97,14 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   readonly ArrowDownToDot = ArrowDownToDot;
 
   campeonatos: Campeonato[] = [];
+  modalidades: ModalidadeEsportiva[] = []; // Armazena a lista de modalidades
+  modalidadesSimplificadas: { idModalidadeEsportiva: number; nome: string }[] = []; // Variável para armazenar o novo array
+
   mensagem!: string;
   mensagem_detalhes!: string;
   loading: boolean = true;
   filteredCampeonatos: Campeonato[] = [];
+  academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
 
   currentPage: number = 0;
   pageSize: number = 5;
@@ -111,7 +121,8 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
 
   constructor(
     private alertController: AlertController,
-    private campeonatoService: CampeonatoService
+    private campeonatoService: CampeonatoService,
+    private modalidadeService: ModalidadesService
   ) {}
 
   getLockColor(privacidade: string): string {
@@ -121,31 +132,77 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    this.loadModalidades();
     this.listarCampeonatos();
   }
 
-  listarCampeonatos(): void {
-    this.campeonatoService.getAllCampeonatos(this.currentPage, this.pageSize).subscribe({
-      next: (data: any) => {
-        this.loading = false; // Define loading como falso quando os dados são recebidos
-        if (data.content == null) {
-          this.campeonatos = [];
+  loadModalidades(): void {
+    this.modalidadeService.getAllModalidades().subscribe({
+      next: (modalidades) => {
+        if (modalidades && modalidades.length > 0) {
+          this.modalidades = modalidades; // Atribui corretamente um array de ModalidadeEsportiva
+          console.log('Modalidades carregadas:', this.modalidades);
+          this.gerarModalidadesSimplificadas(); // Chama a função para gerar o array simplificado
         } else {
-          if (this.currentPage === 0) {
-            this.campeonatos = data.content;
-          } else {
-            this.campeonatos = [...this.campeonatos, ...data.content];  // Concatenando os novos dados
-          }
-          this.totalPages = data.totalPages;
-          console.log(this.campeonatos);
+          console.warn('Nenhuma modalidade encontrada');
+          this.modalidades = [];
         }
       },
       error: (err) => {
-        this.loading = false; // Define loading como falso em caso de erro
-        this.mensagem = 'Erro buscando lista de campeonatos';
-        this.mensagem_detalhes = `[${err.status} ${err.message}]`;
+        console.error('Erro ao carregar modalidades', err);
       },
     });
+  }
+  
+  
+  gerarModalidadesSimplificadas(): void {
+    // Verifica se `this.modalidades` é um array e não está vazio
+    if (Array.isArray(this.modalidades) && this.modalidades.length > 0) {
+      // Mapeia o array diretamente e extrai o id e nome de cada modalidade
+      this.modalidadesSimplificadas = this.modalidades.map(modalidade => ({
+        idModalidadeEsportiva: modalidade.idModalidadeEsportiva,
+        nome: modalidade.nome
+      }));
+    } else {
+      console.warn('A lista de modalidades está vazia ou com formato incorreto');
+    }
+  
+    console.log('Modalidades simplificadas:', this.modalidadesSimplificadas);
+  }
+  
+  
+  getNomeModalidade(id: number): string | undefined {
+    // Busca o nome da modalidade no array de modalidades simplificadas
+    const modalidade = this.modalidadesSimplificadas.find(mod => mod.idModalidadeEsportiva === id);
+    return modalidade ? modalidade.nome : 'Modalidade não encontrada'; // Retorna o nome ou uma mensagem de erro
+  }
+  
+  
+  
+  listarCampeonatos(): void {
+    this.campeonatoService
+      .getAllCampeonatos(this.currentPage, this.pageSize)
+      .subscribe({
+        next: (data: any) => {
+          this.loading = false; // Define loading como falso quando os dados são recebidos
+          if (data.content == null) {
+            this.campeonatos = [];
+          } else {
+            if (this.currentPage === 0) {
+              this.campeonatos = data.content;
+            } else {
+              this.campeonatos = [...this.campeonatos, ...data.content]; // Concatenando os novos dados
+            }
+            this.totalPages = data.totalPages;
+            console.log(this.campeonatos);
+          }
+        },
+        error: (err) => {
+          this.loading = false; // Define loading como falso em caso de erro
+          this.mensagem = 'Erro buscando lista de campeonatos';
+          this.mensagem_detalhes = `[${err.status} ${err.message}]`;
+        },
+      });
   }
 
   ngOnChanges(changes: SimpleChanges): void {

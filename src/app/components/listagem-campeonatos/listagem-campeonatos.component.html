@@ -50,11 +50,11 @@
           <h3 class="campeonato-nome">
             {{ campeonato.titulo }}
             <lucide-angular
-            [img]="Lock"
-            class="cadeado-icon"
-            [size]="20"
-            [color]="getLockColor(campeonato.privacidadeCampeonato)"
-          ></lucide-angular>          
+              [img]="Lock"
+              class="cadeado-icon"
+              [size]="20"
+              [color]="getLockColor(campeonato.privacidadeCampeonato)"
+            ></lucide-angular>
           </h3>
         </div>
 
@@ -99,7 +99,12 @@
               [size]="20"
               [color]="'var(--purple-desc)'"
             ></lucide-angular>
-            <p><strong>Modalidade: </strong>Futebol</p>
+            <p *ngIf="!loading">
+              <strong>Modalidade: </strong>
+              {{ getNomeModalidade(campeonato.idModalidadeEsportiva) }}
+            </p>
+            
+            
           </div>
           <div class="icon-align">
             <lucide-angular
@@ -262,7 +267,12 @@
         </div>
       </li>
     </ul>
-    <ion-button size="small" expand="block" class="icon-button" (click)="loadMore()">
+    <ion-button
+      size="small"
+      expand="block"
+      class="icon-button"
+      (click)="loadMore()"
+    >
       <div class="text-container">Mais Campeonatos</div>
       <div class="icon-align">
         <lucide-angular
@@ -272,6 +282,5 @@
         ></lucide-angular>
       </div>
     </ion-button>
-    
   </ng-template>
 </div>

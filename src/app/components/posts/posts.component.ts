@@ -4,12 +4,22 @@ import { PostService } from 'src/app/services/post.service';
 import { ComentarioService } from 'src/app/services/comentario.service';
 import { PostApiResponse } from 'src/app/models/post-api-response.model';
 import { ComentarioApiResponse } from 'src/app/models/comentario-api-response.model';
-import { Comentario } from 'src/app/models/comentario.model'; // Certifique-se de que o caminho esteja correto
-import { ArrowDown, ArrowDownToDot, LucideAngularModule, MessageCircleMore, RotateCw, Star, UserRound } from 'lucide-angular';
+import { Comentario } from 'src/app/models/comentario.model';
+import {
+  ArrowDown,
+  ArrowDownToDot,
+  LucideAngularModule,
+  MessageCircleMore,
+  RotateCw,
+  Star,
+  UserRound,
+} from 'lucide-angular';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';  // Adicionado o IonicModule
+import { IonicModule } from '@ionic/angular';
 import { ModalCurtidasComponent } from '../modal-curtidas/modal-curtidas.component';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service'; // Importar o AuthService
+import { Academico } from 'src/app/models/academico.model'; // Importar o modelo Academico
 
 @Component({
   selector: 'app-posts',
@@ -18,10 +28,10 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [
     CommonModule,
-    IonicModule,  // Adicionando o módulo Ionic
+    IonicModule,
     LucideAngularModule,
     ModalCurtidasComponent,
-    FormsModule
+    FormsModule,
   ],
 })
 export class PostsComponent implements OnInit, OnChanges {
@@ -29,10 +39,11 @@ export class PostsComponent implements OnInit, OnChanges {
   public filteredPublications: any[] = [];
   public modalCurtidasVisible = false;
   public curtidasParaExibir: any[] = [];
-  public novoComentario: { [key: string]: string } = {}; // Para armazenar novos comentários
+  public novoComentario: { [key: string]: string } = {};
   private currentPage = 0;
   private pageSize = 10;
   private comentarioSize = 5;
+  public usuarioLogado: Academico | null = null; // Adicionar propriedade para o usuário logado
 
   readonly RotateCw = RotateCw;
   readonly UserRound = UserRound;
@@ -43,7 +54,8 @@ export class PostsComponent implements OnInit, OnChanges {
   constructor(
     private _http: HttpClient,
     private postsService: PostService,
-    private comentarioService: ComentarioService
+    private comentarioService: ComentarioService,
+    private authService: AuthService // Injetar AuthService
   ) {}
 
   ngOnChanges() {
@@ -64,31 +76,55 @@ export class PostsComponent implements OnInit, OnChanges {
   }
 
   curtir(publicacao: any) {
-    if (!publicacao.isCurtiu) {
-      publicacao.listaUsuarioCurtida.push({
-        nome: 'Usuário atual',
-        username: 'usuario_atual',
-      });
-      publicacao.isCurtiu = true;
-    } else {
-      publicacao.listaUsuarioCurtida.pop();
-      publicacao.isCurtiu = false;
+    if (this.usuarioLogado) {
+      if (!publicacao.isCurtiu) {
+        publicacao.listaUsuarioCurtida.push({
+          nome: this.usuarioLogado.nome,
+          username: this.usuarioLogado.username,
+        });
+        publicacao.isCurtiu = true;
+      } else {
+        publicacao.listaUsuarioCurtida = publicacao.listaUsuarioCurtida.filter(
+          (usuario: any) => usuario.username !== this.usuarioLogado?.username
+        );
+        publicacao.isCurtiu = false;
+      }
+      console.log(publicacao.listaUsuarioCurtida);
     }
-    console.log(publicacao.listaUsuarioCurtida);
   }
 
-  curtirComentario(comentario: any) {
-    if (!comentario.isCurtiu) {
-      comentario.listaUsuarioCurtida.push({
-        nome: 'Usuário atual',
-        username: 'usuario_atual',
-      });
-      comentario.isCurtiu = true;
-    } else {
-      comentario.listaUsuarioCurtida.pop();
-      comentario.isCurtiu = false;
+  curtirComentario(comentario: any, publicacao: any) {
+    if (this.usuarioLogado) {
+      if (!comentario.isCurtiu) {
+        this.comentarioService.curtirComentario(this.usuarioLogado.idAcademico, comentario.idComentario)
+          .subscribe(
+            (response) => {
+              comentario.listaUsuarioCurtida.push({
+                nome: this.usuarioLogado!.nome,
+                username: this.usuarioLogado!.username,
+              });
+              comentario.isCurtiu = true;
+            },
+            (error) => {
+              console.error('Erro ao curtir o comentário', error);
+            }
+          );
+      } else {
+        this.comentarioService.removerCurtidaComentario(this.usuarioLogado.idAcademico, comentario.idComentario)
+          .subscribe(
+            (response) => {
+              comentario.listaUsuarioCurtida = comentario.listaUsuarioCurtida.filter(
+                (usuario: any) => usuario.username !== this.usuarioLogado?.username
+              );
+              comentario.isCurtiu = false;
+            },
+            (error) => {
+              console.error('Erro ao remover curtida do comentário', error);
+            }
+          );
+      }
+      console.log(comentario.listaUsuarioCurtida);
     }
-    console.log(comentario.listaUsuarioCurtida);
   }
 
   abrirModalCurtidas(listaCurtidas: any[]) {
@@ -101,20 +137,28 @@ export class PostsComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    this.listarPosts(); // Carregar posts ao iniciar
+    this.authService.getAcademicoLogado().subscribe(
+      (usuario) => {
+        this.usuarioLogado = usuario;
+        this.listarPosts(); // Carregar posts após obter o usuário logado
+      },
+      (err) => {
+        console.error('Erro ao obter usuário logado', err);
+      }
+    );
   }
 
   listarPosts() {
     this.postsService.getAllPosts(this.currentPage, this.pageSize).subscribe(
       (response: PostApiResponse) => {
-        console.log(response.content); // Exibe somente os posts
+        console.log(response.content);
         if (response && response.content.length > 0) {
           this.filteredPublications = [
             ...this.filteredPublications,
             ...response.content,
           ];
-          this.currentPage++; // Incrementa a página para próxima requisição
-          this.listarComentarios(); // Carrega os comentários para cada post
+          this.currentPage++;
+          this.listarComentarios();
         }
       },
       (err) => {
@@ -129,7 +173,7 @@ export class PostsComponent implements OnInit, OnChanges {
         .getAllComentarios(publicacao.idPublicacao, 0, this.comentarioSize)
         .subscribe(
           (response: ComentarioApiResponse) => {
-            console.log(response.content); // Exibe somente os comentários
+            console.log(response.content);
             if (response && response.content.length > 0) {
               publicacao.listaComentario = response.content;
             } else {
@@ -154,7 +198,7 @@ export class PostsComponent implements OnInit, OnChanges {
               ...publicacao.listaComentario,
               ...response.content,
             ];
-            publicacao.currentPage = nextPage; // Atualiza a página atual para a publicação
+            publicacao.currentPage = nextPage;
           }
         },
         (err) => {
@@ -165,7 +209,7 @@ export class PostsComponent implements OnInit, OnChanges {
 
   comentar(publicacao: any) {
     const novoComentarioTexto = this.novoComentario[publicacao.idPublicacao];
-    if (!novoComentarioTexto) {
+    if (!novoComentarioTexto || !this.usuarioLogado) {
       return;
     }
 
@@ -175,14 +219,16 @@ export class PostsComponent implements OnInit, OnChanges {
       dataComentario: new Date(),
       idPublicacao: publicacao.idPublicacao,
       Usuario: {
-        idUsuario: 6, // Substitua pelo ID do usuário atual
-        username: 'usuario_atual', // Substitua pelo username do usuário atual
-        nome: 'Nome do Usuário Atual', // Substitua pelo nome do usuário atual
-        foto: null,
-        permissao: 'ACADEMICO', // Substitua pela permissão do usuário atual, se necessário
+        idUsuario: this.usuarioLogado.idAcademico, // ID do usuário logado
+        username: this.usuarioLogado.username, // Username do usuário logado
+        nome: this.usuarioLogado.nome, // Nome do usuário logado
+        foto: this.usuarioLogado.foto || null,
+        permissao: this.usuarioLogado.permissao, // Permissão do usuário logado
       },
       listaUsuarioCurtida: [],
     };
+
+    console.log(comentario)
 
     this.comentarioService.postComentario(comentario).subscribe(
       (comentarioCriado) => {

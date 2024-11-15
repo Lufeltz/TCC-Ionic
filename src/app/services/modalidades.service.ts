@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
-import { Modalidades } from '../models/modalidades.model';
+import { ModalidadeEsportiva, Modalidades } from '../models/modalidades.model';
 
 @Injectable({
   providedIn: 'root',
@@ -41,19 +41,19 @@ export class ModalidadesService {
   }
 
   // Retorna um array de Modalidades, e cada Modalidade possui ModalidadeEsportiva[] dentro dela
-  getAllModalidades(): Observable<Modalidades[] | null> {
+  getAllModalidades(): Observable<ModalidadeEsportiva[] | null> {
     return this._http
-      .get<Modalidades[]>(`${this.NEW_URL}/listar`, this.httpOptions)
+      .get<ModalidadeEsportiva[]>(`${this.NEW_URL}/listar`, this.httpOptions)
       .pipe(
-        map((resp: HttpResponse<Modalidades[]>) => {
-          if (resp.status == 200) {
-            return resp.body; // Retorna um array de Modalidades
+        map((resp: HttpResponse<ModalidadeEsportiva[]>) => {
+          if (resp.status === 200) {
+            return resp.body; // Retorna o array de ModalidadeEsportiva
           } else {
             return [];
           }
         }),
-        catchError((err, caught) => {
-          if (err.status == 404) {
+        catchError((err) => {
+          if (err.status === 404) {
             return of([]); // Retorna um array vazio em caso de erro
           } else {
             return throwError(() => err);
@@ -61,6 +61,8 @@ export class ModalidadesService {
         })
       );
   }
+  
+  
 
   inscreverModalidade(
     usuarioId: number,

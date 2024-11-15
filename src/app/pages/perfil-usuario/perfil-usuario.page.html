@@ -7,14 +7,11 @@
 
   <ion-segment [(ngModel)]="selectedSegment">
     <ion-segment-button value="estatisticas-pessoais">
-      <ion-label>Pessoais</ion-label>
+      <ion-label>Gerais</ion-label>
     </ion-segment-button>
     <ion-segment-button value="conquistas">
       <ion-label>Conquistas</ion-label>
     </ion-segment-button>
-    <!-- <ion-segment-button value="estatisticas-esportivas">
-      <ion-label>Esportivas</ion-label>
-    </ion-segment-button> -->
   </ion-segment>
 
   <div *ngIf="selectedSegment === 'estatisticas-pessoais'">

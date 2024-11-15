@@ -10,7 +10,7 @@ export class PublicacaoService {
   constructor(private _http: HttpClient) {}
 
   private readonly NEW_URL = 'http://localhost:8081';
-  
+
   httpOptions = {
     observe: 'response' as 'response',
     headers: new HttpHeaders({
@@ -40,7 +40,6 @@ export class PublicacaoService {
         })
       );
   }
-  
 
   // Método PUT
   putPublicacao(publicacao: Publicacao): Observable<Publicacao | null> {
@@ -80,6 +79,52 @@ export class PublicacaoService {
         }),
         catchError((err) => {
           return throwError(() => err); // Retorna o erro em caso de falha
+        })
+      );
+  }
+
+  // Método para curtir uma publicação
+  curtirPublicacao(userId: number, publicacaoId: number): Observable<any> {
+    return this._http
+      .post<any>(
+        `${this.NEW_URL}/publicacao/curtirPublicacao/${userId}/${publicacaoId}`,
+        {},
+        this.httpOptions
+      )
+      .pipe(
+        map((resp: HttpResponse<any>) => {
+          if (resp.status === 200 && resp.body) {
+            return resp.body;
+          } else {
+            return null;
+          }
+        }),
+        catchError((err) => {
+          return throwError(() => err);
+        })
+      );
+  }
+
+  // Método para remover a curtida de uma publicação
+  removerCurtidaPublicacao(
+    userId: number,
+    publicacaoId: number
+  ): Observable<any> {
+    return this._http
+      .delete<any>(
+        `${this.NEW_URL}/publicacao/removerCurtidaPublicacao/${userId}/${publicacaoId}`,
+        this.httpOptions
+      )
+      .pipe(
+        map((resp: HttpResponse<any>) => {
+          if (resp.status === 200 && resp.body) {
+            return resp.body;
+          } else {
+            return null;
+          }
+        }),
+        catchError((err) => {
+          return throwError(() => err);
         })
       );
   }

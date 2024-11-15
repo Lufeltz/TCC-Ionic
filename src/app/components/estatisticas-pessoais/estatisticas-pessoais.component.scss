@@ -48,10 +48,68 @@ div {
   border-bottom: 2px solid var(--text-pink);
 }
 
+.meta-completo {
+  border-color: var(--purple-desc);
+}
+
+.meta-incompleto {
+  border-color: var(--light-red);
+}
+
 .container {
   margin-top: 2.5rem;
 }
 
 .item-lista p {
   margin: 0;
+}
+
+.h3 {
+  margin: 0;
+  color: var(--text-white);
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+.texto-light {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.icon-completo {
+  color: var(--purple-desc);
+}
+
+.icon-incompleto {
+  color: var(--light-red);
+}
+
+.titulo-completo {
+  color: var(--purple-desc);
+}
+
+.titulo-incompleto {
+  color: var(--light-red);
+}
+
+.item-lista h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }

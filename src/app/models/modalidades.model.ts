@@ -7,6 +7,6 @@ export class ModalidadeEsportiva {
 }
 
 export class Modalidades {
-  usuarioId: number = 1;
+  usuarioId: number = 0;
   modalidades: ModalidadeEsportiva[] = [];
 }

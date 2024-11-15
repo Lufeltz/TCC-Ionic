@@ -3,50 +3,51 @@ import { Component, OnInit } from '@angular/core';
 import { EstatisticaModalidade } from 'src/app/models/estatistica-modalidade.model';
 import { EstatisticaUso } from 'src/app/models/estatistica-uso.model';
 import { EstatisticasAcademicoService } from 'src/app/services/estatisticas-academico.service';
+import { AuthService } from 'src/app/services/auth.service'; // Importe o AuthService
+import { Academico } from 'src/app/models/academico.model'; // Importe o modelo Academico
+import { EstatisticaModalidadeGeral } from 'src/app/models/estatistica-modalidade-geral.model';
+import { CircleDashed, LucideAngularModule, SignalHigh, Target } from 'lucide-angular';
+
 
 @Component({
   selector: 'app-estatisticas-pessoais',
   templateUrl: './estatisticas-pessoais.component.html',
   styleUrls: ['./estatisticas-pessoais.component.scss'],
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, LucideAngularModule],
 })
 export class EstatisticasPessoaisComponent implements OnInit {
-  usuario = {
-    nome: 'Carlos Ribeiro',
-    idade: 30,
-    peso: 70,
-    altura: 1.75,
-    estatisticasPessoais: {
-      metasConcluidas: 15,
-      metasDiariasEmAndamento: 13,
-      metasDiariasConcluidas: 5,
-      totalMetas: 30,
-      metasMensais: {
-        total: 25,
-        concluidas: 10,
-        emAndamento: 5,
-      },
-      progressoGeral: 75, // Porcentagem de progresso
-      defesas: 20,
-      golsMarcados: 10,
-      assistencias: 5,
-      jogosJogados: 18,
-      vitorias: 12,
-      derrotas: 4,
-      empates: 2,
-    },
-  };
-
   estatisticasUso: EstatisticaUso[] = [];
-  estatisticasModalidade: EstatisticaModalidade[] = [];
+  estatisticasModalidadeUnica: EstatisticaModalidade[] = [];
+  estatisticasModalidadeGeral: EstatisticaModalidadeGeral | null = null; // Alterado para ser um único objeto
+  academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
 
-  constructor(private estatisticaService: EstatisticasAcademicoService) {}
+  readonly CircleDashed =CircleDashed;
+  readonly Target =Target;
+  readonly SignalHigh =SignalHigh;
+
+  constructor(
+    private estatisticaService: EstatisticasAcademicoService,
+    private authService: AuthService // Injeção do AuthService
+  ) {}
 
   ngOnInit() {
-    // Chama a função que realiza a requisição e salva os dados
-    this.loadEstatisticasUso(1);
-    this.loadEstatisticasModalidade(1, 1); // Exemplo de IDs
+    // Obter dados do acadêmico logado
+    this.authService.getAcademicoLogado().subscribe({
+      next: (data: Academico | null) => {
+        this.academico = data;
+        console.log('Dados do acadêmico logado:', this.academico);
+
+        // Se academico não for null, carregar estatísticas
+        if (this.academico) {
+          this.loadEstatisticasUso(this.academico.idAcademico);
+          this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao obter dados do acadêmico logado:', err);
+      },
+    });
   }
 
   // Função para realizar a requisição e salvar os dados
@@ -54,10 +55,6 @@ export class EstatisticasPessoaisComponent implements OnInit {
     this.estatisticaService.getEstatisticasUso(id).subscribe({
       next: (data: EstatisticaUso[] | null) => {
         this.estatisticasUso = data || [];
-        console.log(
-          'Dados de estatísticas de uso recebidos:',
-          this.estatisticasUso
-        );
       },
       error: (err) => {
         console.error('Erro ao buscar dados de estatísticas de uso:', err);
@@ -71,18 +68,32 @@ export class EstatisticasPessoaisComponent implements OnInit {
       .getEstatisticasModalidade(idAcademico, idModalidade)
       .subscribe({
         next: (data: EstatisticaModalidade[] | null) => {
-          this.estatisticasModalidade = data || [];
+          const estatisticas = data || [];
+          this.estatisticasModalidadeUnica.push(...estatisticas);
           console.log(
-            'Dados de estatísticas de modalidade recebidos:',
-            this.estatisticasModalidade
+            `Dados de estatísticas de modalidade recebidos para modalidade ${idModalidade}:`,
+            estatisticas
           );
         },
         error: (err) => {
           console.error(
-            'Erro ao buscar dados de estatísticas de modalidade:',
+            `Erro ao buscar dados de estatísticas de modalidade para modalidade ${idModalidade}:`,
             err
           );
         },
       });
+  }
+
+  // Função para realizar a requisição e salvar os dados de todas as modalidades
+  loadEstatisticasMetasEsportivas(idAcademico: number) {
+    this.estatisticaService.getEstatisticasMetasEsportivas(idAcademico).subscribe({
+      next: (data: EstatisticaModalidadeGeral | null) => {
+        this.estatisticasModalidadeGeral = data;
+        console.log('Dados de todas as modalidades recebidos:', this.estatisticasModalidadeGeral);
+      },
+      error: (err) => {
+        console.error('Erro ao buscar dados de todas as modalidades:', err);
+      },
+    });
   }
 }

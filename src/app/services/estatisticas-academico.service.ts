@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { EstatisticaUso } from '../models/estatistica-uso.model';
 import { EstatisticaModalidade } from '../models/estatistica-modalidade.model';
+import { EstatisticaModalidadeGeral } from '../models/estatistica-modalidade-geral.model';
 
 @Injectable({
   providedIn: 'root',
@@ -11,6 +12,7 @@ export class EstatisticasAcademicoService {
   constructor(private _http: HttpClient) {}
 
   BASE_URL = 'http://localhost:8081/academico';
+  ESTATISTICAS_URL = 'http://localhost:8081/estatistica';
 
   httpOptions = {
     observe: 'response' as 'response',
@@ -60,5 +62,29 @@ export class EstatisticasAcademicoService {
         }
       })
     );
+  }
+
+  getEstatisticasMetasEsportivas(
+    idAcademico: number
+  ): Observable<EstatisticaModalidadeGeral | null> {
+    const url = `${this.ESTATISTICAS_URL}/visualizarEstatisticasMetasEsportivas/${idAcademico}`;
+    return this._http
+      .get<EstatisticaModalidadeGeral>(url, this.httpOptions)
+      .pipe(
+        map((resp: HttpResponse<EstatisticaModalidadeGeral>) => {
+          if (resp.status === 200) {
+            return resp.body; // Retorna um único objeto EstatisticaModalidadeGeral
+          } else {
+            return null; // Caso o status não seja 200, retorna null
+          }
+        }),
+        catchError((err, caught) => {
+          if (err.status === 404) {
+            return of(null); // Retorna null caso o erro seja 404
+          } else {
+            return throwError(() => err); // Repassa outros erros
+          }
+        })
+      );
   }
 }
