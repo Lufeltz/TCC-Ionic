@@ -91,15 +91,13 @@
           ></lucide-angular>
           <ion-label>Data de Nascimento</ion-label>
         </div>
-      
+
         <ion-input
           *ngIf="academico"
           [(ngModel)]="academico.dataNascimento"
           [value]="academico.dataNascimento | date:'short'"
         ></ion-input>
       </li>
-      
-      
 
       <li class="item-lista">
         <div class="icon-align">
@@ -135,7 +133,7 @@
         ></ion-input>
       </li>
 
-      <li class="item-lista">
+      <!-- <li class="item-lista">
         <div class="icon-align">
           <lucide-angular
             [img]="GraduationCap"
@@ -147,6 +145,35 @@
         </div>
 
         <ion-input *ngIf="academico" [(ngModel)]="academico.curso"></ion-input>
+      </li> -->
+
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="GraduationCap"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Curso</ion-label>
+        </div>
+
+        <div class="input-space">
+          <div class="custom-select-wrapper">
+            <select
+              class="custom-select"
+              id="modalidade-select"
+              (change)="onSelectChange($event)"
+            >
+              <option value="{{academico?.curso}}" selected>
+                {{academico?.curso}}
+              </option>
+              <option *ngFor="let curso of cursos" [value]="curso">
+                {{ curso }}
+              </option>
+            </select>
+          </div>
+        </div>
       </li>
     </ul>
     <ion-button

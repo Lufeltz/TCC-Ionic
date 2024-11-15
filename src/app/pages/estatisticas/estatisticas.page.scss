@@ -134,4 +134,71 @@ ion-button {
 .eye-icon lucide-angular {
   cursor: pointer;
 }
+.input-space {
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+}
 
+.custom-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-select {
+  appearance: none;
+  background-color: var(--background-dark);
+  border: none;
+  border-bottom: 2px solid var(--light-blue);
+  border-right: 2px solid var(--light-blue);
+  border-radius: 5px;
+  padding: 0.5rem;
+  width: 100%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  transition: background-color 0.3s, transform 0.3s;
+  text-align: center;
+  overflow: hidden; /* Impede que o texto ultrapasse o campo */
+  word-wrap: break-word; /* Quebra palavras longas */
+  white-space: normal; /* Permite quebra de linha dentro das opções */
+}
+
+/* Estilo de foco do select */
+.custom-select:focus {
+  outline: none;
+  background-color: var(--background-dark);
+  border-bottom: 2px solid var(--light-blue);
+}
+
+/* Estilo das opções dentro do select */
+.custom-select option {
+  background-color: var(--background-dark);
+  color: var(--text-white);
+  padding: 0.5rem; /* Dê algum padding para as opções */
+  white-space: normal; /* Permite a quebra de linha nas opções */
+  word-wrap: break-word; /* Quebra palavras longas */
+  max-width: 100%; /* Garante que o texto não ultrapasse a largura do select */
+}
+
+/* Estilo das opções quando selecionadas */
+.custom-select option[value="futebol"]:checked {
+  background-color: var(--background-dark);
+  color: var(--light-blue);
+}
+
+.custom-select option:checked {
+  background-color: var(--background-dark);
+  color: var(--light-blue);
+}
+
+/* Estilo das opções quando o mouse passa por cima */
+.custom-select option:hover {
+  background-color: var(--light-blue);
+  color: var(--text-white);
+}
+
+/* Estilo do select quando o mouse passa por cima */
+.custom-select:hover {
+  background-color: var(--background-dark);
+}

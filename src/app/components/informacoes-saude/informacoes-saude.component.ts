@@ -21,17 +21,13 @@ import { SaudeService } from 'src/app/services/saude.service';
   imports: [CommonModule, LucideAngularModule],
 })
 export class InformacoesSaudeComponent implements OnInit {
-  constructor(
-    private saudeService: SaudeService,
-    private authService: AuthService
-  ) {}
-
   readonly Stethoscope = Stethoscope;
   readonly Phone = Phone;
   readonly Clock = Clock;
   readonly MapPinPlusInside = MapPinPlusInside;
 
   contatosSaude: Saude[] = [];
+  user: Academico | null = null;
 
   canaisDeSaude = [
     {
@@ -57,15 +53,16 @@ export class InformacoesSaudeComponent implements OnInit {
     },
   ];
 
-  user: Academico | null = null;
+  constructor(
+    private saudeService: SaudeService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    // Chama a função que realiza a requisição e salva os dados
     this.loadContatosSaude();
-    this.getUsuarioLogado()
+    this.getUsuarioLogado();
   }
 
-  // Função para realizar a requisição e salvar os dados
   loadContatosSaude() {
     this.saudeService.getContatosSaude().subscribe({
       next: (data: Saude[] | null) => {
@@ -79,15 +76,11 @@ export class InformacoesSaudeComponent implements OnInit {
   }
 
   getUsuarioLogado() {
-    this.authService.getAcademicoLogado().subscribe({
-      next: (academico) => {
-        this.user = academico;
-        console.log('Dados do acadêmico logado:', this.user);
-      },
-      error: (error) => {
-        console.error('Erro ao obter os dados do acadêmico logado:', error);
-      }
-    });
+    this.user = this.authService.getUser();
+    if (this.user) {
+      console.log('Dados do acadêmico logado:', this.user);
+    } else {
+      console.error('Usuário não autenticado ou dados não carregados');
+    }
   }
-  
 }

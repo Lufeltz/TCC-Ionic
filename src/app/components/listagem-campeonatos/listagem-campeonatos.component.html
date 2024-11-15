@@ -50,7 +50,7 @@
           <h3 class="campeonato-nome">
             {{ campeonato.titulo }}
             <lucide-angular
-              [img]="Lock"
+              [img]="campeonato.privacidadeCampeonato === 'PUBLICO' ? LockOpen : Lock"
               class="cadeado-icon"
               [size]="20"
               [color]="getLockColor(campeonato.privacidadeCampeonato)"
@@ -78,7 +78,7 @@
               [size]="20"
               [color]="'var(--purple-desc)'"
             ></lucide-angular>
-            <p><strong> Times: </strong>1 / 4</p>
+            <p><strong> Times: </strong>?? / {{campeonato.limiteTimes}}</p>
           </div>
           <div class="icon-align">
             <p>
@@ -89,7 +89,7 @@
                 [color]="'var(--purple-desc)'"
               ></lucide-angular>
               <strong>Jogadores: </strong>
-              {{ campeonato.limiteParticipantes }} / 20
+              ?? / {{ campeonato.limiteParticipantes }}
             </p>
           </div>
           <div class="icon-align">
@@ -103,7 +103,8 @@
               <strong>Modalidade: </strong>
               {{ getNomeModalidade(campeonato.idModalidadeEsportiva) }}
             </p>
-            
+
+            <!-- ARRUMR OS OUTROS CAMPOS TIRANDO OS DADOS ESTATICOS -->
             
           </div>
           <div class="icon-align">

@@ -59,6 +59,33 @@
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
+              [img]="Volleyball"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Modalidade</ion-label>
+          </div>
+          <div class="input-space">
+            <div class="custom-select-wrapper">
+              <select
+                class="custom-select"
+                id="modalidade-select"
+                (change)="onSelectChange($event)"
+              >
+                <option value="1" selected>Futebol</option>
+                
+                <option value="2">Vôlei</option>
+                <option value="3">Basquete</option>
+                <option value="4">Ping Pong</option>
+              </select>
+            </div>
+          </div>
+        </li>
+
+        <li class="item-lista">
+          <div class="icon-align">
+            <lucide-angular
               [img]="CircleDollarSign"
               class="btn-inscrever-se"
               [size]="20"

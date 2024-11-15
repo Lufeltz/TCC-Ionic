@@ -39,6 +39,7 @@ import {
   Search,
   User,
   Users,
+  Volleyball,
 } from 'lucide-angular';
 import { Endereco } from 'src/app/models/endereco.model';
 import { EnderecoService } from 'src/app/services/endereco.service';
@@ -106,6 +107,7 @@ export class CampeonatosPage implements OnInit {
   readonly AlarmClock = AlarmClock;
   readonly MapPinHouse = MapPinHouse;
   readonly MapPinned = MapPinned;
+  readonly Volleyball = Volleyball;
 
   constructor(
     private enderecoService: EnderecoService,
@@ -123,6 +125,13 @@ export class CampeonatosPage implements OnInit {
     this.campeonato.privacidadeCampeonato = this.isPublico
       ? 'PUBLICO'
       : 'PRIVADO';
+  }
+
+  onSelectChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedValue = selectElement.value;
+    // this.publicacao.idModalidadeEsportiva = null; // Atualiza corretamente
+    console.log('Modalidade selecionada:', selectedValue);
   }
 
   salvarDados() {

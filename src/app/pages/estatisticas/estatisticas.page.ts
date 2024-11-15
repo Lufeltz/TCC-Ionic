@@ -58,9 +58,11 @@ export class EstatisticasPage implements OnInit {
   pageMenu: string = 'meu-perfil';
   pageContent: string = 'meu-perfil';
 
-  academico: Academico | null = new Academico(); // Usando o construtor da classe Academico
+  academico: Academico | null = null; // Inicialização para null
 
   showPassword: boolean = false; // Variável para controlar visibilidade da senha
+  cursos: string[] = [];
+  loading: boolean = true;
 
   readonly SaveAll = SaveAll;
   readonly GraduationCap = GraduationCap;
@@ -81,8 +83,9 @@ export class EstatisticasPage implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Carregar os dados do acadêmico com o id desejado (exemplo: 1)
+    // Agora os dados do acadêmico são carregados diretamente do AuthService
     this.getUsuarioLogado();
+    this.loadCursos();
   }
 
   formatDate(date: string): string {
@@ -90,27 +93,18 @@ export class EstatisticasPage implements OnInit {
   }
 
   getUsuarioLogado() {
-    this.authService.getAcademicoLogado().subscribe({
-      next: (academico) => {
-        this.academico = academico;
-        console.log('Dados do acadêmico logado:', this.academico);
-      },
-      error: (error) => {
-        console.error('Erro ao obter os dados do acadêmico logado:', error);
-      },
-    });
+    // Acessando o usuário diretamente do AuthService
+    this.academico = this.authService.getUser();
+    if (this.academico) {
+      console.log('Dados do acadêmico logado:', this.academico);
+    } else {
+      console.error('Usuário não autenticado ou dados não carregados');
+    }
   }
 
   carregarDadosUsuario(id: number) {
-    this.academicoService.getAcademicoById(id).subscribe({
-      next: (data) => {
-        this.academico = data!;
-        console.log('Dados do acadêmico carregados:', this.academico);
-      },
-      error: (err) => {
-        console.error('Erro ao carregar dados do acadêmico:', err);
-      },
-    });
+    // Agora, não é necessário carregar os dados de novo do serviço, pois já estão disponíveis
+    console.log('Dados do acadêmico já carregados:', this.academico);
   }
 
   salvarDados() {
@@ -139,5 +133,29 @@ export class EstatisticasPage implements OnInit {
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword; // Alterna o valor da variável
+  }
+
+  onSelectChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const selectedValue = selectElement.value;
+    console.log('Modalidade selecionada:', selectedValue);
+  }
+
+  loadCursos(): void {
+    this.academicoService.getCursos().subscribe({
+      next: (cursos) => {
+        if (cursos && cursos.length > 0) {
+          this.cursos = cursos;
+          console.log(this.cursos);
+        } else {
+          console.warn('Nenhum curso encontrado');
+        }
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar cursos', err);
+        this.loading = false;
+      },
+    });
   }
 }

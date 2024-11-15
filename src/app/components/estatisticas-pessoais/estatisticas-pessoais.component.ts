@@ -6,8 +6,16 @@ import { EstatisticasAcademicoService } from 'src/app/services/estatisticas-acad
 import { AuthService } from 'src/app/services/auth.service'; // Importe o AuthService
 import { Academico } from 'src/app/models/academico.model'; // Importe o modelo Academico
 import { EstatisticaModalidadeGeral } from 'src/app/models/estatistica-modalidade-geral.model';
-import { CircleDashed, LucideAngularModule, SignalHigh, Target } from 'lucide-angular';
-
+import {
+  Award,
+  CircleDashed,
+  LucideAngularModule,
+  MapPinPlus,
+  Medal,
+  SignalHigh,
+  Target,
+  Trophy,
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-estatisticas-pessoais',
@@ -22,9 +30,14 @@ export class EstatisticasPessoaisComponent implements OnInit {
   estatisticasModalidadeGeral: EstatisticaModalidadeGeral | null = null; // Alterado para ser um único objeto
   academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
 
-  readonly CircleDashed =CircleDashed;
-  readonly Target =Target;
-  readonly SignalHigh =SignalHigh;
+  // Lucide Icons
+  readonly CircleDashed = CircleDashed;
+  readonly Target = Target;
+  readonly SignalHigh = SignalHigh;
+  readonly Award = Award;
+  readonly Medal = Medal;
+  readonly Trophy = Trophy;
+  readonly MapPinPlus = MapPinPlus;
 
   constructor(
     private estatisticaService: EstatisticasAcademicoService,
@@ -32,25 +45,21 @@ export class EstatisticasPessoaisComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Obter dados do acadêmico logado
-    this.authService.getAcademicoLogado().subscribe({
-      next: (data: Academico | null) => {
-        this.academico = data;
-        console.log('Dados do acadêmico logado:', this.academico);
+    // Obtendo os dados do acadêmico logado diretamente do AuthService
+    this.academico = this.authService.getUser(); // Usa getUser() para obter os dados do usuário
 
-        // Se academico não for null, carregar estatísticas
-        if (this.academico) {
-          this.loadEstatisticasUso(this.academico.idAcademico);
-          this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
-        }
-      },
-      error: (err) => {
-        console.error('Erro ao obter dados do acadêmico logado:', err);
-      },
-    });
+    if (this.academico) {
+      console.log('Dados do acadêmico logado:', this.academico);
+
+      // Carregar estatísticas após obter os dados do acadêmico
+      this.loadEstatisticasUso(this.academico.idAcademico);
+      this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
+    } else {
+      console.error('Acadêmico não autenticado ou dados não carregados');
+    }
   }
 
-  // Função para realizar a requisição e salvar os dados
+  // Função para realizar a requisição e salvar os dados de uso
   loadEstatisticasUso(id: number) {
     this.estatisticaService.getEstatisticasUso(id).subscribe({
       next: (data: EstatisticaUso[] | null) => {
@@ -86,14 +95,19 @@ export class EstatisticasPessoaisComponent implements OnInit {
 
   // Função para realizar a requisição e salvar os dados de todas as modalidades
   loadEstatisticasMetasEsportivas(idAcademico: number) {
-    this.estatisticaService.getEstatisticasMetasEsportivas(idAcademico).subscribe({
-      next: (data: EstatisticaModalidadeGeral | null) => {
-        this.estatisticasModalidadeGeral = data;
-        console.log('Dados de todas as modalidades recebidos:', this.estatisticasModalidadeGeral);
-      },
-      error: (err) => {
-        console.error('Erro ao buscar dados de todas as modalidades:', err);
-      },
-    });
+    this.estatisticaService
+      .getEstatisticasMetasEsportivas(idAcademico)
+      .subscribe({
+        next: (data: EstatisticaModalidadeGeral | null) => {
+          this.estatisticasModalidadeGeral = data;
+          console.log(
+            'Dados de todas as modalidades recebidos:',
+            this.estatisticasModalidadeGeral
+          );
+        },
+        error: (err) => {
+          console.error('Erro ao buscar dados de todas as modalidades:', err);
+        },
+      });
   }
 }

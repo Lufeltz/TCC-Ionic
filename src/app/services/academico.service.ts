@@ -18,50 +18,25 @@ export class AcademicoService {
     }),
   };
 
-  // getAllAcademicos(): Observable<Academico[] | null> {
-  //   return this._http
-  //     .get<Academico[]>(`${this.NEW_URL}/listar`, this.httpOptions)
-  //     .pipe(
-  //       map((resp: HttpResponse<Academico[]>) => {
-  //         if (resp.status == 200) {
-  //           return resp.body;
-  //         } else {
-  //           return [];
-  //         }
-  //       }),
-  //       catchError((err, caught) => {
-  //         if (err.status == 404) {
-  //           return of([]);
-  //         } else {
-  //           return throwError(() => err);
-  //         }
-  //       })
-  //     );
-  // }
-
   getAllAcademicos(page: number, size: number): Observable<Academico[] | null> {
     const url = `${this.NEW_URL}/listar?page=${page}&size=${size}&sort=curso,desc`;
-    return this._http
-      .get<Academico[]>(url, this.httpOptions)
-      .pipe(
-        map((resp: HttpResponse<Academico[]>) => {
-          if (resp.status === 200) {
-            return resp.body;
-          } else {
-            return [];
-          }
-        }),
-        catchError((err) => {
-          if (err.status === 404) {
-            return of([]);
-          } else {
-            return throwError(() => err);
-          }
-        })
-      );
+    return this._http.get<Academico[]>(url, this.httpOptions).pipe(
+      map((resp: HttpResponse<Academico[]>) => {
+        if (resp.status === 200) {
+          return resp.body;
+        } else {
+          return [];
+        }
+      }),
+      catchError((err) => {
+        if (err.status === 404) {
+          return of([]);
+        } else {
+          return throwError(() => err);
+        }
+      })
+    );
   }
-  
-  
 
   getAcademicoById(id: number): Observable<Academico | null> {
     return this._http
@@ -99,5 +74,25 @@ export class AcademicoService {
           return throwError(() => err);
         })
       );
+  }
+
+  getCursos(): Observable<string[] | null> {
+    const url = `${this.NEW_URL}/cursos/ufpr`;
+    return this._http.get<string[]>(url, this.httpOptions).pipe(
+      map((resp: HttpResponse<string[]>) => {
+        if (resp.status === 200) {
+          return resp.body;
+        } else {
+          return [];
+        }
+      }),
+      catchError((err) => {
+        if (err.status === 404) {
+          return of([]); // Retorna um array vazio em caso de erro
+        } else {
+          return throwError(() => err);
+        }
+      })
+    );
   }
 }

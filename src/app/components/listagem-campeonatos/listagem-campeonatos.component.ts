@@ -98,7 +98,8 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
 
   campeonatos: Campeonato[] = [];
   modalidades: ModalidadeEsportiva[] = []; // Armazena a lista de modalidades
-  modalidadesSimplificadas: { idModalidadeEsportiva: number; nome: string }[] = []; // Variável para armazenar o novo array
+  modalidadesSimplificadas: { idModalidadeEsportiva: number; nome: string }[] =
+    []; // Variável para armazenar o novo array
 
   mensagem!: string;
   mensagem_detalhes!: string;
@@ -153,32 +154,32 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
       },
     });
   }
-  
-  
+
   gerarModalidadesSimplificadas(): void {
     // Verifica se `this.modalidades` é um array e não está vazio
     if (Array.isArray(this.modalidades) && this.modalidades.length > 0) {
       // Mapeia o array diretamente e extrai o id e nome de cada modalidade
-      this.modalidadesSimplificadas = this.modalidades.map(modalidade => ({
+      this.modalidadesSimplificadas = this.modalidades.map((modalidade) => ({
         idModalidadeEsportiva: modalidade.idModalidadeEsportiva,
-        nome: modalidade.nome
+        nome: modalidade.nome,
       }));
     } else {
-      console.warn('A lista de modalidades está vazia ou com formato incorreto');
+      console.warn(
+        'A lista de modalidades está vazia ou com formato incorreto'
+      );
     }
-  
+
     console.log('Modalidades simplificadas:', this.modalidadesSimplificadas);
   }
-  
-  
+
   getNomeModalidade(id: number): string | undefined {
     // Busca o nome da modalidade no array de modalidades simplificadas
-    const modalidade = this.modalidadesSimplificadas.find(mod => mod.idModalidadeEsportiva === id);
+    const modalidade = this.modalidadesSimplificadas.find(
+      (mod) => mod.idModalidadeEsportiva === id
+    );
     return modalidade ? modalidade.nome : 'Modalidade não encontrada'; // Retorna o nome ou uma mensagem de erro
   }
-  
-  
-  
+
   listarCampeonatos(): void {
     this.campeonatoService
       .getAllCampeonatos(this.currentPage, this.pageSize)
