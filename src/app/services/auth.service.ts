@@ -74,14 +74,15 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('jwt');
     localStorage.removeItem('user');
+    this.user = null;
     this.router.navigate(['/login']);
   }
 
   private loadUserData(): void {
-    const userId = this.getUserIdFromToken();
-    if (userId !== null) {
+    const username = this.getUsernameFromToken();
+    if (username !== null) {
       this._http
-        .get<Academico>(`${this.NEW_URL}/consultar/${userId}`, this.httpOptions)
+        .get<Academico>(`${this.NEW_URL}/buscar/${username}`, this.httpOptions)
         .subscribe({
           next: (academico) => {
             this.user = academico;
@@ -128,13 +129,13 @@ export class AuthService {
     }
   }
 
-  private getUserIdFromToken(): number | null {
+  // New method to get the username from the token
+  private getUsernameFromToken(): string | null {
     const token = this.getToken();
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
-        console.log('Decoded Token:', decodedToken); // Verifique o conteúdo do token
-        return decodedToken.idUsuario; // Aqui deve ser o campo correto do ID
+        return decodedToken.sub; // Getting 'sub' (username) from the token
       } catch (error) {
         console.error('Erro ao decodificar o token:', error);
         return null;

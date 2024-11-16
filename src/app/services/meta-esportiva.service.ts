@@ -10,6 +10,7 @@ export class MetaEsportivaService {
   constructor(private _http: HttpClient) {}
 
   NEW_URL = 'http://localhost:8081/metaEsportiva';
+  MODALIDADE_URL = 'http://localhost:8081/modalidadeEsportiva/metaEsportiva';
 
   httpOptions = {
     observe: 'response' as 'response',
@@ -34,6 +35,31 @@ export class MetaEsportivaService {
             return of([]);
           } else {
             return throwError(() => err);
+          }
+        })
+      );
+  }
+
+  // Método para buscar metas de uma modalidade esportiva específica
+  getMetasPorModalidade(idModalidade: number): Observable<MetaEsportiva[] | null> {
+    return this._http
+      .get<MetaEsportiva[]>(
+        `${this.MODALIDADE_URL}/listar/${idModalidade}`, // Endpoint atualizado com o ID da modalidade
+        this.httpOptions
+      )
+      .pipe(
+        map((resp: HttpResponse<MetaEsportiva[]>) => {
+          if (resp.status === 200) {
+            return resp.body; // Retorna o corpo da resposta, que contém as metas
+          } else {
+            return []; // Se o status não for 200, retorna um array vazio
+          }
+        }),
+        catchError((err) => {
+          if (err.status === 404) {
+            return of([]); // Caso o endpoint não seja encontrado, retorna um array vazio
+          } else {
+            return throwError(() => err); // Lança outro erro
           }
         })
       );

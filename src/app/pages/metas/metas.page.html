@@ -14,6 +14,7 @@
     </ion-segment-button>
   </ion-segment>
 
+  <!-- Seção Criação -->
   <div *ngIf="selectedSegment === 'criacao'">
     <div class="container">
       <ul>
@@ -104,67 +105,68 @@
     </div>
   </div>
 
-  <!-- Listagem -->
-
+  <!-- Seção Listagem -->
   <div *ngIf="selectedSegment === 'listagem'">
-    <ion-item lines="none">
-      <div class="align-diarias">
-        <div class="icon-label">
+    
+    <ion-item lines="none" class="novo-alinhamento">
+      <div class="container-alinhado">
+        <div class="icone-texto">
           <lucide-angular
             [img]="Clock4"
-            class="btn-inscrever-se"
+            class="icone"
             [size]="20"
           ></lucide-angular>
-          <ion-label class="label-titulo">Diárias</ion-label>
+          <ion-label class="texto">Diárias</ion-label>
         </div>
-        <ion-toggle
-          class="toggle-diarias"
-          slot="end"
-          (ionChange)="toggleFilterDiarias($event)"
-          [checked]="filterDiarias"
-        ></ion-toggle>
+        <div class="toggle-container">
+          <ion-toggle
+            class="toggle-diarias"
+            slot="end"
+            (ionChange)="toggleFilterDiarias($event)"
+            [checked]="filterDiarias"
+          ></ion-toggle>
+        </div>
       </div>
     </ion-item>
-    <ion-item lines="none">
-      <div class="align-esportivas">
-        <div class="icon-label">
+    
+
+    <ion-item lines="none" class="novo-alinhamento-esportivas">
+      <div class="container-alinhado-esportivas">
+        <div class="icone-texto-esportivas">
           <lucide-angular
             [img]="BicepsFlexed"
-            class="btn-inscrever-se"
+            class="icone-esportivas"
             [size]="20"
           ></lucide-angular>
-          <ion-label class="label-titulo">Esportivas</ion-label>
+          <ion-label class="texto-esportivas">Esportivas</ion-label>
         </div>
-        <ion-toggle
-          class="toggle-esportivas"
-          slot="end"
-          (ionChange)="toggleFilterEsportivas($event)"
-          [checked]="filterEsportivas"
-        ></ion-toggle>
+        <div class="toggle-container-esportivas">
+          <ion-toggle
+            class="toggle-esportivas"
+            slot="end"
+            (ionChange)="toggleFilterEsportivas($event)"
+            [checked]="filterEsportivas"
+          ></ion-toggle>
+        </div>
       </div>
     </ion-item>
+    
 
+    <!-- Listar metas -->
     <ul>
+      <!-- Iteração sobre as metas diárias com filtro -->
       <li
-        *ngFor="let meta of metaDiaria"
-        class="item-lista"
-        [ngClass]="{
-          'meta-esportiva': filteredMetas[0].tipo === 'esportiva',
-          'meta-diaria': filteredMetas[0].tipo === 'diaria'
-        }"
+        *ngFor="let meta of filteredMetasDiarias"
+        class="item-lista meta-diaria"
       >
-        <h3
-          [ngClass]="{
-            'titulo-esportiva': filteredMetas[0].tipo === 'esportiva',
-            'titulo-diaria': filteredMetas[0].tipo === 'diaria'
-          }"
-        >
-          {{ meta.titulo || filteredMetas[0].esporte }}
-          <span class="texto-light"
-            >{{ filteredMetas[0].tipo | titlecase }}</span
+        <h3 class="titulo-diaria">
+          <span class="titulo-principal"
+            >{{ meta.titulo || 'Meta Diária' }}</span
           >
+          <div class="align-diarias">
+            <span class="texto-light">Diárias</span>
+          </div>
         </h3>
-
         <div *ngIf="meta.titulo">
           <p>
             <strong>Objetivo:</strong> {{ meta.objetivo || 'Não definido' }}
@@ -173,19 +175,12 @@
             <strong>Progresso:</strong> {{ meta.progressoAtual }} / {{
             meta.progressoMaximo }} {{ meta.progressoItem }}
           </p>
-
-          <!-- <p>
-            <strong>Quantidade Concluída:</strong> {{ meta.quantidadeConcluido
-            }} {{ meta.progressoItem }}
-          </p> -->
           <p>
             <strong>Situação:</strong> {{ meta.situacaoMetaDiaria === 0 ?
             'Pendente' : 'Concluída' }}
           </p>
         </div>
-
         <div class="button-group">
-          <!-- Botão de Editar -->
           <ion-button
             expand="small"
             class="centered-button meta-button"
@@ -200,8 +195,6 @@
               ></lucide-angular>
             </div>
           </ion-button>
-
-          <!-- Botão de Confirmar -->
           <ion-button
             expand="small"
             class="centered-button meta-button"
@@ -216,8 +209,6 @@
               ></lucide-angular>
             </div>
           </ion-button>
-
-          <!-- Botão de Excluir -->
           <ion-button
             expand="small"
             class="centered-button meta-button"
@@ -230,6 +221,45 @@
                 [size]="20"
                 [color]="'var(--background-dark)'"
               ></lucide-angular>
+            </div>
+          </ion-button>
+        </div>
+      </li>
+
+      <!-- Iteração sobre as metas esportivas com filtro -->
+      <li
+        *ngFor="let meta of filteredMetasEsportivas"
+        class="item-lista meta-esportiva"
+      >
+        <h3 class="titulo-esportiva">
+          {{ meta.titulo || 'Meta Esportiva' }}
+          <div class="align-esportivas">
+            <span class="texto-light"
+              >{{ getModalidadeName(meta.idModalidadeEsportiva) ||
+              'Desconhecida' }}</span
+            >
+          </div>
+        </h3>
+        <div *ngIf="meta.titulo">
+          <p>
+            <strong>Objetivo:</strong> {{ meta.descricao || 'Não definido' }}
+          </p>
+          <p><strong>Progresso:</strong> Prog atual / Prog máx</p>
+          <p>
+            <strong>Situação:</strong> {{ meta.tipo === 'a' ? 'Pendente' :
+            'Concluída' }}
+          </p>
+        </div>
+        <div class="button-group">
+          <ion-button expand="small" class="centered-button meta-button">
+            <div class="icon-align">
+              <lucide-angular
+                [img]="SquareCheckBig"
+                class="btn-inscrever-se"
+                [size]="20"
+                [color]="'var(--background-dark)'"
+              ></lucide-angular>
+              <p>Concluir Meta</p>
             </div>
           </ion-button>
         </div>

@@ -22,14 +22,13 @@ import {
   IonAccordion,
   IonIcon,
   IonList,
-  IonTextarea
+  IonTextarea,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 import {
   BicepsFlexed,
   CaseUpper,
   ChevronDown,
-  CircleX,
   Clock4,
   LucideAngularModule,
   NotebookText,
@@ -44,14 +43,11 @@ import { MetaDiaria } from 'src/app/models/meta-diaria.model';
 import { MetaDiariaService } from 'src/app/services/meta-diaria.service';
 import { AlertController } from '@ionic/angular';
 import { ModalEditarMetaDiariaComponent } from '../../components/modal-editar-meta-diaria/modal-editar-meta-diaria.component';
-
-interface Meta {
-  tipo: 'diaria' | 'esportiva';
-  nome?: string;
-  esporte?: string;
-  opcoes?: string[];
-  metas?: string[];
-}
+import { AuthService } from 'src/app/services/auth.service';
+import { Academico } from 'src/app/models/academico.model';
+import { MetaEsportivaService } from 'src/app/services/meta-esportiva.service';
+import { MetaEsportiva } from 'src/app/models/meta-esportiva.model';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-metas',
@@ -84,7 +80,7 @@ interface Meta {
     IonToggle,
     LucideAngularModule,
     ModalEditarMetaDiariaComponent,
-    IonTextarea
+    IonTextarea,
   ],
 })
 export class MetasPage implements OnInit {
@@ -96,7 +92,11 @@ export class MetasPage implements OnInit {
   filterEsportivas: boolean = false;
   filterDiarias: boolean = true;
 
-  idAcademico: number = 1;
+  user: Academico = new Academico();
+  modalidadesUsuario: any[] = []; // Variável para armazenar as modalidades
+  metasPorModalidade: MetaEsportiva[] = [];
+  metasEsportivas: MetaEsportiva[] = [];
+
   metaDiaria: MetaDiaria[] = [];
   metaDiaria2: MetaDiaria = new MetaDiaria();
 
@@ -117,26 +117,81 @@ export class MetasPage implements OnInit {
 
   constructor(
     private metaDiariaService: MetaDiariaService,
-    private alertController: AlertController
+    private metaEsportivaService: MetaEsportivaService,
+    private alertController: AlertController,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.listarMetaDiarias();
+    const user = this.authService.getUser(); // Obtém o usuário autenticado
+    if (user) {
+      this.user = user; // Armazena o usuário na variável user
+      this.modalidadesUsuario = this.user.modalidades || []; // Atribui as modalidades ao usuário
+      console.log('Modalidades do usuário:', this.modalidadesUsuario); // Log para conferir os dados
+      this.listarMetaDiarias(); // Chama a função para listar as metas diárias
+      this.listarMetasEsportivas(); // Chama a função para listar as metas esportivas
+    } else {
+      console.error('Usuário não autenticado');
+    }
   }
 
-  abrirModalEditar(meta: any) {
-    this.metaParaEditar = meta;
-    console.log(this.metaParaEditar);
-    this.modalEditarVisivel = true;
+  getModalidadeName(idModalidade: number): string | undefined {
+    const modalidade = this.modalidadesUsuario.find(m => m.idModalidade === idModalidade);
+    return modalidade ? modalidade.nomeModalidade : undefined;
   }
 
-  fecharModal() {
-    this.modalEditarVisivel = false;
+  // Métodos de filtro separados para metas diárias
+  get filteredMetasDiarias(): MetaDiaria[] {
+    if (this.filterDiarias) {
+      return this.metaDiaria; // Exibe apenas as metas diárias
+    } else {
+      return []; // Não exibe as metas diárias quando o filtro está desativado
+    }
+  }
+
+  // Métodos de filtro separados para metas esportivas
+  get filteredMetasEsportivas(): MetaEsportiva[] {
+    if (this.filterEsportivas) {
+      return this.metasEsportivas; // Exibe apenas as metas esportivas
+    } else {
+      return []; // Não exibe as metas esportivas quando o filtro está desativado
+    }
+  }
+
+     // Lógica para alternar o filtro de metas esportivas
+     toggleFilterEsportivas(event: any) {
+      this.filterEsportivas = event.detail.checked;
+    }
+  
+    // Lógica para alternar o filtro de metas diárias
+    toggleFilterDiarias(event: any) {
+      this.filterDiarias = event.detail.checked;
+    }
+
+  listarMetasEsportivas(): void {
+    // Cria uma lista de observables para todas as modalidades do usuário
+    const observables = this.modalidadesUsuario.map((modalidade) =>
+      this.metaEsportivaService.getMetasPorModalidade(modalidade.idModalidade)
+    );
+
+    // Usa forkJoin para aguardar todas as requisições
+    forkJoin(observables).subscribe({
+      next: (resultados) => {
+        // Combina todos os resultados em um único array, filtrando os valores nulos
+        this.metasEsportivas = resultados
+          .flat()
+          .filter((meta): meta is MetaEsportiva => meta !== null);
+        console.log('Todas as metas esportivas:', this.metasEsportivas);
+      },
+      error: (err) => {
+        console.error('Erro ao buscar metas esportivas:', err);
+      },
+    });
   }
 
   listarMetaDiarias(): void {
     this.metaDiariaService
-      .getMetaDiariaByAcademicoId(this.idAcademico)
+      .getMetaDiariaByAcademicoId(this.user.idAcademico) // Usando this.user.idAcademico
       .subscribe({
         next: (data: MetaDiaria[] | null) => {
           if (data === null) {
@@ -152,9 +207,31 @@ export class MetasPage implements OnInit {
       });
   }
 
+  mostrarMetasPorModalidade(idModalidade: number): void {
+    this.metaEsportivaService.getMetasPorModalidade(idModalidade).subscribe({
+      next: (metas) => {
+        console.log('Metas para a modalidade:', metas);
+        // Aqui você pode tratar as metas retornadas, talvez armazenando em uma variável
+      },
+      error: (err) => {
+        console.error('Erro ao buscar metas para a modalidade:', err);
+      },
+    });
+  }
+
+  abrirModalEditar(meta: any) {
+    this.metaParaEditar = meta;
+    console.log(this.metaParaEditar);
+    this.modalEditarVisivel = true;
+  }
+
+  fecharModal() {
+    this.modalEditarVisivel = false;
+  }
+
   salvarDados(): void {
     if (this.metaDiaria2) {
-      this.metaDiaria2.idAcademico = this.idAcademico;
+      this.metaDiaria2.idAcademico = this.user.idAcademico; // Usando this.user.idAcademico
 
       console.log('MetaDiaria antes de salvar:', this.metaDiaria2);
 
@@ -271,53 +348,15 @@ export class MetasPage implements OnInit {
     this.excluirPresentAlert(meta);
   }
 
-  metasDiarias: Meta[] = [
-    {
-      tipo: 'diaria',
-      nome: 'Beber água',
-      opcoes: ['1L', '2L', '3L'],
-    },
-  ];
 
-  metasEsportivas: Meta[] = [
-    {
-      tipo: 'esportiva',
-      esporte: 'Futebol',
-      metas: [
-        'Gols feitos',
-        'Assistências feitas',
-        'Defesas feitas',
-        'Gols de pênalti',
-        'Conquistas obtidas',
-      ],
-    },
-  ];
-
-  toggleFilterEsportivas(event: any) {
-    if (event.detail.checked) {
-      this.filterEsportivas = true;
-      this.filterDiarias = false;
-    } else {
-      this.filterEsportivas = false;
-    }
-  }
-
-  toggleFilterDiarias(event: any) {
-    if (event.detail.checked) {
-      this.filterDiarias = true;
-      this.filterEsportivas = false;
-    } else {
-      this.filterDiarias = false;
-    }
-  }
-
-  get filteredMetas(): Meta[] {
+  get filteredMetas(): (MetaDiaria | MetaEsportiva)[] {
+    // Filtra as metas esportivas e diárias conforme o filtro
     if (this.filterEsportivas && !this.filterDiarias) {
       return this.metasEsportivas;
     } else if (!this.filterEsportivas && this.filterDiarias) {
-      return this.metasDiarias;
+      return this.metaDiaria;
     } else {
-      return [...this.metasDiarias, ...this.metasEsportivas];
+      return [...this.metaDiaria, ...this.metasEsportivas];
     }
   }
 }

@@ -31,6 +31,7 @@ import {
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { forkJoin } from 'rxjs';
 import { ModalEditarModalidadeComponent } from 'src/app/components/modal-editar-modalidade/modal-editar-modalidade.component';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-modalidades',
@@ -52,7 +53,7 @@ import { ModalEditarModalidadeComponent } from 'src/app/components/modal-editar-
     IonButton,
     IonAlert,
     LucideAngularModule,
-    ModalEditarModalidadeComponent
+    ModalEditarModalidadeComponent,
   ],
 })
 export class ModalidadesPage implements OnInit {
@@ -83,47 +84,37 @@ export class ModalidadesPage implements OnInit {
   modalEditarVisivel: boolean = false;
   modalidadeParaEditar!: any;
 
-  constructor(private modalidadesService: ModalidadesService) {}
+  constructor(
+    private modalidadesService: ModalidadesService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    const usuarioId = 2; // Definindo o ID do usuário como 2
+    const user = this.authService.getUser();
+    if (user) {
+      const usuarioId = user.idAcademico; // Obter o ID do usuário dinamicamente
 
-    // Usando forkJoin para chamar ambos os serviços
-    forkJoin({
-      modalidadesInscritas:
-        this.modalidadesService.getModalidadesInscritas(usuarioId),
-      todasModalidades: this.modalidadesService.getAllModalidades(),
-    }).subscribe({
-      next: (result) => {
-        // Salvando os resultados separadamente nas variáveis
-        this.modalidadesInscritas = result.modalidadesInscritas;
-        this.todasModalidades = result.todasModalidades;
+      forkJoin({
+        modalidadesInscritas:
+          this.modalidadesService.getModalidadesInscritas(usuarioId),
+        todasModalidades: this.modalidadesService.getAllModalidades(),
+      }).subscribe({
+        next: (result) => {
+          this.modalidadesInscritas = result.modalidadesInscritas;
+          this.todasModalidades = result.todasModalidades;
 
-        // Comparar as duas variáveis e salvar os valores diferentes
-        this.modalidadesDiferentes = this.compararModalidades(
-          this.modalidadesInscritas,
-          this.todasModalidades
-        );
-
-        // Imprimindo os resultados no console
-        console.log('Modalidades Inscritas:', this.modalidadesInscritas);
-        console.log('Todas as Modalidades:', this.todasModalidades);
-        console.log('Modalidades Diferentes:', this.modalidadesDiferentes);
-      },
-      error: (err) => {
-        console.error('Erro ao carregar modalidades:', err);
-      },
-    });
-
-    this.alertButtons = [
-      {
-        text: 'Cancelar',
-        role: 'cancel',
-        handler: () => {
-          console.log('Inscrição cancelada');
+          this.modalidadesDiferentes = this.compararModalidades(
+            this.modalidadesInscritas,
+            this.todasModalidades
+          );
         },
-      },
-    ];
+        error: (err) => {
+          console.error('Erro ao carregar modalidades:', err);
+        },
+      });
+    } else {
+      console.error('Usuário não autenticado');
+    }
   }
 
   compararModalidades(inscritas: any[], todas: any[]): any[] {
@@ -140,33 +131,41 @@ export class ModalidadesPage implements OnInit {
   }
 
   inscreverModalidade(modalidadeId: number) {
-    const usuarioId = 2; // Assumindo que o ID do usuário é 2, você pode substituir por uma variável dinâmica se necessário
+    const user = this.authService.getUser();
+    if (user) {
+      const usuarioId = user.idAcademico; // Obter o ID do usuário dinamicamente
 
-    this.modalidadesService.inscreverModalidade(usuarioId, modalidadeId).subscribe({
-      next: (resp) => {
-        console.log('Inscrição realizada com sucesso:', resp);
-        // Atualize a lista de modalidades inscritas após a inscrição
-        this.ngOnInit();
-      },
-      error: (err) => {
-        console.error('Erro ao realizar inscrição:', err);
-      },
-    });
+      this.modalidadesService
+        .inscreverModalidade(usuarioId, modalidadeId)
+        .subscribe({
+          next: (resp) => {
+            console.log('Inscrição realizada com sucesso:', resp);
+            this.ngOnInit();
+          },
+          error: (err) => {
+            console.error('Erro ao realizar inscrição:', err);
+          },
+        });
+    }
   }
 
   removerInscricaoModalidade(modalidadeId: number) {
-    const usuarioId = 2; // Assumindo que o ID do usuário é 2, você pode substituir por uma variável dinâmica se necessário
+    const user = this.authService.getUser();
+    if (user) {
+      const usuarioId = user.idAcademico; // Obter o ID do usuário dinamicamente
 
-    this.modalidadesService.removerModalidade(usuarioId, modalidadeId).subscribe({
-      next: (resp) => {
-        console.log('Inscrição cancelada com sucesso:', resp);
-        // Atualize a lista de modalidades inscritas após a inscrição
-        this.ngOnInit();
-      },
-      error: (err) => {
-        console.error('Erro ao cancelar inscrição:', err);
-      },
-    });
+      this.modalidadesService
+        .removerModalidade(usuarioId, modalidadeId)
+        .subscribe({
+          next: (resp) => {
+            console.log('Inscrição cancelada com sucesso:', resp);
+            this.ngOnInit();
+          },
+          error: (err) => {
+            console.error('Erro ao cancelar inscrição:', err);
+          },
+        });
+    }
   }
 
   setResult(event: any) {

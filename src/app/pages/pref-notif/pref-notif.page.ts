@@ -22,6 +22,8 @@ import {
 } from 'lucide-angular';
 import { PrivacidadeService } from 'src/app/services/privacidade.service';
 import { Privacidade } from 'src/app/models/privacidade.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { Academico } from 'src/app/models/academico.model';
 
 @Component({
   selector: 'app-pref-notif',
@@ -49,27 +51,38 @@ export class PrefNotifPage implements OnInit {
   pageMenu: string = 'pref-notif';
   pageContent: string = 'pref-notif';
 
+  user: Academico = new Academico();
+
   readonly Volleyball = Volleyball;
   readonly EyeOff = EyeOff;
   readonly SaveAll = SaveAll;
 
   privacidades: Privacidade = new Privacidade();
 
-  constructor(private privacidadeService: PrivacidadeService) {}
+  constructor(
+    private privacidadeService: PrivacidadeService,
+    private authService: AuthService
+  ) {}
 
   mostrarEstadoToggle(estado: boolean): void {
     console.log(!estado);
   }
 
   ngOnInit() {
-    this.getPrivacidades(1);
+    const user = this.authService.getUser(); // Obtém o usuário autenticado
+    if (user) {
+      this.user = user; // Armazena o usuário
+      this.getPrivacidades(this.user.idAcademico); // Passa o idAcademico do usuário
+    } else {
+      console.error('Usuário não autenticado');
+    }
   }
 
   getPrivacidades(id: number) {
     this.privacidadeService.getPrivacidades(id).subscribe({
       next: (data: Privacidade | null) => {
         // Se for null, usa o valor padrão ou trata como necessário
-        this.privacidades = data || new Privacidade(); // Aqui você pode garantir que privacidades seja sempre um objeto válido
+        this.privacidades = data || new Privacidade(); // Garante que privacidades seja sempre um objeto válido
         console.log('Privacidade recebida:', this.privacidades);
       },
       error: (err) => {

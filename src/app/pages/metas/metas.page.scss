@@ -37,7 +37,7 @@ ul {
 }
 
 .titulo-esportiva {
-  color: var(--purple-desc);
+  color: var(--text-new-green);
   font-size: 1.25rem;
 }
 
@@ -52,8 +52,8 @@ ul {
 }
 
 .meta-esportiva {
-  border-right: 3px solid var(--purple-desc);
-  border-bottom: 2px solid var(--purple-desc);
+  border-right: 3px solid var(--text-new-green);
+  border-bottom: 2px solid var(--text-new-green);
 }
 
 .meta-diaria {
@@ -84,7 +84,7 @@ ion-toggle {
 }
 
 .toggle-esportivas {
-  --handle-background-checked: var(--purple-desc);
+  --handle-background-checked: var(--text-new-green);
 }
 
 ion-item {
@@ -95,6 +95,7 @@ ion-item {
 .texto-light {
   font-size: 0.8rem;
   color: var(--text-light);
+  text-transform: uppercase;
 }
 
 .centered-button {
@@ -203,8 +204,9 @@ ion-input {
 }
 
 .align-esportivas {
-  color: var(--purple-desc);
+  color: var(--text-new-green);
 }
+
 .icon-label {
   display: flex;
   align-items: center;
@@ -244,14 +246,14 @@ ion-button {
 
 .button-group {
   display: flex;
-  justify-content: space-between; /* Espaçamento igual entre os botões */
+  justify-content: space-between;
   align-items: center;
   margin-top: 20px;
 }
 
 .button-group ion-button {
   flex: 1;
-  margin: 0 15px; /* Espaçamento entre os botões */
+  margin: 0 15px;
 }
 
 .item-lista2 ion-textarea {
@@ -268,4 +270,150 @@ ion-button {
   border-right: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   transition: background-color 0.3s, transform 0.3s;
+}
+
+.item-lista h3 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0;
+}
+
+.titulo-principal {
+  color: var(--yellow-desc) !important;
+  font-size: 1.25rem;
+  flex-grow: 1;
+}
+
+.texto-light {
+  font-size: 0.8rem;
+  color: var(--text-light);
+  text-transform: capitalize;
+}
+
+.align-esportivas,
+.align-diarias {
+  display: flex;
+  justify-content: flex-start; /* Alinha o texto à esquerda */
+  align-items: center;
+  gap: 8px; /* Espaçamento entre o título e o nome da modalidade */
+  padding: 0;
+  margin: 0; /* Remove qualquer margem */
+  text-align: left; /* Garante alinhamento à esquerda */
+  width: auto; /* Ajusta a largura conforme o conteúdo */
+}
+
+.centered-toggle {
+  display: flex;
+  justify-content: center; /* Centraliza o toggle */
+  align-items: center; /* Garante que o toggle esteja centralizado verticalmente */
+  margin-left: auto;
+  margin-right: auto;
+  width: fit-content; /* Ajusta a largura para o conteúdo */
+}
+
+.titulo-esportiva {
+  display: flex;
+  justify-content: space-between; /* Garantir que o título e a modalidade ocupem o espaço */
+  align-items: center;
+  margin: 0;
+  width: 100%; /* Faz com que o título ocupe toda a largura disponível */
+}
+
+.titulo-esportiva .texto-light {
+  font-size: 0.8rem;
+  color: var(--text-light); /* Mantém a cor do texto conforme configurado */
+}
+
+.titulo-principal {
+  color: var(--text-new-green); /* Cor para o título das metas esportivas */
+  font-size: 1.25rem;
+  flex-grow: 1; /* Garante que o título ocupe o espaço restante */
+}
+
+.centered-toggle {
+  display: flex;
+  justify-content: center; /* Centraliza o toggle */
+  align-items: center; /* Garante que o toggle esteja centralizado verticalmente */
+  flex-grow: 1; /* Garante que o espaço disponível será ocupado */
+  width: auto; /* Ajusta a largura conforme necessário */
+}
+
+.novo-alinhamento {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: var(--yellow-desc);
+  font-weight: 500;
+}
+
+.container-alinhado {
+  display: flex;
+  justify-content: center; /* Alinha os itens no centro */
+  align-items: center;
+  width: 100%;
+}
+
+.icone-texto {
+  display: flex;
+  align-items: center;  /* Alinha verticalmente o ícone e o texto */
+  justify-content: center; /* Alinha horizontalmente o ícone e o texto */
+}
+
+.icone {
+  margin-right: 8px; /* Ajuste a distância entre o ícone e o texto */
+}
+
+.texto {
+  font-size: 16px; /* Ajuste o tamanho do texto conforme necessário */
+  text-align: center;
+}
+
+.toggle-container {
+  display: flex;
+  align-items: center; /* Alinha o toggle verticalmente com o ícone e o texto */
+  justify-content: center; /* Garante que o toggle também estará alinhado ao centro */
+  margin-left: 16px; /* Pode ser ajustado para o espaço entre o conjunto de ícone + texto e o toggle */
+}
+
+
+
+
+.novo-alinhamento-esportivas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  color: var(--text-new-green);
+  font-weight: 500;
+}
+
+.container-alinhado-esportivas {
+  display: flex;
+  justify-content: center; /* Alinha os itens no centro */
+  align-items: center;
+  width: 100%;
+}
+
+.icone-texto-esportivas {
+  display: flex;
+  align-items: center;  /* Alinha verticalmente o ícone e o texto */
+  justify-content: center; /* Alinha horizontalmente o ícone e o texto */
+}
+
+.icone-esportivas {
+  margin-right: 8px; /* Ajuste a distância entre o ícone e o texto */
+}
+
+.texto-esportivas {
+  font-size: 16px; /* Ajuste o tamanho do texto conforme necessário */
+  text-align: center;
+}
+
+.toggle-container-esportivas {
+  display: flex;
+  align-items: center; /* Alinha o toggle verticalmente com o ícone e o texto */
+  justify-content: center; /* Garante que o toggle também estará alinhado ao centro */
+  margin-left: 16px; /* Ajuste o espaço entre o conjunto ícone + texto e o toggle */
 }

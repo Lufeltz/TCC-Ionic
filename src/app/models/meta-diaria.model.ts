@@ -1,4 +1,5 @@
 export class MetaDiaria {
+  tipo: string = 'diaria'; 
   idMetaDiaria: number = 0;
   titulo: string = '';
   objetivo: string = '';
