@@ -18,27 +18,31 @@ export class MetaDiariaService {
     }),
   };
 
-  getMetaDiariaByAcademicoId(idAcademico: number): Observable<MetaDiaria[] | null> {
+  getMetaDiariaByAcademicoId(
+    idAcademico: number
+  ): Observable<MetaDiaria[] | null> {
     return this._http
-      .get<MetaDiaria[]>(`${this.NEW_URL}/listar/${idAcademico}`, this.httpOptions)
+      .get<MetaDiaria[]>(
+        `${this.NEW_URL}/listar/${idAcademico}`,
+        this.httpOptions
+      )
       .pipe(
         map((resp: HttpResponse<MetaDiaria[]>) => {
           if (resp.status === 200) {
-            return resp.body;  // Agora retorna um array de MetaDiaria[]
+            return resp.body;
           } else {
             return null;
           }
         }),
         catchError((err) => {
           if (err.status === 404) {
-            return of(null);  // Retorna null se não houver dados
+            return of(null);
           } else {
-            return throwError(() => err);  // Retorna o erro para tratamento posterior
+            return throwError(() => err);
           }
         })
       );
   }
-  
 
   getMetaDiariaById(id: number): Observable<MetaDiaria | null> {
     return this._http
@@ -102,11 +106,12 @@ export class MetaDiariaService {
         })
       );
   }
-  
 
   deleteMetaDiaria(id: string): Observable<MetaDiaria | null> {
     return this._http
-      .delete<MetaDiaria>(`${this.NEW_URL}/excluir/${id}`, { observe: 'response' })
+      .delete<MetaDiaria>(`${this.NEW_URL}/excluir/${id}`, {
+        observe: 'response',
+      })
       .pipe(
         map((resp: HttpResponse<MetaDiaria>) => {
           if (resp.status === 200) {

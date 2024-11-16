@@ -10,6 +10,7 @@ export class MetaEsportivaService {
   constructor(private _http: HttpClient) {}
 
   NEW_URL = 'http://localhost:8081/metaEsportiva';
+  MODALIDADE_ALL ='http://localhost:8081/modalidadeEsportiva'
   MODALIDADE_URL = 'http://localhost:8081/modalidadeEsportiva/metaEsportiva';
 
   httpOptions = {
@@ -21,7 +22,7 @@ export class MetaEsportivaService {
 
   getAllMetasEsportivas(): Observable<MetaEsportiva[] | null> {
     return this._http
-      .get<MetaEsportiva[]>(`${this.NEW_URL}/listar`, this.httpOptions)
+      .get<MetaEsportiva[]>(`${this.MODALIDADE_ALL}/listar`, this.httpOptions)
       .pipe(
         map((resp: HttpResponse<MetaEsportiva[]>) => {
           if (resp.status == 200) {

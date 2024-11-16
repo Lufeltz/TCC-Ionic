@@ -29,6 +29,8 @@ import {
   BicepsFlexed,
   CaseUpper,
   ChevronDown,
+  CircleDashed,
+  ClipboardPen,
   Clock4,
   LucideAngularModule,
   NotebookText,
@@ -114,6 +116,8 @@ export class MetasPage implements OnInit {
   readonly CaseUpper = CaseUpper;
   readonly NotebookText = NotebookText;
   readonly ChevronDown = ChevronDown;
+  readonly CircleDashed = CircleDashed;
+  readonly ClipboardPen = ClipboardPen;
 
   constructor(
     private metaDiariaService: MetaDiariaService,
@@ -136,7 +140,9 @@ export class MetasPage implements OnInit {
   }
 
   getModalidadeName(idModalidade: number): string | undefined {
-    const modalidade = this.modalidadesUsuario.find(m => m.idModalidade === idModalidade);
+    const modalidade = this.modalidadesUsuario.find(
+      (m) => m.idModalidade === idModalidade
+    );
     return modalidade ? modalidade.nomeModalidade : undefined;
   }
 
@@ -158,15 +164,15 @@ export class MetasPage implements OnInit {
     }
   }
 
-     // Lógica para alternar o filtro de metas esportivas
-     toggleFilterEsportivas(event: any) {
-      this.filterEsportivas = event.detail.checked;
-    }
-  
-    // Lógica para alternar o filtro de metas diárias
-    toggleFilterDiarias(event: any) {
-      this.filterDiarias = event.detail.checked;
-    }
+  // Lógica para alternar o filtro de metas esportivas
+  toggleFilterEsportivas(event: any) {
+    this.filterEsportivas = event.detail.checked;
+  }
+
+  // Lógica para alternar o filtro de metas diárias
+  toggleFilterDiarias(event: any) {
+    this.filterDiarias = event.detail.checked;
+  }
 
   listarMetasEsportivas(): void {
     // Cria uma lista de observables para todas as modalidades do usuário
@@ -207,17 +213,17 @@ export class MetasPage implements OnInit {
       });
   }
 
-  mostrarMetasPorModalidade(idModalidade: number): void {
-    this.metaEsportivaService.getMetasPorModalidade(idModalidade).subscribe({
-      next: (metas) => {
-        console.log('Metas para a modalidade:', metas);
-        // Aqui você pode tratar as metas retornadas, talvez armazenando em uma variável
-      },
-      error: (err) => {
-        console.error('Erro ao buscar metas para a modalidade:', err);
-      },
-    });
-  }
+  // mostrarMetasPorModalidade(idModalidade: number): void {
+  //   this.metaEsportivaService.getMetasPorModalidade(idModalidade).subscribe({
+  //     next: (metas) => {
+  //       console.log('Metas para a modalidade:', metas);
+  //       // Aqui você pode tratar as metas retornadas, talvez armazenando em uma variável
+  //     },
+  //     error: (err) => {
+  //       console.error('Erro ao buscar metas para a modalidade:', err);
+  //     },
+  //   });
+  // }
 
   abrirModalEditar(meta: any) {
     this.metaParaEditar = meta;
@@ -347,7 +353,6 @@ export class MetasPage implements OnInit {
   excluirMeta(meta: MetaDiaria) {
     this.excluirPresentAlert(meta);
   }
-
 
   get filteredMetas(): (MetaDiaria | MetaEsportiva)[] {
     // Filtra as metas esportivas e diárias conforme o filtro

@@ -145,8 +145,17 @@ ul {
   transform: translateY(-2px);
 }
 
-.item-lista2 ion-label {
-  color: var(--text-light);
+.item-lista2 ion-label, .icon-align ion-label {
+  color: var(--yellow-desc);
+}
+
+ion-label .span-text-white{
+  color: var(--text-white);
+  
+}
+
+.icon-align .text-green {
+  color: var(--text-new-green);
 }
 
 .item-lista2 ion-input {
@@ -277,6 +286,7 @@ ion-button {
   justify-content: space-between;
   align-items: center;
   margin: 0;
+  margin-bottom: 1rem;
 }
 
 .titulo-principal {
