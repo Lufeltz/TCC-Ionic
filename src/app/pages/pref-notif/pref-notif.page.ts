@@ -65,7 +65,7 @@ export class PrefNotifPage implements OnInit {
   ) {}
 
   mostrarEstadoToggle(estado: boolean): void {
-    console.log(!estado);
+    // console.log(!estado);
   }
 
   ngOnInit() {
@@ -83,7 +83,6 @@ export class PrefNotifPage implements OnInit {
       next: (data: Privacidade | null) => {
         // Se for null, usa o valor padrão ou trata como necessário
         this.privacidades = data || new Privacidade(); // Garante que privacidades seja sempre um objeto válido
-        console.log('Privacidade recebida:', this.privacidades);
       },
       error: (err) => {
         console.error('Erro ao buscar dados de privacidade:', err);
@@ -94,7 +93,7 @@ export class PrefNotifPage implements OnInit {
   atualizarPrivacidade() {
     this.privacidadeService.atualizarPrivacidade(this.privacidades).subscribe({
       next: (data) => {
-        console.log('Privacidade atualizada:', data);
+        // console.log('Privacidade atualizada:', data);
         // Você pode exibir uma notificação ou atualizar o estado local do componente
       },
       error: (err) => {

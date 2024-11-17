@@ -1,0 +1,88 @@
+<h3>Nome do campeonato</h3>
+<div>...</div>
+<p>Status</p>
+<p>Total de participantes: {{ times.length }}</p>
+<p>Total de times: {{ times.length }}</p>
+
+<ul>
+  <li *ngIf="shouldShowEtapa('8 de final')">
+    <h4>8 de final</h4>
+    <div *ngFor="let pair of getEtapa('8 de final')" class="card-container">
+      <div class="card">
+        <div class="time">
+          <div class="nome-time">{{ pair[0].numero }}</div>
+          <div class="placar">0</div>
+        </div>
+      </div>
+
+      <span class="x-separator">X</span> <!-- Colocando o "X" entre os times -->
+
+      <div class="card">
+        <div class="time">
+          <div class="nome-time">{{ pair[1].numero }}</div>
+          <div class="placar">0</div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li *ngIf="shouldShowEtapa('4 de final')">
+    <h4>4 de final</h4>
+    <div *ngFor="let pair of getEtapa('4 de final')" class="card-container">
+      <div class="card">
+        <div class="time">
+          <div class="nome-time">{{ pair[0].numero }}</div>
+          <div class="placar">0</div>
+        </div>
+      </div>
+
+      <span class="x-separator">X</span> <!-- Colocando o "X" entre os times -->
+
+      <div class="card">
+        <div class="time">
+          <div class="nome-time">{{ pair[1].numero }}</div>
+          <div class="placar">0</div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li *ngIf="shouldShowEtapa('semifinal')">
+    <h4>Semifinal</h4>
+    <div *ngFor="let pair of getEtapa('semifinal')" class="card-container">
+      <div class="card">
+        <div class="time">
+          <div class="nome-time">{{ pair[0].numero }}</div>
+          <div class="placar">0</div>
+        </div>
+      </div>
+
+      <span class="x-separator">X</span> <!-- Colocando o "X" entre os times -->
+
+      <div class="card">
+        <div class="time">
+          <div class="nome-time">{{ pair[1].numero }}</div>
+          <div class="placar">0</div>
+        </div>
+      </div>
+    </div>
+  </li>
+  <li *ngIf="shouldShowEtapa('final')">
+    <h4>Final</h4>
+    <div *ngFor="let pair of getEtapa('final')" class="card-container">
+      <div class="card">
+        <div class="time">
+          <div class="nome-time">{{ pair[0].numero }}</div>
+          <div class="placar">0</div>
+        </div>
+      </div>
+
+      <span class="x-separator">X</span> <!-- Colocando o "X" entre os times -->
+
+      <div class="card">
+        <div class="time">
+          <div class="nome-time">{{ pair[1].numero }}</div>
+          <div class="placar">0</div>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>

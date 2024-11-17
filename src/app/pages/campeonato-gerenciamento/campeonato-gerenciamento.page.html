@@ -1,0 +1,31 @@
+<ion-content class="ion-padding">
+  <app-menu-perfil
+    [title]="pageTitle"
+    [menu]="pageMenu"
+    [menuContentId]="pageContent"
+  ></app-menu-perfil>
+
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="detalhes">
+      <ion-label>Detalhes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="acoes">
+      <ion-label>Ações</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="situacao">
+      <ion-label>Andamento</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <div *ngIf="selectedSegment === 'detalhes'">
+    <app-campeonato-detalhes></app-campeonato-detalhes>
+  </div>
+
+  <div ngDefaultControl *ngIf="selectedSegment === 'acoes'">
+    <app-campeonato-acoes></app-campeonato-acoes>
+  </div>
+
+  <div ngDefaultControl *ngIf="selectedSegment === 'situacao'">
+    <app-campeonato-status></app-campeonato-status>
+  </div>
+</ion-content>

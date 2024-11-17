@@ -82,7 +82,7 @@ export class CadastroPage {
 
     const localDate = new Date(date.getTime() - localOffset); // Ajusta a data para o horário local
     const finalDate = localDate.toISOString().split('.')[0]; // Remove milissegundos e finaliza a formatação
-    
+
     // Retorna a data no formato desejado
     return finalDate + '-03:00'; // Adiciona o fuso horário de Brasília
   }
@@ -91,10 +91,10 @@ export class CadastroPage {
   cadastrar() {
     // Se houver dataNascimento, formata antes de salvar ou enviar
     if (this.academico.dataNascimento) {
-      this.academico.dataNascimento = this.formatDateToFullDate(this.academico.dataNascimento);
+      this.academico.dataNascimento = this.formatDateToFullDate(
+        this.academico.dataNascimento
+      );
     }
-
-    console.log(this.academico);
 
     // Envia os dados para o serviço de cadastro
     this.authService.cadastrar(this.academico).subscribe({

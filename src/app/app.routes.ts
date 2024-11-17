@@ -68,6 +68,11 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
+    path: 'campeonato-gerenciamento',
+    redirectTo: 'homepage/campeonato-gerenciamento',
+    pathMatch: 'full',
+  },
+  {
     path: 'cadastro',
     loadComponent: () =>
       import('./auth/cadastro/cadastro.page').then((m) => m.CadastroPage),
@@ -81,7 +86,7 @@ export const routes: Routes = [
     path: 'homepage',
     loadComponent: () =>
       import('./pages/homepage/homepage.page').then((m) => m.HomepagePage),
-    canActivate:[AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'feed',
@@ -174,6 +179,13 @@ export const routes: Routes = [
           import('./pages/avaliar-jogador/avaliar-jogador.page').then(
             (m) => m.AvaliarJogadorPage
           ),
+      },
+      {
+        path: 'campeonato-gerenciamento',
+        loadComponent: () =>
+          import(
+            './pages/campeonato-gerenciamento/campeonato-gerenciamento.page'
+          ).then((m) => m.CampeonatoGerenciamentoPage),
       },
     ],
   },

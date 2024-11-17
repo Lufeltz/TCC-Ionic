@@ -131,7 +131,6 @@ export class MetasPage implements OnInit {
     if (user) {
       this.user = user; // Armazena o usuário na variável user
       this.modalidadesUsuario = this.user.modalidades || []; // Atribui as modalidades ao usuário
-      console.log('Modalidades do usuário:', this.modalidadesUsuario); // Log para conferir os dados
       this.listarMetaDiarias(); // Chama a função para listar as metas diárias
       this.listarMetasEsportivas(); // Chama a função para listar as metas esportivas
     } else {
@@ -187,7 +186,6 @@ export class MetasPage implements OnInit {
         this.metasEsportivas = resultados
           .flat()
           .filter((meta): meta is MetaEsportiva => meta !== null);
-        console.log('Todas as metas esportivas:', this.metasEsportivas);
       },
       error: (err) => {
         console.error('Erro ao buscar metas esportivas:', err);
@@ -204,7 +202,6 @@ export class MetasPage implements OnInit {
             this.metaDiaria = [];
           } else {
             this.metaDiaria = data;
-            console.log('Dados da meta diária:', this.metaDiaria);
           }
         },
         error: (err) => {
@@ -227,7 +224,6 @@ export class MetasPage implements OnInit {
 
   abrirModalEditar(meta: any) {
     this.metaParaEditar = meta;
-    console.log(this.metaParaEditar);
     this.modalEditarVisivel = true;
   }
 
@@ -239,15 +235,13 @@ export class MetasPage implements OnInit {
     if (this.metaDiaria2) {
       this.metaDiaria2.idAcademico = this.user.idAcademico; // Usando this.user.idAcademico
 
-      console.log('MetaDiaria antes de salvar:', this.metaDiaria2);
-
       this.metaDiariaService.postMetaDiaria(this.metaDiaria2).subscribe({
         next: (data) => {
-          console.log('Meta Diária criada com sucesso:', data);
+          // console.log('Meta Diária criada com sucesso:', data);
         },
         error: (err) => {
           console.error('Erro ao criar Meta Diária:', err);
-          console.log('MetaDiaria:', this.metaDiaria2);
+          // console.log('MetaDiaria:', this.metaDiaria2);
         },
       });
     }
@@ -297,7 +291,6 @@ export class MetasPage implements OnInit {
   excluirMetaConfirmada(id: string) {
     this.metaDiariaService.deleteMetaDiaria(id).subscribe({
       next: (result) => {
-        console.log('Meta excluída com sucesso:', result);
         this.listarMetaDiarias(); // Atualiza a lista de metas após exclusão
       },
       error: (err) => {

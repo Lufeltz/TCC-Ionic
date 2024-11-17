@@ -58,11 +58,7 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private route: ActivatedRoute
-  ) {
-    
-  }
-
-  
+  ) {}
 
   @ViewChild('formLogin') formLogin!: NgForm;
   login: LoginRequest = new LoginRequest();
@@ -86,7 +82,7 @@ export class LoginPage implements OnInit {
       next: (token) => {
         if (token) {
           const decodedToken: any = jwtDecode(token);
-          console.log(decodedToken);
+
           this.router.navigate(['/homepage']);
         } else {
           this.message = 'Usuário/Senha inválidos.';

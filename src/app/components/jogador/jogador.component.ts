@@ -90,7 +90,6 @@ export class JogadorComponent implements OnInit, OnChanges {
   }
 
   navigateToPerfil(): void {
-    console.log('Card clicado');
     this.router.navigate(['/perfil-outro-usuario']);
   }
 

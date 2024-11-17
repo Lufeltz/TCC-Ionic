@@ -63,7 +63,6 @@ export class PostPage implements OnInit {
   // Handle form submission
   onSubmit() {
     // Log the publication data to console
-    console.log('Dados da publicação a ser enviados:', this.publicacao);
 
     this.publicacaoService.postPublicacao(this.publicacao).subscribe(
       (response) => {
@@ -89,7 +88,6 @@ export class PostPage implements OnInit {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
     this.publicacao.idModalidadeEsportiva = null; // Atualiza corretamente
-    console.log('Modalidade selecionada:', selectedValue);
   }
 
   voltarComunidadePostCriado() {

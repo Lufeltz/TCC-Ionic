@@ -49,8 +49,6 @@ export class EstatisticasPessoaisComponent implements OnInit {
     this.academico = this.authService.getUser(); // Usa getUser() para obter os dados do usuário
 
     if (this.academico) {
-      console.log('Dados do acadêmico logado:', this.academico);
-
       // Carregar estatísticas após obter os dados do acadêmico
       this.loadEstatisticasUso(this.academico.idAcademico);
       this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
@@ -79,10 +77,6 @@ export class EstatisticasPessoaisComponent implements OnInit {
         next: (data: EstatisticaModalidade[] | null) => {
           const estatisticas = data || [];
           this.estatisticasModalidadeUnica.push(...estatisticas);
-          console.log(
-            `Dados de estatísticas de modalidade recebidos para modalidade ${idModalidade}:`,
-            estatisticas
-          );
         },
         error: (err) => {
           console.error(
@@ -100,10 +94,6 @@ export class EstatisticasPessoaisComponent implements OnInit {
       .subscribe({
         next: (data: EstatisticaModalidadeGeral | null) => {
           this.estatisticasModalidadeGeral = data;
-          console.log(
-            'Dados de todas as modalidades recebidos:',
-            this.estatisticasModalidadeGeral
-          );
         },
         error: (err) => {
           console.error('Erro ao buscar dados de todas as modalidades:', err);

@@ -1,0 +1,94 @@
+<h3 style="display: flex; justify-content: space-between">
+  <div class="icon-align">
+    <ion-label> Participar</ion-label>
+    <lucide-angular
+      [img]="Ellipsis"
+      class="btn-inscrever-se"
+      [size]="20"
+      [color]="'var(--yellow-desc)'"
+      (click)="toggleMenu()"
+    ></lucide-angular>
+
+    <!-- Menu suspenso -->
+    <div [class.show]="menuVisible" class="dropdown-menu">
+      <ul>
+        <li (click)="sairDoCampeonato()">Sair do Campeonato</li>
+        <li (click)="deletarCampeonato()">Deletar Campeonato</li>
+      </ul>
+    </div>
+  </div>
+</h3>
+
+<div class="input-space">
+  <div class="custom-select-wrapper">
+    <select
+      class="custom-select"
+      id="modalidade-select"
+      (change)="onSelectChange($event)"
+    >
+      <option
+        *ngFor="let time of times"
+        [value]="time.numero"
+        [selected]="time.numero === times[0]?.numero"
+      >
+        {{ time.numero }}
+      </option>
+    </select>
+  </div>
+</div>
+
+<!-- Card container -->
+<div class="card-container">
+  <ul>
+    <!-- Usando *ngFor para iterar sobre cada time -->
+    <li *ngFor="let time of times" class="card">
+      <!-- Exibindo nome do time e quantidade de jogadores -->
+      <div class="card-header">
+        <p>{{ time.numero }}</p>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Users"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+            (click)="toggleMenu()"
+          ></lucide-angular>
+          <p>Jogadores: {{ time.jogadores.length }} / 16</p>
+        </div>
+      </div>
+
+      <!-- Accordion para mostrar os detalhes do time -->
+      <ion-accordion-group>
+        <ion-accordion>
+          <!-- Exibindo a opção 'Detalhes' -->
+          <ion-item slot="header" lines="none">
+            <ion-label>Jogadores</ion-label>
+          </ion-item>
+          <div slot="content">
+            <ul>
+              <li *ngFor="let jogador of time.jogadores">
+                <div class="icon-align">
+                  <div>
+                    <lucide-angular
+                      [img]="User"
+                      class="btn-inscrever-se"
+                      [size]="20"
+                      [color]="'var(--text-new-green)'"
+                    ></lucide-angular>
+                    <ion-label>{{ jogador }}</ion-label>
+                  </div>
+                  <lucide-angular
+                    [img]="ExternalLink"
+                    class="btn-inscrever-se"
+                    [size]="20"
+                    [color]="'var(--text-white)'"
+                  ></lucide-angular>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </ion-accordion>
+      </ion-accordion-group>
+    </li>
+  </ul>
+</div>

@@ -1,23 +1,14 @@
 import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
+import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 import {
   Component,
   Input,
-  OnInit,
   OnChanges,
+  OnInit,
   SimpleChanges,
 } from '@angular/core';
-import {
-  IonLabel,
-  IonAccordion,
-  IonAccordionGroup,
-  IonItem,
-  IonButton,
-  IonIcon,
-  IonToggle,
-} from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { lockClosed, lockOpen } from 'ionicons/icons';
-import { NgxMaskPipe } from 'ngx-mask';
+import { FormsModule } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import {
   LockOpen,
@@ -27,7 +18,6 @@ import {
   ExternalLink,
   RotateCw,
   Users,
-  PersonStanding,
   User,
   Volleyball,
   MessageSquareCode,
@@ -42,42 +32,29 @@ import {
   UsersRound,
   ArrowDownToDot,
 } from 'lucide-angular';
-import { Campeonato } from 'src/app/models/campeonato.model';
-import { CampeonatoService } from 'src/app/services/campeonato.service';
-import { FormsModule } from '@angular/forms';
-import { TitleCasePipe } from 'src/app/pipes/title-case.pipe';
-import { EnderecoService } from 'src/app/services/endereco.service';
-import { Endereco } from 'src/app/models/endereco.model';
-import {
-  ModalidadeEsportiva,
-  Modalidades,
-} from 'src/app/models/modalidades.model';
-import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { Academico } from 'src/app/models/academico.model';
-import { RouterModule } from '@angular/router';
-
+import { Campeonato } from 'src/app/models/campeonato.model';
+import { ModalidadeEsportiva } from 'src/app/models/modalidades.model';
+import { CampeonatoService } from 'src/app/services/campeonato.service';
+import { ModalidadesService } from 'src/app/services/modalidades.service';
+import { TitleCasePipe } from 'src/app/pipes/title-case.pipe';
+import { NgxMaskPipe } from 'ngx-mask';
 @Component({
-  selector: 'app-listagem-campeonatos',
-  templateUrl: './listagem-campeonatos.component.html',
-  styleUrls: ['./listagem-campeonatos.component.scss'],
-  imports: [
-    IonToggle,
-    IonIcon,
-    IonButton,
-    IonItem,
-    IonAccordionGroup,
-    IonAccordion,
-    IonLabel,
-    CommonModule,
-    NgxMaskPipe,
-    LucideAngularModule,
-    FormsModule,
-    TitleCasePipe,
-    RouterModule
-  ],
+  selector: 'app-campeonato-detalhes',
+  templateUrl: './campeonato-detalhes.component.html',
   standalone: true,
+  styleUrls: ['./campeonato-detalhes.component.scss'],
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    MenuPerfilComponent,
+    LucideAngularModule,
+    TitleCasePipe,
+    NgxMaskPipe,
+  ],
 })
-export class ListagemCampeonatosComponent implements OnInit, OnChanges {
+export class CampeonatoDetalhesComponent implements OnInit, OnChanges {
   readonly SquareArrowUpRight = SquareArrowUpRight;
   readonly Lock = Lock;
   readonly LockOpen = LockOpen;
@@ -103,6 +80,36 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   modalidadesSimplificadas: { idModalidadeEsportiva: number; nome: string }[] =
     []; // Variável para armazenar o novo array
 
+      campeonatos2: Campeonato[] = [
+    {
+      idCampeonato: 4,
+      codigo: '#XPCQY4',
+      titulo: 'pingas de Rua',
+      descricao: 'Melhor da cidade',
+      aposta: 'Medalhas e troféus',
+      senha: '',
+      dataCriacao: new Date('2024-11-16T18:25:17Z'),
+      dataInicio: '2024-10-01T09:00:00Z',
+      dataFim: '2024-10-25T18:00:00Z',
+      limiteTimes: 10,
+      limiteParticipantes: 1,
+      ativo: true,
+      endereco: {
+        cep: '80030000',
+        uf: 'PR',
+        cidade: 'Curitiba',
+        bairro: 'Alto da Glória',
+        rua: 'Rua Mateus Leme',
+        numero: 789,
+        complemento: null,
+      },
+      privacidadeCampeonato: 'PUBLICO',
+      idAcademico: 2,
+      idModalidadeEsportiva: 5,
+      situacaoCampeonato: 'FINALIZADO',
+    },
+  ];
+
   mensagem!: string;
   mensagem_detalhes!: string;
   loading: boolean = true;
@@ -123,8 +130,8 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   @Input() searchedCampeonatos: string = '';
 
   constructor(
-    private alertController: AlertController,
     private campeonatoService: CampeonatoService,
+    private alertController: AlertController,
     private modalidadeService: ModalidadesService
   ) {}
 
@@ -190,7 +197,6 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
           } else {
             if (this.currentPage === 0) {
               this.campeonatos = data.content;
-              console.log(this.campeonatos)
             } else {
               this.campeonatos = [...this.campeonatos, ...data.content]; // Concatenando os novos dados
             }

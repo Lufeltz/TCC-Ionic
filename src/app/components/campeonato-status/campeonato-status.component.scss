@@ -1,0 +1,93 @@
+body {
+    background-color: black; /* Fundo preto */
+    color: white; /* Texto branco */
+    margin: 0; /* Remover margens externas */
+    padding: 0; /* Remover padding */
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente o conteúdo */
+    align-items: flex-start; /* Alinha o conteúdo no topo */
+    height: 100vh; /* Altura da página cheia */
+  }
+  
+  app-campeonato-status {
+    width: 80%; /* Limita a largura do componente principal para 80% */
+  }
+  
+  .card-container {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    margin-top: 16px;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Garante que os cards ocupem 100% da largura do container */
+    border-radius: 8px;
+    border-right: 2px solid var(--yellow-desc);
+    border-bottom: 2px solid var(--yellow-desc);
+    padding-top: 1rem;
+    // padding-bottom: 1rem;
+    padding-right: 1rem;
+    padding-left: 1rem;
+    background-color: var(--background-dark);
+    // border-right: 2px solid (--text-new-green);
+    // border-bottom: 2px solid (--text-new-green);
+  }
+  
+  .card {
+    background-color: var(--background-dark);
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border-right: 2px solid var(--light-blue);
+    border-bottom: 2px solid var(--light-blue);
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s, transform 0.3s;
+    width: 45%; /* Faz os cards ocuparem 45% da largura do container */
+  }
+  
+  h3 {
+    display: flex;
+    justify-content: space-between;
+    color: var(--yellow-desc);
+    margin-bottom: 8px;
+    width: 100%; /* Garante que o título ocupe toda a largura do container */
+  }
+  
+  h4 {
+    color: var(--yellow-desc);
+  }
+  
+  .time {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .nome-time {
+    color: var(--text-light);
+  }
+  
+  .placar {
+    color: var(--yellow-desc);
+  }
+  
+  ul {
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+    width: 100%; /* Garante que a lista ocupe toda a largura do container */
+  }
+  
+  li {
+    color: var(--text-light);
+  }
+  
+  /* Estilo do "X" entre os times */
+  .x-separator {
+    color: var(--yellow-desc);
+    font-size: 24px;
+    margin: 0 16px; /* Ajustando a margem para que fique bem espaçado */
+    font-weight: bold;
+    text-align: center;
+  }
+  

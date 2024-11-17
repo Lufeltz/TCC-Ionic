@@ -107,8 +107,10 @@ export class MenuPerfilComponent implements OnInit {
   modalidadesUsuario: any[] = [];
   metasPorModalidade: MetaEsportiva[] = [];
   metasEsportivas: MetaEsportiva[] = [];
-  metasPorModalidade2: { [key: number]: { idModalidadeEsportiva: number, metas: MetaEsportiva[] } } = {};
-  metasPorModalidadeArray:any = []
+  metasPorModalidade2: {
+    [key: number]: { idModalidadeEsportiva: number; metas: MetaEsportiva[] };
+  } = {};
+  metasPorModalidadeArray: any = [];
 
   constructor(
     private authService: AuthService,
@@ -121,7 +123,6 @@ export class MenuPerfilComponent implements OnInit {
     if (user) {
       this.user = user; // Armazena o usuário na variável user
       this.modalidadesUsuario = this.user.modalidades || []; // Atribui as modalidades ao usuário
-      console.log('Modalidades do usuário:', this.modalidadesUsuario); // Log para conferir os dados
       this.loadMetasDiarias(); // Chama a função para listar as metas diárias
       this.loadMetasEsportivas(); // Chama a função para listar as metas esportivas
     } else {
@@ -145,7 +146,6 @@ export class MenuPerfilComponent implements OnInit {
             this.metasDiarias = [];
           } else {
             this.metasDiarias = data;
-            console.log('Dados da meta diária:', this.metasDiarias);
           }
         },
         error: (err) => {
@@ -159,7 +159,7 @@ export class MenuPerfilComponent implements OnInit {
     const observables = this.modalidadesUsuario.map((modalidade) =>
       this.metaEsportivaService.getMetasPorModalidade(modalidade.idModalidade)
     );
-  
+
     // Usa forkJoin para aguardar todas as requisições
     forkJoin(observables).subscribe({
       next: (resultados) => {
@@ -167,7 +167,12 @@ export class MenuPerfilComponent implements OnInit {
         this.metasPorModalidade2 = resultados
           .flat()
           .filter((meta): meta is MetaEsportiva => meta !== null)
-          .reduce<{ [key: number]: { idModalidadeEsportiva: number; metas: MetaEsportiva[] } }>((acc, meta) => {
+          .reduce<{
+            [key: number]: {
+              idModalidadeEsportiva: number;
+              metas: MetaEsportiva[];
+            };
+          }>((acc, meta) => {
             const modalidadeId = meta.idModalidadeEsportiva;
             if (!acc[modalidadeId]) {
               acc[modalidadeId] = {
@@ -178,22 +183,15 @@ export class MenuPerfilComponent implements OnInit {
             acc[modalidadeId].metas.push(meta);
             return acc;
           }, {});
-  
+
         // Converte o objeto para um array
         this.metasPorModalidadeArray = Object.values(this.metasPorModalidade2);
-  
-        console.log('Metas agrupadas por modalidade:', this.metasPorModalidade2);
-        console.log('Metas esportivas como array:', this.metasPorModalidadeArray);
       },
       error: (err) => {
         console.error('Erro ao buscar metas esportivas:', err);
       },
     });
   }
-  
-  
-  
-  
 
   logout() {
     this.authService.logout();

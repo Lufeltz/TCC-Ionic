@@ -96,15 +96,14 @@ export class EstatisticasPage implements OnInit {
     // Acessando o usuário diretamente do AuthService
     this.academico = this.authService.getUser();
     if (this.academico) {
-      console.log('Dados do acadêmico logado:', this.academico);
+      // console.log('Dados do acadêmico logado:', this.academico);
     } else {
-      console.error('Usuário não autenticado ou dados não carregados');
+      // console.error('Usuário não autenticado ou dados não carregados');
     }
   }
 
   carregarDadosUsuario(id: number) {
     // Agora, não é necessário carregar os dados de novo do serviço, pois já estão disponíveis
-    console.log('Dados do acadêmico já carregados:', this.academico);
   }
 
   salvarDados() {
@@ -115,9 +114,9 @@ export class EstatisticasPage implements OnInit {
         .subscribe({
           next: (data: Academico | null) => {
             if (data) {
-              console.log('Dados do acadêmico atualizados:', data);
+              // console.log('Dados do acadêmico atualizados:', data);
             } else {
-              console.log('Falha ao atualizar os dados do acadêmico.');
+              // console.log('Falha ao atualizar os dados do acadêmico.');
             }
           },
           error: (err) => {
@@ -138,7 +137,6 @@ export class EstatisticasPage implements OnInit {
   onSelectChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
-    console.log('Modalidade selecionada:', selectedValue);
   }
 
   loadCursos(): void {
@@ -146,7 +144,6 @@ export class EstatisticasPage implements OnInit {
       next: (cursos) => {
         if (cursos && cursos.length > 0) {
           this.cursos = cursos;
-          console.log(this.cursos);
         } else {
           console.warn('Nenhum curso encontrado');
         }

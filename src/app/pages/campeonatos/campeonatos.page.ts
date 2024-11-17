@@ -16,7 +16,9 @@ import {
   IonIcon,
   IonItem,
   IonRadio,
-  IonRadioGroup, IonTextarea } from '@ionic/angular/standalone';
+  IonRadioGroup,
+  IonTextarea,
+} from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 import { HistoricoCampeonatosComponent } from '../../components/historico-campeonatos/historico-campeonatos.component';
 import { ListagemCampeonatosComponent } from '../../components/listagem-campeonatos/listagem-campeonatos.component';
@@ -51,7 +53,8 @@ import { CampeonatoCriacao } from 'src/app/models/campeonato-criacao.model';
   templateUrl: './campeonatos.page.html',
   styleUrls: ['./campeonatos.page.scss'],
   standalone: true,
-  imports: [IonTextarea, 
+  imports: [
+    IonTextarea,
     IonRadio,
     IonItem,
     IonIcon,
@@ -131,7 +134,6 @@ export class CampeonatosPage implements OnInit {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
     // this.publicacao.idModalidadeEsportiva = null; // Atualiza corretamente
-    console.log('Modalidade selecionada:', selectedValue);
   }
 
   salvarDados() {
@@ -144,14 +146,12 @@ export class CampeonatosPage implements OnInit {
       this.horaFim
     );
 
-    console.log('Dados do campeonato:', this.campeonato);
-
     this.campeonatoService.postCampeonato(this.campeonato).subscribe({
       next: (campeonatoCriado) => {
         if (campeonatoCriado) {
-          console.log('Campeonato criado com sucesso:', campeonatoCriado);
+          // console.log('Campeonato criado com sucesso:', campeonatoCriado);
         } else {
-          console.log('Erro ao criar campeonato');
+          // console.log('Erro ao criar campeonato');
         }
       },
       error: (err) => {
@@ -187,10 +187,8 @@ export class CampeonatosPage implements OnInit {
           this.campeonato.endereco.bairro = this.endereco.bairro || '';
           this.campeonato.endereco.cidade = this.endereco.cidade || '';
           this.campeonato.endereco.uf = this.endereco.uf || '';
-
-          console.log('Endereço encontrado:', this.endereco);
         } else {
-          console.log('Endereço não encontrado');
+          // console.log('Endereço não encontrado');
         }
       },
       error: (err) => {

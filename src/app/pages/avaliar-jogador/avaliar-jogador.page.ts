@@ -13,7 +13,16 @@ import {
 import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.component';
 import { star, starOutline, starHalfOutline } from 'ionicons/icons';
 import { addIcons } from 'ionicons';
-import { ChartColumn, LucideAngularModule, MousePointerClick, Save, Star, StarHalf, User, Volleyball } from 'lucide-angular';
+import {
+  ChartColumn,
+  LucideAngularModule,
+  MousePointerClick,
+  Save,
+  Star,
+  StarHalf,
+  User,
+  Volleyball,
+} from 'lucide-angular';
 
 @Component({
   selector: 'app-avaliar-jogador',
@@ -79,7 +88,6 @@ export class AvaliarJogadorPage implements OnInit {
 
   rate(stars: number) {
     this.selectedRating = stars; // Atualiza a avaliação selecionada
-    console.log(`Estrela clicada: ${stars}`); // Log da estrela clicada
     // Você pode também recalcular a média se desejar
     this.calcularMedia(); // (Opcional)
   }
@@ -87,6 +95,5 @@ export class AvaliarJogadorPage implements OnInit {
   saveRating() {
     this.avaliacoes.push(this.selectedRating);
     this.calcularMedia();
-    console.log('Avaliação salva:', this.selectedRating);
   }
 }

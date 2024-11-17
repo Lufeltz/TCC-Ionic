@@ -139,7 +139,6 @@ export class ModalidadesPage implements OnInit {
         .inscreverModalidade(usuarioId, modalidadeId)
         .subscribe({
           next: (resp) => {
-            console.log('Inscrição realizada com sucesso:', resp);
             this.ngOnInit();
           },
           error: (err) => {
@@ -158,7 +157,6 @@ export class ModalidadesPage implements OnInit {
         .removerModalidade(usuarioId, modalidadeId)
         .subscribe({
           next: (resp) => {
-            console.log('Inscrição cancelada com sucesso:', resp);
             this.ngOnInit();
           },
           error: (err) => {
@@ -214,7 +212,6 @@ export class ModalidadesPage implements OnInit {
 
   abrirModalEditar(meta: any) {
     this.modalidadeParaEditar = meta;
-    console.log(this.modalidadeParaEditar);
     this.modalEditarVisivel = true;
   }
 
