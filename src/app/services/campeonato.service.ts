@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Campeonato } from '../models/campeonato.model';
 import { CampeonatoCriacao } from '../models/campeonato-criacao.model';
+import { Avaliacao } from '../models/avaliacao.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CampeonatoService {
-
   constructor(private _http: HttpClient) {}
 
   NEW_URL = 'http://localhost:8081/campeonatos';
@@ -20,9 +20,91 @@ export class CampeonatoService {
     }),
   };
 
-  getAllCampeonatos(page: number, size: number): Observable<Campeonato[] | null> {
+  avaliarJogador(
+    idAvaliador: number,
+    idAcademico: number,
+    nota: number,
+    idModalidade: number
+  ): Observable<any> {
+    const url = `${this.NEW_URL}/avaliar?idAvaliador=${idAvaliador}&idAcademico=${idAcademico}&nota=${nota}&idModalidade=${idModalidade}`;
+
+    return this._http.post<any>(url, null, this.httpOptions).pipe(
+      map((resp: HttpResponse<any>) => {
+        if (resp.status === 200) {
+          return resp.body;
+        } else {
+          return null;
+        }
+      }),
+      catchError((err) => {
+        return throwError(() => err); // Em caso de erro, lança o erro para ser tratado posteriormente
+      })
+    );
+  }
+
+  getMediaAvaliacao(academicoId: number): Observable<Avaliacao | null> {
     return this._http
-      .get<Campeonato[]>(`${this.NEW_URL}/listar?page=${page}&size=${size}`, this.httpOptions)
+      .get<Avaliacao>(
+        `${this.NEW_URL}/avaliacao/${academicoId}/mediaAvaliacao`,
+        this.httpOptions
+      )
+      .pipe(
+        map((resp: HttpResponse<Avaliacao>) => {
+          if (resp.status === 200 && resp.body) {
+            return resp.body;
+          } else {
+            return null;
+          }
+        }),
+        catchError((err) => {
+          // Tratamento de erros
+          if (err.status === 404) {
+            return of(null); // Se não encontrado, retorna null
+          } else {
+            return throwError(() => err); // Outros erros
+          }
+        })
+      );
+  }
+
+  getHistoricoCampeonato(
+    id: number,
+    page: number,
+    size: number,
+    sort: string
+  ): Observable<Campeonato[] | null> {
+    return this._http
+      .get<Campeonato[]>(
+        `${this.NEW_URL}/historico/${id}?page=${page}&size=${size}&sort=${sort}`,
+        this.httpOptions
+      )
+      .pipe(
+        map((resp: HttpResponse<Campeonato[]>) => {
+          if (resp.status === 200) {
+            return resp.body;
+          } else {
+            return [];
+          }
+        }),
+        catchError((err) => {
+          if (err.status === 404) {
+            return of([]);
+          } else {
+            return throwError(() => err);
+          }
+        })
+      );
+  }
+
+  getAllCampeonatos(
+    page: number,
+    size: number
+  ): Observable<Campeonato[] | null> {
+    return this._http
+      .get<Campeonato[]>(
+        `${this.NEW_URL}/listar?page=${page}&size=${size}`,
+        this.httpOptions
+      )
       .pipe(
         map((resp: HttpResponse<Campeonato[]>) => {
           if (resp.status === 200) {
@@ -44,7 +126,7 @@ export class CampeonatoService {
   // Alterar URL
   getCampeonatoById(id: number): Observable<Campeonato | null> {
     return this._http
-      .get<Campeonato>(`${this.NEW_URL}/aeroportos/${id}`,this.httpOptions)
+      .get<Campeonato>(`${this.NEW_URL}/aeroportos/${id}`, this.httpOptions)
       .pipe(
         map((resp: HttpResponse<Campeonato>) => {
           if (resp.status == 200) {
@@ -63,8 +145,9 @@ export class CampeonatoService {
       );
   }
 
-
-  postCampeonato(campeonato: CampeonatoCriacao): Observable<CampeonatoCriacao | null> {
+  postCampeonato(
+    campeonato: CampeonatoCriacao
+  ): Observable<CampeonatoCriacao | null> {
     return this._http
       .post<CampeonatoCriacao>(
         `${this.NEW_URL}`,
@@ -108,10 +191,7 @@ export class CampeonatoService {
 
   deleteCampeonato(id: string): Observable<Campeonato | null> {
     return this._http
-      .delete<Campeonato>(
-        `${this.NEW_URL}/aeroportos/${id}`,
-        this.httpOptions
-      )
+      .delete<Campeonato>(`${this.NEW_URL}/aeroportos/${id}`, this.httpOptions)
       .pipe(
         map((resp: HttpResponse<Campeonato>) => {
           if (resp.status == 200) {
@@ -125,5 +205,4 @@ export class CampeonatoService {
         })
       );
   }
-
 }

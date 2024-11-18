@@ -1,5 +1,5 @@
 .cadeado-icon {
-  color: var(--light-blue);
+  color: var(--text-pink);
   font-size: 1.5rem;
   vertical-align: middle;
   margin-left: 8px;
@@ -23,8 +23,8 @@ ul {
   margin-top: 16px;
   position: relative;
   z-index: 1;
-  border-right: 2px solid var(--light-blue);
-  border-bottom: 2px solid var(--light-blue);
+  border-right: 2px solid var(--text-pink);
+  border-bottom: 2px solid var(--text-pink);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   transition: background-color 0.3s, transform 0.3s;
 }
@@ -38,7 +38,7 @@ ul {
 
 .campeonato-nome {
   font-size: 1.25rem;
-  color: var(--light-blue);
+  color: var(--text-pink);
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
@@ -87,7 +87,7 @@ div[slot="header"] {
 
 ion-item {
   --background: var(--background-dark);
-  color: var(--light-blue);
+  color: var(--text-pink);
 }
 
 @media (max-width: 375px) {
@@ -133,11 +133,11 @@ ion-button {
 }
 
 .detalhes-header {
-  color: var(--light-blue);
+  color: var(--text-pink);
 }
 
 ion-accordion:hover .detalhes-header ion-label {
-  color: var(--light-blue);
+  color: var(--text-pink);
 }
 
 
@@ -167,7 +167,7 @@ ion-button {
 ///// extra
 
 .cadeado-icon {
-  color: var(--light-blue);
+  color: var(--text-pink);
   font-size: 1.5rem;
   vertical-align: middle;
   margin-left: 8px;
@@ -191,8 +191,8 @@ ul {
   margin-top: 16px;
   position: relative;
   z-index: 1;
-  border-right: 2px solid var(--light-blue);
-  border-bottom: 2px solid var(--light-blue);
+  border-right: 2px solid var(--text-pink);
+  border-bottom: 2px solid var(--text-pink);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   transition: background-color 0.3s, transform 0.3s;
 }
@@ -206,7 +206,7 @@ ul {
 
 .campeonato-nome {
   font-size: 1.25rem;
-  color: var(--light-blue);
+  color: var(--text-pink);
   flex-grow: 1;
   display: flex;
   justify-content: space-between;
@@ -256,7 +256,7 @@ div[slot="header"] {
 
 ion-item {
   --background: var(--background-dark);
-  color: var(--light-blue);
+  color: var(--text-pink);
 }
 
 @media (max-width: 375px) {
@@ -362,11 +362,11 @@ ion-button {
 }
 .detalhes-header {
   --background: var(--background-dark);
-  color: var(--light-blue);
+  color: var(--text-pink);
 }
 
 ion-accordion:hover .detalhes-header ion-label {
-  color: var(--light-blue);
+  color: var(--text-pink);
 }
 
 ////// extra
@@ -395,7 +395,7 @@ ion-toggle {
 
 ion-item {
   --background: var(--background-light);
-  color: var(--light-blue);
+  color: var(--text-pink);
 }
 
 .texto-light {
@@ -404,7 +404,7 @@ ion-item {
 }
 
 .centered-button {
-  --background: var(--light-blue);
+  --background: var(--text-pink);
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
@@ -418,7 +418,7 @@ ion-item {
 }
 
 .item-lista ion-label {
-  color: var(--light-blue);
+  color: var(--text-pink);
   margin-bottom: 0.5rem;
 }
 
@@ -476,7 +476,7 @@ ul {
 }
 
 .centered-button {
-  --background: var(--light-blue);
+  --background: var(--text-pink);
   width: 100%;
   max-width: 300px;
   margin: 0 auto;
@@ -484,8 +484,8 @@ ul {
 }
 
 // ion-input {
-//   border-right: 2px solid var(--light-blue);
-//   border-bottom: 2px solid var(--light-blue);
+//   border-right: 2px solid var(--text-pink);
+//   border-bottom: 2px solid var(--text-pink);
 //   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
 //   transition: background-color 0.3s, transform 0.3s;
 // }

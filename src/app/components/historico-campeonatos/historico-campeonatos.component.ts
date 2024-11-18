@@ -42,30 +42,11 @@ import {
   Volleyball,
 } from 'lucide-angular';
 import { NgxMaskPipe } from 'ngx-mask';
-
-interface Endereco {
-  cep: string;
-  uf: string;
-  cidade: string;
-  bairro: string;
-  rua: string;
-  numero: number;
-  complemento: string;
-}
-
-interface Campeonato {
-  codigo: string;
-  titulo: string;
-  descricao: string;
-  aposta: string;
-  dataCriacao: string;
-  dataInicio: string;
-  dataFim: string;
-  limiteParticipantes: number;
-  status: 'aberto' | 'iniciado' | 'finalizado';
-  endereco: Endereco;
-  privacidadeCampeonato: 'privado' | 'aberto';
-}
+import { Academico } from 'src/app/models/academico.model';
+import { Campeonato } from 'src/app/models/campeonato.model';
+import { AcademicoService } from 'src/app/services/academico.service';
+import { AuthService } from 'src/app/services/auth.service';
+import { CampeonatoService } from 'src/app/services/campeonato.service';
 
 @Component({
   selector: 'app-historico-campeonatos',
@@ -85,7 +66,7 @@ interface Campeonato {
     LucideAngularModule,
   ],
 })
-export class HistoricoCampeonatosComponent implements OnInit, OnChanges {
+export class HistoricoCampeonatosComponent implements OnInit {
   readonly SquareArrowUpRight = SquareArrowUpRight;
   readonly Lock = Lock;
   readonly LockOpen = LockOpen;
@@ -108,76 +89,23 @@ export class HistoricoCampeonatosComponent implements OnInit, OnChanges {
   readonly NotebookPen = NotebookPen;
 
   @Input() username: string = '';
-  @Input() idAcademico: number = 0;
+  academico: Academico | null = null;
 
-
-  campeonatos: Campeonato[] = [
-    {
-      codigo: 'LKM90',
-      titulo: 'Campeonato de Verão',
-      descricao: 'Competição anual de verão',
-      aposta: 'R$ 500,00',
-      dataCriacao: '2023-01-01',
-      dataInicio: '2023-02-01',
-      dataFim: '2023-03-01',
-      limiteParticipantes: 50,
-      status: 'aberto',
-      endereco: {
-        cep: '12345678',
-        uf: 'SP',
-        cidade: 'São Paulo',
-        bairro: 'Centro',
-        rua: 'Rua das Flores',
-        numero: 100,
-        complemento: 'Próximo ao parque',
-      },
-      privacidadeCampeonato: 'aberto',
-    },
-    {
-      codigo: 'HGY86',
-      titulo: 'Campeonato de Inverno',
-      descricao: 'Competição anual de inverno',
-      aposta: 'R$ 1000,00',
-      dataCriacao: '2023-06-01',
-      dataInicio: '2023-07-01',
-      dataFim: '2023-08-01',
-      limiteParticipantes: 30,
-      status: 'iniciado',
-      endereco: {
-        cep: '87654321',
-        uf: 'RJ',
-        cidade: 'Rio de Janeiro',
-        bairro: 'Copacabana',
-        rua: 'Avenida Atlântica',
-        numero: 200,
-        complemento: 'Em frente à praia',
-      },
-      privacidadeCampeonato: 'privado',
-    },
-    {
-      codigo: 'ASH46',
-      titulo: 'Campeonato de Primavera',
-      descricao: 'Competição anual de primavera',
-      aposta: 'R$ 750,00',
-      dataCriacao: '2023-09-01',
-      dataInicio: '2023-10-01',
-      dataFim: '2023-11-01',
-      limiteParticipantes: 40,
-      status: 'finalizado',
-      endereco: {
-        cep: '11223344',
-        uf: 'MG',
-        cidade: 'Belo Horizonte',
-        bairro: 'Savassi',
-        rua: 'Rua dos Pioneiros',
-        numero: 300,
-        complemento: 'Próximo ao shopping',
-      },
-      privacidadeCampeonato: 'aberto',
-    },
-  ];
-
+  historicoCampeonatos: Campeonato[] = [];
   filteredCampeonatos: Campeonato[] = [];
+
+  // Mapeamento das modalidades
+  modalidades: { [key: number]: string } = {
+    1: 'Futebol',
+    2: 'Vôlei',
+    3: 'Basquete',
+    4: 'Handebol',
+    5: 'Tênis de Mesa',
+  };
+
+  getModalidadeNome(id: number): string {
+    return this.modalidades[id] || 'Modalidade não encontrada';
+  }
 
   @Input() statusToggles: {
     aberto?: boolean;
@@ -187,41 +115,111 @@ export class HistoricoCampeonatosComponent implements OnInit, OnChanges {
 
   @Input() searchedCampeonatos: string = '';
 
-  constructor() {
+  constructor(
+    private authService: AuthService,
+    private academicoService: AcademicoService,
+    private campeonatoService: CampeonatoService
+  ) {
     addIcons({ lockClosed, lockOpen });
   }
 
-  ngOnInit() {
-    this.filterCampeonatos();
-    console.log('Username recebido no componente historico: ', this.username);
-  }
+  currentPage: number = 0; // Página inicial
+  totalPages: number = 5; // Defina como 1 inicialmente ou pegue o valor da resposta da API
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes['statusToggles'] || changes['searchedCampeonatos']) {
-      this.filterCampeonatos();
+  ngOnInit() {
+    const usernameFinal =
+      this.username || this.authService.getUser()?.username || '';
+
+    if (usernameFinal) {
+      this.buscarAcademicoPorUsername(usernameFinal);
+    } else {
+      console.error('Username não fornecido');
     }
   }
 
-  filterCampeonatos() {
-    const {
-      aberto = true,
-      finalizado = true,
-      iniciado = true,
-    } = this.statusToggles;
-
-    const searchTerm = this.searchedCampeonatos.toLowerCase();
-
-    this.filteredCampeonatos = this.campeonatos.filter((campeonato) => {
-      const matchesStatus =
-        (aberto && campeonato.status === 'aberto') ||
-        (finalizado && campeonato.status === 'finalizado') ||
-        (iniciado && campeonato.status === 'iniciado');
-
-      const matchesSearchTerm =
-        campeonato.titulo.toLowerCase().includes(searchTerm) ||
-        campeonato.descricao.toLowerCase().includes(searchTerm);
-
-      return matchesStatus && matchesSearchTerm;
+  buscarAcademicoPorUsername(username: string) {
+    this.academicoService.getAcademicoByUsername(username).subscribe({
+      next: (academico: Academico | null) => {
+        this.academico = academico;
+        if (this.academico) {
+          const idAcademico = this.academico.idAcademico;
+          this.getHistoricoCampeonato(
+            idAcademico,
+            this.currentPage,
+            5,
+            'dataCriacao,desc'
+          );
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao buscar acadêmico:', err);
+      },
     });
   }
+
+  getHistoricoCampeonato(id: number, page: number, size: number, sort: string) {
+    this.campeonatoService
+      .getHistoricoCampeonato(id, page, size, sort)
+      .subscribe({
+        next: (historico: any) => {
+          if (historico && historico.content) {
+            // Carregar mais campeonatos na lista
+            this.historicoCampeonatos = [
+              ...this.historicoCampeonatos,
+              ...historico.content,
+            ];
+            this.totalPages = historico.totalPages; // Atualiza o total de páginas
+            console.log('Histórico de campeonatos:', this.historicoCampeonatos);
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao buscar histórico de campeonatos:', err);
+        },
+      });
+  }
+
+  // Função chamada ao clicar no botão 'Mais Campeonatos'
+  carregarMaisCampeonatos() {
+    if (this.currentPage < this.totalPages - 1) {
+      this.currentPage++; // Incrementa a página
+      const idAcademico = this.academico?.idAcademico || 0; // Garantir que temos o ID do acadêmico
+      this.getHistoricoCampeonato(
+        idAcademico,
+        this.currentPage,
+        5,
+        'dataCriacao,desc'
+      );
+    } else {
+      console.log('Não há mais campeonatos para carregar.');
+    }
+  }
+
+  // ngOnChanges(changes: SimpleChanges) {
+  //   if (changes['statusToggles'] || changes['searchedCampeonatos']) {
+  //     this.filterCampeonatos();
+  //   }
+  // }
+
+  // filterCampeonatos() {
+  //   const {
+  //     aberto = true,
+  //     finalizado = true,
+  //     iniciado = true,
+  //   } = this.statusToggles;
+
+  //   const searchTerm = this.searchedCampeonatos.toLowerCase();
+
+  //   this.filteredCampeonatos = this.campeonatos.filter((campeonato) => {
+  //     const matchesStatus =
+  //       (aberto && campeonato.status === 'aberto') ||
+  //       (finalizado && campeonato.status === 'finalizado') ||
+  //       (iniciado && campeonato.status === 'iniciado');
+
+  //     const matchesSearchTerm =
+  //       campeonato.titulo.toLowerCase().includes(searchTerm) ||
+  //       campeonato.descricao.toLowerCase().includes(searchTerm);
+
+  //     return matchesStatus && matchesSearchTerm;
+  //   });
+  // }
 }

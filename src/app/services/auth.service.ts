@@ -25,6 +25,17 @@ export class AuthService {
 
   constructor(private _http: HttpClient, private router: Router) {}
 
+
+    loadToken(): Observable<void> {
+    const token = localStorage.getItem('jwt');
+    if (token) {
+      // Aqui, você pode adicionar lógica adicional, como uma chamada HTTP, caso necessário
+      return of(undefined); // Simplesmente retorna um Observable vazio se o token for encontrado
+    }
+    return throwError(() => new Error('Token não encontrado.'));
+  }
+
+
   cadastrar(academico: Cadastro): Observable<Cadastro | null> {
     return this._http
       .post<Cadastro>(`${this.NEW_URL}/cadastrar`, JSON.stringify(academico), {
@@ -104,6 +115,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
+    console.log(localStorage.getItem('jwt'))
     return localStorage.getItem('jwt');
   }
 
