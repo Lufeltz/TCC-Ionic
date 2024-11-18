@@ -1,7 +1,10 @@
 <div class="jogadores-container">
   <ul>
-    <li *ngFor="let academico of filteredJogadores" class="jogador" (click)="navigateToPerfil(academico)">
-
+    <li
+      *ngFor="let academico of filteredJogadores"
+      class="jogador"
+      (click)="navigateToPerfil(academico)"
+    >
       <div class="jogador-header">
         <div class="username">
           <lucide-angular
@@ -35,16 +38,6 @@
           {{ getModalidades(academico) }}
         </p>
       </div>
-      
-      <!-- <div class="icon-align">
-        <lucide-angular
-          [img]="Star"
-          class="btn-inscrever-se"
-          [size]="20"
-          color="var(--yellow-desc)"
-        ></lucide-angular>
-        <p class="jogador-curso">3.74(140 avaliações)  X</p>
-      </div> -->
 
       <div class="icon-align">
         <lucide-angular
@@ -53,7 +46,28 @@
           [size]="20"
           color="var(--yellow-desc)"
         ></lucide-angular>
-        <p class="jogador-curso">14 Vitórias / 17 Derrotas </p>
+        <p class="jogador-curso">
+          <!-- Verifica as estatísticas do acadêmico -->
+          {{
+            getEstatisticasDoAcademico(academico.idAcademico)?.vitorias || 0
+          }}
+          Vitórias
+        </p>
+      </div>
+
+      <div class="icon-align">
+        <lucide-angular
+          [img]="SquareX"
+          class="btn-inscrever-se"
+          [size]="20"
+          color="var(--light-red)"
+        ></lucide-angular>
+        <p class="jogador-curso">
+          {{
+            getEstatisticasDoAcademico(academico.idAcademico)?.derrotas || 0
+          }}
+          Derrotas
+        </p>
       </div>
 
       <div class="icon-align">
@@ -63,7 +77,12 @@
           [size]="20"
           color="var(--text-orange)"
         ></lucide-angular>
-        <p class="jogador-curso">115 campeonatos ---> X</p>
+        <p class="jogador-curso">
+          {{
+            getEstatisticasDoAcademico(academico.idAcademico)?.jogos || 0
+          }}
+          Jogos
+        </p>
       </div>
       <div class="icon-align">
         <lucide-angular

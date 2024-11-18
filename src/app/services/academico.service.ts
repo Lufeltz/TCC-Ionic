@@ -18,22 +18,41 @@ export class AcademicoService {
     }),
   };
 
-    // Novo método para buscar o acadêmico pelo username
-    getAcademicoByUsername(username: string): Observable<Academico | null> {
-      const url = `${this.NEW_URL}/buscar/${username}`;
-      return this._http.get<Academico>(url, this.httpOptions).pipe(
-        map((resp: HttpResponse<Academico>) => {
-          if (resp.status === 200) {
-            return resp.body;
-          } else {
-            return null;
-          }
-        }),
-        catchError((err) => {
-          return throwError(() => err);
-        })
-      );
-    }
+  getEstatisticasPorModalidade(
+    academicoId: number,
+    modalidadeId: number
+  ): Observable<any> {
+    const url = `${this.NEW_URL}/estatisticas/${academicoId}/modalidade/${modalidadeId}`;
+    return this._http.get<any>(url, this.httpOptions).pipe(
+      map((resp: HttpResponse<any>) => {
+        if (resp.status === 200) {
+          return resp.body;
+        } else {
+          return null; // Retorna null caso o status não seja 200
+        }
+      }),
+      catchError((err) => {
+        return throwError(() => err); // Retorna o erro para ser tratado em outro lugar
+      })
+    );
+  }
+
+  // Novo método para buscar o acadêmico pelo username
+  getAcademicoByUsername(username: string): Observable<Academico | null> {
+    const url = `${this.NEW_URL}/buscar/${username}`;
+    return this._http.get<Academico>(url, this.httpOptions).pipe(
+      map((resp: HttpResponse<Academico>) => {
+        if (resp.status === 200) {
+          return resp.body;
+        } else {
+          return null;
+        }
+      }),
+      catchError((err) => {
+        return throwError(() => err);
+      })
+    );
+  }
 
   getAllAcademicos(page: number, size: number): Observable<Academico[] | null> {
     const url = `${this.NEW_URL}/listar?page=${page}&size=${size}&sort=curso,desc`;
