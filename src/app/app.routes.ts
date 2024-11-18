@@ -8,88 +8,6 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'homepage',
-    redirectTo: 'homepage/feed',
-    pathMatch: 'full',
-  },
-  {
-    path: 'pref-notif',
-    redirectTo: 'homepage/pref-notif',
-    pathMatch: 'full',
-  },
-  {
-    path: 'feed',
-    redirectTo: 'homepage/feed',
-    pathMatch: 'full',
-  },
-  {
-    path: 'privacidade',
-    redirectTo: 'homepage/privacidade',
-    pathMatch: 'full',
-  },
-  {
-    path: 'perfil-usuario',
-    redirectTo: 'homepage/perfil-usuario',
-    pathMatch: 'full',
-  },
-
-  // Rota dinâmica para 'perfil-outro-usuario' com 'username'
-  {
-    path: 'perfil-outro-usuario/:username', // A rota dinâmica com o parâmetro 'username'
-    loadComponent: () =>
-      import('./pages/perfil-outro-usuario/perfil-outro-usuario.page').then(
-        (m) => m.PerfilOutroUsuarioPage
-      ),
-  },
-
-  // Rota que redireciona para a homepage/perfil-outro-usuario
-  {
-    path: 'perfil-outro-usuario',
-    redirectTo: 'homepage/perfil-outro-usuario',
-    pathMatch: 'full',
-  },
-
-  {
-    path: 'app-post',
-    redirectTo: 'homepage/app-post',
-    pathMatch: 'full',
-  },
-  {
-    path: 'canal-saude',
-    redirectTo: 'homepage/canal-saude',
-    pathMatch: 'full',
-  },
-  {
-    path: 'chaveamento',
-    redirectTo: 'homepage/chaveamento',
-    pathMatch: 'full',
-  },
-  {
-    path: 'resultados',
-    redirectTo: 'homepage/resultados',
-    pathMatch: 'full',
-  },
-  {
-    path: 'estatisticas',
-    redirectTo: 'homepage/estatisticas',
-    pathMatch: 'full',
-  },
-  
-  // Rota dinâmica para 'avaliar-jogador' com 'username'
-  {
-    path: 'avaliar-jogador/:username',
-    loadComponent: () =>
-      import('./pages/avaliar-jogador/avaliar-jogador.page').then(
-        (m) => m.AvaliarJogadorPage
-      ),
-  },
-
-  {
-    path: 'campeonato-gerenciamento',
-    redirectTo: 'homepage/campeonato-gerenciamento',
-    pathMatch: 'full',
-  },
-  {
     path: 'cadastro',
     loadComponent: () =>
       import('./auth/cadastro/cadastro.page').then((m) => m.CadastroPage),
@@ -100,11 +18,21 @@ export const routes: Routes = [
       import('./auth/login/login.page').then((m) => m.LoginPage),
   },
   {
+    path: 'perfil-outro-usuario/:username',
+    redirectTo: 'homepage/perfil-outro-usuario/:username',
+    pathMatch: 'full',
+  },
+  {
     path: 'homepage',
     loadComponent: () =>
       import('./pages/homepage/homepage.page').then((m) => m.HomepagePage),
     canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        redirectTo: 'feed',
+        pathMatch: 'full',
+      },
       {
         path: 'feed',
         loadComponent: () =>
@@ -205,5 +133,61 @@ export const routes: Routes = [
           ).then((m) => m.CampeonatoGerenciamentoPage),
       },
     ],
+  },
+  // Redirecionamentos
+  {
+    path: 'pref-notif',
+    redirectTo: 'homepage/pref-notif',
+    pathMatch: 'full',
+  },
+  {
+    path: 'feed',
+    redirectTo: 'homepage/feed',
+    pathMatch: 'full',
+  },
+  {
+    path: 'privacidade',
+    redirectTo: 'homepage/privacidade',
+    pathMatch: 'full',
+  },
+  {
+    path: 'perfil-usuario',
+    redirectTo: 'homepage/perfil-usuario',
+    pathMatch: 'full',
+  },
+  {
+    path: 'perfil-outro-usuario',
+    redirectTo: 'homepage/perfil-outro-usuario',
+    pathMatch: 'full',
+  },
+  {
+    path: 'app-post',
+    redirectTo: 'homepage/app-post',
+    pathMatch: 'full',
+  },
+  {
+    path: 'canal-saude',
+    redirectTo: 'homepage/canal-saude',
+    pathMatch: 'full',
+  },
+  {
+    path: 'chaveamento',
+    redirectTo: 'homepage/chaveamento',
+    pathMatch: 'full',
+  },
+  {
+    path: 'resultados',
+    redirectTo: 'homepage/resultados',
+    pathMatch: 'full',
+  },
+  {
+    path: 'estatisticas',
+    redirectTo: 'homepage/estatisticas',
+    pathMatch: 'full',
+  },
+  {
+    path: 'campeonato-gerenciamento',
+    redirectTo: 'homepage/campeonato-gerenciamento',
+    pathMatch: 'full',
   },
 ];
