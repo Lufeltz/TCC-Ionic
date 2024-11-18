@@ -3,7 +3,7 @@
   <ul>
     <li *ngFor="let publicacao of filteredPublications" class="publicacao">
       <div class="publicacao-header">
-        <div class="username">
+        <div class="username icon-align">
           <lucide-angular
             [img]="UserRound"
             class="btn-inscrever-se"
@@ -58,7 +58,7 @@
                   *ngFor="let comentario of publicacao.listaComentario"
                 >
                   <div class="comentario-header">
-                    <div class="username">
+                    <div class="username icon-align">
                       <lucide-angular
                         [img]="UserRound"
                         class="btn-inscrever-se"

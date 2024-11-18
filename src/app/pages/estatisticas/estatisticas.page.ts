@@ -84,9 +84,7 @@ export class EstatisticasPage implements OnInit {
 
   constructor(
     private academicoService: AcademicoService,
-    private authService: AuthService,
-    private datePipe: DatePipe,
-    private cdr: ChangeDetectorRef
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -132,7 +130,15 @@ export class EstatisticasPage implements OnInit {
           next: (data: AcademicoAlteracao | null) => {
             console.log('Resposta do servidor:', data);
             if (data) {
-              // Não será mais necessário formatar a data, apenas armazená-la
+              // Aqui chamamos o método para atualizar os dados locais após a atualização
+              this.academico = data;
+              // this.getUsuarioLogado(); // Atualizando os dados do acadêmico com a resposta do backend
+              console.log(this.academico)
+              // Aqui, podemos exibir o toast ou mensagem de sucesso
+              const toast = document.querySelector('ion-toast');
+              if (toast) {
+                toast.present();
+              }
             } else {
               console.log('Falha ao atualizar os dados do acadêmico.');
             }

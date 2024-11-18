@@ -166,7 +166,7 @@
             <select
               class="custom-select"
               id="modalidade-select"
-              (change)="onSelectChange($event)"
+              [(ngModel)]="academico!.curso"
             >
               <option value="{{academico?.curso}}" selected>
                 {{academico?.curso}}
