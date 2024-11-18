@@ -49,8 +49,15 @@ export class EstatisticasPessoaisComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // Chama a função para buscar o acadêmico com base no username
-    this.buscarAcademicoPorUsername(this.username);
+    // Verifica se o 'username' foi passado via @Input
+    const usernameFinal = this.username || this.authService.getUser()?.username || ''; // Se não for passado, tenta pegar do AuthService
+  
+    // Se o usernameFinal não estiver vazio, tenta buscar o acadêmico
+    if (usernameFinal) {
+      this.buscarAcademicoPorUsername(usernameFinal);
+    } else {
+      console.error('Username não fornecido');
+    }
   }
   
   // Função para buscar o acadêmico pelo username

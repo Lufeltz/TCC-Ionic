@@ -12,6 +12,7 @@ import {
 import { Academico } from 'src/app/models/academico.model';
 import { Conquista } from 'src/app/models/conquista.model';
 import { AcademicoService } from 'src/app/services/academico.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { ConquistasService } from 'src/app/services/conquistas.service';
 
 @Component({
@@ -182,18 +183,22 @@ export class ConquistasComponent implements OnInit {
 
   constructor(
     private academicoService: AcademicoService,
-    private conquistasService: ConquistasService // Injeta o serviço ConquistasService
+    private conquistasService: ConquistasService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
-    // Verifica se o 'academico' foi passado e, se sim, chama o serviço para obter as conquistas
-    if (this.academico) {
-      this.buscarConquistasPorIdAcademico(this.academico.idAcademico);
+    // Verifica se o 'username' foi passado via @Input
+    const usernameFinal = this.username || this.authService.getUser()?.username || ''; // Se não for passado, tenta pegar do AuthService
+  
+    // Se o usernameFinal não estiver vazio, tenta buscar o acadêmico
+    if (usernameFinal) {
+      this.buscarAcademicoPorUsername(usernameFinal);
     } else {
-      // Se não tiver 'academico', tenta buscar pelo 'username'
-      this.buscarAcademicoPorUsername(this.username);
+      console.error('Username não fornecido');
     }
   }
+  
 
   // Função para buscar o acadêmico pelo username
   buscarAcademicoPorUsername(username: string) {
