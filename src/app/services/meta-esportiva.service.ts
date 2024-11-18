@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { MetaEsportiva } from '../models/meta-esportiva.model';
+import { ModalidadeEsportiva } from '../models/modalidades.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,26 @@ export class MetaEsportivaService {
       'Content-Type': 'application/json',
     }),
   };
+
+  // Adicione esta função ao seu serviço
+getModalidadesPorUsuario(idUsuario: number): Observable<ModalidadeEsportiva[]> {
+  return this._http
+    .get<ModalidadeEsportiva[]>(`${this.MODALIDADE_ALL}/listar/${idUsuario}`, this.httpOptions)
+    .pipe(
+      map((resp: HttpResponse<ModalidadeEsportiva[]>) => {
+        if (resp.status === 200) {
+          return resp.body || [];
+        } else {
+          return [];
+        }
+      }),
+      catchError((err) => {
+        console.error('Erro ao buscar modalidades do usuário:', err);
+        return of([]); // Retorna um array vazio em caso de erro
+      })
+    );
+}
+
 
   getAllMetasEsportivas(): Observable<MetaEsportiva[] | null> {
     return this._http

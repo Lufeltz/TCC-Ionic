@@ -14,13 +14,14 @@ import { Conquista } from 'src/app/models/conquista.model';
 import { AcademicoService } from 'src/app/services/academico.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConquistasService } from 'src/app/services/conquistas.service';
+import { IonLabel } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-conquistas',
   templateUrl: './conquistas.component.html',
   styleUrls: ['./conquistas.component.scss'],
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [IonLabel, CommonModule, LucideAngularModule],
 })
 export class ConquistasComponent implements OnInit {
   estatisticasEsportivas = [
@@ -163,8 +164,8 @@ export class ConquistasComponent implements OnInit {
     1: 'Futebol',
     2: 'Vôlei',
     3: 'Basquete',
-    4: 'Handebol',
-    5: 'Tênis de Mesa'
+    4: 'Tênis de Mesa',
+    5: 'Handebol',
   };
 
   getModalidadeName(id: number): string {
@@ -189,8 +190,9 @@ export class ConquistasComponent implements OnInit {
 
   ngOnInit() {
     // Verifica se o 'username' foi passado via @Input
-    const usernameFinal = this.username || this.authService.getUser()?.username || ''; // Se não for passado, tenta pegar do AuthService
-  
+    const usernameFinal =
+      this.username || this.authService.getUser()?.username || ''; // Se não for passado, tenta pegar do AuthService
+    console.log(usernameFinal);
     // Se o usernameFinal não estiver vazio, tenta buscar o acadêmico
     if (usernameFinal) {
       this.buscarAcademicoPorUsername(usernameFinal);
@@ -198,7 +200,6 @@ export class ConquistasComponent implements OnInit {
       console.error('Username não fornecido');
     }
   }
-  
 
   // Função para buscar o acadêmico pelo username
   buscarAcademicoPorUsername(username: string) {

@@ -93,42 +93,61 @@ export class ModalidadesPage implements OnInit {
     const user = this.authService.getUser();
     if (user) {
       const usuarioId = user.idAcademico; // Obter o ID do usuário dinamicamente
-
+  
       forkJoin({
-        modalidadesInscritas:
-          this.modalidadesService.getModalidadesInscritas(usuarioId),
+        modalidadesInscritas: this.modalidadesService.getModalidadesInscritas(usuarioId),
         todasModalidades: this.modalidadesService.getAllModalidades(),
       }).subscribe({
         next: (result) => {
           this.modalidadesInscritas = result.modalidadesInscritas;
           this.todasModalidades = result.todasModalidades;
-
+  
+          // Se não houver modalidades inscritas, as modalidades inscritas serão um array vazio
+          if (!this.modalidadesInscritas) {
+            this.modalidadesInscritas = [];
+          }
+  
+          // Compara as modalidades inscritas com todas as modalidades
           this.modalidadesDiferentes = this.compararModalidades(
             this.modalidadesInscritas,
             this.todasModalidades
           );
         },
         error: (err) => {
-          console.error('Erro ao carregar modalidades:', err);
+          // Se um erro 404 for retornado (usuário não inscrito em nenhuma modalidade), carrega todas as modalidades
+          if (err.status === 404) {
+            this.modalidadesInscritas = []; // Nenhuma modalidade inscrita
+            this.todasModalidades = err.error || []; // Lista todas as modalidades disponíveis
+            this.modalidadesDiferentes = this.todasModalidades; // Mostrar todas as modalidades no caso de erro
+          } else {
+            console.error('Erro ao carregar modalidades:', err);
+          }
         },
       });
     } else {
       console.error('Usuário não autenticado');
     }
   }
+  
 
   compararModalidades(inscritas: any[], todas: any[]): any[] {
+    // Verificando se as variáveis não são nulas ou indefinidas
+    if (!inscritas || !todas) {
+      return []; // Retorna um array vazio se algum dos parâmetros for nulo
+    }
+  
     // Criando arrays apenas com os IDs de cada modalidade para facilitar a comparação
     const inscritasIds = inscritas.map((mod) => mod.idModalidadeEsportiva);
     const todasIds = todas.map((mod) => mod.idModalidadeEsportiva);
-
+  
     // Encontrando as modalidades que estão em 'todas' mas não em 'inscritas'
     const modalidadesDiferentes = todas.filter(
       (mod) => !inscritasIds.includes(mod.idModalidadeEsportiva)
     );
-
+  
     return modalidadesDiferentes;
   }
+  
 
   inscreverModalidade(modalidadeId: number) {
     const user = this.authService.getUser();

@@ -257,32 +257,52 @@
       </li>
 
       <!-- Iteração sobre as metas esportivas com filtro -->
+      <!-- Iteração sobre as metas esportivas com filtro -->
       <li
-        *ngFor="let meta of filteredMetasEsportivas"
-        class="item-lista meta-esportiva"
+        *ngFor="let conquista of filteredMetasEsportivas"
+        class="item-lista"
+        [ngClass]="{
+          'meta-conquistada':conquista.conquistado,
+          'meta-nao-conquistada': !conquista.conquistado
+        }"
       >
-        <h3 class="titulo-esportiva">
-          {{ meta.titulo || 'Meta Esportiva' }}
+        <h3
+          class="titulo-esportiva"
+          [ngClass]="{
+    'titulo-completo': conquista.conquistado,
+    'titulo-incompleto': !conquista.conquistado
+  }"
+        >
+          {{ conquista.metaEsportiva.titulo || 'Meta Esportiva' }}
           <div class="align-esportivas">
-            <span class="texto-light"
-              >{{ getModalidadeName(meta.idModalidadeEsportiva) ||
-              'Desconhecida' }}</span
-            >
+            <span class="texto-light">
+              {{
+              getModalidadeName(conquista.metaEsportiva.idModalidadeEsportiva)
+              || 'Desconhecida' }}
+            </span>
           </div>
         </h3>
-        <div *ngIf="meta.titulo">
+        <div *ngIf="conquista.metaEsportiva.titulo">
           <div class="icon-align">
             <lucide-angular
               [img]="Target"
               class="btn-inscrever-se"
               [size]="20"
-              [color]="'var(--text-new-green)'"
+              [ngClass]="{
+          'icon-completo': conquista.conquistado,
+          'icon-incompleto': !conquista.conquistado
+        }"
             ></lucide-angular>
-            <ion-label class="text-green">
+            <ion-label
+              [ngClass]="{
+              'icon-completo': conquista.conquistado,
+              'icon-incompleto': !conquista.conquistado
+            }"
+            >
               Objetivo:
-              <span class="span-text-white"
-                >{{ meta.descricao || 'Não definido' }}</span
-              >
+              <span class="span-text-white">
+                {{ conquista.metaEsportiva.descricao || 'Não definido' }}
+              </span>
             </ion-label>
           </div>
           <div class="icon-align">
@@ -290,11 +310,23 @@
               [img]="CircleDashed"
               class="btn-inscrever-se"
               [size]="20"
-              [color]="'var(--text-new-green)'"
+              [ngClass]="{
+          'icon-completo': conquista.conquistado,
+          'icon-incompleto': !conquista.conquistado
+        }"
             ></lucide-angular>
-            <ion-label class="text-green">
+            <ion-label
+              [ngClass]="{
+              'icon-completo': conquista.conquistado,
+              'icon-incompleto': !conquista.conquistado
+            }"
+            >
               Progresso:
-              <span class="span-text-white">Prog atual / Prog máx</span>
+              <span class="span-text-white">
+                {{ conquista.progressoAtual }} / {{
+                conquista.metaEsportiva.progressoMaximo }} {{
+                conquista.metaEsportiva.progressoItem }}
+              </span>
             </ion-label>
           </div>
           <div class="icon-align">
@@ -302,18 +334,30 @@
               [img]="ClipboardPen"
               class="btn-inscrever-se"
               [size]="20"
-              [color]="'var(--text-new-green)'"
+              [ngClass]="{
+          'icon-completo': conquista.conquistado,
+          'icon-incompleto': !conquista.conquistado
+        }"
             ></lucide-angular>
-            <ion-label class="text-green">
+            <ion-label
+              [ngClass]="{
+              'icon-completo': conquista.conquistado,
+              'icon-incompleto': !conquista.conquistado
+            }"
+            >
               Situação:
               <span class="span-text-white">
-                {{ meta.tipo === 'a' ? 'Pendente' : 'Concluída' }}</span
-              >
+                {{ conquista.conquistado ? 'Concluída' : 'Pendente' }}
+              </span>
             </ion-label>
           </div>
         </div>
         <div class="button-group">
-          <ion-button expand="small" class="centered-button meta-button">
+          <ion-button
+            expand="small"
+            class="centered-button meta-button"
+            (click)="abrirModalEditar(conquista.metaEsportiva)"
+          >
             <div class="icon-align">
               <lucide-angular
                 [img]="SquarePen"
@@ -321,7 +365,6 @@
                 [size]="20"
                 [color]="'var(--background-dark)'"
               ></lucide-angular>
-              <p>Editar</p>
             </div>
           </ion-button>
 
@@ -333,7 +376,6 @@
                 [size]="20"
                 [color]="'var(--background-dark)'"
               ></lucide-angular>
-              <p>Concluir</p>
             </div>
           </ion-button>
         </div>

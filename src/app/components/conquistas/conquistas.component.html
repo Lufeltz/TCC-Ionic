@@ -16,7 +16,9 @@
           }"
         >
           {{ conquista.metaEsportiva.titulo }}
-          <span class="texto-light">{{ getModalidadeName(conquista.metaEsportiva.idModalidadeEsportiva) }}</span>
+          <span class="texto-light">{{
+            getModalidadeName(conquista.metaEsportiva.idModalidadeEsportiva)
+          }}</span>
         </h3>
 
         <div class="icon-align">
@@ -30,7 +32,15 @@
             }"
           ></lucide-angular>
           <p class="estatistica-descricao">
-            Descrição: {{ conquista.metaEsportiva.descricao }}
+            <ion-label
+              [ngClass]="{
+                'icon-completo': conquista.conquistado,
+                'icon-incompleto': !conquista.conquistado
+              }"
+            >
+              Descrição:
+            </ion-label>
+            {{ conquista.metaEsportiva.descricao }}
           </p>
         </div>
         <div class="icon-align">
@@ -44,7 +54,15 @@
             }"
           ></lucide-angular>
           <p class="estatistica-progresso">
-            Progresso: {{ conquista.progressoAtual }} /
+            <ion-label
+              [ngClass]="{
+                'icon-completo': conquista.conquistado,
+                'icon-incompleto': !conquista.conquistado
+              }"
+            >
+              Progresso:
+            </ion-label>
+            {{ conquista.progressoAtual }} /
             {{ conquista.metaEsportiva.progressoMaximo }}
           </p>
         </div>
@@ -59,7 +77,14 @@
             }"
           ></lucide-angular>
           <p class="estatistica-objetivo">
-            Desempenho:
+            <ion-label
+              [ngClass]="{
+                'icon-completo': conquista.conquistado,
+                'icon-incompleto': !conquista.conquistado
+              }"
+            >
+              Desempenho:
+            </ion-label>
             {{
               (conquista.progressoAtual /
                 conquista.metaEsportiva.progressoMaximo) *

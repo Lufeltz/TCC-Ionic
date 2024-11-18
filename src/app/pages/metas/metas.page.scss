@@ -37,7 +37,7 @@ ul {
 }
 
 .titulo-esportiva {
-  color: var(--text-new-green);
+  // color: var(--text-new-green);
   font-size: 1.25rem;
 }
 
@@ -51,9 +51,14 @@ ul {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.meta-esportiva {
+.meta-conquistada {
   border-right: 3px solid var(--text-new-green);
   border-bottom: 2px solid var(--text-new-green);
+}
+
+.meta-nao-conquistada {
+  border-right: 3px solid var(--light-red);
+  border-bottom: 2px solid var(--light-red);
 }
 
 .meta-diaria {
@@ -426,4 +431,21 @@ ion-button {
   align-items: center; /* Alinha o toggle verticalmente com o ícone e o texto */
   justify-content: center; /* Garante que o toggle também estará alinhado ao centro */
   margin-left: 16px; /* Ajuste o espaço entre o conjunto ícone + texto e o toggle */
+}
+
+
+.icon-completo {
+  color: var(--text-new-green) !important; /* Verde para completo */
+}
+
+.icon-incompleto {
+  color: var(--light-red) !important; /* Vermelho para incompleto */
+}
+
+.titulo-completo {
+  color: var(--text-new-green);
+}
+
+.titulo-incompleto {
+  color: var(--light-red);
 }

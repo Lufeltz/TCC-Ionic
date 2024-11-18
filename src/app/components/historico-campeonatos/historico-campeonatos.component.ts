@@ -99,8 +99,9 @@ export class HistoricoCampeonatosComponent implements OnInit {
     1: 'Futebol',
     2: 'Vôlei',
     3: 'Basquete',
-    4: 'Handebol',
-    5: 'Tênis de Mesa',
+    4: 'Tênis de Mesa',
+    5: 'Handebol',
+    
   };
 
   getModalidadeNome(id: number): string {
