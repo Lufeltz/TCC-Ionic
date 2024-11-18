@@ -93,11 +93,10 @@
         </div>
 
         <ion-input
-        *ngIf="academico"
-        [(ngModel)]="academico.dataNascimento"
-        maxlength="10"
-      ></ion-input>
-      
+          *ngIf="academico"
+          [(ngModel)]="academico.dataNascimento"
+          maxlength="10"
+        ></ion-input>
       </li>
 
       <li class="item-lista">
@@ -116,7 +115,7 @@
           [pattern]="'[0-9]*'"
           maxlength="15"
           [(ngModel)]="academico.telefone"
-          (ngModelChange)="academico.telefone = applyTelefoneMask($event)"
+          (ngModelChange)="academico.telefone"
         ></ion-input>
       </li>
       <li class="item-lista">

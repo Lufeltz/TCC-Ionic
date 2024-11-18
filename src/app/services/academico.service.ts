@@ -2,28 +2,41 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Academico } from '../models/academico.model';
+import { AuthService } from './auth.service'; // Importe o AuthService
+import { AcademicoAlteracao } from '../models/academico-alteracao.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AcademicoService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private authService: AuthService) {}
 
   NEW_URL = 'http://localhost:8081/academico';
 
-  httpOptions = {
-    observe: 'response' as 'response',
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  // Função para obter o token e adicionar ao cabeçalho
+  private getHttpOptions() {
+    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const headers = token
+      ? new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+        })
+      : new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+    return {
+      headers: headers,
+      observe: 'response' as 'response',
+    };
+  }
 
   getEstatisticasPorModalidade(
     academicoId: number,
     modalidadeId: number
   ): Observable<any> {
     const url = `${this.NEW_URL}/estatisticas/${academicoId}/modalidade/${modalidadeId}`;
-    return this._http.get<any>(url, this.httpOptions).pipe(
+    return this._http.get<any>(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<any>) => {
         if (resp.status === 200) {
           return resp.body;
@@ -40,7 +53,7 @@ export class AcademicoService {
   // Novo método para buscar o acadêmico pelo username
   getAcademicoByUsername(username: string): Observable<Academico | null> {
     const url = `${this.NEW_URL}/buscar/${username}`;
-    return this._http.get<Academico>(url, this.httpOptions).pipe(
+    return this._http.get<Academico>(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<Academico>) => {
         if (resp.status === 200) {
           return resp.body;
@@ -56,7 +69,7 @@ export class AcademicoService {
 
   getAllAcademicos(page: number, size: number): Observable<Academico[] | null> {
     const url = `${this.NEW_URL}/listar?page=${page}&size=${size}&sort=curso,desc`;
-    return this._http.get<Academico[]>(url, this.httpOptions).pipe(
+    return this._http.get<Academico[]>(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<Academico[]>) => {
         if (resp.status === 200) {
           return resp.body;
@@ -66,7 +79,7 @@ export class AcademicoService {
       }),
       catchError((err) => {
         if (err.status === 404) {
-          return of([]);
+          return of([]); // Retorna um array vazio em caso de erro
         } else {
           return throwError(() => err);
         }
@@ -76,7 +89,7 @@ export class AcademicoService {
 
   getAcademicoById(id: number): Observable<Academico | null> {
     return this._http
-      .get<Academico>(`${this.NEW_URL}/consultar/${id}`, this.httpOptions)
+      .get<Academico>(`${this.NEW_URL}/consultar/${id}`, this.getHttpOptions())
       .pipe(
         map((resp: HttpResponse<Academico>) => {
           if (resp.status == 200) {
@@ -91,15 +104,15 @@ export class AcademicoService {
       );
   }
 
-  atualizar(id: number, academico: Academico): Observable<Academico | null> {
+  atualizar(id: number, academico: AcademicoAlteracao): Observable<AcademicoAlteracao | null> {
     return this._http
-      .put<Academico>(
+      .put<AcademicoAlteracao>(
         `${this.NEW_URL}/atualizar/${id}`,
         JSON.stringify(academico),
-        this.httpOptions
+        this.getHttpOptions()
       )
       .pipe(
-        map((resp: HttpResponse<Academico>) => {
+        map((resp: HttpResponse<AcademicoAlteracao>) => {
           if (resp.status == 200) {
             return resp.body;
           } else {
@@ -114,7 +127,7 @@ export class AcademicoService {
 
   getCursos(): Observable<string[] | null> {
     const url = `${this.NEW_URL}/cursos/ufpr`;
-    return this._http.get<string[]>(url, this.httpOptions).pipe(
+    return this._http.get<string[]>(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<string[]>) => {
         if (resp.status === 200) {
           return resp.body;

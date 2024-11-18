@@ -31,8 +31,8 @@ import {
 import { AcademicoService } from 'src/app/services/academico.service';
 import { Academico } from 'src/app/models/academico.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { TelefoneMaskPipe } from 'src/app/pipes/telefone-mask.pipe';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { AcademicoAlteracao } from 'src/app/models/academico-alteracao.model';
 
 @Component({
   selector: 'app-estatisticas',
@@ -53,9 +53,8 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
     FormsModule,
     MenuPerfilComponent,
     LucideAngularModule,
-    TelefoneMaskPipe,
     NgxMaskPipe,
-    NgxMaskDirective
+    NgxMaskDirective,
   ],
   providers: [DatePipe],
 })
@@ -64,9 +63,8 @@ export class EstatisticasPage implements OnInit {
   pageMenu: string = 'meu-perfil';
   pageContent: string = 'meu-perfil';
 
-  academico: Academico | null = null; // Inicialização para null
-
-  showPassword: boolean = false; // Variável para controlar visibilidade da senha
+  academico: AcademicoAlteracao | null = null;
+  showPassword: boolean = false;
   cursos: string[] = [];
   loading: boolean = true;
 
@@ -82,89 +80,59 @@ export class EstatisticasPage implements OnInit {
   readonly EyeOff = EyeOff;
   readonly UserRound = UserRound;
 
+  user: Academico | null = null;
+
   constructor(
     private academicoService: AcademicoService,
     private authService: AuthService,
-    private datePipe: DatePipe, // Injetando o DatePipe
-    private cdr: ChangeDetectorRef // Injeção do ChangeDetectorRef
+    private datePipe: DatePipe,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
-    // Agora os dados do acadêmico são carregados diretamente do AuthService
+    this.user = this.authService.getUser();
     this.getUsuarioLogado();
     this.loadCursos();
   }
 
-
-  applyTelefoneMask(value: string): string {
-    if (!value) return '';
-
-    // Remove caracteres não numéricos
-    const cleaned = value.replace(/\D/g, '');
-
-    // Trunca a string para garantir que tenha no máximo 11 dígitos
-    const truncated = cleaned.substring(0, 11);
-
-    // Aplica a máscara
-    const match = truncated.match(/^(\d{2})(\d{1})(\d{4})(\d{4})$/);
-
-    if (match) {
-      return `(${match[1]}) ${match[2]} ${match[3]}-${match[4]}`;
-    }
-
-    return truncated; // Retorna o valor truncado caso não se encaixe no formato
-  }
-
-  // formatDate(date: string): string {
-  //   return this.datePipe.transform(date, 'dd/MM/yyyy') || ''; // Formata a data
-  // }
-
-  originalDataNascimento: string | null = null; // Variável para armazenar a data original
-
+  // Removido a formatação de telefone
   getUsuarioLogado() {
-    // Acessando o usuário diretamente do AuthService
     this.academico = this.authService.getUser();
     if (this.academico) {
-      // Armazenar a data de nascimento original (não formatada)
-      this.originalDataNascimento = this.academico.dataNascimento;
-      this.academico.telefone = this.applyTelefoneMask(this.academico.telefone)
-  
-      // Formatando a data para exibição (exibe como dd/MM/yyyy)
-      if (this.academico.dataNascimento) {
-        this.academico.dataNascimento = this.datePipe.transform(
-          this.academico.dataNascimento,
-          'dd/MM/yyyy'
-        ) || ''; // Formata a data no formato DD/MM/YYYY
-      }
+      // Agora, o telefone é mantido como está, sem qualquer formatação
     }
   }
-  
-  
 
+  originalDataNascimento: string | null = null;
 
   salvarDados() {
-    if (this.academico && this.academico.idAcademico) {
-      // Restaurar a data de nascimento para o formato original antes de salvar
+    if (this.academico && this.user!.idAcademico) {
+      // Restaurando a data de nascimento original para o formato correto
       if (this.originalDataNascimento) {
         this.academico.dataNascimento = this.originalDataNascimento;
       }
-  
+
+      // Não formatar mais a data de nascimento
+      const dataNascimento = this.academico.dataNascimento;
+      if (dataNascimento && dataNascimento !== '') {
+        // A data é tratada como string ou no formato ISO
+        const dataISO = new Date(dataNascimento).toISOString(); // Convertendo para ISO 8601
+        this.academico.dataNascimento = dataISO; // Atualiza o campo com a data no formato ISO
+      } else {
+        console.warn('Data de nascimento inválida ou vazia');
+      }
+
+      // Logando antes de enviar os dados ao serviço
+      console.log('academico sendo enviado: ', this.academico);
+
       // Chamando o serviço para atualizar os dados do acadêmico
       this.academicoService
-        .atualizar(this.academico.idAcademico, this.academico)
+        .atualizar(this.user!.idAcademico, this.academico)
         .subscribe({
-          next: (data: Academico | null) => {
+          next: (data: AcademicoAlteracao | null) => {
+            console.log('Resposta do servidor:', data);
             if (data) {
-              // Após a atualização, aguardar 100 milissegundos e formatar novamente a data de nascimento para exibição
-              setTimeout(() => {
-                if (data.dataNascimento) {
-                  // Atualiza o valor da data formatada para exibição no ngModel
-                  this.academico!.dataNascimento = this.datePipe.transform(
-                    data.dataNascimento,
-                    'dd/MM/yyyy'
-                  ) || '';
-                }
-              }, 100);  // Espera 100 milissegundos antes de atualizar a data formatada
+              // Não será mais necessário formatar a data, apenas armazená-la
             } else {
               console.log('Falha ao atualizar os dados do acadêmico.');
             }
@@ -174,18 +142,14 @@ export class EstatisticasPage implements OnInit {
           },
         });
     } else {
-      console.error('Dados do acadêmico não estão completos ou acadêmico é nulo.');
+      console.error(
+        'Dados do acadêmico não estão completos ou acadêmico é nulo.'
+      );
     }
   }
-  
-  
-  
-  
-  
-
 
   togglePasswordVisibility() {
-    this.showPassword = !this.showPassword; // Alterna o valor da variável
+    this.showPassword = !this.showPassword;
   }
 
   onSelectChange(event: Event) {
