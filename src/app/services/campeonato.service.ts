@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { catchError, map, Observable, of, Subject, throwError } from 'rxjs';
 import { Campeonato } from '../models/campeonato.model';
 import { CampeonatoCriacao } from '../models/campeonato-criacao.model';
 import { Avaliacao } from '../models/avaliacao.model';
@@ -9,7 +9,12 @@ import { Avaliacao } from '../models/avaliacao.model';
   providedIn: 'root',
 })
 export class CampeonatoService {
+
+  private campeonatoCreatedSource = new Subject<void>();
+  campeonatoCreated$ = this.campeonatoCreatedSource.asObservable();
+
   constructor(private _http: HttpClient) {}
+  
 
   NEW_URL = 'http://localhost:8081/campeonatos';
 
@@ -157,6 +162,7 @@ export class CampeonatoService {
       .pipe(
         map((resp: HttpResponse<CampeonatoCriacao>) => {
           if (resp.status == 201) {
+            this.campeonatoCreatedSource.next(); // Emitir evento de criação
             return resp.body;
           } else {
             return null;

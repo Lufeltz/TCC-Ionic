@@ -71,10 +71,10 @@
               <select
                 class="custom-select"
                 id="modalidade-select"
+                [(ngModel)]="campeonato.idModalidadeEsportiva"
                 (change)="onSelectChange($event)"
               >
                 <option value="1" selected>Futebol</option>
-                
                 <option value="2">Vôlei</option>
                 <option value="3">Basquete</option>
                 <option value="4">Ping Pong</option>
@@ -115,8 +115,18 @@
             ngDefaultControl
             [(ngModel)]="campeonato.limiteTimes"
             placeholder="Exemplo: 15"
+            maxlength="2"
+            type="text"
+            (ionInput)="validateLimiteTimes($event)"
           ></ion-input>
+          
+          <!-- Exibe a mensagem de erro se houver -->
+          <ion-text color="danger" *ngIf="errorMessage">
+            <p>{{ errorMessage }}</p>
+          </ion-text>
         </li>
+        
+        
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
@@ -131,8 +141,12 @@
             ngDefaultControl
             [(ngModel)]="campeonato.limiteParticipantes"
             placeholder="Exemplo: 20"
+            maxlength="2"
+            type="text"
+            (ionInput)="validateNumber($event)"
           ></ion-input>
         </li>
+        
 
         <li class="item-lista">
           <div
@@ -304,15 +318,16 @@
               ></lucide-angular>
               <ion-label class="input-label">CEP</ion-label>
             </div>
-
+        
             <!-- Linha 2: campo de entrada e botão -->
             <div class="cep-footer">
               <ion-input
                 ngDefaultControl
                 [(ngModel)]="campeonato.endereco.cep"
-                mask="000000-000"
                 placeholder="Exemplo: 81280-000"
-                (ngModelChange)="validarCep()"
+                (input)="validarCep()"
+                maxlength="8"
+                type="tel"
               ></ion-input>
               <ion-button
                 (click)="pesquisarCep(campeonato.endereco.cep)"
@@ -330,6 +345,7 @@
             </div>
           </div>
         </li>
+        
 
         <li class="item-lista">
           <div class="icon-align">
@@ -348,6 +364,7 @@
             auto-grow="true"
           ></ion-textarea>
         </li>
+
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
@@ -362,8 +379,12 @@
             ngDefaultControl
             placeholder="Número"
             [(ngModel)]="campeonato.endereco.numero"
+            type="text"
+            maxlength="5"
+            (ionInput)="validateNumber2($event)"
           ></ion-input>
         </li>
+        
 
         <li class="item-lista">
           <div
