@@ -107,6 +107,10 @@ export class HistoricoCampeonatosComponent implements OnInit, OnChanges {
   readonly NotebookText = NotebookText;
   readonly NotebookPen = NotebookPen;
 
+  @Input() username: string = '';
+  @Input() idAcademico: number = 0;
+
+
   campeonatos: Campeonato[] = [
     {
       codigo: 'LKM90',
@@ -189,6 +193,7 @@ export class HistoricoCampeonatosComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.filterCampeonatos();
+    console.log('Username recebido no componente historico: ', this.username);
   }
 
   ngOnChanges(changes: SimpleChanges) {

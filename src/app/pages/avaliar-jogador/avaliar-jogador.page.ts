@@ -23,6 +23,7 @@ import {
   User,
   Volleyball,
 } from 'lucide-angular';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-avaliar-jogador',
@@ -48,6 +49,8 @@ export class AvaliarJogadorPage implements OnInit {
   pageMenu: string = 'avaliar-jogador';
   pageContent: string = 'avaliar-jogador';
 
+  username: string = '';
+
   readonly Star = Star;
   readonly StarHalf = StarHalf;
   readonly User = User;
@@ -66,12 +69,17 @@ export class AvaliarJogadorPage implements OnInit {
   selectedRating: number = 0; // Valor da avaliação selecionada pelo usuário
   stars: number[] = [1, 2, 3, 4, 5]; // Array de estrelas para o ngFor
 
-  constructor() {
+  constructor(private route: ActivatedRoute) {
     addIcons({ star, starHalfOutline, starOutline });
   }
 
   ngOnInit() {
     this.calcularMedia(); // Calcula a média na inicialização
+    // Captura o parâmetro 'username' da URL
+    this.route.paramMap.subscribe((params) => {
+      this.username = params.get('username') || '';
+    });
+    console.log('username do jogador na avaliação', this.username)
   }
 
   calcularMedia() {

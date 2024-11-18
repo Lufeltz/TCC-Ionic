@@ -22,7 +22,6 @@ div {
   background-color: var(--background-dark);
   border-radius: 8px;
   padding: 1rem;
-  // padding-top: 0;
   margin-bottom: 1rem;
   color: var(--text-white);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
@@ -32,32 +31,18 @@ div {
 }
 
 .item-lista:hover {
-  // background-color: var(--background-dark);
   transform: translateY(-2px);
   z-index: 10;
 }
 
-.meta-esportiva {
-  border-right: 3px solid var(--purple-desc);
-  border-bottom: 2px solid var(--purple-desc);
-}
-
-.meta-diaria {
-  border-right: 3px solid var(--yellow-desc);
-  border-bottom: 2px solid var(--yellow-desc);
-}
-
-.meta-geral {
+.meta-completo {
   border-right: 3px solid var(--text-new-green);
   border-bottom: 2px solid var(--text-new-green);
 }
 
-.meta-completo {
-  border-color: var(--text-new-green);
-}
-
 .meta-incompleto {
-  border-color: var(--light-red);
+  border-right: 3px solid var(--light-red);
+  border-bottom: 2px solid var(--light-red);
 }
 
 .titulo-completo {
@@ -85,18 +70,6 @@ h3 {
 
 .estatistica-info {
   flex: 1;
-}
-
-.titulo-esportiva {
-  color: var(--purple-desc);
-}
-
-.titulo-diaria {
-  color: var(--yellow-desc);
-}
-
-.titulo-geral {
-  color: var(--text-new-green);
 }
 
 .texto-light {

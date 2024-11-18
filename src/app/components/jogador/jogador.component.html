@@ -1,10 +1,7 @@
 <div class="jogadores-container">
   <ul>
-    <li
-      *ngFor="let academico of filteredJogadores"
-      class="jogador"
-      (click)="navigateToPerfil()"
-    >
+    <li *ngFor="let academico of filteredJogadores" class="jogador" (click)="navigateToPerfil(academico)">
+
       <div class="jogador-header">
         <div class="username">
           <lucide-angular

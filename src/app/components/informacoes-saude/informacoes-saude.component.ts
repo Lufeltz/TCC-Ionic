@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import {
+  AtSign,
   Clock,
   LucideAngularModule,
   MapPinPlusInside,
@@ -10,6 +11,7 @@ import {
 } from 'lucide-angular';
 import { Academico } from 'src/app/models/academico.model';
 import { Saude } from 'src/app/models/saude.model';
+import { TelefoneMaskPipe } from 'src/app/pipes/telefone-mask.pipe';
 import { AuthService } from 'src/app/services/auth.service';
 import { SaudeService } from 'src/app/services/saude.service';
 
@@ -18,12 +20,13 @@ import { SaudeService } from 'src/app/services/saude.service';
   templateUrl: './informacoes-saude.component.html',
   styleUrls: ['./informacoes-saude.component.scss'],
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, TelefoneMaskPipe],
 })
 export class InformacoesSaudeComponent implements OnInit {
   readonly Stethoscope = Stethoscope;
   readonly Phone = Phone;
   readonly Clock = Clock;
+  readonly AtSign = AtSign;
   readonly MapPinPlusInside = MapPinPlusInside;
 
   contatosSaude: Saude[] = [];

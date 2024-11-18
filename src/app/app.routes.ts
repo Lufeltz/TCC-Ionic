@@ -32,11 +32,23 @@ export const routes: Routes = [
     redirectTo: 'homepage/perfil-usuario',
     pathMatch: 'full',
   },
+
+  // Rota dinâmica para 'perfil-outro-usuario' com 'username'
+  {
+    path: 'perfil-outro-usuario/:username', // A rota dinâmica com o parâmetro 'username'
+    loadComponent: () =>
+      import('./pages/perfil-outro-usuario/perfil-outro-usuario.page').then(
+        (m) => m.PerfilOutroUsuarioPage
+      ),
+  },
+
+  // Rota que redireciona para a homepage/perfil-outro-usuario
   {
     path: 'perfil-outro-usuario',
     redirectTo: 'homepage/perfil-outro-usuario',
     pathMatch: 'full',
   },
+
   {
     path: 'app-post',
     redirectTo: 'homepage/app-post',
@@ -62,11 +74,16 @@ export const routes: Routes = [
     redirectTo: 'homepage/estatisticas',
     pathMatch: 'full',
   },
+  
+  // Rota dinâmica para 'avaliar-jogador' com 'username'
   {
-    path: 'avaliar-jogador',
-    redirectTo: 'homepage/avaliar-jogador',
-    pathMatch: 'full',
+    path: 'avaliar-jogador/:username',
+    loadComponent: () =>
+      import('./pages/avaliar-jogador/avaliar-jogador.page').then(
+        (m) => m.AvaliarJogadorPage
+      ),
   },
+
   {
     path: 'campeonato-gerenciamento',
     redirectTo: 'homepage/campeonato-gerenciamento',
@@ -134,7 +151,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'perfil-outro-usuario',
+        path: 'perfil-outro-usuario/:username', // Rota com parâmetro dinâmico para 'username'
         loadComponent: () =>
           import('./pages/perfil-outro-usuario/perfil-outro-usuario.page').then(
             (m) => m.PerfilOutroUsuarioPage
@@ -174,7 +191,7 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'avaliar-jogador',
+        path: 'avaliar-jogador/:username',
         loadComponent: () =>
           import('./pages/avaliar-jogador/avaliar-jogador.page').then(
             (m) => m.AvaliarJogadorPage

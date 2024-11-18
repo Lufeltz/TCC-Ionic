@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -30,6 +31,8 @@ import {
 import { AcademicoService } from 'src/app/services/academico.service';
 import { Academico } from 'src/app/models/academico.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { TelefoneMaskPipe } from 'src/app/pipes/telefone-mask.pipe';
+import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 
 @Component({
   selector: 'app-estatisticas',
@@ -50,6 +53,9 @@ import { AuthService } from 'src/app/services/auth.service';
     FormsModule,
     MenuPerfilComponent,
     LucideAngularModule,
+    TelefoneMaskPipe,
+    NgxMaskPipe,
+    NgxMaskDirective
   ],
   providers: [DatePipe],
 })
@@ -79,7 +85,8 @@ export class EstatisticasPage implements OnInit {
   constructor(
     private academicoService: AcademicoService,
     private authService: AuthService,
-    private datePipe: DatePipe // Injetando o DatePipe
+    private datePipe: DatePipe, // Injetando o DatePipe
+    private cdr: ChangeDetectorRef // Injeção do ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -88,35 +95,78 @@ export class EstatisticasPage implements OnInit {
     this.loadCursos();
   }
 
-  formatDate(date: string): string {
-    return this.datePipe.transform(date, 'dd/MM/yyyy') || ''; // Formata a data
+
+  applyTelefoneMask(value: string): string {
+    if (!value) return '';
+
+    // Remove caracteres não numéricos
+    const cleaned = value.replace(/\D/g, '');
+
+    // Trunca a string para garantir que tenha no máximo 11 dígitos
+    const truncated = cleaned.substring(0, 11);
+
+    // Aplica a máscara
+    const match = truncated.match(/^(\d{2})(\d{1})(\d{4})(\d{4})$/);
+
+    if (match) {
+      return `(${match[1]}) ${match[2]} ${match[3]}-${match[4]}`;
+    }
+
+    return truncated; // Retorna o valor truncado caso não se encaixe no formato
   }
+
+  // formatDate(date: string): string {
+  //   return this.datePipe.transform(date, 'dd/MM/yyyy') || ''; // Formata a data
+  // }
+
+  originalDataNascimento: string | null = null; // Variável para armazenar a data original
 
   getUsuarioLogado() {
     // Acessando o usuário diretamente do AuthService
     this.academico = this.authService.getUser();
     if (this.academico) {
-      // console.log('Dados do acadêmico logado:', this.academico);
-    } else {
-      // console.error('Usuário não autenticado ou dados não carregados');
+      // Armazenar a data de nascimento original (não formatada)
+      this.originalDataNascimento = this.academico.dataNascimento;
+      this.academico.telefone = this.applyTelefoneMask(this.academico.telefone)
+  
+      // Formatando a data para exibição (exibe como dd/MM/yyyy)
+      if (this.academico.dataNascimento) {
+        this.academico.dataNascimento = this.datePipe.transform(
+          this.academico.dataNascimento,
+          'dd/MM/yyyy'
+        ) || ''; // Formata a data no formato DD/MM/YYYY
+      }
     }
   }
+  
+  
 
-  carregarDadosUsuario(id: number) {
-    // Agora, não é necessário carregar os dados de novo do serviço, pois já estão disponíveis
-  }
 
   salvarDados() {
     if (this.academico && this.academico.idAcademico) {
+      // Restaurar a data de nascimento para o formato original antes de salvar
+      if (this.originalDataNascimento) {
+        this.academico.dataNascimento = this.originalDataNascimento;
+      }
+  
       // Chamando o serviço para atualizar os dados do acadêmico
       this.academicoService
         .atualizar(this.academico.idAcademico, this.academico)
         .subscribe({
           next: (data: Academico | null) => {
             if (data) {
-              // console.log('Dados do acadêmico atualizados:', data);
+              // Após a atualização, aguardar 100 milissegundos e formatar novamente a data de nascimento para exibição
+              setTimeout(() => {
+                if (data.dataNascimento) {
+                  // Atualiza o valor da data formatada para exibição no ngModel
+                  this.academico!.dataNascimento = this.datePipe.transform(
+                    data.dataNascimento,
+                    'dd/MM/yyyy'
+                  ) || '';
+                }
+              }, 100);  // Espera 100 milissegundos antes de atualizar a data formatada
             } else {
-              // console.log('Falha ao atualizar os dados do acadêmico.');
+              console.log('Falha ao atualizar os dados do acadêmico.');
             }
           },
           error: (err) => {
@@ -124,11 +174,15 @@ export class EstatisticasPage implements OnInit {
           },
         });
     } else {
-      console.error(
-        'Dados do acadêmico não estão completos ou acadêmico é nulo.'
-      );
+      console.error('Dados do acadêmico não estão completos ou acadêmico é nulo.');
     }
   }
+  
+  
+  
+  
+  
+
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword; // Alterna o valor da variável

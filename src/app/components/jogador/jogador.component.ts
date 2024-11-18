@@ -20,7 +20,7 @@ import {
 import { Academico } from 'src/app/models/academico.model';
 import { AcademicoService } from 'src/app/services/academico.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { IonButton } from "@ionic/angular/standalone";
+import { IonButton } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-jogador',
@@ -67,31 +67,36 @@ export class JogadorComponent implements OnInit, OnChanges {
   }
 
   getUsuarios(): void {
-    this.academicoService.getAllAcademicos(this.currentPage, this.pageSize).subscribe({
-      next: (response: any) => {
-        const data = response.content || [];  // Acesse a chave 'content' para obter o array de acadêmicos
-        if (this.currentPage === 0) {
-          this.academicos = data;
-        } else {
-          this.academicos = [...this.academicos, ...data];  // Concatenando os novos dados
-        }
-        this.filteredJogadores = this.academicos;
-      },
-      error: (err) => {
-        this.mensagem = 'Erro buscando lista de acadêmicos';
-        this.mensagem_detalhes = `[${err.status} ${err.message}]`;
-      },
-    });
+    this.academicoService
+      .getAllAcademicos(this.currentPage, this.pageSize)
+      .subscribe({
+        next: (response: any) => {
+          const data = response.content || []; // Acesse a chave 'content' para obter o array de acadêmicos
+          if (this.currentPage === 0) {
+            this.academicos = data;
+          } else {
+            this.academicos = [...this.academicos, ...data]; // Concatenando os novos dados
+          }
+          this.filteredJogadores = this.academicos;
+        },
+        error: (err) => {
+          this.mensagem = 'Erro buscando lista de acadêmicos';
+          this.mensagem_detalhes = `[${err.status} ${err.message}]`;
+        },
+      });
   }
 
   loadMore(): void {
-    this.currentPage++;  // Avançando para a próxima página
+    this.currentPage++; // Avançando para a próxima página
     this.getUsuarios();
   }
 
-  navigateToPerfil(): void {
-    this.router.navigate(['/perfil-outro-usuario']);
+  navigateToPerfil(academico: Academico): void {
+    // Passando o username como parâmetro de rota e o objeto 'academico' completo usando 'state'
+    this.router.navigate(['/perfil-outro-usuario', academico.username]);
   }
+  
+  
 
   filterJogadores() {
     if (!this.searchedJogadores) {
@@ -117,8 +122,7 @@ export class JogadorComponent implements OnInit, OnChanges {
         .map((modalidade: any) => modalidade.nomeModalidade)
         .join(', ');
     } else {
-      return 'Sem modalidades';  // Retorna uma mensagem padrão se não houver modalidades
+      return 'Sem modalidades'; // Retorna uma mensagem padrão se não houver modalidades
     }
   }
-  
 }

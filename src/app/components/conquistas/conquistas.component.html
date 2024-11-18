@@ -1,77 +1,73 @@
 <div>
   <ul>
-    <li *ngFor="let esporte of estatisticasEsportivas" class="modalidade">
-      <ul>
-        <li
-          *ngFor="let estatistica of esporte.estatisticas"
-          class="item-lista"
+    <li
+      *ngFor="let conquista of conquistas"
+      class="item-lista"
+      [ngClass]="{
+        'meta-completo': conquista.conquistado,
+        'meta-incompleto': !conquista.conquistado
+      }"
+    >
+      <div class="estatistica-info">
+        <h3
           [ngClass]="{
-            'meta-esportiva': esporte.esporte.includes('Metas Esportivas'),
-            'meta-diaria': esporte.esporte.includes('Diárias'),
-            'meta-geral':
-              !esporte.esporte.includes('Metas Esportivas') &&
-              !esporte.esporte.includes('Diárias'),
-            'meta-completo': estatistica.completo,
-            'meta-incompleto': !estatistica.completo
+            'titulo-completo': conquista.conquistado,
+            'titulo-incompleto': !conquista.conquistado
           }"
         >
-          <div class="estatistica-info">
-            <h3
-              [ngClass]="{
-                'titulo-completo': estatistica.completo,
-                'titulo-incompleto': !estatistica.completo
-              }"
-            >
-              {{ estatistica.titulo }}
-              <span class="texto-light">{{ esporte.esporte }}</span>
-            </h3>
+          {{ conquista.metaEsportiva.titulo }}
+          <span class="texto-light">{{ getModalidadeName(conquista.metaEsportiva.idModalidadeEsportiva) }}</span>
+        </h3>
 
-            <div class="icon-align">
-              <lucide-angular
-                [img]="Target"
-                class="btn-inscrever-se"
-                [size]="20"
-                [ngClass]="{
-                  'icon-completo': estatistica.completo,
-                  'icon-incompleto': !estatistica.completo
-                }"
-              ></lucide-angular>
-
-              <p class="estatistica-descricao">
-                Descrição: {{ estatistica.descricao }}
-              </p>
-            </div>
-            <div class="icon-align">
-              <lucide-angular
-                [img]="CircleDashed"
-                class="btn-inscrever-se"
-                [size]="20"
-                [ngClass]="{
-                  'icon-completo': estatistica.completo,
-                  'icon-incompleto': !estatistica.completo
-                }"
-              ></lucide-angular>
-              <p class="estatistica-progresso">
-                Progresso: {{ estatistica.progresso }} / {{ estatistica.objetivo }}
-              </p>
-            </div>
-            <div class="icon-align">
-              <lucide-angular
-                [img]="SignalHigh"
-                class="btn-inscrever-se"
-                [size]="20"
-                [ngClass]="{
-                  'icon-completo': estatistica.completo,
-                  'icon-incompleto': !estatistica.completo
-                }"
-              ></lucide-angular>
-              <p class="estatistica-objetivo">
-                Desempenho: 15% da conquista completa
-              </p>
-            </div>
-          </div>
-        </li>
-      </ul>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Target"
+            class="btn-inscrever-se"
+            [size]="20"
+            [ngClass]="{
+              'icon-completo': conquista.conquistado,
+              'icon-incompleto': !conquista.conquistado
+            }"
+          ></lucide-angular>
+          <p class="estatistica-descricao">
+            Descrição: {{ conquista.metaEsportiva.descricao }}
+          </p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="CircleDashed"
+            class="btn-inscrever-se"
+            [size]="20"
+            [ngClass]="{
+              'icon-completo': conquista.conquistado,
+              'icon-incompleto': !conquista.conquistado
+            }"
+          ></lucide-angular>
+          <p class="estatistica-progresso">
+            Progresso: {{ conquista.progressoAtual }} /
+            {{ conquista.metaEsportiva.progressoMaximo }}
+          </p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="SignalHigh"
+            class="btn-inscrever-se"
+            [size]="20"
+            [ngClass]="{
+              'icon-completo': conquista.conquistado,
+              'icon-incompleto': !conquista.conquistado
+            }"
+          ></lucide-angular>
+          <p class="estatistica-objetivo">
+            Desempenho:
+            {{
+              (conquista.progressoAtual /
+                conquista.metaEsportiva.progressoMaximo) *
+                100 | number : "1.0-0"
+            }}% da conquista completa
+          </p>
+        </div>
+      </div>
     </li>
   </ul>
 </div>

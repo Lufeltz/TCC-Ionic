@@ -1,5 +1,5 @@
 <ul>
-  <li *ngFor="let canal of canaisDeSaude" class="item-lista">
+  <li *ngFor="let canal of contatosSaude" class="item-lista">
     <h3>{{ canal.nome }}</h3>
     <div class="icon-align">
       <lucide-angular
@@ -9,7 +9,18 @@
         color="var(--text-new-green)"
       ></lucide-angular>
       <p>
-        <strong> {{ canal.responsavel }}</strong>
+        {{ canal.descricao }}
+      </p>
+    </div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="AtSign"
+        class="btn-inscrever-se"
+        [size]="20"
+        color="var(--text-new-green)"
+      ></lucide-angular>
+      <p>
+        {{ canal.email }}
       </p>
     </div>
     <div class="icon-align">
@@ -20,29 +31,7 @@
         color="var(--text-new-green)"
       ></lucide-angular>
       <p>
-        <strong>{{ canal.telefone }}</strong>
-      </p>
-    </div>
-    <div class="icon-align">
-      <lucide-angular
-        [img]="MapPinPlusInside"
-        class="btn-inscrever-se"
-        [size]="20"
-        color="var(--text-new-green)"
-      ></lucide-angular>
-      <p>
-        <strong>{{ canal.endereco }}</strong>
-      </p>
-    </div>
-    <div class="icon-align">
-      <lucide-angular
-        [img]="Clock"
-        class="btn-inscrever-se"
-        [size]="20"
-        color="var(--text-new-green)"
-      ></lucide-angular>
-      <p>
-        <strong>{{ canal.horarioFuncionamento }}</strong>
+        {{ canal.telefone | telefoneMask }}
       </p>
     </div>
   </li>

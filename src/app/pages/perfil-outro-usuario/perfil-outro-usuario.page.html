@@ -5,20 +5,16 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <ion-button
-        size="small"
-        (click)="avaliarJogador()"
-        class="icon-button"
-      >
-        <div class="text-container">Avaliar Jogador</div>
-        <div class="icon-align">
-          <lucide-angular
-            [img]="Star"
-            class="btn-inscrever-se"
-            [size]="20"
-          ></lucide-angular>
-        </div>
-      </ion-button>
+  <ion-button size="small" (click)="avaliarJogador()" class="icon-button">
+    <div class="text-container">Avaliar Jogador</div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="Star"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+    </div>
+  </ion-button>
 
   <ion-segment [(ngModel)]="selectedSegment">
     <ion-segment-button value="estatisticas">
@@ -33,14 +29,20 @@
   </ion-segment>
 
   <div *ngIf="selectedSegment === 'estatisticas'">
-    <app-estatisticas-pessoais></app-estatisticas-pessoais>
+    <app-estatisticas-pessoais
+      [username]="username"
+    ></app-estatisticas-pessoais>
   </div>
 
   <div *ngIf="selectedSegment === 'conquistas'">
-    <app-conquistas></app-conquistas>
+    <app-conquistas
+      [username]="username"
+    ></app-conquistas>
   </div>
 
   <div *ngIf="selectedSegment === 'historico-campeonatos'">
-    <app-historico-campeonatos></app-historico-campeonatos>
+    <app-historico-campeonatos
+      [username]="username"
+    ></app-historico-campeonatos>
   </div>
 </ion-content>

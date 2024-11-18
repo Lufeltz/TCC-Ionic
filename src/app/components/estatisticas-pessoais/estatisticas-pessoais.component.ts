@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { EstatisticaModalidade } from 'src/app/models/estatistica-modalidade.model';
 import { EstatisticaUso } from 'src/app/models/estatistica-uso.model';
 import { EstatisticasAcademicoService } from 'src/app/services/estatisticas-academico.service';
@@ -16,6 +16,7 @@ import {
   Target,
   Trophy,
 } from 'lucide-angular';
+import { AcademicoService } from 'src/app/services/academico.service';
 
 @Component({
   selector: 'app-estatisticas-pessoais',
@@ -30,6 +31,8 @@ export class EstatisticasPessoaisComponent implements OnInit {
   estatisticasModalidadeGeral: EstatisticaModalidadeGeral | null = null; // Alterado para ser um único objeto
   academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
 
+  @Input() username: string = '';
+
   // Lucide Icons
   readonly CircleDashed = CircleDashed;
   readonly Target = Target;
@@ -41,20 +44,32 @@ export class EstatisticasPessoaisComponent implements OnInit {
 
   constructor(
     private estatisticaService: EstatisticasAcademicoService,
-    private authService: AuthService // Injeção do AuthService
+    private authService: AuthService,
+    private academicoService: AcademicoService
   ) {}
 
   ngOnInit() {
-    // Obtendo os dados do acadêmico logado diretamente do AuthService
-    this.academico = this.authService.getUser(); // Usa getUser() para obter os dados do usuário
-
-    if (this.academico) {
-      // Carregar estatísticas após obter os dados do acadêmico
-      this.loadEstatisticasUso(this.academico.idAcademico);
-      this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
-    } else {
-      console.error('Acadêmico não autenticado ou dados não carregados');
-    }
+    // Chama a função para buscar o acadêmico com base no username
+    this.buscarAcademicoPorUsername(this.username);
+  }
+  
+  // Função para buscar o acadêmico pelo username
+  buscarAcademicoPorUsername(username: string) {
+    this.academicoService.getAcademicoByUsername(username).subscribe({
+      next: (academico: Academico | null) => {
+        this.academico = academico; // Atribui o acadêmico à variável
+        if (this.academico) {
+          // Se o acadêmico for encontrado, carrega as estatísticas
+          this.loadEstatisticasUso(this.academico.idAcademico);
+          this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
+        } else {
+          console.error('Acadêmico não encontrado!');
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao buscar acadêmico:', err);
+      }
+    });
   }
 
   // Função para realizar a requisição e salvar os dados de uso
