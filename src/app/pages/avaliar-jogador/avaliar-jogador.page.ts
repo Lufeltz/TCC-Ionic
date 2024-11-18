@@ -157,12 +157,15 @@ export class AvaliarJogadorPage implements OnInit {
   }
 
   formatarModalidades() {
-    if (this.academico?.modalidades) {
+    if (this.academico?.modalidades && this.academico.modalidades.length > 0) {
       this.modalidadesString = this.academico.modalidades
         .map((modalidade) => modalidade.nomeModalidade)
         .join(', ');
+    } else {
+      this.modalidadesString = 'Sem modalidades'; // Exibe a mensagem "Sem modalidades" caso não haja modalidades
     }
   }
+  
 
   calcularMedia() {
     if (this.mediaAvaliacao) {
