@@ -32,6 +32,7 @@ import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { forkJoin } from 'rxjs';
 import { ModalEditarModalidadeComponent } from 'src/app/components/modal-editar-modalidade/modal-editar-modalidade.component';
 import { AuthService } from 'src/app/services/auth.service';
+import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
 
 @Component({
   selector: 'app-modalidades',
@@ -86,7 +87,8 @@ export class ModalidadesPage implements OnInit {
 
   constructor(
     private modalidadesService: ModalidadesService,
-    private authService: AuthService
+    private authService: AuthService,
+    private stateModalidadesService: StateModalidadesService
   ) {}
 
   ngOnInit() {
@@ -149,39 +151,39 @@ export class ModalidadesPage implements OnInit {
   }
   
 
+  // Inscrição em uma modalidade
   inscreverModalidade(modalidadeId: number) {
     const user = this.authService.getUser();
     if (user) {
-      const usuarioId = user.idAcademico; // Obter o ID do usuário dinamicamente
+      const usuarioId = user.idAcademico;
 
-      this.modalidadesService
-        .inscreverModalidade(usuarioId, modalidadeId)
-        .subscribe({
-          next: (resp) => {
-            this.ngOnInit();
-          },
-          error: (err) => {
-            console.error('Erro ao realizar inscrição:', err);
-          },
-        });
+      this.modalidadesService.inscreverModalidade(usuarioId, modalidadeId).subscribe({
+        next: (resp) => {
+          this.stateModalidadesService.triggerUpdate(); // Dispara o evento de atualização
+          this.ngOnInit(); // Atualiza a listagem
+        },
+        error: (err) => {
+          console.error('Erro ao realizar inscrição:', err);
+        },
+      });
     }
   }
 
+  // Remover inscrição de uma modalidade
   removerInscricaoModalidade(modalidadeId: number) {
     const user = this.authService.getUser();
     if (user) {
-      const usuarioId = user.idAcademico; // Obter o ID do usuário dinamicamente
+      const usuarioId = user.idAcademico;
 
-      this.modalidadesService
-        .removerModalidade(usuarioId, modalidadeId)
-        .subscribe({
-          next: (resp) => {
-            this.ngOnInit();
-          },
-          error: (err) => {
-            console.error('Erro ao cancelar inscrição:', err);
-          },
-        });
+      this.modalidadesService.removerModalidade(usuarioId, modalidadeId).subscribe({
+        next: (resp) => {
+          this.stateModalidadesService.triggerUpdate(); // Dispara o evento de atualização
+          this.ngOnInit(); // Atualiza a listagem
+        },
+        error: (err) => {
+          console.error('Erro ao cancelar inscrição:', err);
+        },
+      });
     }
   }
 

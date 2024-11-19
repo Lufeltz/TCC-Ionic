@@ -17,6 +17,8 @@ import {
   Trophy,
 } from 'lucide-angular';
 import { AcademicoService } from 'src/app/services/academico.service';
+import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-estatisticas-pessoais',
@@ -32,6 +34,7 @@ export class EstatisticasPessoaisComponent implements OnInit {
   academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
 
   @Input() username: string = '';
+  private modalidadeUpdateSubscription!: Subscription;
 
   // Lucide Icons
   readonly CircleDashed = CircleDashed;
@@ -45,7 +48,8 @@ export class EstatisticasPessoaisComponent implements OnInit {
   constructor(
     private estatisticaService: EstatisticasAcademicoService,
     private authService: AuthService,
-    private academicoService: AcademicoService
+    private academicoService: AcademicoService,
+    private stateModalidadesService: StateModalidadesService
   ) {}
 
   ngOnInit() {
@@ -55,9 +59,16 @@ export class EstatisticasPessoaisComponent implements OnInit {
     // Se o usernameFinal não estiver vazio, tenta buscar o acadêmico
     if (usernameFinal) {
       this.buscarAcademicoPorUsername(usernameFinal);
+
+      this.modalidadeUpdateSubscription = this.stateModalidadesService.updateModalidades$.subscribe(() => {
+        this.loadEstatisticasUso(this.academico!.idAcademico);
+        this.loadEstatisticasMetasEsportivas(this.academico!.idAcademico);
+      });
     } else {
       console.error('Username não fornecido');
     }
+
+
   }
   
   // Função para buscar o acadêmico pelo username
