@@ -1,0 +1,112 @@
+<div class="modal-background" (click)="closeModal()"></div>
+<div class="modal-content">
+  <div class="meta-details">
+    <div class="icon-align centered">
+      <lucide-angular
+        [img]="Goal"
+        class="btn-inscrever-se icon"
+        [size]="30"
+        [color]="'var(--text-new-green)'"
+      ></lucide-angular>
+      <h3 class="meta-title">{{ conquistaEsportiva.metaEsportiva.titulo }}</h3>
+    </div>
+    
+    <ul>
+      <!-- <li class="item-lista2">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="CaseUpper"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-new-green)'"
+          ></lucide-angular>
+          <ion-label
+            >Título: {{ conquistaEsportiva.metaEsportiva.titulo }}</ion-label
+          >
+        </div>
+      </li> -->
+
+      <li class="item-lista2">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="NotebookText"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-new-green)'"
+          ></lucide-angular>
+          <ion-label
+            >Descrição:
+            {{ conquistaEsportiva.metaEsportiva.descricao }}</ion-label
+          >
+        </div>
+      </li>
+
+      <li class="item-lista2">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Ruler"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-new-green)'"
+          ></lucide-angular>
+          <ion-label>Progresso Atual</ion-label>
+        </div>
+        <ion-input
+          [(ngModel)]="conquistaEsportiva.progressoAtual"
+          placeholder="Exemplo: 2"
+          class="styled-input"
+        ></ion-input>
+      </li>
+
+      <li class="item-lista2">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Target"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-new-green)'"
+          ></lucide-angular>
+          <ion-label
+            >Objetivo:
+            {{ conquistaEsportiva.metaEsportiva.progressoMaximo }}</ion-label
+          >
+        </div>
+      </li>
+
+      <li class="item-lista2">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Ruler"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--text-new-green)'"
+          ></lucide-angular>
+          <ion-label
+            >Medida:
+            {{ conquistaEsportiva.metaEsportiva.progressoItem }}</ion-label
+          >
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="button-group">
+    <ion-button size="small" expand="block" (click)="closeModal()">
+      <lucide-angular
+        [img]="CircleX"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+      <div class="text-container">Fechar</div>
+    </ion-button>
+
+    <ion-button size="small" expand="block" (click)="editarProgresso()">
+      <lucide-angular
+        [img]="Save"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+      <div class="text-container">Salvar</div>
+    </ion-button>
+  </div>
+</div>

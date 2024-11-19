@@ -60,7 +60,9 @@
             [img]="ChartNoAxesCombined"
             class="i-tem"
           ></lucide-angular>
-          <ion-label (click)="goToPage('/perfil-usuario')">Estatísticas</ion-label>
+          <ion-label (click)="goToPage('/perfil-usuario')"
+            >Estatísticas</ion-label
+          >
         </div>
       </ion-item>
       <ion-item>
@@ -70,7 +72,7 @@
         </div>
       </ion-item>
 
-      <!-- Lista Metas diárias -->
+<!--       
       <ion-item>
         <div class="item">
           <lucide-angular [img]="Calendar1" class="metas"></lucide-angular>
@@ -78,16 +80,13 @@
         </div>
       </ion-item>
 
-      <!-- Lista dinâmica de metas diárias -->
       <ion-item *ngFor="let meta of metasDiarias">
         <div class="sublist">
           <lucide-angular [img]="DiamondPlus" class="sub-list"></lucide-angular>
           <ion-label>{{ meta.titulo }}</ion-label>
-          <!-- Aqui você pode acessar a propriedade 'descricao' da meta -->
         </div>
       </ion-item>
 
-      <!-- Lista Metas Esportivas -->
       <ion-item>
         <div class="item">
           <lucide-angular [img]="Dumbbell" class="metas"></lucide-angular>
@@ -96,13 +95,6 @@
       </ion-item>
 
       <ion-item *ngFor="let modalidade of metasPorModalidadeArray">
-        <!-- Cabeçalho da Modalidade -->
-        <!-- <div class="metas-esportivas">
-          <lucide-angular [img]="Star" class="i-tem" style="fill: var(--light-blue)"></lucide-angular>
-          <ion-label class="modalidade-label">{{ getModalidadeName(modalidade.idModalidadeEsportiva) }}</ion-label>
-        </div> -->
-
-        <!-- Iterar sobre as metas dentro de cada modalidade -->
         <ion-list class="meta-list">
           <ion-item *ngFor="let meta of modalidade.metas">
             <div class="sublist">
@@ -110,12 +102,12 @@
                 [img]="DiamondPlus"
                 class="sub-list"
               ></lucide-angular>
-              <!-- <ion-label class="meta-titulo">{{ meta.titulo }}</ion-label> -->
+
               <p class="meta-descricao">{{ meta.descricao }}</p>
             </div>
           </ion-item>
         </ion-list>
-      </ion-item>
+      </ion-item> -->
 
       <ion-item>
         <div class="logout" (click)="logout()">

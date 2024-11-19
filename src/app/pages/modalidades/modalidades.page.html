@@ -46,7 +46,7 @@
             modalidade.descricao }}
           </p>
         </div>
-        <div class="icon-align">
+        <!-- <div class="icon-align">
           <lucide-angular
             [img]="Users"
             class="btn-inscrever-se"
@@ -54,7 +54,7 @@
             [color]="'var(--text-new-green)'"
           ></lucide-angular>
           <p><strong class="inscritos">Usuários inscritos: 138</strong></p>
-        </div>
+        </div> -->
         <div class="icon-align">
           <lucide-angular
             [img]="ZapOff"
@@ -62,7 +62,12 @@
             [size]="20"
             [color]="'var(--yellow-desc)'"
           ></lucide-angular>
-          <p><strong class="atuais">Metas Atuais: 2 / 4</strong></p>
+          <p>
+            <strong class="atuais"
+              >Metas Atuais: {{conquistasObtidas.naoConquistado}} /
+              {{conquistasObtidas.naoConquistado}}</strong
+            >
+          </p>
         </div>
         <div class="icon-align">
           <lucide-angular
@@ -71,7 +76,12 @@
             [size]="20"
             [color]="'var(--purple-desc)'"
           ></lucide-angular>
-          <p><strong class="conquistas">Conquistas: 2 / 4</strong></p>
+          <p>
+            <strong class="conquistas"
+              >Conquistas: {{conquistasObtidas.conquistado}} /
+              {{conquistasObtidas.naoConquistado}}</strong
+            >
+          </p>
         </div>
         <img
           *ngIf="modalidade.foto"
@@ -155,7 +165,7 @@
             modalidade.descricao }}
           </p>
         </div>
-        <div class="icon-align">
+        <!-- <div class="icon-align">
           <lucide-angular
             [img]="Users"
             class="btn-inscrever-se"
@@ -163,7 +173,7 @@
             [color]="'var(--text-new-green)'"
           ></lucide-angular>
           <p><strong class="inscritos">Usuários inscritos: 138</strong></p>
-        </div>
+        </div> -->
         <div class="icon-align">
           <lucide-angular
             [img]="ZapOff"
@@ -171,7 +181,12 @@
             [size]="20"
             [color]="'var(--yellow-desc)'"
           ></lucide-angular>
-          <p><strong class="atuais">Metas Atuais: 2 / 4</strong></p>
+          <p>
+            <strong class="atuais"
+              >Metas Atuais: {{conquistasObtidas.naoConquistado}} /
+              {{conquistasObtidas.naoConquistado}}</strong
+            >
+          </p>
         </div>
         <div class="icon-align">
           <lucide-angular
@@ -180,7 +195,12 @@
             [size]="20"
             [color]="'var(--purple-desc)'"
           ></lucide-angular>
-          <p><strong class="conquistas">Conquistas: 2 / 4</strong></p>
+          <p>
+            <strong class="conquistas"
+              >Conquistas: {{conquistasObtidas.conquistado}} /
+              {{conquistasObtidas.naoConquistado}}</strong
+            >
+          </p>
         </div>
         <img
           *ngIf="modalidade.foto"

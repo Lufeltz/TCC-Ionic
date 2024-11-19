@@ -53,6 +53,7 @@ import {
   Target,
   Trash2,
 } from 'lucide-angular';
+import { ModalEditarMetaEsportivaComponent } from 'src/app/components/modal-editar-meta-esportiva/modal-editar-meta-esportiva.component';
 
 @Component({
   selector: 'app-metas',
@@ -84,6 +85,7 @@ import {
     IonSegment,
     IonToggle,
     ModalEditarMetaDiariaComponent,
+    ModalEditarMetaEsportivaComponent,
     IonTextarea,
     LucideAngularModule,
   ],
@@ -105,12 +107,40 @@ export class MetasPage implements OnInit {
   metaDiaria: MetaDiaria[] = [];
   metaDiaria2: MetaDiaria = new MetaDiaria();
 
+  // Modal meta diaria
   modalEditarVisivel: boolean = false;
   metaParaEditar!: MetaDiaria;
+
+  // Modal meta esportiva
+  modalEsportivaEditarVisivel: boolean = false;
+  ConquistaParaEditar!: Conquista;
 
   conquistasUsuario: Conquista[] = [];
 
   private modalidadeUpdateSubscription!: Subscription;
+
+
+  getModalidadeName(id: number): string {
+    return this.modalidades[id] || 'Desconhecido';
+  }
+
+  abrirModalEditar(meta: any) {
+    this.metaParaEditar = meta;
+    this.modalEditarVisivel = true;
+  }
+
+  abrirModalEditarEsportiva(conquista: any) {
+    this.ConquistaParaEditar = conquista
+    this.modalEsportivaEditarVisivel = true;
+  }
+
+  fecharModal() {
+    this.modalEditarVisivel = false;
+  }
+
+  fecharModalEsportiva() {
+    this.modalEsportivaEditarVisivel = false;
+  }
 
   modalidades: { [key: number]: string } = {
     1: 'Futebol',
@@ -120,9 +150,6 @@ export class MetasPage implements OnInit {
     5: 'Handebol',
   };
 
-  getModalidadeName(id: number): string {
-    return this.modalidades[id] || 'Desconhecido';
-  }
 
   readonly Clock4 = Clock4;
   readonly BicepsFlexed = BicepsFlexed;
@@ -262,15 +289,6 @@ export class MetasPage implements OnInit {
 
   toggleFilterDiarias(event: any) {
     this.filterDiarias = event.detail.checked;
-  }
-
-  abrirModalEditar(meta: any) {
-    this.metaParaEditar = meta;
-    this.modalEditarVisivel = true;
-  }
-
-  fecharModal() {
-    this.modalEditarVisivel = false;
   }
 
   salvarDados(): void {

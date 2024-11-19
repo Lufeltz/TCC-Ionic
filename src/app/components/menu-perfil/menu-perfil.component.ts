@@ -40,7 +40,8 @@ import { MetaDiariaService } from 'src/app/services/meta-diaria.service';
 import { MetaDiaria } from 'src/app/models/meta-diaria.model';
 import { MetaEsportivaService } from 'src/app/services/meta-esportiva.service';
 import { MetaEsportiva } from 'src/app/models/meta-esportiva.model';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
+import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
 
 @Component({
   selector: 'app-menu-perfil',
@@ -94,12 +95,15 @@ export class MenuPerfilComponent implements OnInit {
   } = {};
   metasPorModalidadeArray: any = [];
 
+  private modalidadeUpdateSubscription!: Subscription;
+
   constructor(
     private authService: AuthService,
     private metaDiariaService: MetaDiariaService,
     private metaEsportivaService: MetaEsportivaService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private stateModalidadesService: StateModalidadesService
   ) {}
 
   ngOnInit() {
@@ -107,15 +111,19 @@ export class MenuPerfilComponent implements OnInit {
     this.authService.user$.subscribe((user) => {
       if (user) {
         this.user = user;
-        this.modalidadesUsuario = user.modalidades || []; // Atualiza as modalidades do usuário
+        // Verificar se o usuário tem modalidades
+        this.modalidadesUsuario = user.modalidades || [];
+        if (this.modalidadesUsuario.length === 0) {
+          // Se o usuário não estiver inscrito em nenhuma modalidade, limpa a lista
+          this.metasEsportivas = []; // ou qualquer outra lógica desejada
+        }
         this.loadMetasDiarias(); // Carrega as metas diárias
         this.loadMetasEsportivas(); // Carrega as metas esportivas
       } else {
         console.error('Usuário não autenticado');
       }
     });
-
-    
+  
     // Tenta carregar os dados do usuário logo que o componente for inicializado
     this.authService.loadToken().subscribe({
       next: () => {
@@ -123,6 +131,10 @@ export class MenuPerfilComponent implements OnInit {
         if (user) {
           this.user = user; // Armazena o usuário na variável local
           this.modalidadesUsuario = this.user.modalidades || [];
+          if (this.modalidadesUsuario.length === 0) {
+            // Se o usuário não tiver modalidades, limpe as metas
+            this.metasEsportivas = [];
+          }
           this.loadMetasDiarias();
           this.loadMetasEsportivas();
         }
@@ -132,6 +144,7 @@ export class MenuPerfilComponent implements OnInit {
       },
     });
   }
+  
 
   goToPage(path: string): void {
     this.router.navigate([path]);

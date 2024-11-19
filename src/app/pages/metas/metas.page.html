@@ -225,7 +225,7 @@
               ></lucide-angular>
             </div>
           </ion-button>
-          <ion-button
+          <!-- <ion-button
             expand="small"
             class="centered-button meta-button"
             (click)="concluirMeta(meta)"
@@ -238,7 +238,7 @@
                 [color]="'var(--background-dark)'"
               ></lucide-angular>
             </div>
-          </ion-button>
+          </ion-button> -->
           <ion-button
             expand="small"
             class="centered-button meta-button"
@@ -256,7 +256,6 @@
         </div>
       </li>
 
-      <!-- Iteração sobre as metas esportivas com filtro -->
       <!-- Iteração sobre as metas esportivas com filtro -->
       <li
         *ngFor="let conquista of filteredMetasEsportivas"
@@ -356,22 +355,11 @@
           <ion-button
             expand="small"
             class="centered-button meta-button"
-            (click)="abrirModalEditar(conquista.metaEsportiva)"
+            (click)="abrirModalEditarEsportiva(conquista)"
           >
             <div class="icon-align">
               <lucide-angular
                 [img]="SquarePen"
-                class="btn-inscrever-se"
-                [size]="20"
-                [color]="'var(--background-dark)'"
-              ></lucide-angular>
-            </div>
-          </ion-button>
-
-          <ion-button expand="small" class="centered-button meta-button">
-            <div class="icon-align">
-              <lucide-angular
-                [img]="SquareCheckBig"
                 class="btn-inscrever-se"
                 [size]="20"
                 [color]="'var(--background-dark)'"
@@ -388,4 +376,10 @@
     [meta]="metaParaEditar"
     (close)="fecharModal()"
   ></app-modal-editar-meta-diaria>
+
+  <app-modal-editar-meta-esportiva
+    *ngIf="modalEsportivaEditarVisivel"
+    [conquistaEsportiva]="ConquistaParaEditar"
+    (close)="fecharModalEsportiva()"
+  ></app-modal-editar-meta-esportiva>
 </ion-content>
