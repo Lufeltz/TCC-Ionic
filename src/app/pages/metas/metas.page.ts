@@ -25,6 +25,18 @@ import {
   IonTextarea,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
+import { MetaDiaria } from 'src/app/models/meta-diaria.model';
+import { MetaDiariaService } from 'src/app/services/meta-diaria.service';
+import { AlertController } from '@ionic/angular';
+import { ModalEditarMetaDiariaComponent } from '../../components/modal-editar-meta-diaria/modal-editar-meta-diaria.component';
+import { AuthService } from 'src/app/services/auth.service';
+import { Academico } from 'src/app/models/academico.model';
+import { MetaEsportivaService } from 'src/app/services/meta-esportiva.service';
+import { MetaEsportiva } from 'src/app/models/meta-esportiva.model';
+import { forkJoin, Subscription } from 'rxjs';
+import { Conquista } from 'src/app/models/conquista.model';
+import { ConquistasService } from 'src/app/services/conquistas.service';
+import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
 import {
   BicepsFlexed,
   CaseUpper,
@@ -41,17 +53,6 @@ import {
   Target,
   Trash2,
 } from 'lucide-angular';
-import { MetaDiaria } from 'src/app/models/meta-diaria.model';
-import { MetaDiariaService } from 'src/app/services/meta-diaria.service';
-import { AlertController } from '@ionic/angular';
-import { ModalEditarMetaDiariaComponent } from '../../components/modal-editar-meta-diaria/modal-editar-meta-diaria.component';
-import { AuthService } from 'src/app/services/auth.service';
-import { Academico } from 'src/app/models/academico.model';
-import { MetaEsportivaService } from 'src/app/services/meta-esportiva.service';
-import { MetaEsportiva } from 'src/app/models/meta-esportiva.model';
-import { forkJoin } from 'rxjs';
-import { Conquista } from 'src/app/models/conquista.model';
-import { ConquistasService } from 'src/app/services/conquistas.service';
 
 @Component({
   selector: 'app-metas',
@@ -82,9 +83,9 @@ import { ConquistasService } from 'src/app/services/conquistas.service';
     IonLabel,
     IonSegment,
     IonToggle,
-    LucideAngularModule,
     ModalEditarMetaDiariaComponent,
     IonTextarea,
+    LucideAngularModule,
   ],
 })
 export class MetasPage implements OnInit {
@@ -108,6 +109,8 @@ export class MetasPage implements OnInit {
   metaParaEditar!: MetaDiaria;
 
   conquistasUsuario: Conquista[] = [];
+
+  private modalidadeUpdateSubscription!: Subscription;
 
   modalidades: { [key: number]: string } = {
     1: 'Futebol',
@@ -140,76 +143,59 @@ export class MetasPage implements OnInit {
     private metaEsportivaService: MetaEsportivaService,
     private alertController: AlertController,
     private authService: AuthService,
-    private conquistasService: ConquistasService
+    private conquistasService: ConquistasService,
+    private stateModalidadesService: StateModalidadesService
   ) {}
 
   ngOnInit(): void {
     const user = this.authService.getUser();
     if (user) {
       this.user = user;
+      this.carregarDadosUsuario();
 
-      this.metaEsportivaService
-        .getModalidadesPorUsuario(this.user.idAcademico)
-        .subscribe({
-          next: (modalidades) => {
-            this.modalidadesUsuario = modalidades;
-            console.log(this.modalidadesUsuario);
-            this.listarMetasEsportivas();
-          },
-          error: (err) => {
-            console.error('Erro ao carregar modalidades:', err);
-          },
-        });
-
-      this.listarMetaDiarias();
-
-      this.conquistasService
-        .getConquistasByUserId(this.user.idAcademico)
-        .subscribe({
-          next: (conquistas) => {
-            this.conquistasUsuario = conquistas || [];
-            console.log(this.conquistasUsuario);
-          },
-          error: (err) => {
-            console.error('Erro ao carregar conquistas:', err);
-          },
+      this.modalidadeUpdateSubscription =
+        this.stateModalidadesService.updateModalidades$.subscribe(() => {
+          this.carregarModalidades();
+          this.carregarConquistas();
         });
     } else {
       console.error('Usuário não autenticado');
     }
   }
 
-  get filteredMetasEsportivas(): Conquista[] {
-    if (this.filterEsportivas) {
-      return this.conquistasUsuario.filter(conquista => conquista.metaEsportiva !== undefined);
-    } else {
-      return [];
-    }
-  }
-  
-
-  get filteredMetasDiarias(): MetaDiaria[] {
-    if (this.filterDiarias) {
-      return this.metaDiaria;
-    } else {
-      return [];
-    }
+  private carregarDadosUsuario(): void {
+    this.carregarModalidades();
+    this.carregarConquistas();
+    this.listarMetaDiarias();
   }
 
-  // get filteredMetasEsportivas(): MetaEsportiva[] {
-  //   if (this.filterEsportivas) {
-  //     return this.metasEsportivas;
-  //   } else {
-  //     return [];
-  //   }
-  // }
-
-  toggleFilterEsportivas(event: any) {
-    this.filterEsportivas = event.detail.checked;
+  private carregarModalidades(): void {
+    this.metaEsportivaService
+      .getModalidadesPorUsuario(this.user.idAcademico)
+      .subscribe({
+        next: (modalidades) => {
+          this.modalidadesUsuario = modalidades;
+          console.log(this.modalidadesUsuario);
+          this.listarMetasEsportivas();
+        },
+        error: (err) => {
+          console.error('Erro ao carregar modalidades:', err);
+        },
+      });
   }
 
-  toggleFilterDiarias(event: any) {
-    this.filterDiarias = event.detail.checked;
+  private carregarConquistas(): void {
+    this.conquistasService
+      .getConquistasByUserId(this.user.idAcademico)
+      .subscribe({
+        next: (conquistas) => {
+          this.conquistasUsuario = conquistas || [];
+          console.log(this.conquistasUsuario);
+        },
+        error: (err) => {
+          console.error('Erro ao carregar conquistas:', err);
+        },
+      });
   }
 
   listarMetasEsportivas(): void {
@@ -227,7 +213,6 @@ export class MetasPage implements OnInit {
         this.metasEsportivas = resultados
           .flat()
           .filter((meta): meta is MetaEsportiva => meta !== null);
-
         console.log(this.metasEsportivas);
       },
       error: (err) => {
@@ -253,6 +238,32 @@ export class MetasPage implements OnInit {
       });
   }
 
+  get filteredMetasEsportivas(): Conquista[] {
+    if (this.filterEsportivas) {
+      return this.conquistasUsuario.filter(
+        (conquista) => conquista.metaEsportiva !== undefined
+      );
+    } else {
+      return [];
+    }
+  }
+
+  get filteredMetasDiarias(): MetaDiaria[] {
+    if (this.filterDiarias) {
+      return this.metaDiaria;
+    } else {
+      return [];
+    }
+  }
+
+  toggleFilterEsportivas(event: any) {
+    this.filterEsportivas = event.detail.checked;
+  }
+
+  toggleFilterDiarias(event: any) {
+    this.filterDiarias = event.detail.checked;
+  }
+
   abrirModalEditar(meta: any) {
     this.metaParaEditar = meta;
     this.modalEditarVisivel = true;
@@ -267,7 +278,9 @@ export class MetasPage implements OnInit {
       this.metaDiaria2.idAcademico = this.user.idAcademico;
 
       this.metaDiariaService.postMetaDiaria(this.metaDiaria2).subscribe({
-        next: (data) => {},
+        next: (data) => {
+          this.listarMetaDiarias();
+        },
         error: (err) => {
           console.error('Erro ao criar Meta Diária:', err);
         },
