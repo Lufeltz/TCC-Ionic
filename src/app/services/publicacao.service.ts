@@ -2,21 +2,33 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Publicacao } from '../models/publicacao.model';
+import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
 
 @Injectable({
   providedIn: 'root',
 })
 export class PublicacaoService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
   private readonly NEW_URL = 'http://localhost:8081';
 
-  httpOptions = {
-    observe: 'response' as 'response',
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  // Função para obter o token e adicionar ao cabeçalho
+  private getHttpOptions() {
+    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const headers = token
+      ? new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+        })
+      : new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+    return {
+      headers: headers,
+      observe: 'response' as 'response',
+    };
+  }
 
   // Método POST
   postPublicacao(publicacao: Publicacao): Observable<Publicacao | null> {
@@ -24,7 +36,7 @@ export class PublicacaoService {
       .post<Publicacao>(
         `${this.NEW_URL}/publicacao/cadastrarPublicacao`, // Atualizando a URL
         JSON.stringify(publicacao),
-        this.httpOptions
+        this.getHttpOptions() // Usa getHttpOptions para incluir o token
       )
       .pipe(
         map((resp: HttpResponse<Publicacao>) => {
@@ -47,7 +59,7 @@ export class PublicacaoService {
       .put<Publicacao>(
         `${this.NEW_URL}/campeonatos/${publicacao.idPublicacao}`,
         JSON.stringify(publicacao),
-        this.httpOptions
+        this.getHttpOptions() // Usa getHttpOptions para incluir o token
       )
       .pipe(
         map((resp: HttpResponse<Publicacao>) => {
@@ -67,7 +79,10 @@ export class PublicacaoService {
   // Método DELETE
   deletePublicacao(id: string): Observable<Publicacao | null> {
     return this._http
-      .delete<Publicacao>(`${this.NEW_URL}/aeroportos/${id}`, this.httpOptions)
+      .delete<Publicacao>(
+        `${this.NEW_URL}/aeroportos/${id}`,
+        this.getHttpOptions() // Usa getHttpOptions para incluir o token
+      )
       .pipe(
         map((resp: HttpResponse<Publicacao>) => {
           // Verificação do status HTTP
@@ -89,7 +104,7 @@ export class PublicacaoService {
       .post<any>(
         `${this.NEW_URL}/publicacao/curtirPublicacao/${userId}/${publicacaoId}`,
         {},
-        this.httpOptions
+        this.getHttpOptions() // Usa getHttpOptions para incluir o token
       )
       .pipe(
         map((resp: HttpResponse<any>) => {
@@ -113,7 +128,7 @@ export class PublicacaoService {
     return this._http
       .delete<any>(
         `${this.NEW_URL}/publicacao/removerCurtidaPublicacao/${userId}/${publicacaoId}`,
-        this.httpOptions
+        this.getHttpOptions() // Usa getHttpOptions para incluir o token
       )
       .pipe(
         map((resp: HttpResponse<any>) => {

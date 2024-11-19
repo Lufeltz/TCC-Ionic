@@ -27,6 +27,7 @@ import {
 } from 'lucide-angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginRequest } from 'src/app/models/login-request';
+import { Academico } from 'src/app/models/academico.model';
 
 @Component({
   selector: 'app-login',
@@ -65,15 +66,22 @@ export class LoginPage implements OnInit {
   loading: boolean = false;
   message!: string;
 
+  user: Academico | null = null;
+
   ngOnInit(): void {
+    // Verificar se o usuário está autenticado
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/homepage']);
     } else {
-      // Captura a mensagem de erro da query params, se existir
       this.route.queryParams.subscribe((params) => {
-        this.message = params['error']; // A mensagem que o AuthGuard passa
+        this.message = params['error'];
       });
     }
+
+    // Inscrever-se no BehaviorSubject para obter as atualizações do usuário
+    this.authService.user$.subscribe((user) => {
+      this.user = user; // Armazenar o usuário no componente
+    });
   }
 
   logar(): void {
@@ -83,7 +91,13 @@ export class LoginPage implements OnInit {
         if (token) {
           const decodedToken: any = jwtDecode(token);
 
-          this.router.navigate(['/homepage']);
+          // Navega para a homepage
+          this.router.navigate(['/homepage']).then(() => {
+            // Carregar os dados do usuário após login
+            this.authService.loadUserData();
+          });
+
+          console.log(decodedToken);
         } else {
           this.message = 'Usuário/Senha inválidos.';
         }

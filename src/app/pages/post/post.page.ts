@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
@@ -16,8 +16,11 @@ import {
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.component';
 import { Router } from '@angular/router';
-import { PublicacaoService } from '../../services/publicacao.service'; // Import the service
-import { Publicacao } from '../../models/publicacao.model'; // Import the model
+import { PublicacaoService } from '../../services/publicacao.service';
+import { Publicacao } from '../../models/publicacao.model';
+import { Academico } from 'src/app/models/academico.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { PostsComponent } from 'src/app/components/posts/posts.component';
 
 @Component({
   selector: 'app-post',
@@ -44,35 +47,40 @@ export class PostPage implements OnInit {
   pageMenu: string = 'criar-post';
   pageContent: string = 'criar-post';
 
-  publicacao: Publicacao = new Publicacao(); // Initialize the publication model
+  publicacao: Publicacao = new Publicacao();
+  usuarioLogado: Academico | null = null;
 
   showToast: boolean = false;
   toastMessage: string = '';
 
+  @ViewChild(PostsComponent) postsComponent: PostsComponent | undefined;
+
   constructor(
     private router: Router,
-    private publicacaoService: PublicacaoService
-  ) {} // Inject the service
+    private publicacaoService: PublicacaoService,
+    private authService: AuthService
+  ) {}
 
   ngOnInit() {
-    this.publicacao.Usuario.idUsuario = 9;
-    this.publicacao.Usuario.username = 'car';
-    this.publicacao.Usuario.permissao = 'ACADEMICO';
+    this.usuarioLogado = this.authService.getUser();
+
+    if (this.usuarioLogado) {
+      this.publicacao.Usuario.idUsuario = this.usuarioLogado.idAcademico;
+      this.publicacao.Usuario.username = this.usuarioLogado.username;
+      this.publicacao.Usuario.permissao = this.usuarioLogado.permissao;
+    }
   }
 
-  // Handle form submission
   onSubmit() {
-    // Log the publication data to console
-
     this.publicacaoService.postPublicacao(this.publicacao).subscribe(
       (response) => {
         if (response) {
-          // Success: navigate after a successful post
           this.toastMessage = 'Post criado com sucesso!';
           this.showToast = true;
-          this.voltarComunidadePostCriado();
+          // Chama o método de adicionar post para atualizar a lista no componente PostsComponent
+          // this.postsComponent?.adicionarPost(response);
+          this.voltarComunidadePostCriado(); // Navega para a tela de feed após 3 segundos
         } else {
-          // Failure: show error message
           this.toastMessage = 'Erro ao criar o post. Tente novamente.';
           this.showToast = true;
         }
@@ -84,15 +92,17 @@ export class PostPage implements OnInit {
     );
   }
 
+  
   onSelectChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
-    this.publicacao.idModalidadeEsportiva = null; // Atualiza corretamente
+    this.publicacao.idModalidadeEsportiva = null;
   }
 
   voltarComunidadePostCriado() {
     setTimeout(() => {
       this.router.navigate(['/feed']);
+      this.postsComponent?.listarPosts()
     }, 3000);
   }
 

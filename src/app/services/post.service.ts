@@ -3,46 +3,33 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Post } from '../models/post.model';
 import { PostApiResponse } from '../models/post-api-response.model';
+import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
   NEW_URL = 'http://localhost:8081';
 
-  httpOptions = {
-    observe: 'response' as 'response',
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  // Função para obter o token e adicionar ao cabeçalho
+  private getHttpOptions() {
+    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const headers = token
+      ? new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+        })
+      : new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
 
-  // getAllPosts(
-  //   page: number = 0,
-  //   size: number = 10,
-  //   sort: string = 'dataPublicacao,desc'
-  // ): Observable<Post[]> {
-  //   const url = `${this.NEW_URL}/publicacao/1/publicacoes?page=${page}&size=${size}&sort=${sort}`;
-
-  //   return this._http.get<PostApiResponse>(url, this.httpOptions).pipe(
-  //     map((resp: HttpResponse<PostApiResponse>) => {
-  //       if (resp.status == 200 && resp.body) {
-  //         return resp.body.content;
-  //       } else {
-  //         return [];
-  //       }
-  //     }),
-  //     catchError((err, caught) => {
-  //       if (err.status == 404) {
-  //         return of([]); // Retorna um array vazio se a página não for encontrada
-  //       } else {
-  //         return throwError(() => err); // Caso de erro diferente, lança o erro
-  //       }
-  //     })
-  //   );
-  // }
+    return {
+      headers: headers,
+      observe: 'response' as 'response',
+    };
+  }
 
   getAllPosts(
     page: number = 0,
@@ -51,7 +38,7 @@ export class PostService {
   ): Observable<PostApiResponse> {
     const url = `${this.NEW_URL}/publicacao/1/publicacoes?page=${page}&size=${size}&sort=${sort}`;
 
-    return this._http.get<PostApiResponse>(url, this.httpOptions).pipe(
+    return this._http.get<PostApiResponse>(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<PostApiResponse>) => {
         if (resp.status == 200 && resp.body) {
           return resp.body;
@@ -94,7 +81,7 @@ export class PostService {
   // Alterar URL
   getPostById(id: number): Observable<Post | null> {
     return this._http
-      .get<Post>(`${this.NEW_URL}/aeroportos/${id}`, this.httpOptions)
+      .get<Post>(`${this.NEW_URL}/aeroportos/${id}`, this.getHttpOptions())
       .pipe(
         map((resp: HttpResponse<Post>) => {
           if (resp.status == 200) {
@@ -115,7 +102,11 @@ export class PostService {
 
   postPost(post: Post): Observable<Post | null> {
     return this._http
-      .post<Post>(`${this.NEW_URL}`, JSON.stringify(post), this.httpOptions)
+      .post<Post>(
+        `${this.NEW_URL}`,
+        JSON.stringify(post),
+        this.getHttpOptions()
+      )
       .pipe(
         map((resp: HttpResponse<Post>) => {
           if (resp.status == 201) {
@@ -135,7 +126,7 @@ export class PostService {
       .put<Post>(
         `${this.NEW_URL}/publicacao/${post.idPublicacao}`,
         JSON.stringify(post),
-        this.httpOptions
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<Post>) => {
@@ -153,7 +144,7 @@ export class PostService {
 
   deletePost(id: string): Observable<Post | null> {
     return this._http
-      .delete<Post>(`${this.NEW_URL}/aeroportos/${id}`, this.httpOptions)
+      .delete<Post>(`${this.NEW_URL}/aeroportos/${id}`, this.getHttpOptions())
       .pipe(
         map((resp: HttpResponse<Post>) => {
           if (resp.status == 200) {

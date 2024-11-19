@@ -1,4 +1,10 @@
-import { Component, Input, OnInit, OnChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  OnChanges,
+  ChangeDetectorRef,
+} from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PostService } from 'src/app/services/post.service';
 import { ComentarioService } from 'src/app/services/comentario.service';
@@ -53,11 +59,10 @@ export class PostsComponent implements OnInit, OnChanges {
   readonly MessageCircleMore = MessageCircleMore;
 
   constructor(
-    private _http: HttpClient,
     private postsService: PostService,
     private comentarioService: ComentarioService,
     private authService: AuthService,
-    private publicacaoService: PublicacaoService // Injetar PublicacaoService
+    private publicacaoService: PublicacaoService
   ) {}
 
   ngOnChanges() {

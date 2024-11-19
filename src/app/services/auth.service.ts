@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Cadastro } from '../models/cadastro.model';
 import { Router } from '@angular/router';
@@ -21,12 +21,15 @@ export class AuthService {
     }),
   };
 
+  private userSubject: BehaviorSubject<Academico | null> =
+    new BehaviorSubject<Academico | null>(null);
+  user$ = this.userSubject.asObservable();
+
   private user: Academico | null = null;
 
   constructor(private _http: HttpClient, private router: Router) {}
 
-
-    loadToken(): Observable<void> {
+  loadToken(): Observable<void> {
     const token = localStorage.getItem('jwt');
     if (token) {
       // Aqui, você pode adicionar lógica adicional, como uma chamada HTTP, caso necessário
@@ -34,7 +37,6 @@ export class AuthService {
     }
     return throwError(() => new Error('Token não encontrado.'));
   }
-
 
   cadastrar(academico: Cadastro): Observable<Cadastro | null> {
     return this._http
@@ -56,6 +58,7 @@ export class AuthService {
       );
   }
 
+  // Quando o usuário logar, atualize o BehaviorSubject
   login(loginRequest: LoginRequest): Observable<string | null> {
     return this._http
       .post<LoginResponse>(this.LOGIN_URL, JSON.stringify(loginRequest), {
@@ -66,37 +69,22 @@ export class AuthService {
         tap((resp) => {
           if (resp.token) {
             localStorage.setItem('jwt', resp.token);
-            this.loadUserData();
+            this.loadUserData(); // Carrega os dados do usuário e atualiza o BehaviorSubject
           }
         }),
-        map((resp) => {
-          if (resp.token) {
-            return resp.token;
-          } else {
-            return null;
-          }
-        }),
-        catchError((err) => {
-          return throwError(() => err);
-        })
+        map((resp) => resp.token || null),
+        catchError((err) => throwError(() => err))
       );
   }
 
-  logout(): void {
-    localStorage.removeItem('jwt');
-    localStorage.removeItem('user');
-    this.user = null;
-    this.router.navigate(['/login']);
-  }
-
-  private loadUserData(): void {
+  public loadUserData(): void {
     const username = this.getUsernameFromToken();
     if (username !== null) {
       this._http
         .get<Academico>(`${this.NEW_URL}/buscar/${username}`, this.httpOptions)
         .subscribe({
           next: (academico) => {
-            this.user = academico;
+            this.userSubject.next(academico); // Atualiza o BehaviorSubject
             localStorage.setItem('user', JSON.stringify(academico));
           },
           error: (err) => {
@@ -104,6 +92,13 @@ export class AuthService {
           },
         });
     }
+  }
+
+  logout(): void {
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('user');
+    this.user = null;
+    this.router.navigate(['/login']);
   }
 
   getUser(): Academico | null {
@@ -115,7 +110,7 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    console.log(localStorage.getItem('jwt'))
+    console.log(localStorage.getItem('jwt'));
     return localStorage.getItem('jwt');
   }
 

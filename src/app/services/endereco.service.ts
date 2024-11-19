@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Endereco } from '../models/endereco.model';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
 
 @Injectable({
   providedIn: 'root',
@@ -9,18 +10,29 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 export class EnderecoService {
   NEW_URL = 'http://localhost:8081/endereco';
 
-  httpOptions = {
-    observe: 'response' as 'response',
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
-  constructor(private _http: HttpClient) {}
+  // Função para obter o token e adicionar ao cabeçalho
+  private getHttpOptions() {
+    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const headers = token
+      ? new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+        })
+      : new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+    return {
+      headers: headers,
+      observe: 'response' as 'response',
+    };
+  }
 
   getEnderecoByCep(cep: string): Observable<Endereco | null> {
     return this._http
-      .get<Endereco>(`${this.NEW_URL}/consultar/${cep}`, this.httpOptions)
+      .get<Endereco>(`${this.NEW_URL}/consultar/${cep}`, this.getHttpOptions())
       .pipe(
         map((response: HttpResponse<Endereco>) => {
           // Verificar se a resposta tem um corpo válido

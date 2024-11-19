@@ -1,39 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { addIcons } from 'ionicons';
-import {
-  personCircleOutline,
-  schoolOutline,
-  notificationsOutline,
-  eyeOffOutline,
-  settingsOutline,
-  bicycleOutline,
-  addCircleOutline,
-  starOutline,
-  calendarNumberOutline,
-  logOutOutline,
-  medkitOutline,
-  analyticsOutline,
-} from 'ionicons/icons';
-
-import {
-  IonContent,
-  IonHeader,
-  IonTitle,
-  IonToolbar,
-  IonButtons,
-  IonMenu,
-  IonMenuButton,
-  IonList,
-  IonListHeader,
-  IonItem,
-  IonLabel,
-  IonItemGroup,
-  IonIcon,
-} from '@ionic/angular/standalone';
-import { RouterModule } from '@angular/router';
 import {
   Bell,
   Calendar1,
@@ -50,6 +19,21 @@ import {
   Star,
   User,
 } from 'lucide-angular';
+import {
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonButtons,
+  IonMenu,
+  IonMenuButton,
+  IonList,
+  IonListHeader,
+  IonItem,
+  IonLabel,
+  IonItemGroup,
+  IonIcon,
+} from '@ionic/angular/standalone';
 import { AuthService } from 'src/app/services/auth.service';
 import { Academico } from 'src/app/models/academico.model';
 import { MetaDiariaService } from 'src/app/services/meta-diaria.service';
@@ -79,7 +63,6 @@ import { forkJoin } from 'rxjs';
     IonLabel,
     IonItemGroup,
     IonIcon,
-    RouterModule,
     LucideAngularModule,
   ],
 })
@@ -101,9 +84,8 @@ export class MenuPerfilComponent implements OnInit {
   readonly Star = Star;
   readonly LogOut = LogOut;
 
-  user: Academico | null = new Academico();
+  user: Academico | null = null;
   metasDiarias: MetaDiaria[] = [];
-
   modalidadesUsuario: any[] = [];
   metasPorModalidade: MetaEsportiva[] = [];
   metasEsportivas: MetaEsportiva[] = [];
@@ -115,21 +97,48 @@ export class MenuPerfilComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private metaDiariaService: MetaDiariaService,
-    private metaEsportivaService: MetaEsportivaService
+    private metaEsportivaService: MetaEsportivaService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    const user = this.authService.getUser(); // Obtém o usuário autenticado
-    if (user) {
-      this.user = user; // Armazena o usuário na variável user
-      this.modalidadesUsuario = this.user.modalidades || []; // Atribui as modalidades ao usuário
-      this.loadMetasDiarias(); // Chama a função para listar as metas diárias
-      this.loadMetasEsportivas(); // Chama a função para listar as metas esportivas
-    } else {
-      console.error('Usuário não autenticado');
-    }
+    // Inscrever-se nas mudanças do usuário
+    this.authService.user$.subscribe((user) => {
+      if (user) {
+        this.user = user;
+        this.modalidadesUsuario = user.modalidades || []; // Atualiza as modalidades do usuário
+        this.loadMetasDiarias(); // Carrega as metas diárias
+        this.loadMetasEsportivas(); // Carrega as metas esportivas
+      } else {
+        console.error('Usuário não autenticado');
+      }
+    });
+
+    
+    // Tenta carregar os dados do usuário logo que o componente for inicializado
+    this.authService.loadToken().subscribe({
+      next: () => {
+        const user = this.authService.getUser(); // Obtém o usuário do serviço após carregar o token
+        if (user) {
+          this.user = user; // Armazena o usuário na variável local
+          this.modalidadesUsuario = this.user.modalidades || [];
+          this.loadMetasDiarias();
+          this.loadMetasEsportivas();
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao carregar token ou dados do usuário:', err);
+      },
+    });
   }
 
+  goToPage(path: string): void {
+    this.router.navigate([path]);
+  }
+  
+
+  // Método para obter o nome da modalidade com base no id
   getModalidadeName(idModalidade: number): string | undefined {
     const modalidade = this.modalidadesUsuario.find(
       (m) => m.idModalidade === idModalidade
@@ -137,9 +146,12 @@ export class MenuPerfilComponent implements OnInit {
     return modalidade ? modalidade.nomeModalidade : undefined;
   }
 
+  // Carregar metas diárias para o usuário
   loadMetasDiarias(): void {
+    if (!this.user) return;
+
     this.metaDiariaService
-      .getMetaDiariaByAcademicoId(this.user!.idAcademico) // Usando this.user.idAcademico
+      .getMetaDiariaByAcademicoId(this.user.idAcademico)
       .subscribe({
         next: (data: MetaDiaria[] | null) => {
           if (data === null) {
@@ -154,16 +166,16 @@ export class MenuPerfilComponent implements OnInit {
       });
   }
 
+  // Carregar metas esportivas para o usuário
   loadMetasEsportivas(): void {
-    // Cria uma lista de observables para todas as modalidades do usuário
+    if (!this.user || this.modalidadesUsuario.length === 0) return;
+
     const observables = this.modalidadesUsuario.map((modalidade) =>
       this.metaEsportivaService.getMetasPorModalidade(modalidade.idModalidade)
     );
 
-    // Usa forkJoin para aguardar todas as requisições
     forkJoin(observables).subscribe({
       next: (resultados) => {
-        // Agrupa as metas por modalidade
         this.metasPorModalidade2 = resultados
           .flat()
           .filter((meta): meta is MetaEsportiva => meta !== null)
@@ -184,7 +196,6 @@ export class MenuPerfilComponent implements OnInit {
             return acc;
           }, {});
 
-        // Converte o objeto para um array
         this.metasPorModalidadeArray = Object.values(this.metasPorModalidade2);
       },
       error: (err) => {
@@ -193,7 +204,9 @@ export class MenuPerfilComponent implements OnInit {
     });
   }
 
+  // Método de logout
   logout() {
     this.authService.logout();
+    this.router.navigate(['/login']); // Redireciona para a página de login após logout
   }
 }

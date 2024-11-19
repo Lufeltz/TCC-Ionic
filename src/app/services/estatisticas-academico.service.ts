@@ -4,26 +4,38 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { EstatisticaUso } from '../models/estatistica-uso.model';
 import { EstatisticaModalidade } from '../models/estatistica-modalidade.model';
 import { EstatisticaModalidadeGeral } from '../models/estatistica-modalidade-geral.model';
+import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
 
 @Injectable({
   providedIn: 'root',
 })
 export class EstatisticasAcademicoService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
   BASE_URL = 'http://localhost:8081/academico';
   ESTATISTICAS_URL = 'http://localhost:8081/estatistica';
 
-  httpOptions = {
-    observe: 'response' as 'response',
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  // Função para obter o token e adicionar ao cabeçalho
+  private getHttpOptions() {
+    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const headers = token
+      ? new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+        })
+      : new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+    return {
+      headers: headers,
+      observe: 'response' as 'response',
+    };
+  }
 
   getEstatisticasUso(id: number): Observable<EstatisticaUso[] | null> {
     const url = `${this.BASE_URL}/uso/${id}`;
-    return this._http.get<EstatisticaUso[]>(url, this.httpOptions).pipe(
+    return this._http.get<EstatisticaUso[]>(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<EstatisticaUso[]>) => {
         if (resp.status == 200) {
           return resp.body;
@@ -46,7 +58,7 @@ export class EstatisticasAcademicoService {
     idModalidade: number
   ): Observable<EstatisticaModalidade[] | null> {
     const url = `${this.BASE_URL}/estatisticas/${idAcademico}/modalidade/${idModalidade}`;
-    return this._http.get<EstatisticaModalidade[]>(url, this.httpOptions).pipe(
+    return this._http.get<EstatisticaModalidade[]>(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<EstatisticaModalidade[]>) => {
         if (resp.status == 200) {
           return resp.body;
@@ -69,7 +81,7 @@ export class EstatisticasAcademicoService {
   ): Observable<EstatisticaModalidadeGeral | null> {
     const url = `${this.ESTATISTICAS_URL}/visualizarEstatisticasMetasEsportivas/${idAcademico}`;
     return this._http
-      .get<EstatisticaModalidadeGeral>(url, this.httpOptions)
+      .get<EstatisticaModalidadeGeral>(url, this.getHttpOptions())
       .pipe(
         map((resp: HttpResponse<EstatisticaModalidadeGeral>) => {
           if (resp.status === 200) {

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ComentarioApiResponse } from '../models/comentario-api-response.model';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Comentario } from '../models/comentario.model';
+import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
 
 @Injectable({
   providedIn: 'root',
@@ -10,13 +11,25 @@ import { Comentario } from '../models/comentario.model';
 export class ComentarioService {
   private readonly NEW_URL = 'http://localhost:8081';
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
-  constructor(private _http: HttpClient) {}
+  // Função para obter o token e adicionar ao cabeçalho
+  private getHttpOptions() {
+    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const headers = token
+      ? new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+        })
+      : new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+    return {
+      headers: headers,
+      observe: 'response' as 'response',
+    };
+  }
 
   getAllComentarios(
     postId: number,
@@ -27,7 +40,7 @@ export class ComentarioService {
     const url = `${this.NEW_URL}/comentario/${postId}/comentarios?page=${page}&size=${size}&sort=${sort}`;
 
     return this._http
-      .get<ComentarioApiResponse>(url, { observe: 'response' })
+      .get<ComentarioApiResponse>(url, this.getHttpOptions())
       .pipe(
         map((resp: HttpResponse<ComentarioApiResponse>) => {
           if (resp.status === 200 && resp.body) {
@@ -73,7 +86,7 @@ export class ComentarioService {
       .post<Comentario>(
         `${this.NEW_URL}/comentario/cadastrarComentario`,
         JSON.stringify(comentario),
-        { ...this.httpOptions, observe: 'response' }
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<Comentario>) => {
@@ -91,7 +104,7 @@ export class ComentarioService {
 
   curtirComentario(userId: number, comentarioId: number): Observable<any> {
     const url = `${this.NEW_URL}/comentario/curtirComentario/${userId}/${comentarioId}`;
-    return this._http.post(url, {}, { observe: 'response' }).pipe(
+    return this._http.post(url, {}, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<any>) => {
         if (resp.status === 200) {
           return resp.body;
@@ -110,7 +123,7 @@ export class ComentarioService {
     comentarioId: number
   ): Observable<any> {
     const url = `${this.NEW_URL}/comentario/removerCurtidaComentario/${userId}/${comentarioId}`;
-    return this._http.delete(url, { observe: 'response' }).pipe(
+    return this._http.delete(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<any>) => {
         if (resp.status === 200) {
           return resp.body;

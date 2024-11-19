@@ -3,47 +3,66 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { MetaEsportiva } from '../models/meta-esportiva.model';
 import { ModalidadeEsportiva } from '../models/modalidades.model';
+import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
 
 @Injectable({
   providedIn: 'root',
 })
 export class MetaEsportivaService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
   NEW_URL = 'http://localhost:8081/metaEsportiva';
-  MODALIDADE_ALL ='http://localhost:8081/modalidadeEsportiva'
+  MODALIDADE_ALL = 'http://localhost:8081/modalidadeEsportiva';
   MODALIDADE_URL = 'http://localhost:8081/modalidadeEsportiva/metaEsportiva';
 
-  httpOptions = {
-    observe: 'response' as 'response',
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  // Função para obter o token e adicionar ao cabeçalho
+  private getHttpOptions() {
+    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const headers = token
+      ? new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+        })
+      : new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+    return {
+      headers: headers,
+      observe: 'response' as 'response',
+    };
+  }
 
   // Adicione esta função ao seu serviço
-getModalidadesPorUsuario(idUsuario: number): Observable<ModalidadeEsportiva[]> {
-  return this._http
-    .get<ModalidadeEsportiva[]>(`${this.MODALIDADE_ALL}/listar/${idUsuario}`, this.httpOptions)
-    .pipe(
-      map((resp: HttpResponse<ModalidadeEsportiva[]>) => {
-        if (resp.status === 200) {
-          return resp.body || [];
-        } else {
-          return [];
-        }
-      }),
-      catchError((err) => {
-        console.error('Erro ao buscar modalidades do usuário:', err);
-        return of([]); // Retorna um array vazio em caso de erro
-      })
-    );
-}
-
+  getModalidadesPorUsuario(
+    idUsuario: number
+  ): Observable<ModalidadeEsportiva[]> {
+    return this._http
+      .get<ModalidadeEsportiva[]>(
+        `${this.MODALIDADE_ALL}/listar/${idUsuario}`,
+        this.getHttpOptions()
+      )
+      .pipe(
+        map((resp: HttpResponse<ModalidadeEsportiva[]>) => {
+          if (resp.status === 200) {
+            return resp.body || [];
+          } else {
+            return [];
+          }
+        }),
+        catchError((err) => {
+          console.error('Erro ao buscar modalidades do usuário:', err);
+          return of([]); // Retorna um array vazio em caso de erro
+        })
+      );
+  }
 
   getAllMetasEsportivas(): Observable<MetaEsportiva[] | null> {
     return this._http
-      .get<MetaEsportiva[]>(`${this.MODALIDADE_ALL}/listar`, this.httpOptions)
+      .get<MetaEsportiva[]>(
+        `${this.MODALIDADE_ALL}/listar`,
+        this.getHttpOptions()
+      )
       .pipe(
         map((resp: HttpResponse<MetaEsportiva[]>) => {
           if (resp.status == 200) {
@@ -63,11 +82,13 @@ getModalidadesPorUsuario(idUsuario: number): Observable<ModalidadeEsportiva[]> {
   }
 
   // Método para buscar metas de uma modalidade esportiva específica
-  getMetasPorModalidade(idModalidade: number): Observable<MetaEsportiva[] | null> {
+  getMetasPorModalidade(
+    idModalidade: number
+  ): Observable<MetaEsportiva[] | null> {
     return this._http
       .get<MetaEsportiva[]>(
-        `${this.MODALIDADE_URL}/listar/${idModalidade}`, // Endpoint atualizado com o ID da modalidade
-        this.httpOptions
+        `${this.MODALIDADE_URL}/listar/${idModalidade}`,
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<MetaEsportiva[]>) => {
@@ -93,8 +114,8 @@ getModalidadesPorUsuario(idUsuario: number): Observable<ModalidadeEsportiva[]> {
     return this._http
       .put<MetaEsportiva>(
         `${this.NEW_URL}/campeonatos/${metaEsportiva.idMetaEsportiva}`,
-        JSON.stringify(MetaEsportiva),
-        this.httpOptions
+        metaEsportiva, // Envia o objeto metaEsportiva diretamente
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<MetaEsportiva>) => {

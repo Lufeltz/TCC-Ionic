@@ -2,21 +2,33 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { MetaDiaria } from '../models/meta-diaria.model';
+import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
 
 @Injectable({
   providedIn: 'root',
 })
 export class MetaDiariaService {
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
   NEW_URL = 'http://localhost:8081/metaDiaria';
 
-  httpOptions = {
-    observe: 'response' as 'response',
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  // Função para obter o token e adicionar ao cabeçalho
+  private getHttpOptions() {
+    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const headers = token
+      ? new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+        })
+      : new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+    return {
+      headers: headers,
+      observe: 'response' as 'response',
+    };
+  }
 
   getMetaDiariaByAcademicoId(
     idAcademico: number
@@ -24,7 +36,7 @@ export class MetaDiariaService {
     return this._http
       .get<MetaDiaria[]>(
         `${this.NEW_URL}/listar/${idAcademico}`,
-        this.httpOptions
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<MetaDiaria[]>) => {
@@ -46,7 +58,10 @@ export class MetaDiariaService {
 
   getMetaDiariaById(id: number): Observable<MetaDiaria | null> {
     return this._http
-      .get<MetaDiaria>(`${this.NEW_URL}/aeroportos/${id}`, this.httpOptions)
+      .get<MetaDiaria>(
+        `${this.NEW_URL}/aeroportos/${id}`,
+        this.getHttpOptions()
+      )
       .pipe(
         map((resp: HttpResponse<MetaDiaria>) => {
           if (resp.status == 200) {
@@ -69,8 +84,8 @@ export class MetaDiariaService {
     return this._http
       .post<MetaDiaria>(
         this.NEW_URL,
-        metaDiaria, // Remova o JSON.stringify aqui
-        { ...this.httpOptions, observe: 'response' } // Certifique-se de que observe esteja definido como 'response'
+        metaDiaria, // Envia o objeto metaDiaria diretamente
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<MetaDiaria>) => {
@@ -89,9 +104,9 @@ export class MetaDiariaService {
   putMetaDiaria(metaDiaria: MetaDiaria): Observable<MetaDiaria | null> {
     return this._http
       .put<MetaDiaria>(
-        `${this.NEW_URL}`, // Endpoint já correto
-        JSON.stringify(metaDiaria), // Enviando o objeto metaDiaria diretamente
-        this.httpOptions
+        this.NEW_URL, // Endpoint já correto
+        metaDiaria, // Envia o objeto metaDiaria diretamente
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<MetaDiaria>) => {
@@ -109,9 +124,10 @@ export class MetaDiariaService {
 
   deleteMetaDiaria(id: string): Observable<MetaDiaria | null> {
     return this._http
-      .delete<MetaDiaria>(`${this.NEW_URL}/excluir/${id}`, {
-        observe: 'response',
-      })
+      .delete<MetaDiaria>(
+        `${this.NEW_URL}/excluir/${id}`,
+        this.getHttpOptions()
+      )
       .pipe(
         map((resp: HttpResponse<MetaDiaria>) => {
           if (resp.status === 200) {

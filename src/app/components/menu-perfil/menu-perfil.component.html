@@ -45,13 +45,13 @@
       <ion-item>
         <div class="item">
           <lucide-angular [img]="Bell" class="i-tem"></lucide-angular>
-          <ion-label routerLink="/pref-notif">Preferências</ion-label>
+          <ion-label (click)="goToPage('/pref-notif')">Preferências</ion-label>
         </div>
       </ion-item>
       <ion-item>
         <div class="item">
           <lucide-angular [img]="HeartPulse" class="i-tem"></lucide-angular>
-          <ion-label routerLink="/canal-saude">Canal Saúde</ion-label>
+          <ion-label (click)="goToPage('/canal-saude')">Canal Saúde</ion-label>
         </div>
       </ion-item>
       <ion-item>
@@ -60,13 +60,13 @@
             [img]="ChartNoAxesCombined"
             class="i-tem"
           ></lucide-angular>
-          <ion-label routerLink="/perfil-usuario">Estatísticas</ion-label>
+          <ion-label (click)="goToPage('/perfil-usuario')">Estatísticas</ion-label>
         </div>
       </ion-item>
       <ion-item>
         <div class="item">
           <lucide-angular [img]="Settings" class="i-tem"></lucide-angular>
-          <ion-label routerLink="/estatisticas">Perfil</ion-label>
+          <ion-label (click)="goToPage('/estatisticas')">Perfil</ion-label>
         </div>
       </ion-item>
 

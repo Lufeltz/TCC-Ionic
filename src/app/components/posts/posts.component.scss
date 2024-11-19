@@ -360,3 +360,17 @@ p {
 .icon-align .usuario-username {
   color: var(--text-new-green);
 }
+
+/* Remover hover, focus e active do ion-item e ion-label dentro da classe comentarios-header */
+.comentarios-header:hover, 
+.comentarios-header:focus, 
+.comentarios-header:active {
+  background-color: transparent;  /* Garantir que o fundo não mude em nenhuma dessas ações */
+  color: var(--light-blue); /* Garantir que a cor não mude */
+}
+
+.comentarios-header ion-label:hover, 
+.comentarios-header ion-label:focus, 
+.comentarios-header ion-label:active {
+  color: var(--light-blue); /* Garantir que a cor do label também não mude */
+}

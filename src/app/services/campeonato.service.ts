@@ -4,6 +4,7 @@ import { catchError, map, Observable, of, Subject, throwError } from 'rxjs';
 import { Campeonato } from '../models/campeonato.model';
 import { CampeonatoCriacao } from '../models/campeonato-criacao.model';
 import { Avaliacao } from '../models/avaliacao.model';
+import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
 
 @Injectable({
   providedIn: 'root',
@@ -13,17 +14,27 @@ export class CampeonatoService {
   private campeonatoCreatedSource = new Subject<void>();
   campeonatoCreated$ = this.campeonatoCreatedSource.asObservable();
 
-  constructor(private _http: HttpClient) {}
-  
+  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
   NEW_URL = 'http://localhost:8081/campeonatos';
 
-  httpOptions = {
-    observe: 'response' as 'response',
-    headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-    }),
-  };
+  // Função para obter o token e adicionar ao cabeçalho
+  private getHttpOptions() {
+    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const headers = token
+      ? new HttpHeaders({
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+        })
+      : new HttpHeaders({
+          'Content-Type': 'application/json',
+        });
+
+    return {
+      headers: headers,
+      observe: 'response' as 'response',
+    };
+  }
 
   avaliarJogador(
     idAvaliador: number,
@@ -33,7 +44,7 @@ export class CampeonatoService {
   ): Observable<any> {
     const url = `${this.NEW_URL}/avaliar?idAvaliador=${idAvaliador}&idAcademico=${idAcademico}&nota=${nota}&idModalidade=${idModalidade}`;
 
-    return this._http.post<any>(url, null, this.httpOptions).pipe(
+    return this._http.post<any>(url, null, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<any>) => {
         if (resp.status === 200) {
           return resp.body;
@@ -51,7 +62,7 @@ export class CampeonatoService {
     return this._http
       .get<Avaliacao>(
         `${this.NEW_URL}/avaliacao/${academicoId}/mediaAvaliacao`,
-        this.httpOptions
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<Avaliacao>) => {
@@ -81,7 +92,7 @@ export class CampeonatoService {
     return this._http
       .get<Campeonato[]>(
         `${this.NEW_URL}/historico/${id}?page=${page}&size=${size}&sort=${sort}`,
-        this.httpOptions
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<Campeonato[]>) => {
@@ -108,7 +119,7 @@ export class CampeonatoService {
     return this._http
       .get<Campeonato[]>(
         `${this.NEW_URL}/listar?page=${page}&size=${size}`,
-        this.httpOptions
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<Campeonato[]>) => {
@@ -128,10 +139,9 @@ export class CampeonatoService {
       );
   }
 
-  // Alterar URL
   getCampeonatoById(id: number): Observable<Campeonato | null> {
     return this._http
-      .get<Campeonato>(`${this.NEW_URL}/aeroportos/${id}`, this.httpOptions)
+      .get<Campeonato>(`${this.NEW_URL}/aeroportos/${id}`, this.getHttpOptions())
       .pipe(
         map((resp: HttpResponse<Campeonato>) => {
           if (resp.status == 200) {
@@ -157,7 +167,7 @@ export class CampeonatoService {
       .post<CampeonatoCriacao>(
         `${this.NEW_URL}`,
         JSON.stringify(campeonato),
-        this.httpOptions
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<CampeonatoCriacao>) => {
@@ -179,7 +189,7 @@ export class CampeonatoService {
       .put<Campeonato>(
         `${this.NEW_URL}/campeonatos/${campeonato.idCampeonato}`,
         JSON.stringify(campeonato),
-        this.httpOptions
+        this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<Campeonato>) => {
@@ -197,7 +207,7 @@ export class CampeonatoService {
 
   deleteCampeonato(id: string): Observable<Campeonato | null> {
     return this._http
-      .delete<Campeonato>(`${this.NEW_URL}/aeroportos/${id}`, this.httpOptions)
+      .delete<Campeonato>(`${this.NEW_URL}/aeroportos/${id}`, this.getHttpOptions())
       .pipe(
         map((resp: HttpResponse<Campeonato>) => {
           if (resp.status == 200) {
