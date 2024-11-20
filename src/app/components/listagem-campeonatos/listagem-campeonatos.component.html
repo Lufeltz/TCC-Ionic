@@ -9,6 +9,25 @@
   </ng-container>
 
   <ng-template #content>
+    <ion-searchbar animated="true" placeholder="Procurar"></ion-searchbar>
+    <!-- <ion-item lines="none">
+      <div class="align-abertos">
+        <div class="icon-label">
+          <lucide-angular
+            [img]="UserPlus"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
+          <ion-label class="label-titulo">Abertos</ion-label>
+        </div>
+        <ion-toggle
+          class="toggle-abertos"
+          slot="start"
+          [(ngModel)]="statusToggles.participando"
+        ></ion-toggle>
+      </div>
+    </ion-item>
+
     <ion-item lines="none">
       <div class="align-diarias">
         <div class="icon-label">
@@ -20,10 +39,9 @@
           <ion-label class="label-titulo">Criados</ion-label>
         </div>
         <ion-toggle class="toggle-diarias" slot="end"></ion-toggle>
-        <!-- (ionChange)="toggleFilterDiarias($event)"
-          [checked]="filterDiarias" -->
       </div>
     </ion-item>
+
     <ion-item lines="none">
       <div class="align-esportivas">
         <div class="icon-label">
@@ -39,10 +57,8 @@
           slot="end"
           [(ngModel)]="statusToggles.participando"
         ></ion-toggle>
-        <!-- (ionChange)="toggleFilterEsportivas($event)"
-          [checked]="filterEsportivas" -->
       </div>
-    </ion-item>
+    </ion-item> -->
 
     <!-- Listagem do campeonato -->
 
@@ -253,7 +269,12 @@
                     </p>
                   </div>
                 </div>
-                <ion-button size="small" expand="block" class="icon-button" [routerLink]="'/homepage/campeonato-gerenciamento'">
+                <ion-button
+                  size="small"
+                  expand="block"
+                  class="icon-button"
+                  [routerLink]="'/homepage/campeonato-gerenciamento'"
+                >
                   <div class="text-container">Inscrever-se</div>
                   <div class="icon-align">
                     <lucide-angular
@@ -263,14 +284,13 @@
                     ></lucide-angular>
                   </div>
                 </ion-button>
-                
               </div>
             </ion-accordion>
           </ion-accordion-group>
         </div>
       </li>
     </ul>
-    
+
     <ion-button
       size="small"
       expand="block"

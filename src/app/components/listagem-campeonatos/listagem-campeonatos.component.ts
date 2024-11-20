@@ -13,8 +13,7 @@ import {
   IonItem,
   IonButton,
   IonIcon,
-  IonToggle,
-} from '@ionic/angular/standalone';
+  IonToggle, IonSearchbar } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { lockClosed, lockOpen } from 'ionicons/icons';
 import { NgxMaskPipe } from 'ngx-mask';
@@ -41,6 +40,7 @@ import {
   NotebookPen,
   UsersRound,
   ArrowDownToDot,
+  UserPlus,
 } from 'lucide-angular';
 import { Campeonato } from 'src/app/models/campeonato.model';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
@@ -60,7 +60,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-listagem-campeonatos',
   templateUrl: './listagem-campeonatos.component.html',
   styleUrls: ['./listagem-campeonatos.component.scss'],
-  imports: [
+  imports: [IonSearchbar, 
     IonToggle,
     IonIcon,
     IonButton,
@@ -97,6 +97,7 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   readonly NotebookText = NotebookText;
   readonly NotebookPen = NotebookPen;
   readonly ArrowDownToDot = ArrowDownToDot;
+  readonly UserPlus = UserPlus;
 
   campeonatos: Campeonato[] = [];
   modalidades: ModalidadeEsportiva[] = []; // Armazena a lista de modalidades

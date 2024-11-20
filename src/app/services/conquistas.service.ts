@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
@@ -30,6 +30,26 @@ export class ConquistasService {
       headers: headers,
       observe: 'response' as 'response',
     };
+  }
+
+  atualizarConquista(
+    metaEsportiva: Conquista
+  ): Observable<Conquista | null> {
+    const url = `${this.NEW_URL}/atualizarConquista`;
+    return this._http
+      .put<Conquista>(url, metaEsportiva, this.getHttpOptions())
+      .pipe(
+        map((resp: HttpResponse<Conquista>) => {
+          if (resp.status === 200) {
+            return resp.body;
+          } else {
+            return null;
+          }
+        }),
+        catchError((err) => {
+          return throwError(() => err);
+        })
+      );
   }
 
   // Método para listar as conquistas de um usuário

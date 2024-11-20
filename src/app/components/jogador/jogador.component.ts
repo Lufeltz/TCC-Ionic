@@ -22,7 +22,7 @@ import {
 import { Academico } from 'src/app/models/academico.model';
 import { AcademicoService } from 'src/app/services/academico.service';
 import { AuthService } from 'src/app/services/auth.service';
-import { IonButton } from '@ionic/angular/standalone';
+import { IonButton, IonSearchbar } from '@ionic/angular/standalone';
 import { EstatisticaModalidade } from 'src/app/models/estatistica-modalidade.model';
 
 @Component({
@@ -30,7 +30,7 @@ import { EstatisticaModalidade } from 'src/app/models/estatistica-modalidade.mod
   templateUrl: './jogador.component.html',
   styleUrls: ['./jogador.component.scss'],
   standalone: true,
-  imports: [IonButton, CommonModule, LucideAngularModule],
+  imports: [IonSearchbar, IonButton, CommonModule, LucideAngularModule],
 })
 export class JogadorComponent implements OnInit, OnChanges {
   @Input() searchedJogadores!: string;

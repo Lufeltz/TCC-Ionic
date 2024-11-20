@@ -374,3 +374,9 @@ p {
 .comentarios-header ion-label:active {
   color: var(--light-blue); /* Garantir que a cor do label também não mude */
 }
+
+ion-searchbar {
+  color: #7b7b7b;
+  --background: var(--background-dark);
+  margin-top: -1rem;
+}

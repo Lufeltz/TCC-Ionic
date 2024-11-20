@@ -2,6 +2,12 @@
   padding: 16px;
 }
 
+ion-searchbar {
+  color: #7b7b7b;
+  --background: var(--background-dark);
+  margin-top: -1rem;
+}
+
 ul {
   padding: 0;
   list-style-type: none;

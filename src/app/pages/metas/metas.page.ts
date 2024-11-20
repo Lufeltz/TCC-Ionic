@@ -119,7 +119,6 @@ export class MetasPage implements OnInit {
 
   private modalidadeUpdateSubscription!: Subscription;
 
-
   getModalidadeName(id: number): string {
     return this.modalidades[id] || 'Desconhecido';
   }
@@ -130,7 +129,7 @@ export class MetasPage implements OnInit {
   }
 
   abrirModalEditarEsportiva(conquista: any) {
-    this.ConquistaParaEditar = conquista
+    this.ConquistaParaEditar = conquista;
     this.modalEsportivaEditarVisivel = true;
   }
 
@@ -149,7 +148,6 @@ export class MetasPage implements OnInit {
     4: 'Tênis de Mesa',
     5: 'Handebol',
   };
-
 
   readonly Clock4 = Clock4;
   readonly BicepsFlexed = BicepsFlexed;
@@ -268,12 +266,13 @@ export class MetasPage implements OnInit {
   get filteredMetasEsportivas(): Conquista[] {
     if (this.filterEsportivas) {
       return this.conquistasUsuario.filter(
-        (conquista) => conquista.metaEsportiva !== undefined
+        (conquista) => conquista.metaEsportiva !== undefined && conquista.conquistado === false
       );
     } else {
       return [];
     }
   }
+  
 
   get filteredMetasDiarias(): MetaDiaria[] {
     if (this.filterDiarias) {
@@ -304,6 +303,17 @@ export class MetasPage implements OnInit {
         },
       });
     }
+  }
+
+  verificarProgresso(meta: MetaDiaria) {
+    if (
+      meta.progressoMaximo != null &&
+      meta.progressoAtual >= meta.progressoMaximo
+    ) {
+      this.excluirPresentAlert(meta);
+      console.log(`dentro`);
+    }
+    console.log(`saiu`);
   }
 
   async excluirPresentAlert(meta: MetaDiaria) {

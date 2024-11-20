@@ -15,6 +15,9 @@ import {
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Conquista } from 'src/app/models/conquista.model';
+import { MetaEsportivaService } from 'src/app/services/meta-esportiva.service';
+import { ModalidadesService } from 'src/app/services/modalidades.service';
+import { ConquistasService } from 'src/app/services/conquistas.service';
 
 @Component({
   selector: 'app-modal-editar-meta-esportiva',
@@ -32,9 +35,12 @@ import { Conquista } from 'src/app/models/conquista.model';
 })
 export class ModalEditarMetaEsportivaComponent {
   @Input() conquistaEsportiva!: Conquista; // Recebe a meta a ser editada
+  @Input() modalidadesUsuario!: any[]; // Recebe a meta a ser editada
+  @Input() listarMetasEsportivas!: () => void; //
+
   @Output() close = new EventEmitter<void>(); // Evento para fechar o modal
 
-  // constructor(private metaDiariaService: MetaDiariaService) {}
+  constructor(private conquistasService: ConquistasService) {}
 
   readonly CircleX = CircleX;
   readonly CaseUpper = CaseUpper;
@@ -49,14 +55,18 @@ export class ModalEditarMetaEsportivaComponent {
   }
 
   editarProgresso() {
-    // Chama o método putMetaDiaria para atualizar a meta
-    // this.metaDiariaService.putMetaDiaria(this.meta).subscribe({
-    //   next: (result) => {
-    //     this.closeModal(); // Fecha o modal após a atualização
-    //   },
-    //   error: (err) => {
-    //     console.error('Erro ao atualizar meta:', err);
-    //   },
-    // });
+    this.conquistasService
+      .atualizarConquista(this.conquistaEsportiva)
+      .subscribe({
+        next: (response) => {
+          console.log('Conquista atualizada com sucesso:', response);
+          // this.listarMetasEsportivas()
+          this.closeModal(); // Fecha o modal após a atualização bem-sucedida
+        },
+        error: (err) => {
+          console.error('Erro ao atualizar a conquista:', err);
+          // Exibir mensagem de erro para o usuário se necessário
+        },
+      });
   }
 }

@@ -5,11 +5,11 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <ion-searchbar
+  <!-- <ion-searchbar
     [(ngModel)]="searchTerm"
     animated="true"
     placeholder="Procurar"
-  ></ion-searchbar>
+  ></ion-searchbar> -->
 
   <ion-segment [(ngModel)]="selectedSegment">
     <ion-segment-button value="campeonatos">
@@ -24,28 +24,6 @@
   </ion-segment>
 
   <div *ngIf="selectedSegment === 'campeonatos'">
-    <div class="aberto-finalizado">
-      <ion-toggle
-        labelPlacement="end"
-        [(ngModel)]="statusToggles.aberto"
-        (ionChange)="updateStatus('aberto', $event)"
-        >Abertos</ion-toggle
-      >
-      <ion-toggle
-        labelPlacement="end"
-        [(ngModel)]="statusToggles.finalizado"
-        (ionChange)="updateStatus('finalizado', $event)"
-        >Finalizados</ion-toggle
-      >
-    </div>
-    <div class="iniciado">
-      <ion-toggle
-        labelPlacement="end"
-        [(ngModel)]="statusToggles.iniciado"
-        (ionChange)="updateStatus('iniciado', $event)"
-        >Iniciados</ion-toggle
-      >
-    </div>
     <app-listagem-campeonatos
       [statusToggles]="statusToggles"
       [searchedCampeonatos]="searchTerm"

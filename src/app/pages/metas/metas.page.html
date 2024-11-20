@@ -179,6 +179,7 @@
               >
             </ion-label>
           </div>
+
           <div class="icon-align">
             <lucide-angular
               [img]="CircleDashed"
@@ -188,12 +189,13 @@
             ></lucide-angular>
             <ion-label>
               Progresso:
-              <span class="span-text-white"
-                >{{ meta.progressoAtual }} / {{ meta.progressoMaximo }} {{
-                meta.progressoItem }}</span
-              >
+              <span class="span-text-white">
+                {{ meta.progressoAtual }} / {{ meta.progressoMaximo }} {{
+                meta.progressoItem }}
+              </span>
             </ion-label>
           </div>
+
           <div class="icon-align">
             <lucide-angular
               [img]="ClipboardPen"
@@ -225,20 +227,7 @@
               ></lucide-angular>
             </div>
           </ion-button>
-          <!-- <ion-button
-            expand="small"
-            class="centered-button meta-button"
-            (click)="concluirMeta(meta)"
-          >
-            <div class="icon-align">
-              <lucide-angular
-                [img]="SquareCheckBig"
-                class="btn-inscrever-se"
-                [size]="20"
-                [color]="'var(--background-dark)'"
-              ></lucide-angular>
-            </div>
-          </ion-button> -->
+
           <ion-button
             expand="small"
             class="centered-button meta-button"
@@ -374,12 +363,19 @@
   <app-modal-editar-meta-diaria
     *ngIf="modalEditarVisivel"
     [meta]="metaParaEditar"
+    [verificarProgresso]="verificarProgresso"
+    [excluirPresentAlert]="excluirPresentAlert"
+    [excluirMetaConfirmada]="excluirMetaConfirmada"
+    [listarMetaDiarias]="listarMetaDiarias"
+    [user]="user"
     (close)="fecharModal()"
   ></app-modal-editar-meta-diaria>
 
   <app-modal-editar-meta-esportiva
     *ngIf="modalEsportivaEditarVisivel"
     [conquistaEsportiva]="ConquistaParaEditar"
+    [listarMetasEsportivas]="listarMetasEsportivas"
+    [modalidadesUsuario]="modalidadesUsuario"
     (close)="fecharModalEsportiva()"
   ></app-modal-editar-meta-esportiva>
 </ion-content>

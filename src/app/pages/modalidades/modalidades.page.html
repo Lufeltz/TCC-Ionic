@@ -56,32 +56,38 @@
           <p><strong class="inscritos">Usuários inscritos: 138</strong></p>
         </div> -->
         <div class="icon-align">
-          <lucide-angular
+          <!-- <lucide-angular
             [img]="ZapOff"
             class="btn-inscrever-se"
             [size]="20"
             [color]="'var(--yellow-desc)'"
-          ></lucide-angular>
-          <p>
-            <strong class="atuais"
-              >Metas Atuais: {{conquistasObtidas.naoConquistado}} /
-              {{conquistasObtidas.naoConquistado}}</strong
-            >
-          </p>
+          ></lucide-angular> -->
+          <!-- <p>
+            <strong class="atuais">
+              Metas Atuais: {{
+              contagemPorModalidade[modalidade.idModalidadeEsportiva].conquistados
+              }} /
+              {{contagemPorModalidade[modalidade.idModalidadeEsportiva].naoConquistados
+              }}
+            </strong>
+          </p> -->
         </div>
         <div class="icon-align">
-          <lucide-angular
+          <!-- <lucide-angular
             [img]="Crosshair"
             class="btn-inscrever-se"
             [size]="20"
             [color]="'var(--purple-desc)'"
-          ></lucide-angular>
-          <p>
+          ></lucide-angular> -->
+          <!-- <p>
             <strong class="conquistas"
-              >Conquistas: {{conquistasObtidas.conquistado}} /
-              {{conquistasObtidas.naoConquistado}}</strong
-            >
-          </p>
+              >Conquistas:
+              {{contagemPorModalidade[modalidade.idModalidadeEsportiva].conquistados}}
+              / {{
+              contagemPorModalidade[modalidade.idModalidadeEsportiva].naoConquistados
+              }}
+            </strong>
+          </p> -->
         </div>
         <img
           *ngIf="modalidade.foto"
@@ -89,23 +95,6 @@
           alt="{{ modalidade.nome }}"
         />
         <div class="button-group">
-          <!-- Botão Editar -->
-          <!-- <ion-button
-            class="editar-inscricao"
-            [id]="'alerta-editar-' + modalidade.nome"
-            size="small"
-            expand="block"
-            (click)="abrirModalEditar(modalidade)"
-          >
-          <lucide-angular
-          [img]="SquarePen"
-          class="btn-inscrever-se"
-          [size]="20"
-          
-        ></lucide-angular>
-            Editar
-          </ion-button> -->
-
           <ion-button
             class="alerta-cancelar"
             [id]="'alerta-cancelar-' + modalidade.nome"
@@ -165,42 +154,27 @@
             modalidade.descricao }}
           </p>
         </div>
-        <!-- <div class="icon-align">
-          <lucide-angular
-            [img]="Users"
-            class="btn-inscrever-se"
-            [size]="20"
-            [color]="'var(--text-new-green)'"
-          ></lucide-angular>
-          <p><strong class="inscritos">Usuários inscritos: 138</strong></p>
-        </div> -->
         <div class="icon-align">
-          <lucide-angular
+          <!-- <lucide-angular
             [img]="ZapOff"
             class="btn-inscrever-se"
             [size]="20"
             [color]="'var(--yellow-desc)'"
-          ></lucide-angular>
-          <p>
-            <strong class="atuais"
-              >Metas Atuais: {{conquistasObtidas.naoConquistado}} /
-              {{conquistasObtidas.naoConquistado}}</strong
-            >
-          </p>
+          ></lucide-angular> -->
+          <!-- <p>
+            <strong class="atuais"> Metas Atuais: 0 / 4 </strong>
+          </p> -->
         </div>
         <div class="icon-align">
-          <lucide-angular
+          <!-- <lucide-angular
             [img]="Crosshair"
             class="btn-inscrever-se"
             [size]="20"
             [color]="'var(--purple-desc)'"
-          ></lucide-angular>
-          <p>
-            <strong class="conquistas"
-              >Conquistas: {{conquistasObtidas.conquistado}} /
-              {{conquistasObtidas.naoConquistado}}</strong
-            >
-          </p>
+          ></lucide-angular> -->
+          <!-- <p>
+            <strong class="conquistas">Conquistas: 0 / 4 </strong>
+          </p> -->
         </div>
         <img
           *ngIf="modalidade.foto"
