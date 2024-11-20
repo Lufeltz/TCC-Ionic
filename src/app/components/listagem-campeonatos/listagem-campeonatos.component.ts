@@ -13,7 +13,9 @@ import {
   IonItem,
   IonButton,
   IonIcon,
-  IonToggle, IonSearchbar } from '@ionic/angular/standalone';
+  IonToggle,
+  IonSearchbar,
+} from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { lockClosed, lockOpen } from 'ionicons/icons';
 import { NgxMaskPipe } from 'ngx-mask';
@@ -55,12 +57,14 @@ import {
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { Academico } from 'src/app/models/academico.model';
 import { RouterModule } from '@angular/router';
+import { debounceTime, Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-listagem-campeonatos',
   templateUrl: './listagem-campeonatos.component.html',
   styleUrls: ['./listagem-campeonatos.component.scss'],
-  imports: [IonSearchbar, 
+  imports: [
+    IonSearchbar,
     IonToggle,
     IonIcon,
     IonButton,
@@ -73,7 +77,7 @@ import { RouterModule } from '@angular/router';
     LucideAngularModule,
     FormsModule,
     TitleCasePipe,
-    RouterModule
+    RouterModule,
   ],
   standalone: true,
 })
@@ -113,15 +117,45 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   currentPage: number = 0;
   pageSize: number = 5;
   totalPages: number = 0;
-  
+
   searchedCampeonatos: string = ''; // Variável que armazenará o valor da pesquisa
+  searchSubject: Subject<string> = new Subject<string>();
 
   // Outros métodos e propriedades do componente
 
+  // Método que é chamado sempre que o usuário digita no IonSearchbar
   onSearchInput(event: any): void {
-    this.searchedCampeonatos = event.target.value; // Atualiza a variável com o valor digitado
-    console.log('Valor da pesquisa:', this.searchedCampeonatos); // Mostra o valor no console para debug
-    // Aqui você pode fazer o que desejar com o valor digitado (como filtrar campeonatos)
+    this.searchedCampeonatos = event.target.value;
+    this.searchSubject.next(this.searchedCampeonatos); // Emite o valor para o Subject
+  }
+
+  // Inscreve-se no subject para debouncing e para realizar a pesquisa
+  subscribeToSearch(): void {
+    this.searchSubject
+      .pipe(
+        debounceTime(3000), // Espera 3 segundos após a última digitação
+        switchMap((searchTerm) => {
+          // Verifica se o termo de pesquisa começa com '#'
+          if (searchTerm.startsWith('#')) {
+            const codigo = searchTerm; // Mantém o termo com '#', não codifica novamente
+            return this.campeonatoService.filtrarCampeonatos(codigo, undefined); // Passa o código com '#'
+          } else {
+            return this.campeonatoService.filtrarCampeonatos(
+              undefined,
+              searchTerm
+            ); // Passa o título
+          }
+        })
+      )
+      .subscribe({
+        next: (campeonatos) => {
+          this.campeonatos = campeonatos || [];
+          this.filteredCampeonatos = this.campeonatos;
+        },
+        error: (err) => {
+          console.error('Erro ao buscar campeonatos', err);
+        },
+      });
   }
 
   @Input() statusToggles: {
@@ -146,6 +180,7 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.loadModalidades();
     this.listarCampeonatos();
+    this.subscribeToSearch();
   }
 
   loadModalidades(): void {
@@ -199,7 +234,7 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
           } else {
             if (this.currentPage === 0) {
               this.campeonatos = data.content;
-              console.log(this.campeonatos)
+              console.log(this.campeonatos);
             } else {
               this.campeonatos = [...this.campeonatos, ...data.content]; // Concatenando os novos dados
             }
