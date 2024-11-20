@@ -1,4 +1,9 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Publicacao } from '../models/publicacao.model';
@@ -28,6 +33,36 @@ export class PublicacaoService {
       headers: headers,
       observe: 'response' as 'response',
     };
+  }
+
+  filtrarPublicacoes(searchTerm: string): Observable<any[]> {
+    return this._http
+      .get<any>(
+        `${this.NEW_URL}/publicacao/1/buscar-publicacoes-username/${searchTerm}?page=0&size=3&sort=dataPublicacao,desc`,
+        this.getHttpOptions()
+      )
+      .pipe(
+        map((response) => {
+          // Verifica se o body existe e se contém a chave 'content' que é um array
+          if (
+            response &&
+            response.body &&
+            Array.isArray(response.body.content)
+          ) {
+            return response.body.content; // Retorna o array de publicações
+          } else {
+            console.error(
+              'Esperado um array em "content", mas a resposta é:',
+              response
+            );
+            return []; // Retorna um array vazio em caso de erro
+          }
+        }),
+        catchError((err) => {
+          console.error('Erro ao filtrar publicações', err);
+          return throwError(() => err); // Trata erros
+        })
+      );
   }
 
   // Método POST

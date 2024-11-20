@@ -27,6 +27,7 @@ import { FormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Academico } from 'src/app/models/academico.model';
 import { PublicacaoService } from 'src/app/services/publicacao.service'; // Importar PublicacaoService
+import { catchError, debounceTime, EMPTY, Subject, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-posts',
@@ -54,6 +55,74 @@ export class PostsComponent implements OnInit, OnChanges {
 
   searchedCampeonatos: string = '';
 
+  searchSubject: Subject<string> = new Subject<string>(); // Subject para a pesquisa
+
+  onSearchInput(event: any): void {
+    this.searchedCampeonatos = event.target.value;
+    this.searchSubject.next(this.searchedCampeonatos); // Emite o valor para o Subject
+  }
+  
+
+  // Inscreve-se no subject para debouncing e para realizar a pesquisa
+  subscribeToSearch(): void {
+    this.searchSubject
+      .pipe(
+        debounceTime(3000), // Espera 3 segundos após a última digitação
+        switchMap((searchTerm) => {
+          if (searchTerm.trim() === '') {
+            // Se o termo de pesquisa estiver vazio, lista todos os posts
+            return this.postsService.getAllPosts(this.currentPage, this.pageSize);
+          } else {
+            // Caso contrário, filtra as publicações
+            return this.publicacaoService.filtrarPublicacoes(searchTerm).pipe(
+              catchError((err) => {
+                // Caso de erro (como 404), apenas loga o erro e retorna um array vazio
+                console.error('Erro ao buscar publicações', err);
+                return EMPTY; // Retorna um fluxo vazio em caso de erro
+              })
+            );
+          }
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          // Verifique se a resposta tem a estrutura de PostApiResponse
+          const posts = Array.isArray(response) ? response : response?.content || [];
+          
+          if (posts.length > 0) {
+            const newPosts = posts.map((post: any) => ({
+              ...post,
+              isCurtiu: post.listaUsuarioCurtida.some(
+                (usuario: any) =>
+                  usuario.username === this.usuarioLogado?.username
+              ),
+            }));
+            this.filteredPublications = newPosts; // Atualiza a lista filtrada
+          } else {
+            this.filteredPublications = []; // Se não houver resultados
+          }
+        },
+        error: (err) => {
+          // Tratar erros genéricos caso ocorram fora do catchError
+          console.error('Erro ao buscar publicações', err);
+        },
+      });
+  }
+
+  ngOnChanges() {
+    this.filterPublications();
+  }
+
+  ngOnInit() {
+    this.usuarioLogado = this.authService.getUser();
+    if (this.usuarioLogado) {
+      this.listarPosts();
+    } else {
+      console.error('Usuário não logado');
+    }
+    this.subscribeToSearch();
+  }
+
   readonly RotateCw = RotateCw;
   readonly UserRound = UserRound;
   readonly Star = Star;
@@ -66,25 +135,6 @@ export class PostsComponent implements OnInit, OnChanges {
     private authService: AuthService,
     private publicacaoService: PublicacaoService
   ) {}
-
-  ngOnChanges() {
-    this.filterPublications();
-  }
-
-  onSearchInput(event: any): void {
-    this.searchedCampeonatos = event.target.value; // Atualiza a variável com o valor digitado
-    console.log('Valor da pesquisa:', this.searchedCampeonatos); // Mostra o valor no console para debug
-    // Aqui você pode fazer o que desejar com o valor digitado (como filtrar campeonatos)
-  }
-
-  ngOnInit() {
-    this.usuarioLogado = this.authService.getUser();
-    if (this.usuarioLogado) {
-      this.listarPosts();
-    } else {
-      console.error('Usuário não logado');
-    }
-  }
 
   filterPublications() {
     const searchTerm = this.searchedPosts.toLowerCase();
@@ -193,29 +243,109 @@ export class PostsComponent implements OnInit, OnChanges {
   }
 
   listarPosts() {
-    this.postsService.getAllPosts(this.currentPage, this.pageSize).subscribe(
-      (response: PostApiResponse) => {
-        if (response && response.content.length > 0) {
-          const newPosts = response.content.map((post) => ({
-            ...post,
-            isCurtiu: post.listaUsuarioCurtida.some(
-              (usuario: any) =>
-                usuario.username === this.usuarioLogado?.username
-            ),
-          }));
-          this.filteredPublications = [
-            ...this.filteredPublications,
-            ...newPosts,
-          ];
-          this.currentPage++;
-          this.listarComentarios();
+    if (this.searchedCampeonatos.trim()) {
+      // Se houver filtro (pesquisa), use o serviço filtrarPublicacoes
+      this.publicacaoService.filtrarPublicacoes(this.searchedCampeonatos).subscribe(
+        (posts: any[]) => {
+          if (posts && posts.length > 0) {
+            const newPosts = posts.map((post) => ({
+              ...post,
+              isCurtiu: post.listaUsuarioCurtida.some(
+                (usuario: any) =>
+                  usuario.username === this.usuarioLogado?.username
+              ),
+            }));
+            this.filteredPublications = [
+              ...this.filteredPublications,
+              ...newPosts,
+            ];
+            this.currentPage++; // Atualiza a página
+            this.listarComentarios();
+          }
+        },
+        (err) => {
+          console.error('Erro ao carregar posts filtrados', err);
         }
-      },
-      (err) => {
-        console.error('Erro ao carregar posts', err);
-      }
-    );
+      );
+    } else {
+      // Se não houver filtro (pesquisa), use o serviço de buscar posts normalmente
+      this.postsService.getAllPosts(this.currentPage, this.pageSize).subscribe(
+        (response: PostApiResponse) => {
+          if (response && response.content.length > 0) {
+            const newPosts = response.content.map((post) => ({
+              ...post,
+              isCurtiu: post.listaUsuarioCurtida.some(
+                (usuario: any) =>
+                  usuario.username === this.usuarioLogado?.username
+              ),
+            }));
+            this.filteredPublications = [
+              ...this.filteredPublications,
+              ...newPosts,
+            ];
+            this.currentPage++; // Atualiza a página
+            this.listarComentarios();
+          }
+        },
+        (err) => {
+          console.error('Erro ao carregar posts', err);
+        }
+      );
+    }
   }
+  
+  listarMaisPosts(): void {
+    if (this.searchedCampeonatos.trim()) {
+      // Se houver filtro (pesquisa), usa o serviço de filtrar publicações
+      this.publicacaoService.filtrarPublicacoes(this.searchedCampeonatos).subscribe(
+        (posts: any[]) => {
+          if (posts && posts.length > 0) {
+            const newPosts = posts.map((post) => ({
+              ...post,
+              isCurtiu: post.listaUsuarioCurtida.some(
+                (usuario: any) =>
+                  usuario.username === this.usuarioLogado?.username
+              ),
+            }));
+            this.filteredPublications = [
+              ...this.filteredPublications,
+              ...newPosts,
+            ];
+            this.currentPage++; // Atualiza a página para carregar mais posts filtrados
+            this.listarComentarios(); // Atualiza os comentários se necessário
+          }
+        },
+        (err) => {
+          console.error('Erro ao carregar mais posts filtrados', err);
+        }
+      );
+    } else {
+      // Se não houver filtro (pesquisa), carrega posts normalmente
+      this.postsService.getAllPosts(this.currentPage, this.pageSize).subscribe(
+        (response: PostApiResponse) => {
+          if (response && response.content.length > 0) {
+            const newPosts = response.content.map((post: any) => ({
+              ...post,
+              isCurtiu: post.listaUsuarioCurtida.some(
+                (usuario: any) =>
+                  usuario.username === this.usuarioLogado?.username
+              ),
+            }));
+            this.filteredPublications = [
+              ...this.filteredPublications,
+              ...newPosts,
+            ];
+            this.currentPage++; // Atualiza a página para carregar mais posts
+            this.listarComentarios(); // Atualiza os comentários se necessário
+          }
+        },
+        (err) => {
+          console.error('Erro ao carregar mais posts', err);
+        }
+      );
+    }
+  }
+  
 
   listarComentarios() {
     this.filteredPublications.forEach((publicacao) => {
