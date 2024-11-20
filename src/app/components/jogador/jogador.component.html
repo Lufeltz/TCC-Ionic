@@ -2,10 +2,10 @@
   <ion-searchbar
   animated="true"
   placeholder="Procurar"
-  [(ngModel)]="searchedCampeonatos"
+  [(ngModel)]="searchedJogadores"  
   (ionInput)="onSearchInput($event)"
->
-</ion-searchbar>
+></ion-searchbar>
+
   <ul>
     <li
       *ngFor="let academico of filteredJogadores"
