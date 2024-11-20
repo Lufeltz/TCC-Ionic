@@ -52,6 +52,8 @@ export class PostsComponent implements OnInit, OnChanges {
   private comentarioSize = 5;
   public usuarioLogado: Academico | null = null;
 
+  searchedCampeonatos: string = '';
+
   readonly RotateCw = RotateCw;
   readonly UserRound = UserRound;
   readonly Star = Star;
@@ -67,6 +69,12 @@ export class PostsComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     this.filterPublications();
+  }
+
+  onSearchInput(event: any): void {
+    this.searchedCampeonatos = event.target.value; // Atualiza a variável com o valor digitado
+    console.log('Valor da pesquisa:', this.searchedCampeonatos); // Mostra o valor no console para debug
+    // Aqui você pode fazer o que desejar com o valor digitado (como filtrar campeonatos)
   }
 
   ngOnInit() {

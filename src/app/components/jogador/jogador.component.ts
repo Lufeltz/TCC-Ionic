@@ -24,13 +24,14 @@ import { AcademicoService } from 'src/app/services/academico.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { IonButton, IonSearchbar } from '@ionic/angular/standalone';
 import { EstatisticaModalidade } from 'src/app/models/estatistica-modalidade.model';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-jogador',
   templateUrl: './jogador.component.html',
   styleUrls: ['./jogador.component.scss'],
   standalone: true,
-  imports: [IonSearchbar, IonButton, CommonModule, LucideAngularModule],
+  imports: [IonSearchbar, IonButton, CommonModule, LucideAngularModule, FormsModule],
 })
 export class JogadorComponent implements OnInit, OnChanges {
   @Input() searchedJogadores!: string;
@@ -55,6 +56,16 @@ export class JogadorComponent implements OnInit, OnChanges {
   readonly Bike = Bike;
   readonly SquareX = SquareX;
   readonly ArrowDownToDot = ArrowDownToDot;
+
+  searchedCampeonatos: string = ''; // Variável que armazenará o valor da pesquisa
+
+  // Outros métodos e propriedades do componente
+
+  onSearchInput(event: any): void {
+    this.searchedCampeonatos = event.target.value; // Atualiza a variável com o valor digitado
+    console.log('Valor da pesquisa:', this.searchedCampeonatos); // Mostra o valor no console para debug
+    // Aqui você pode fazer o que desejar com o valor digitado (como filtrar campeonatos)
+  }
 
   constructor(
     private academicoService: AcademicoService,

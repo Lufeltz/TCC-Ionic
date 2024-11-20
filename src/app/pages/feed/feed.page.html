@@ -24,10 +24,7 @@
   </ion-segment>
 
   <div *ngIf="selectedSegment === 'campeonatos'">
-    <app-listagem-campeonatos
-      [statusToggles]="statusToggles"
-      [searchedCampeonatos]="searchTerm"
-    ></app-listagem-campeonatos>
+    <app-listagem-campeonatos></app-listagem-campeonatos>
   </div>
 
   <div *ngIf="selectedSegment === 'posts'">

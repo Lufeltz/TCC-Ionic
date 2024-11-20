@@ -1,6 +1,12 @@
 <!-- Componente Principal -->
 <div class="publicacoes-container">
-  <ion-searchbar animated="true" placeholder="Procurar"></ion-searchbar>
+  <ion-searchbar
+    animated="true"
+    placeholder="Procurar"
+    [(ngModel)]="searchedCampeonatos"
+    (ionInput)="onSearchInput($event)"
+  >
+  </ion-searchbar>
   <ul>
     <li *ngFor="let publicacao of filteredPublications" class="publicacao">
       <div class="publicacao-header">

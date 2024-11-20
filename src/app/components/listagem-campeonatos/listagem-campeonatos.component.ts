@@ -113,6 +113,16 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   currentPage: number = 0;
   pageSize: number = 5;
   totalPages: number = 0;
+  
+  searchedCampeonatos: string = ''; // Variável que armazenará o valor da pesquisa
+
+  // Outros métodos e propriedades do componente
+
+  onSearchInput(event: any): void {
+    this.searchedCampeonatos = event.target.value; // Atualiza a variável com o valor digitado
+    console.log('Valor da pesquisa:', this.searchedCampeonatos); // Mostra o valor no console para debug
+    // Aqui você pode fazer o que desejar com o valor digitado (como filtrar campeonatos)
+  }
 
   @Input() statusToggles: {
     aberto?: boolean;
@@ -120,8 +130,6 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
     iniciado?: boolean;
     participando?: boolean; // Ensure this is a boolean value
   } = { participando: true };
-
-  @Input() searchedCampeonatos: string = '';
 
   constructor(
     private alertController: AlertController,

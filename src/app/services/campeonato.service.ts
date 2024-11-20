@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subject, throwError } from 'rxjs';
 import { Campeonato } from '../models/campeonato.model';
@@ -34,6 +34,38 @@ export class CampeonatoService {
       headers: headers,
       observe: 'response' as 'response',
     };
+  }
+
+  // Método para filtrar campeonatos com base em parametros 'codigo' e 'titulo'
+  filtrarCampeonatos(codigo?: string, titulo?: string): Observable<Campeonato[] | null> {
+    // Criando a URL com parâmetros dinâmicos
+    let url = `${this.NEW_URL}/filtrar`;
+
+    // Usando HttpParams para adicionar os filtros na URL
+    let params = new HttpParams();
+    if (codigo) {
+      params = params.set('codigo', codigo);
+    }
+    if (titulo) {
+      params = params.set('titulo', titulo);
+    }
+
+    return this._http.get<Campeonato[]>(url, { params, ...this.getHttpOptions() }).pipe(
+      map((resp: HttpResponse<Campeonato[]>) => {
+        if (resp.status === 200) {
+          return resp.body;
+        } else {
+          return [];
+        }
+      }),
+      catchError((err) => {
+        if (err.status === 404) {
+          return of([]);
+        } else {
+          return throwError(() => err);
+        }
+      })
+    );
   }
 
   avaliarJogador(
