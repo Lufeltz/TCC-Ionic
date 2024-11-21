@@ -36,6 +36,29 @@ export class CampeonatoService {
     };
   }
 
+    // Novo método para filtrar campeonatos por código
+    filtrarCampeonato(codigo: string): Observable<Campeonato[] | null> {
+      return this._http
+        .get<Campeonato[]>(`${this.NEW_URL}/filtrar?codigo=${encodeURIComponent(codigo)}`, this.getHttpOptions())
+        .pipe(
+          map((resp: HttpResponse<Campeonato[]>) => {
+            if (resp.status === 200 && resp.body) {
+              return resp.body;
+            } else {
+              return null;
+            }
+          }),
+          catchError((err) => {
+            // Tratamento de erros
+            if (err.status === 404) {
+              return of(null); // Se não encontrado, retorna null
+            } else {
+              return throwError(() => err); // Outros erros
+            }
+          })
+        );
+    }
+
   // Método para filtrar campeonatos com base em parametros 'codigo' e 'titulo'
   filtrarCampeonatos(codigo?: string, titulo?: string): Observable<Campeonato[] | null> {
     // Criando a URL com parâmetros dinâmicos

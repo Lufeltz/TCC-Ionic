@@ -9,10 +9,9 @@
   </ng-container>
 
   <ng-template #content>
-    <!-- Listagem do campeonato -->
-
-    <ul>
-      <li *ngFor="let campeonato of campeonatos2" class="campeonato">
+    <!-- Exibindo o único campeonato -->
+    <div *ngIf="campeonato; else noData">
+      <div class="campeonato">
         <div class="campeonato-header">
           <h3 class="campeonato-nome">
             {{ campeonato.titulo }}
@@ -36,8 +35,7 @@
               [color]="'var(--purple-desc)'"
             ></lucide-angular>
             <p>
-              <strong>Status: </strong
-              >{{ campeonato.situacaoCampeonato | titleCase }}
+              <strong>Status: </strong>{{ campeonato.situacaoCampeonato | titleCase }}
             </p>
           </div>
           <div class="icon-align">
@@ -222,8 +220,12 @@
             </ion-accordion>
           </ion-accordion-group>
         </div>
-      </li>
-    </ul>
+      </div>
+    </div>
+
+    <ng-template #noData>
+      <p>Não há informações sobre o campeonato.</p>
+    </ng-template>
 
     <ion-button size="small" expand="block" class="icon-button">
       <div class="text-container">Voltar</div>

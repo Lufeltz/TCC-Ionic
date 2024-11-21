@@ -39,6 +39,7 @@ import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { TitleCasePipe } from 'src/app/pipes/title-case.pipe';
 import { NgxMaskPipe } from 'ngx-mask';
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-campeonato-detalhes',
   templateUrl: './campeonato-detalhes.component.html',
@@ -54,7 +55,7 @@ import { NgxMaskPipe } from 'ngx-mask';
     NgxMaskPipe,
   ],
 })
-export class CampeonatoDetalhesComponent implements OnInit, OnChanges {
+export class CampeonatoDetalhesComponent implements OnInit {
   readonly SquareArrowUpRight = SquareArrowUpRight;
   readonly Lock = Lock;
   readonly LockOpen = LockOpen;
@@ -75,64 +76,27 @@ export class CampeonatoDetalhesComponent implements OnInit, OnChanges {
   readonly NotebookPen = NotebookPen;
   readonly ArrowDownToDot = ArrowDownToDot;
 
-  campeonatos: Campeonato[] = [];
+  campeonato: Campeonato | null = null;
   modalidades: ModalidadeEsportiva[] = []; // Armazena a lista de modalidades
   modalidadesSimplificadas: { idModalidadeEsportiva: number; nome: string }[] =
     []; // Variável para armazenar o novo array
 
-      campeonatos2: Campeonato[] = [
-    {
-      idCampeonato: 4,
-      codigo: '#XPCQY4',
-      titulo: 'pingas de Rua',
-      descricao: 'Melhor da cidade',
-      aposta: 'Medalhas e troféus',
-      senha: '',
-      dataCriacao: new Date('2024-11-16T18:25:17Z'),
-      dataInicio: '2024-10-01T09:00:00Z',
-      dataFim: '2024-10-25T18:00:00Z',
-      limiteTimes: 10,
-      limiteParticipantes: 1,
-      ativo: true,
-      endereco: {
-        cep: '80030000',
-        uf: 'PR',
-        cidade: 'Curitiba',
-        bairro: 'Alto da Glória',
-        rua: 'Rua Mateus Leme',
-        numero: 789,
-        complemento: null,
-      },
-      privacidadeCampeonato: 'PUBLICO',
-      idAcademico: 2,
-      idModalidadeEsportiva: 5,
-      situacaoCampeonato: 'FINALIZADO',
-    },
-  ];
-
   mensagem!: string;
   mensagem_detalhes!: string;
   loading: boolean = true;
-  filteredCampeonatos: Campeonato[] = [];
   academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
+
+  codigo: string = '';
 
   currentPage: number = 0;
   pageSize: number = 5;
   totalPages: number = 0;
 
-  @Input() statusToggles: {
-    aberto?: boolean;
-    finalizado?: boolean;
-    iniciado?: boolean;
-    participando?: boolean; // Ensure this is a boolean value
-  } = { participando: true };
-
-  @Input() searchedCampeonatos: string = '';
-
   constructor(
     private campeonatoService: CampeonatoService,
     private alertController: AlertController,
-    private modalidadeService: ModalidadesService
+    private modalidadeService: ModalidadesService,
+    private route: ActivatedRoute
   ) {}
 
   getLockColor(privacidade: string): string {
@@ -143,8 +107,34 @@ export class CampeonatoDetalhesComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.loadModalidades();
-    this.listarCampeonatos();
+    this.route.paramMap.subscribe((params) => {
+      this.codigo = params.get('codigo')!;
+      console.log(this.codigo); // Você pode usar o código aqui para buscar os detalhes do campeonato
+    });
+    this.buscarCampeonatoPorCodigo(this.codigo)
   }
+
+  // Método para buscar campeonato por código
+  buscarCampeonatoPorCodigo(codigo: string): void {
+    this.loading = true; // Define loading como true no início da requisição
+    this.campeonatoService.filtrarCampeonatos(codigo).subscribe({
+      next: (campeonatos) => {
+        if (campeonatos && campeonatos.length > 0) {
+          this.campeonato = campeonatos[0]; // Salva o primeiro campeonato na variável campeonato
+          console.log('Campeonato encontrado:', this.campeonato);
+        } else {
+          this.campeonato = null; // Caso não encontre o campeonato
+          console.warn('Campeonato não encontrado');
+        }
+        this.loading = false; // Define loading como false após a requisição ser concluída
+      },
+      error: (err) => {
+        console.error('Erro ao buscar campeonato:', err);
+        this.loading = false; // Define loading como false caso ocorra um erro na requisição
+      },
+    });
+  }
+  
 
   loadModalidades(): void {
     this.modalidadeService.getAllModalidades().subscribe({
@@ -184,42 +174,6 @@ export class CampeonatoDetalhesComponent implements OnInit, OnChanges {
       (mod) => mod.idModalidadeEsportiva === id
     );
     return modalidade ? modalidade.nome : 'Modalidade não encontrada'; // Retorna o nome ou uma mensagem de erro
-  }
-
-  listarCampeonatos(): void {
-    this.campeonatoService
-      .getAllCampeonatos(this.currentPage, this.pageSize)
-      .subscribe({
-        next: (data: any) => {
-          this.loading = false; // Define loading como falso quando os dados são recebidos
-          if (data.content == null) {
-            this.campeonatos = [];
-          } else {
-            if (this.currentPage === 0) {
-              this.campeonatos = data.content;
-            } else {
-              this.campeonatos = [...this.campeonatos, ...data.content]; // Concatenando os novos dados
-            }
-            this.totalPages = data.totalPages;
-          }
-        },
-        error: (err) => {
-          this.loading = false; // Define loading como falso em caso de erro
-          this.mensagem = 'Erro buscando lista de campeonatos';
-          this.mensagem_detalhes = `[${err.status} ${err.message}]`;
-        },
-      });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // Implementar se necessário
-  }
-
-  loadMore(): void {
-    if (this.currentPage < this.totalPages - 1) {
-      this.currentPage++;
-      this.listarCampeonatos();
-    }
   }
 
   async presentAlertPrompt(campeonato: Campeonato, errorMessage: string = '') {

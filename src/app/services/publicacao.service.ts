@@ -38,7 +38,7 @@ export class PublicacaoService {
   filtrarPublicacoes(searchTerm: string): Observable<any[]> {
     return this._http
       .get<any>(
-        `${this.NEW_URL}/publicacao/1/buscar-publicacoes-username/${searchTerm}?page=0&size=3&sort=dataPublicacao,desc`,
+        `${this.NEW_URL}/publicacao/1/buscar-publicacoes-username/${searchTerm}?page=0&size=10&sort=dataPublicacao,desc`,
         this.getHttpOptions()
       )
       .pipe(
