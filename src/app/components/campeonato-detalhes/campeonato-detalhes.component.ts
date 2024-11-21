@@ -121,7 +121,7 @@ export class CampeonatoDetalhesComponent implements OnInit {
       next: (campeonatos) => {
         if (campeonatos && campeonatos.length > 0) {
           this.campeonato = campeonatos[0]; // Salva o primeiro campeonato na variável campeonato
-          console.log('Campeonato encontrado:', this.campeonato);
+          console.log('Campeonato encontrado nos detalhes:', this.campeonato);
         } else {
           this.campeonato = null; // Caso não encontre o campeonato
           console.warn('Campeonato não encontrado');

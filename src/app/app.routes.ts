@@ -21,7 +21,7 @@ export const routes: Routes = [
     path: 'perfil-outro-usuario/:username',
     redirectTo: 'homepage/perfil-outro-usuario/:username',
     pathMatch: 'full',
-  }, // colocar auth guard aqui
+  },
   {
     path: 'homepage',
     loadComponent: () =>

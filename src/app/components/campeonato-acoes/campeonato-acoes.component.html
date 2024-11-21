@@ -19,32 +19,25 @@
   </div>
 </h3>
 
-<div class="input-space">
-  <div class="custom-select-wrapper">
-    <select
-      class="custom-select"
-      id="modalidade-select"
-      (change)="onSelectChange($event)"
-    >
-      <option
-        *ngFor="let time of times"
-        [value]="time.numero"
-        [selected]="time.numero === times[0]?.numero"
-      >
-        {{ time.numero }}
-      </option>
-    </select>
-  </div>
+<div class="criar-post">
+  <ion-button size="small" (click)="abrirModalEditar()">
+    <div class="icon-align">
+      Criar Time
+      <lucide-angular
+        [img]="SquarePen"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular></div
+  ></ion-button>
 </div>
 
-<!-- Card container -->
+<h3>Limite de times: {{ times.length }} / {{ campeonato?.limiteTimes }}</h3>
 <div class="card-container">
   <ul>
-    <!-- Usando *ngFor para iterar sobre cada time -->
+    <!-- Iterando sobre os times -->
     <li *ngFor="let time of times" class="card">
-      <!-- Exibindo nome do time e quantidade de jogadores -->
       <div class="card-header">
-        <p>{{ time.numero }}</p>
+        <p class="time">{{ time.nome }}</p>
         <div class="icon-align">
           <lucide-angular
             [img]="Users"
@@ -53,20 +46,19 @@
             [color]="'var(--yellow-desc)'"
             (click)="toggleMenu()"
           ></lucide-angular>
-          <p>Jogadores: {{ time.jogadores.length }} / 16</p>
+          <p>Jogadores: {{ jogadoresPorTime[time.idTime]?.length || 0 }} / {{ campeonato?.limiteParticipantes }}</p>
         </div>
       </div>
 
-      <!-- Accordion para mostrar os detalhes do time -->
       <ion-accordion-group>
         <ion-accordion>
-          <!-- Exibindo a opção 'Detalhes' -->
           <ion-item slot="header" lines="none">
             <ion-label>Jogadores</ion-label>
           </ion-item>
           <div slot="content">
             <ul>
-              <li *ngFor="let jogador of time.jogadores">
+              <!-- Exibindo os jogadores do time -->
+              <li *ngFor="let jogador of jogadoresPorTime[time.idTime]">
                 <div class="icon-align">
                   <div>
                     <lucide-angular
@@ -75,7 +67,7 @@
                       [size]="20"
                       [color]="'var(--text-new-green)'"
                     ></lucide-angular>
-                    <ion-label>{{ jogador }}</ion-label>
+                    <ion-label>{{ jogador.username }}</ion-label>
                   </div>
                   <lucide-angular
                     [img]="ExternalLink"
@@ -92,3 +84,11 @@
     </li>
   </ul>
 </div>
+
+
+<app-modal-criar-time
+  *ngIf="modalEditarVisivel"
+  [idCampeonato]="idCampeonato"
+  (close)="fecharModal()"
+>
+</app-modal-criar-time>

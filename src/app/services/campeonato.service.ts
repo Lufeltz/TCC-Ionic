@@ -1,4 +1,9 @@
-import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpHeaders,
+  HttpParams,
+  HttpResponse,
+} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, Subject, throwError } from 'rxjs';
 import { Campeonato } from '../models/campeonato.model';
@@ -10,7 +15,6 @@ import { AuthService } from './auth.service'; // Importa o AuthService para obte
   providedIn: 'root',
 })
 export class CampeonatoService {
-
   private campeonatoCreatedSource = new Subject<void>();
   campeonatoCreated$ = this.campeonatoCreatedSource.asObservable();
 
@@ -36,31 +40,37 @@ export class CampeonatoService {
     };
   }
 
-    // Novo método para filtrar campeonatos por código
-    filtrarCampeonato(codigo: string): Observable<Campeonato[] | null> {
-      return this._http
-        .get<Campeonato[]>(`${this.NEW_URL}/filtrar?codigo=${encodeURIComponent(codigo)}`, this.getHttpOptions())
-        .pipe(
-          map((resp: HttpResponse<Campeonato[]>) => {
-            if (resp.status === 200 && resp.body) {
-              return resp.body;
-            } else {
-              return null;
-            }
-          }),
-          catchError((err) => {
-            // Tratamento de erros
-            if (err.status === 404) {
-              return of(null); // Se não encontrado, retorna null
-            } else {
-              return throwError(() => err); // Outros erros
-            }
-          })
-        );
-    }
+  // Novo método para filtrar campeonatos por código
+  filtrarCampeonato(codigo: string): Observable<Campeonato[] | null> {
+    return this._http
+      .get<Campeonato[]>(
+        `${this.NEW_URL}/filtrar?codigo=${encodeURIComponent(codigo)}`,
+        this.getHttpOptions()
+      )
+      .pipe(
+        map((resp: HttpResponse<Campeonato[]>) => {
+          if (resp.status === 200 && resp.body) {
+            return resp.body;
+          } else {
+            return null;
+          }
+        }),
+        catchError((err) => {
+          // Tratamento de erros
+          if (err.status === 404) {
+            return of(null); // Se não encontrado, retorna null
+          } else {
+            return throwError(() => err); // Outros erros
+          }
+        })
+      );
+  }
 
   // Método para filtrar campeonatos com base em parametros 'codigo' e 'titulo'
-  filtrarCampeonatos(codigo?: string, titulo?: string): Observable<Campeonato[] | null> {
+  filtrarCampeonatos(
+    codigo?: string,
+    titulo?: string
+  ): Observable<Campeonato[] | null> {
     // Criando a URL com parâmetros dinâmicos
     let url = `${this.NEW_URL}/filtrar`;
 
@@ -73,22 +83,24 @@ export class CampeonatoService {
       params = params.set('titulo', titulo);
     }
 
-    return this._http.get<Campeonato[]>(url, { params, ...this.getHttpOptions() }).pipe(
-      map((resp: HttpResponse<Campeonato[]>) => {
-        if (resp.status === 200) {
-          return resp.body;
-        } else {
-          return [];
-        }
-      }),
-      catchError((err) => {
-        if (err.status === 404) {
-          return of([]);
-        } else {
-          return throwError(() => err);
-        }
-      })
-    );
+    return this._http
+      .get<Campeonato[]>(url, { params, ...this.getHttpOptions() })
+      .pipe(
+        map((resp: HttpResponse<Campeonato[]>) => {
+          if (resp.status === 200) {
+            return resp.body;
+          } else {
+            return [];
+          }
+        }),
+        catchError((err) => {
+          if (err.status === 404) {
+            return of([]);
+          } else {
+            return throwError(() => err);
+          }
+        })
+      );
   }
 
   avaliarJogador(
@@ -196,7 +208,10 @@ export class CampeonatoService {
 
   getCampeonatoById(id: number): Observable<Campeonato | null> {
     return this._http
-      .get<Campeonato>(`${this.NEW_URL}/aeroportos/${id}`, this.getHttpOptions())
+      .get<Campeonato>(
+        `${this.NEW_URL}/aeroportos/${id}`,
+        this.getHttpOptions()
+      )
       .pipe(
         map((resp: HttpResponse<Campeonato>) => {
           if (resp.status == 200) {
@@ -262,7 +277,10 @@ export class CampeonatoService {
 
   deleteCampeonato(id: string): Observable<Campeonato | null> {
     return this._http
-      .delete<Campeonato>(`${this.NEW_URL}/aeroportos/${id}`, this.getHttpOptions())
+      .delete<Campeonato>(
+        `${this.NEW_URL}/aeroportos/${id}`,
+        this.getHttpOptions()
+      )
       .pipe(
         map((resp: HttpResponse<Campeonato>) => {
           if (resp.status == 200) {

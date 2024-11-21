@@ -260,3 +260,44 @@ lucide-angular {
 .icon-align lucide-angular {
   margin-right: 8px; /* Espaçamento entre o ícone e o número */
 }
+
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  color: var(--background-dark);
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+  --color: var(--background-dark);
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--yellow-desc);
+  font-size: 1rem;
+}
+
+.card-header .time {
+  color: var(--text-white);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+  --color: var(--background-dark);
+}
+
+.criar-post {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.criar-post ion-button {
+  width: auto; /* Ajuste automático da largura */
+  max-width: 300px; /* Largura máxima opcional */
+}

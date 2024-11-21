@@ -5,6 +5,7 @@ import {
   Ellipsis,
   ExternalLink,
   LucideAngularModule,
+  SquarePen,
   User,
   Users,
 } from 'lucide-angular';
@@ -18,6 +19,14 @@ import {
   IonAccordion,
   IonAccordionGroup,
 } from '@ionic/angular/standalone';
+import { ActivatedRoute } from '@angular/router';
+import { CampeonatoService } from 'src/app/services/campeonato.service';
+import { Campeonato } from 'src/app/models/campeonato.model';
+import { CriarTime } from 'src/app/models/criar-time.model';
+import { ModalCriarTimeComponent } from '../modal-criar-time/modal-criar-time.component';
+import { PartidaService } from 'src/app/services/partida.service';
+import { Jogador } from 'src/app/models/jogador.model';
+import { JogadorResponse } from 'src/app/models/jogador-response.model';
 
 @Component({
   selector: 'app-campeonato-acoes',
@@ -34,83 +43,29 @@ import {
     IonItem,
     IonAccordion,
     IonAccordionGroup,
+    ModalCriarTimeComponent,
   ],
   standalone: true,
 })
 export class CampeonatoAcoesComponent implements OnInit {
-  times: any[] = [
-    {
-      numero: 'Time 1',
-      jogadores: ['Jogador 1', 'Jogador 2', 'Jogador 3'],
-    },
-    {
-      numero: 'Time 2',
-      jogadores: ['Jogador A', 'Jogador B', 'Jogador C'],
-    },
-    {
-      numero: 'Time 3',
-      jogadores: ['Jogador X', 'Jogador Y', 'Jogador Z'],
-    },
-    {
-      numero: 'Time 4',
-      jogadores: ['Jogador 4', 'Jogador 5', 'Jogador 6'],
-    },
-    {
-      numero: 'Time 5',
-      jogadores: ['Jogador D', 'Jogador E', 'Jogador F'],
-    },
-    {
-      numero: 'Time 6',
-      jogadores: ['Jogador M', 'Jogador N', 'Jogador O'],
-    },
-    {
-      numero: 'Time 7',
-      jogadores: ['Jogador P', 'Jogador Q', 'Jogador R'],
-    },
-    {
-      numero: 'Time 8',
-      jogadores: ['Jogador S', 'Jogador T', 'Jogador U'],
-    },
-    {
-      numero: 'Time 9',
-      jogadores: ['Jogador 7', 'Jogador 8', 'Jogador 9'],
-    },
-    {
-      numero: 'Time 10',
-      jogadores: ['Jogador V', 'Jogador W', 'Jogador X'],
-    },
-    {
-      numero: 'Time 11',
-      jogadores: ['Jogador Y', 'Jogador Z', 'Jogador AA'],
-    },
-    {
-      numero: 'Time 12',
-      jogadores: ['Jogador BB', 'Jogador CC', 'Jogador DD'],
-    },
-    {
-      numero: 'Time 13',
-      jogadores: ['Jogador EE', 'Jogador FF', 'Jogador GG'],
-    },
-    {
-      numero: 'Time 14',
-      jogadores: ['Jogador HH', 'Jogador II', 'Jogador JJ'],
-    },
-    {
-      numero: 'Time 15',
-      jogadores: ['Jogador KK', 'Jogador LL', 'Jogador MM'],
-    },
-    {
-      numero: 'Time 16',
-      jogadores: ['Jogador NN', 'Jogador OO', 'Jogador PP'],
-    },
-  ];
+  times: any[] = [];
+
+  codigo: string = '';
+  loading: boolean = true;
+  campeonato: Campeonato | null = null;
+  jogadoresPorTime: { [key: number]: Jogador[] } = {};
 
   readonly ExternalLink = ExternalLink;
   readonly User = User;
   readonly Users = Users;
   readonly Ellipsis = Ellipsis;
+  readonly SquarePen = SquarePen;
 
   menuVisible: boolean = false;
+
+  // Modal meta diaria
+  modalEditarVisivel: boolean = false;
+  idCampeonato!: number;
 
   toggleMenu() {
     console.log('Menu de opções aberto!'); // Isso será exibido no console ao clicar no '...'
@@ -129,9 +84,108 @@ export class CampeonatoAcoesComponent implements OnInit {
     this.menuVisible = false;
   }
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private campeonatoService: CampeonatoService,
+    private partidaService: PartidaService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.route.paramMap.subscribe((params) => {
+      this.codigo = params.get('codigo')!;
+      console.log(this.codigo); // Você pode usar o código aqui para buscar os detalhes do campeonato
+      this.buscarCampeonatoPorCodigo(this.codigo);
+    });
+  }
+
+
+  listarJogadores() {
+    this.partidaService
+      .listarJogadores(this.campeonato!.idCampeonato)
+      .subscribe({
+        next: (resposta) => {
+          if (resposta && resposta.content && Array.isArray(resposta.content)) {
+            this.jogadoresPorTime = resposta.content.reduce(
+              (acc: { [key: number]: Jogador[] }, jogador: Jogador) => {
+                const { idTime } = jogador;
+                if (!acc[idTime]) {
+                  acc[idTime] = [];
+                }
+                acc[idTime].push(jogador);
+                return acc;
+              },
+              {}
+            );
+            console.log('Jogadores por Time:', this.jogadoresPorTime);
+          } else {
+            console.error('A resposta não contém o array "content" esperado ou a estrutura está incorreta.');
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao listar jogadores:', err);
+        },
+      });
+  }
+  
+  // Método para listar os times
+  listarTimes() {
+    if (this.idCampeonato) {
+      this.partidaService.listarTimes(this.idCampeonato).subscribe({
+        next: (times) => {
+          this.times = times;
+          console.log('Times:', this.times);
+        },
+        error: (err) => {
+          console.error('Erro ao listar times:', err);
+        },
+      });
+    } else {
+      console.error('ID do Campeonato não definido!');
+    }
+  }
+  
+
+// Método para buscar campeonato por código
+buscarCampeonatoPorCodigo(codigo: string): void {
+  this.loading = true; // Define loading como true no início da requisição
+  this.campeonatoService.filtrarCampeonatos(codigo).subscribe({
+    next: (campeonatos) => {
+      if (campeonatos && campeonatos.length > 0) {
+        this.campeonato = campeonatos[0]; // Salva o primeiro campeonato na variável campeonato
+        console.log('Campeonato encontrado nas ações:', this.campeonato);
+        console.log('ID do Campeonato:', this.campeonato.idCampeonato); // Log para verificar o ID do campeonato
+
+        // Agora que temos o ID do campeonato, podemos listar os times e jogadores
+        this.idCampeonato = this.campeonato.idCampeonato; // Atribui o ID do campeonato à variável idCampeonato
+        this.listarTimes();  // Chama listarTimes após obter o ID
+        this.listarJogadores();  // Chama listarJogadores após obter o ID
+      } else {
+        this.campeonato = null; // Caso não encontre o campeonato
+        console.warn('Campeonato não encontrado');
+      }
+      this.loading = false; // Define loading como false após a requisição ser concluída
+    },
+    error: (err) => {
+      console.error('Erro ao buscar campeonato:', err);
+      this.loading = false; // Define loading como false caso ocorra um erro na requisição
+    },
+  });
+}
+
+
+  abrirModalEditar() {
+    if (this.campeonato && this.campeonato.idCampeonato) {
+      this.idCampeonato = this.campeonato.idCampeonato;
+      console.log('Abrindo modal com idCampeonato:', this.idCampeonato); // Verifique o valor
+      this.modalEditarVisivel = true;
+    } else {
+      console.warn('Campeonato não encontrado ou idCampeonato inválido.');
+    }
+  }
+
+  fecharModal() {
+    this.modalEditarVisivel = false;
+  }
 
   // Este método pode ser expandido se necessário para lidar com a seleção do time
   onSelectChange(event: any) {
