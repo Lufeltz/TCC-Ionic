@@ -31,6 +31,18 @@
   ></ion-button>
 </div>
 
+<div class="criar-post">
+  <ion-button size="small" (click)="criarTime()">
+    <div class="icon-align">
+      Criar Time Individual
+      <lucide-angular
+        [img]="SquarePen"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular></div
+  ></ion-button>
+</div>
+
 <h3>Limite de times: {{ times.length }} / {{ campeonato?.limiteTimes }}</h3>
 <div class="card-container">
   <ul>
@@ -59,7 +71,7 @@
             <ul>
               <!-- Exibindo os jogadores do time -->
               <li *ngFor="let jogador of jogadoresPorTime[time.idTime]">
-                <div class="icon-align">
+                <div class="icon-align"  (click)="navegarParaPerfil(jogador.username)">
                   <div>
                     <lucide-angular
                       [img]="User"
@@ -79,7 +91,7 @@
               </li>
             </ul>
             <div class="criar-post">
-              <ion-button size="small" (click)="abrirModalEditar()">
+              <ion-button size="small" (click)="adicionarUsuario(usuarioLogado!.idAcademico, time)">
                 <div class="icon-align">
                   Inscrever-se
                   <lucide-angular

@@ -19,7 +19,7 @@ import {
   IonAccordion,
   IonAccordionGroup,
 } from '@ionic/angular/standalone';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { Campeonato } from 'src/app/models/campeonato.model';
 import { CriarTime } from 'src/app/models/criar-time.model';
@@ -27,6 +27,9 @@ import { ModalCriarTimeComponent } from '../modal-criar-time/modal-criar-time.co
 import { PartidaService } from 'src/app/services/partida.service';
 import { Jogador } from 'src/app/models/jogador.model';
 import { JogadorResponse } from 'src/app/models/jogador-response.model';
+import { Time } from 'src/app/models/time.model';
+import { Academico } from 'src/app/models/academico.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-campeonato-acoes',
@@ -55,6 +58,8 @@ export class CampeonatoAcoesComponent implements OnInit {
   campeonato: Campeonato | null = null;
   jogadoresPorTime: { [key: number]: Jogador[] } = {};
 
+  public usuarioLogado: Academico | null = null;
+
   readonly ExternalLink = ExternalLink;
   readonly User = User;
   readonly Users = Users;
@@ -66,6 +71,21 @@ export class CampeonatoAcoesComponent implements OnInit {
   // Modal meta diaria
   modalEditarVisivel: boolean = false;
   idCampeonato!: number;
+
+  criarTime() {
+
+    console.log(this.idCampeonato, this.usuarioLogado!.idAcademico)
+    this.partidaService
+      .criarTimeIndividual(this.idCampeonato, this.usuarioLogado!.idAcademico)
+      .subscribe({
+        next: (response) => {
+          console.log('Time inscrito com sucesso:', response);
+        },
+        error: (err) => {
+          console.error('Erro ao inscrever o time:', err);
+        },
+      });
+  }
 
   toggleMenu() {
     console.log('Menu de opções aberto!'); // Isso será exibido no console ao clicar no '...'
@@ -87,10 +107,19 @@ export class CampeonatoAcoesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private campeonatoService: CampeonatoService,
-    private partidaService: PartidaService
+    private partidaService: PartidaService,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit() {
+    this.usuarioLogado = this.authService.getUser();
+    if (this.usuarioLogado) {
+      // this.listarPosts();
+    } else {
+      console.error('Usuário não logado');
+    }
+
     this.route.paramMap.subscribe((params) => {
       this.codigo = params.get('codigo')!;
       console.log(this.codigo); // Você pode usar o código aqui para buscar os detalhes do campeonato
@@ -98,6 +127,23 @@ export class CampeonatoAcoesComponent implements OnInit {
     });
   }
 
+  navegarParaPerfil(username: string) {
+    this.router.navigate([`/homepage/perfil-outro-usuario`, username]);
+  }
+
+  adicionarUsuario(idUsuario: number, time: Time) {
+    console.log("idusuario: ", idUsuario)
+    console.log("time: ", time);
+    
+    this.partidaService.adicionarUsuarioAoTime(idUsuario, time).subscribe({
+      next: (response) => {
+        console.log('Usuário adicionado ao time:', response);
+      },
+      error: (error) => {
+        console.error('Erro ao adicionar usuário ao time:', error);
+      },
+    });
+  }
 
   listarJogadores() {
     this.partidaService
@@ -118,7 +164,9 @@ export class CampeonatoAcoesComponent implements OnInit {
             );
             console.log('Jogadores por Time:', this.jogadoresPorTime);
           } else {
-            console.error('A resposta não contém o array "content" esperado ou a estrutura está incorreta.');
+            console.error(
+              'A resposta não contém o array "content" esperado ou a estrutura está incorreta.'
+            );
           }
         },
         error: (err) => {
@@ -126,7 +174,7 @@ export class CampeonatoAcoesComponent implements OnInit {
         },
       });
   }
-  
+
   // Método para listar os times
   listarTimes() {
     if (this.idCampeonato) {
@@ -143,35 +191,33 @@ export class CampeonatoAcoesComponent implements OnInit {
       console.error('ID do Campeonato não definido!');
     }
   }
-  
 
-// Método para buscar campeonato por código
-buscarCampeonatoPorCodigo(codigo: string): void {
-  this.loading = true; // Define loading como true no início da requisição
-  this.campeonatoService.filtrarCampeonatos(codigo).subscribe({
-    next: (campeonatos) => {
-      if (campeonatos && campeonatos.length > 0) {
-        this.campeonato = campeonatos[0]; // Salva o primeiro campeonato na variável campeonato
-        console.log('Campeonato encontrado nas ações:', this.campeonato);
-        console.log('ID do Campeonato:', this.campeonato.idCampeonato); // Log para verificar o ID do campeonato
+  // Método para buscar campeonato por código
+  buscarCampeonatoPorCodigo(codigo: string): void {
+    this.loading = true; // Define loading como true no início da requisição
+    this.campeonatoService.filtrarCampeonatos(codigo).subscribe({
+      next: (campeonatos) => {
+        if (campeonatos && campeonatos.length > 0) {
+          this.campeonato = campeonatos[0]; // Salva o primeiro campeonato na variável campeonato
+          console.log('Campeonato encontrado nas ações:', this.campeonato);
+          console.log('ID do Campeonato:', this.campeonato.idCampeonato); // Log para verificar o ID do campeonato
 
-        // Agora que temos o ID do campeonato, podemos listar os times e jogadores
-        this.idCampeonato = this.campeonato.idCampeonato; // Atribui o ID do campeonato à variável idCampeonato
-        this.listarTimes();  // Chama listarTimes após obter o ID
-        this.listarJogadores();  // Chama listarJogadores após obter o ID
-      } else {
-        this.campeonato = null; // Caso não encontre o campeonato
-        console.warn('Campeonato não encontrado');
-      }
-      this.loading = false; // Define loading como false após a requisição ser concluída
-    },
-    error: (err) => {
-      console.error('Erro ao buscar campeonato:', err);
-      this.loading = false; // Define loading como false caso ocorra um erro na requisição
-    },
-  });
-}
-
+          // Agora que temos o ID do campeonato, podemos listar os times e jogadores
+          this.idCampeonato = this.campeonato.idCampeonato; // Atribui o ID do campeonato à variável idCampeonato
+          this.listarTimes(); // Chama listarTimes após obter o ID
+          this.listarJogadores(); // Chama listarJogadores após obter o ID
+        } else {
+          this.campeonato = null; // Caso não encontre o campeonato
+          console.warn('Campeonato não encontrado');
+        }
+        this.loading = false; // Define loading como false após a requisição ser concluída
+      },
+      error: (err) => {
+        console.error('Erro ao buscar campeonato:', err);
+        this.loading = false; // Define loading como false caso ocorra um erro na requisição
+      },
+    });
+  }
 
   abrirModalEditar() {
     if (this.campeonato && this.campeonato.idCampeonato) {

@@ -2,10 +2,11 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 import { CriarTime } from '../models/criar-time.model';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Time } from '../models/time.model';
 import { Jogador } from '../models/jogador.model';
 import { JogadorResponse } from '../models/jogador-response.model';
+import { Partida } from '../models/partida.model';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +33,85 @@ export class PartidaService {
       headers: headers,
       observe: 'response' as 'response',
     };
+  }
+
+  // Novo método para criar um time individual para o usuário
+  criarTimeIndividual(
+    idCampeonato: number,
+    idUsuario: number
+  ): Observable<any> {
+    // Modificando a URL para refletir o formato correto
+    const url = `${this.BASE_URL}/${idCampeonato}/times/${idUsuario}`; 
+  
+    return this._http.post(url, {}, this.getHttpOptions()).pipe(
+      map((resp: HttpResponse<any>) => {
+        if (resp.status === 201) {
+          return resp.body; // Retorna a resposta do corpo da requisição
+        } else {
+          return null; // Caso não tenha sucesso
+        }
+      }),
+      catchError((err) => {
+        return throwError(() => err); // Retorna o erro em caso de falha
+      })
+    );
+  }
+  
+
+  // Novo método para salvar a pontuação de uma partida
+  salvarPontuacao(partida: Partida): Observable<any> {
+    const url = `${this.BASE_URL}/partidas/${partida.idPartida}/pontuacao?pontuacaoTime1=${partida.resultado?.pontuacaoTime1}&pontuacaoTime2=${partida.resultado?.pontuacaoTime2}`;
+    return this._http.put(url, {}, this.getHttpOptions()).pipe(
+      map((resp: HttpResponse<any>) => {
+        if (resp.status === 200 || resp.status === 201) {
+          return resp.body; // Retorna a resposta do corpo da requisição
+        } else {
+          return null; // Caso não tenha sucesso
+        }
+      }),
+      catchError((err) => {
+        return throwError(() => err); // Retorna o erro em caso de falha
+      })
+    );
+  }
+
+  // Novo método para iniciar a primeira fase de um campeonato
+  iniciarPrimeiraFase(idCampeonato: number): Observable<any> {
+    const url = `${this.BASE_URL}/${idCampeonato}/primeira-fase`;
+    return this._http.post(url, {}, this.getHttpOptions()).pipe(
+      map((resp: HttpResponse<any>) => {
+        if (resp.status === 201 || resp.status === 200) {
+          return resp.body; // Retorna a resposta do corpo da requisição
+        } else {
+          return null; // Caso não tenha sucesso
+        }
+      }),
+      catchError((err) => {
+        return throwError(() => err); // Retorna o erro em caso de falha
+      })
+    );
+  }
+
+  // Novo método para avançar a fase de um campeonato
+  avancarFase(idCampeonato: number): Observable<any> {
+    const url = `${this.BASE_URL}/${idCampeonato}/avancar-fase`;
+    return this._http.post(url, {}, this.getHttpOptions()).pipe(
+      map((resp: HttpResponse<any>) => {
+        if (resp.status === 200 || resp.status === 201) {
+          return resp.body; // Retorna a resposta do corpo da requisição
+        } else {
+          return null; // Caso não tenha sucesso
+        }
+      }),
+      catchError((err) => {
+        if (err.status === 404) {
+          console.error('Campeonato não encontrado');
+          return throwError(() => new Error('Campeonato não encontrado'));
+        } else {
+          return throwError(() => err); // Retorna o erro em caso de falha
+        }
+      })
+    );
   }
 
   // Função para inscrever um time em um campeonato
@@ -84,5 +164,46 @@ export class PartidaService {
       })
     );
   }
-  
+
+  // Função para adicionar um usuário a um time
+  adicionarUsuarioAoTime(idUsuario: number, time: Time): Observable<any> {
+    const url = `${this.NEW_URL}/${idUsuario}`;
+    return this._http.post(url, time, this.getHttpOptions()).pipe(
+      map((resp: HttpResponse<any>) => {
+        if (resp.status === 201) {
+          return resp.body; // Retorna a resposta do corpo da requisição
+        } else {
+          return null; // Caso não tenha sucesso
+        }
+      }),
+      catchError((err) => {
+        return throwError(() => err); // Retorna o erro em caso de falha
+      })
+    );
+  }
+
+  // Novo método para listar partidas de um campeonato
+  listarPartidas(idCampeonato: number): Observable<Partida[]> {
+    const url = `${this.BASE_URL}/${idCampeonato}/partidas`;
+    return this._http
+      .get<Partida[]>(url, { ...this.getHttpOptions(), observe: 'response' })
+      .pipe(
+        map((resp: HttpResponse<Partida[]>) => {
+          if (resp.status === 200) {
+            return resp.body || []; // Retorna a lista de partidas
+          } else {
+            return []; // Retorna uma lista vazia em caso de falha
+          }
+        }),
+        catchError((err) => {
+          if (err.status === 404) {
+            console.error('Nenhuma partida encontrada para este campeonato');
+            // Você pode retornar um erro específico ou uma mensagem vazia, como preferir
+            return of([]); // Retorna um Observable de uma lista vazia
+          } else {
+            return throwError(() => err); // Retorna o erro em caso de falha
+          }
+        })
+      );
+  }
 }
