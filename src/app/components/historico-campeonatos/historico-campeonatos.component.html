@@ -23,6 +23,7 @@
           ></lucide-angular>
           <p><strong>Status: </strong>{{ campeonato.situacaoCampeonato }}</p>
         </div>
+
         <div class="icon-align">
           <lucide-angular
             [img]="Users"
@@ -30,20 +31,27 @@
             [size]="20"
             [color]="'var(--purple-desc)'"
           ></lucide-angular>
-          <p><strong> Times: </strong>?? / {{ campeonato.limiteTimes }}</p>
-        </div>
-        <div class="icon-align">
           <p>
-            <lucide-angular
-              [img]="User"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--purple-desc)'"
-            ></lucide-angular>
-            <strong>Jogadores: </strong>
-            ?? / {{ campeonato.limiteParticipantes }}
+            <strong>Times: </strong>
+            {{ timesPorCampeonato[campeonato.idCampeonato]?.length || 0 }} /
+            {{ campeonato.limiteTimes }}
           </p>
         </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="User"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--purple-desc)'"
+          ></lucide-angular>
+          <p>
+            <strong>Jogadores: </strong>
+            {{ jogadoresPorCampeonato[campeonato.idCampeonato]?.length || 0 }} /
+            {{ (campeonato.limiteParticipantes || 0) * (campeonato.limiteTimes || 0) }}
+          </p>
+        </div>
+        
+
         <div class="icon-align">
           <lucide-angular
             [img]="Volleyball"
@@ -203,16 +211,28 @@
                   </p>
                 </div>
               </div>
-              <ion-button size="small" expand="block" class="icon-button">
-                <div class="text-container">Inscrever-se</div>
-                <div class="icon-align">
-                  <lucide-angular
-                    [img]="ExternalLink"
-                    class="btn-inscrever-se"
-                    [size]="20"
-                  ></lucide-angular>
-                </div>
-              </ion-button>
+
+
+              <ion-button
+              size="small"
+              expand="block"
+              class="icon-button"
+              [routerLink]="[
+                '/homepage/campeonato-gerenciamento',
+                campeonato.codigo
+              ]"
+            >
+              <div class="text-container">Acessar</div>
+              <div class="icon-align">
+                <lucide-angular
+                  [img]="ExternalLink"
+                  class="btn-inscrever-se"
+                  [size]="20"
+                ></lucide-angular>
+              </div>
+            </ion-button>
+
+
             </div>
           </ion-accordion>
         </ion-accordion-group>

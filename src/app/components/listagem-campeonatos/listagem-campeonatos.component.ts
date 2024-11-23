@@ -114,23 +114,23 @@ export class ListagemCampeonatosComponent implements OnInit {
 
   mensagem!: string;
   mensagem_detalhes!: string;
-  loading: boolean = true;
   filteredCampeonatos: Campeonato[] = [];
   academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
-  times: Time[] = [];
-  jogadores: Jogador[] = []
 
   currentPage: number = 0;
   pageSize: number = 5;
   totalPages: number = 0;
-  error: string = '';  // Mensagem de erro
+
 
   searchedCampeonatos: string = ''; // Variável que armazenará o valor da pesquisa
   searchSubject: Subject<string> = new Subject<string>();
 
+  loading: boolean = true;
+  times: Time[] = [];
+  jogadores: Jogador[] = []
   timesPorCampeonato: { [idCampeonato: number]: Time[] } = {};
   jogadoresPorCampeonato: { [idCampeonato: number]: Jogador[] } = [];
-
+  error: string = '';  // Mensagem de erro
 
   // Outros métodos e propriedades do componente
 

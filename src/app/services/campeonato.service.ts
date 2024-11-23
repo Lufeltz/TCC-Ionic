@@ -179,6 +179,35 @@ export class CampeonatoService {
       );
   }
 
+  getHistoricoCampeonatoAcademico(
+    id: number,
+    page: number,
+    size: number,
+    sort: string
+  ): Observable<Campeonato[] | null> {
+    return this._http
+      .get<Campeonato[]>(
+        `${this.NEW_URL}/historico/academico/${id}?page=${page}&size=${size}&sort=${sort}`,
+        this.getHttpOptions()
+      )
+      .pipe(
+        map((resp: HttpResponse<Campeonato[]>) => {
+          if (resp.status === 200) {
+            return resp.body;
+          } else {
+            return [];
+          }
+        }),
+        catchError((err) => {
+          if (err.status === 404) {
+            return of([]); // Retorna um array vazio caso o endpoint não encontre resultados
+          } else {
+            return throwError(() => err); // Lança o erro para o handler de erro
+          }
+        })
+      );
+  }
+
   getAllCampeonatos(
     page: number,
     size: number

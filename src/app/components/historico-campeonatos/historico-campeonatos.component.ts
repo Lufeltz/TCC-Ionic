@@ -6,6 +6,7 @@ import {
   OnChanges,
   SimpleChanges,
 } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import {
   IonLabel,
   IonAccordion,
@@ -44,9 +45,13 @@ import {
 import { NgxMaskPipe } from 'ngx-mask';
 import { Academico } from 'src/app/models/academico.model';
 import { Campeonato } from 'src/app/models/campeonato.model';
+import { JogadorResponse } from 'src/app/models/jogador-response.model';
+import { Jogador } from 'src/app/models/jogador.model';
+import { Time } from 'src/app/models/time.model';
 import { AcademicoService } from 'src/app/services/academico.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
+import { PartidaService } from 'src/app/services/partida.service';
 
 @Component({
   selector: 'app-historico-campeonatos',
@@ -64,6 +69,7 @@ import { CampeonatoService } from 'src/app/services/campeonato.service';
     CommonModule,
     NgxMaskPipe,
     LucideAngularModule,
+    RouterModule
   ],
 })
 export class HistoricoCampeonatosComponent implements OnInit {
@@ -94,6 +100,13 @@ export class HistoricoCampeonatosComponent implements OnInit {
   historicoCampeonatos: Campeonato[] = [];
   filteredCampeonatos: Campeonato[] = [];
 
+  times: Time[] = [];
+  jogadores: Jogador[] = []
+  timesPorCampeonato: { [idCampeonato: number]: Time[] } = {};
+  jogadoresPorCampeonato: { [idCampeonato: number]: Jogador[] } = [];
+  error: string = '';  // Mensagem de erro
+  loading: boolean = true;
+
   // Mapeamento das modalidades
   modalidades: { [key: number]: string } = {
     1: 'Futebol',
@@ -119,7 +132,8 @@ export class HistoricoCampeonatosComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private academicoService: AcademicoService,
-    private campeonatoService: CampeonatoService
+    private campeonatoService: CampeonatoService,
+    private partidaService: PartidaService
   ) {
     addIcons({ lockClosed, lockOpen });
   }
@@ -137,6 +151,95 @@ export class HistoricoCampeonatosComponent implements OnInit {
       console.error('Username não fornecido');
     }
   }
+
+  listarTimesPorCampeonato(idCampeonato: number): void {
+    this.loading = true;
+    this.partidaService.listarTimes(idCampeonato).subscribe({
+      next: (times: Time[]) => {
+        // Armazena os times no objeto timesPorCampeonato usando o idCampeonato como chave
+        this.timesPorCampeonato[idCampeonato] = times;
+        console.log('times: ', this.timesPorCampeonato);
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Erro ao carregar os times.';
+        this.loading = false;
+      }
+    });
+  }
+  
+  listarJogadoresPorCampeonato(idCampeonato: number): void {
+    this.loading = true;
+    this.partidaService.listarJogadores(idCampeonato).subscribe({
+      next: (response: JogadorResponse) => {
+        // Armazena os jogadores no objeto jogadoresPorCampeonato usando o idCampeonato como chave
+        this.jogadoresPorCampeonato[idCampeonato] = response.content || [];
+        console.log('jogadores:', this.jogadoresPorCampeonato);
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Erro ao carregar os jogadores.';
+        this.loading = false;
+      }
+    });
+  }
+
+  getHistoricoCampeonato(id: number, page: number, size: number, sort: string) {
+    const idAcademico = this.academico?.idAcademico || 0; // Garantir que temos o ID do acadêmico
+    const idUsuarioLogado = this.authService.getUser()?.idAcademico; // Obtendo o ID do usuário logado
+    
+    // Verificar se o idAcademico é igual ao id do usuário logado
+    if (idAcademico === idUsuarioLogado) {
+      this.campeonatoService
+        .getHistoricoCampeonato(id, page, size, sort)
+        .subscribe({
+          next: (historico: any) => {
+            if (historico && historico.content) {
+              this.historicoCampeonatos = [
+                ...this.historicoCampeonatos,
+                ...historico.content,
+              ];
+              this.totalPages = historico.totalPages; // Atualiza o total de páginas
+              console.log('Histórico de campeonatos:', this.historicoCampeonatos);
+              
+              // Para cada campeonato, carregar times e jogadores
+              this.historicoCampeonatos.forEach((campeonato) => {
+                this.listarTimesPorCampeonato(campeonato.idCampeonato);
+                this.listarJogadoresPorCampeonato(campeonato.idCampeonato);
+              });
+            }
+          },
+          error: (err) => {
+            console.error('Erro ao buscar histórico de campeonatos:', err);
+          },
+        });
+    } else {
+      this.campeonatoService
+        .getHistoricoCampeonatoAcademico(id, page, size, sort)
+        .subscribe({
+          next: (historico: any) => {
+            if (historico && historico.content) {
+              this.historicoCampeonatos = [
+                ...this.historicoCampeonatos,
+                ...historico.content,
+              ];
+              this.totalPages = historico.totalPages; // Atualiza o total de páginas
+              console.log('Histórico de campeonatos (Acadêmico):', this.historicoCampeonatos);
+              
+              // Para cada campeonato, carregar times e jogadores
+              this.historicoCampeonatos.forEach((campeonato) => {
+                this.listarTimesPorCampeonato(campeonato.idCampeonato);
+                this.listarJogadoresPorCampeonato(campeonato.idCampeonato);
+              });
+            }
+          },
+          error: (err) => {
+            console.error('Erro ao buscar histórico de campeonatos para acadêmico:', err);
+          },
+        });
+    }
+  }
+  
 
   buscarAcademicoPorUsername(username: string) {
     this.academicoService.getAcademicoByUsername(username).subscribe({
@@ -158,26 +261,8 @@ export class HistoricoCampeonatosComponent implements OnInit {
     });
   }
 
-  getHistoricoCampeonato(id: number, page: number, size: number, sort: string) {
-    this.campeonatoService
-      .getHistoricoCampeonato(id, page, size, sort)
-      .subscribe({
-        next: (historico: any) => {
-          if (historico && historico.content) {
-            // Carregar mais campeonatos na lista
-            this.historicoCampeonatos = [
-              ...this.historicoCampeonatos,
-              ...historico.content,
-            ];
-            this.totalPages = historico.totalPages; // Atualiza o total de páginas
-            console.log('Histórico de campeonatos:', this.historicoCampeonatos);
-          }
-        },
-        error: (err) => {
-          console.error('Erro ao buscar histórico de campeonatos:', err);
-        },
-      });
-  }
+
+  
 
   // Função chamada ao clicar no botão 'Mais Campeonatos'
   carregarMaisCampeonatos() {
@@ -194,33 +279,4 @@ export class HistoricoCampeonatosComponent implements OnInit {
       console.log('Não há mais campeonatos para carregar.');
     }
   }
-
-  // ngOnChanges(changes: SimpleChanges) {
-  //   if (changes['statusToggles'] || changes['searchedCampeonatos']) {
-  //     this.filterCampeonatos();
-  //   }
-  // }
-
-  // filterCampeonatos() {
-  //   const {
-  //     aberto = true,
-  //     finalizado = true,
-  //     iniciado = true,
-  //   } = this.statusToggles;
-
-  //   const searchTerm = this.searchedCampeonatos.toLowerCase();
-
-  //   this.filteredCampeonatos = this.campeonatos.filter((campeonato) => {
-  //     const matchesStatus =
-  //       (aberto && campeonato.status === 'aberto') ||
-  //       (finalizado && campeonato.status === 'finalizado') ||
-  //       (iniciado && campeonato.status === 'iniciado');
-
-  //     const matchesSearchTerm =
-  //       campeonato.titulo.toLowerCase().includes(searchTerm) ||
-  //       campeonato.descricao.toLowerCase().includes(searchTerm);
-
-  //     return matchesStatus && matchesSearchTerm;
-  //   });
-  // }
 }
