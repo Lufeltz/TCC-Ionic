@@ -12,7 +12,7 @@ export class CampeonatoCriacao {
   endereco: Endereco = new Endereco();
 
   privacidadeCampeonato: string = 'PRIVADO';
-  idAcademico: number = 1;
-  idModalidadeEsportiva: number = 1;
+  idAcademico: number = 0;
+  idModalidadeEsportiva: number = 0;
   situacaoCampeonato: string = 'EM_ABERTO';
 }

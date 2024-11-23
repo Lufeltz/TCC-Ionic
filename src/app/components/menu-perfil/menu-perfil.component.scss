@@ -1,5 +1,4 @@
 .toolbar-tabs {
-  // --background: var(--background-light);
   --background: var(--background-dark);
   border-left: 2px solid var(--light-blue);
   border-top-left-radius: 30px;
@@ -16,13 +15,11 @@ ion-menu {
 
 ion-content {
   --background: var(--background-dark);
-  // --background: var(--background-light);
   border-left: 2px solid var(--light-blue);
 }
 
 ion-item {
   --background: var(--background-dark);
-  // --background: var(--background-light);
   color: var(--gray-50);
 }
 
@@ -50,22 +47,21 @@ ion-menu-button {
   display: flex;
   align-items: center;
   gap: 10px;
+}
 
-  .i-tem {
-    font-size: 1.5rem;
-    color: var(--light-blue);
-  }
+.i-tem {
+  font-size: 1.5rem;
+  color: var(--light-blue);
+}
 
-  .metas {
-    font-size: 1.5rem;
-    color: var(--purple-desc);
-  }
+.metas {
+  font-size: 1.5rem;
+  color: var(--purple-desc);
 }
 
 .metas-esportivas {
   display: flex;
   align-items: center;
-  // margin-left: 15px;
   gap: 10px;
 }
 
@@ -92,3 +88,24 @@ ion-menu-button {
     color: var(--light-red);
   }
 }
+
+.item .stars {
+  display: flex;
+  gap: 5px; /* Espaço entre as estrelas */
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.rating-info-inline {
+  display: flex; /* Exibe a média e a quantidade na mesma linha */
+  align-items: center; /* Alinha os itens verticalmente ao centro */
+  justify-content: center; /* Centraliza o conteúdo horizontalmente */
+  gap: 10px; /* Espaçamento entre a média e a quantidade */
+  margin-top: -15px; /* Ajusta o espaço entre as estrelas e as informações */
+}
+
+.rating-info-inline ion-label {
+  color: var(--yellow-desc);
+}
+
+

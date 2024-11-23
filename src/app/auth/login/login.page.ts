@@ -97,7 +97,7 @@ export class LoginPage implements OnInit {
             this.authService.loadUserData();
           });
 
-          console.log(decodedToken);
+          // console.log(decodedToken);
         } else {
           this.message = 'Usuário/Senha inválidos.';
         }

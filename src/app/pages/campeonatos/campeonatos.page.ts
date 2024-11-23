@@ -48,6 +48,8 @@ import { Endereco } from 'src/app/models/endereco.model';
 import { EnderecoService } from 'src/app/services/endereco.service';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { CampeonatoCriacao } from 'src/app/models/campeonato-criacao.model';
+import { AuthService } from 'src/app/services/auth.service';
+import { Academico } from 'src/app/models/academico.model';
 
 @Component({
   selector: 'app-campeonatos',
@@ -99,6 +101,7 @@ export class CampeonatosPage implements OnInit {
   isCepValid: boolean = false;
 
   errorMessage: string = ''; // Variável para armazenar mensagens de erro
+  usuarioLogado: Academico | null = null;
 
   readonly Pencil = Pencil;
   readonly Search = Search;
@@ -118,13 +121,19 @@ export class CampeonatosPage implements OnInit {
 
   constructor(
     private enderecoService: EnderecoService,
-    private campeonatoService: CampeonatoService
+    private campeonatoService: CampeonatoService,
+    private authService: AuthService
   ) {
     addIcons({ calendar });
   }
 
   ngOnInit() {
-    this.campeonato.privacidadeCampeonato = 'PUBLICO';
+    this.usuarioLogado = this.authService.getUser();
+    // this.campeonato.privacidadeCampeonato = 'PUBLICO';
+
+    if(this.usuarioLogado){
+      this.campeonato.idAcademico = this.usuarioLogado.idAcademico
+    }
 
     // Inscrever-se no observable para atualizar a lista de campeonatos
     this.campeonatoService.campeonatoCreated$.subscribe(() => {

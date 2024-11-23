@@ -72,7 +72,34 @@
         </div>
       </ion-item>
 
-<!--       
+      <ion-item>
+        <div class="item">
+          <!-- Exibição das estrelas -->
+          <div class="stars">
+            <lucide-angular
+              [img]="Star"
+              *ngFor="let star of stars"
+              [color]="star <= mediaAtual ? 'var(--yellow-desc)' : 'gray'"
+              class="i-tem"
+            ></lucide-angular>
+          </div>
+
+          <!-- Exibição da média e quantidade -->
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="rating-info-inline">
+          <ion-label
+            >Média Geral:
+            {{ mediaAvaliacao?.mediaGeral | number : "1.2-2" }} ({{
+              mediaAvaliacao?.quantidadeAvaliacoes
+            }}
+            avaliações)</ion-label
+          >
+        </div>
+      </ion-item>
+
+      <!--       
       <ion-item>
         <div class="item">
           <lucide-angular [img]="Calendar1" class="metas"></lucide-angular>

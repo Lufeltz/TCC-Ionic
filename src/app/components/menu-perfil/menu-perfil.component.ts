@@ -42,6 +42,8 @@ import { MetaEsportivaService } from 'src/app/services/meta-esportiva.service';
 import { MetaEsportiva } from 'src/app/models/meta-esportiva.model';
 import { forkJoin, Subscription } from 'rxjs';
 import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
+import { CampeonatoService } from 'src/app/services/campeonato.service';
+import { Avaliacao } from 'src/app/models/avaliacao.model';
 
 @Component({
   selector: 'app-menu-perfil',
@@ -95,16 +97,57 @@ export class MenuPerfilComponent implements OnInit {
   } = {};
   metasPorModalidadeArray: any = [];
 
+  mediaAvaliacao: Avaliacao | null = null;
   private modalidadeUpdateSubscription!: Subscription;
+  mediaAtual: number = 0;
+  quantidadeEstrelas: number = 0;
+  temEstrelaMeia: boolean = false;
+
+  selectedRating: number = 0;
+  stars: number[] = [1, 2, 3, 4, 5];
 
   constructor(
     private authService: AuthService,
     private metaDiariaService: MetaDiariaService,
     private metaEsportivaService: MetaEsportivaService,
     private router: Router,
-    private route: ActivatedRoute,
-    private stateModalidadesService: StateModalidadesService
+    private campeonatoService: CampeonatoService
   ) {}
+
+  obterMediaAvaliacao(): void {
+    if (this.user && this.user.idAcademico) {
+      this.campeonatoService.getMediaAvaliacao(this.user.idAcademico).subscribe(
+        (data: Avaliacao | null) => {
+          this.mediaAvaliacao = data;
+          console.log('Média de Avaliação Recebida:', this.mediaAvaliacao);  // Verificando o valor recebido
+          this.calcularMedia();
+        },
+        (error) => {
+          console.error('Erro ao obter avaliação:', error);
+        }
+      );
+    }
+  }
+  
+  calcularMedia() {
+    if (this.mediaAvaliacao) {
+      this.mediaAtual = this.mediaAvaliacao.mediaGeral;
+      console.log('Média Atual Calculada:', this.mediaAtual);  // Verificando o valor da média
+      this.quantidadeEstrelas = Math.floor(this.mediaAtual);
+      this.temEstrelaMeia = this.mediaAtual % 1 >= 0.5;
+      this.atualizarEstrelas();
+    }
+  }
+  
+
+  atualizarEstrelas() {
+    // Atualize a quantidade de estrelas preenchidas
+    this.stars = Array.from({ length: 5 }, (_, index) => index + 1);
+  }
+
+  rate(stars: number) {
+    this.selectedRating = stars;
+  }
 
   ngOnInit() {
     // Inscrever-se nas mudanças do usuário
@@ -119,11 +162,12 @@ export class MenuPerfilComponent implements OnInit {
         }
         this.loadMetasDiarias(); // Carrega as metas diárias
         this.loadMetasEsportivas(); // Carrega as metas esportivas
+        this.obterMediaAvaliacao();
       } else {
         console.error('Usuário não autenticado');
       }
     });
-  
+
     // Tenta carregar os dados do usuário logo que o componente for inicializado
     this.authService.loadToken().subscribe({
       next: () => {
@@ -137,6 +181,7 @@ export class MenuPerfilComponent implements OnInit {
           }
           this.loadMetasDiarias();
           this.loadMetasEsportivas();
+          this.obterMediaAvaliacao();
         }
       },
       error: (err) => {
@@ -144,12 +189,10 @@ export class MenuPerfilComponent implements OnInit {
       },
     });
   }
-  
 
   goToPage(path: string): void {
     this.router.navigate([path]);
   }
-  
 
   // Método para obter o nome da modalidade com base no id
   getModalidadeName(idModalidade: number): string | undefined {

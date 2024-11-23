@@ -74,7 +74,7 @@ export class CampeonatoAcoesComponent implements OnInit {
 
   criarTime() {
 
-    console.log(this.idCampeonato, this.usuarioLogado!.idAcademico)
+    // console.log(this.idCampeonato, this.usuarioLogado!.idAcademico)
     this.partidaService
       .criarTimeIndividual(this.idCampeonato, this.usuarioLogado!.idAcademico)
       .subscribe({
@@ -122,7 +122,7 @@ export class CampeonatoAcoesComponent implements OnInit {
 
     this.route.paramMap.subscribe((params) => {
       this.codigo = params.get('codigo')!;
-      console.log(this.codigo); // Você pode usar o código aqui para buscar os detalhes do campeonato
+      // console.log(this.codigo); // Você pode usar o código aqui para buscar os detalhes do campeonato
       this.buscarCampeonatoPorCodigo(this.codigo);
     });
   }
@@ -132,8 +132,8 @@ export class CampeonatoAcoesComponent implements OnInit {
   }
 
   adicionarUsuario(idUsuario: number, time: Time) {
-    console.log("idusuario: ", idUsuario)
-    console.log("time: ", time);
+    // console.log("idusuario: ", idUsuario)
+    // console.log("time: ", time);
     
     this.partidaService.adicionarUsuarioAoTime(idUsuario, time).subscribe({
       next: (response) => {

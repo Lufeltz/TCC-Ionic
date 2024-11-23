@@ -266,13 +266,14 @@ export class MetasPage implements OnInit {
   get filteredMetasEsportivas(): Conquista[] {
     if (this.filterEsportivas) {
       return this.conquistasUsuario.filter(
-        (conquista) => conquista.metaEsportiva !== undefined && conquista.conquistado === false
+        (conquista) =>
+          conquista.metaEsportiva !== undefined &&
+          conquista.conquistado === false
       );
     } else {
       return [];
     }
   }
-  
 
   get filteredMetasDiarias(): MetaDiaria[] {
     if (this.filterDiarias) {
@@ -297,12 +298,17 @@ export class MetasPage implements OnInit {
       this.metaDiariaService.postMetaDiaria(this.metaDiaria2).subscribe({
         next: (data) => {
           this.listarMetaDiarias();
+          this.resetMetaDiariaForm(); // Adicione esta linha
         },
         error: (err) => {
           console.error('Erro ao criar Meta Diária:', err);
         },
       });
     }
+  }
+
+  resetMetaDiariaForm() {
+    this.metaDiaria2 = new MetaDiaria();
   }
 
   verificarProgresso(meta: MetaDiaria) {
