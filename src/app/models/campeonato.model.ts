@@ -13,6 +13,7 @@ export class Campeonato {
   limiteTimes: number = 0;
   limiteParticipantes: number | null = null;
   ativo: boolean = true;
+  usernameCriador: string = ''
   endereco: Endereco = new Endereco();
 
   privacidadeCampeonato: string = '';

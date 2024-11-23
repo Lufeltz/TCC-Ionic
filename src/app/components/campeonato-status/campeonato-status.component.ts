@@ -193,7 +193,10 @@ export class CampeonatoStatusComponent implements OnInit {
       next: (campeonatos) => {
         if (campeonatos && campeonatos.length > 0) {
           this.campeonato = campeonatos[0];
-          if (this.campeonato.situacaoCampeonato === 'INICIADO') {
+          if (
+            this.campeonato.situacaoCampeonato === 'INICIADO' ||
+            this.campeonato.situacaoCampeonato === 'FINALIZADO'
+          ) {
             this.isCampeonatoIniciado = true;
           }
           console.log('Campeonato encontrado:', this.campeonato);

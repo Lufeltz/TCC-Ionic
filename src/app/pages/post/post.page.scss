@@ -24,10 +24,15 @@ ion-input.styled-input:focus {
 }
 
 /// DAQUI
-/// 
+///
 .input-space {
   margin-top: 3rem;
   margin-bottom: 1rem;
+}
+
+.space-select {
+  margin-top: 0.75rem;
+  margin-bottom: 2rem;
 }
 
 .custom-select-wrapper {
@@ -55,7 +60,9 @@ ion-input.styled-input:focus {
 
 .custom-select:focus {
   outline: none;
-  background-color: var(--background-dark); /* Ajuste aqui para manter a cor de fundo original */
+  background-color: var(
+    --background-dark
+  ); /* Ajuste aqui para manter a cor de fundo original */
   border-bottom: 2px solid var(--light-blue); /* Garantir que a borda inferior esteja visível */
 }
 
@@ -82,7 +89,6 @@ ion-input.styled-input:focus {
 .custom-select:hover {
   background-color: var(--background-dark);
 }
-
 
 // ATE AQUI
 
@@ -157,6 +163,7 @@ ion-textarea.styled-textarea {
   color: var(--text-white);
   padding: 0.5rem;
   margin-top: 10px;
+  margin-bottom: 2rem;
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
@@ -176,7 +183,6 @@ ion-textarea.styled-textarea:focus {
   outline: none;
 }
 
-
 /* Adiciona um estilo específico para o textarea do título */
 ion-textarea.styled-textarea.titulo-input {
   height: 62.5px; /* Ajusta a altura para metade do que era anteriormente (125px) */
@@ -184,3 +190,52 @@ ion-textarea.styled-textarea.titulo-input {
 }
 
 /* Outros estilos existentes... */
+
+ion-button {
+  margin-top: 16px;
+  --background: var(--text-white);
+  --color: var(--background-dark);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+ion-button:active {
+  --color: var(--text-white);
+}
+
+.icon-button .text-container {
+  display: flex;
+  align-items: center;
+}
+
+.icon-align p,
+.icon-align ion-label {
+  margin: 0;
+  color: var(--yellow-desc);
+  font-size: 1rem;
+}
+
+
+.btn-inscrever-se {
+  margin-left: 5px;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+
+.post-container {
+  padding: 16px;
+}

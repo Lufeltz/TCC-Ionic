@@ -5,68 +5,113 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <div class="margin-tab">
-    <ion-textarea
+  <div class="post-container">
+    <div class="margin-tab">
+      <div class="icon-align">
+        <lucide-angular
+          [img]="NotebookPen"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--yellow-desc)'"
+        ></lucide-angular>
+        <ion-label>Título</ion-label>
+      </div>
+
+      <ion-textarea
+        class="input-space styled-textarea titulo-input"
+        placeholder="Exemplo: Campeonato de Futebol (máx 50 caracteres)"
+        maxlength="50"
+        [(ngModel)]="publicacao.titulo"
+      ></ion-textarea>
+
+      <!-- <ion-textarea
       class="input-space styled-textarea titulo-input"
       label="Título"
       labelPlacement="floating"
       placeholder="Digite o título (máx 50 caracteres)"
       maxlength="50"
       [(ngModel)]="publicacao.titulo"
-    ></ion-textarea>
+    ></ion-textarea> -->
 
-    <ion-textarea
+      <div class="icon-align">
+        <lucide-angular
+          [img]="MessageCircleQuestion"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--yellow-desc)'"
+        ></lucide-angular>
+        <ion-label>Mensagem</ion-label>
+      </div>
+
+      <ion-textarea
+        class="input-space styled-textarea message-input"
+        placeholder="Exemplo: Levar chuteira e caneleira (máx 150 caracteres)"
+        maxlength="150"
+        [(ngModel)]="publicacao.descricao"
+      ></ion-textarea>
+
+      <!-- <ion-textarea
       class="input-space styled-textarea message-input"
       label="Mensagem"
       labelPlacement="floating"
       placeholder="Digite sua mensagem (máx 150 caracteres)"
       maxlength="150"
       [(ngModel)]="publicacao.descricao"
-    ></ion-textarea>
+    ></ion-textarea> -->
 
-    <ion-toast
-      trigger="open-toast"
-      message="Post criado com sucesso, redirecionando..."
-      [duration]="2500"
-    ></ion-toast>
+      <ion-toast
+        trigger="open-toast"
+        message="Post criado com sucesso, redirecionando..."
+        [duration]="2500"
+      ></ion-toast>
 
-    <div class="input-space">
-      <div class="custom-select-wrapper">
-        <select
-          class="custom-select"
-          id="modalidade-select"
-          (change)="onSelectChange($event)"
-        >
-          <option value="sem-modalidade" selected>Sem Modalidade</option>
-          <option value="futebol">Futebol</option>
-          <option value="volei">Vôlei</option>
-          <option value="basquete">Basquete</option>
-          <option value="ping-pong">Ping Pong</option>
-        </select>
+      <div class="icon-align">
+        <lucide-angular
+          [img]="MessageCircleQuestion"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--yellow-desc)'"
+        ></lucide-angular>
+        <ion-label>Modalidade Esportiva</ion-label>
       </div>
+
+      <div class="space-select">
+        <div class="custom-select-wrapper">
+          <select
+            class="custom-select"
+            id="modalidade-select"
+            [(ngModel)]="publicacao.idModalidadeEsportiva"
+          >
+            <option [ngValue]="null" selected>Sem Modalidade</option>
+            <option [ngValue]="1">Futebol</option>
+            <option [ngValue]="2">Vôlei</option>
+            <option [ngValue]="3">Basquete</option>
+            <option [ngValue]="4">Tênis de Mesa</option>
+          </select>
+        </div>
+      </div>
+
+      <ion-button
+        size="small"
+        expand="block"
+        class="icon-button"
+        (click)="onSubmit()"
+      >
+        <div class="text-container">Criar Publicação</div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="ArrowRight"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
+        </div>
+      </ion-button>
+
+      <ion-toast
+        trigger="open-toast"
+        message="Post criado com sucesso!"
+        [duration]="3000"
+      ></ion-toast>
     </div>
-
-    <ion-button
-      size="small"
-      id="open-toast"
-      class="btn-enviar"
-      (click)="onSubmit()"
-    >
-      Enviar
-    </ion-button>
-
-    <ion-toast
-    trigger="open-toast"
-    message="Post criado com sucesso!"
-    [duration]="3000"
-  ></ion-toast>
-
-    <ion-button
-      size="small"
-      class="btn-voltar"
-      (click)="voltarComunidadeSemCriarPost()"
-    >
-      Voltar
-    </ion-button>
   </div>
 </ion-content>

@@ -21,7 +21,7 @@
             [size]="20"
             [color]="'var(--purple-desc)'"
           ></lucide-angular>
-          <p><strong>Status: </strong>{{campeonato.situacaoCampeonato}}</p>
+          <p><strong>Status: </strong>{{ campeonato.situacaoCampeonato }}</p>
         </div>
         <div class="icon-align">
           <lucide-angular
@@ -30,7 +30,7 @@
             [size]="20"
             [color]="'var(--purple-desc)'"
           ></lucide-angular>
-          <p><strong> Times: </strong>?? / {{campeonato.limiteTimes}}</p>
+          <p><strong> Times: </strong>?? / {{ campeonato.limiteTimes }}</p>
         </div>
         <div class="icon-align">
           <p>
@@ -41,7 +41,7 @@
               [color]="'var(--purple-desc)'"
             ></lucide-angular>
             <strong>Jogadores: </strong>
-            ?? / {{campeonato.limiteParticipantes}}
+            ?? / {{ campeonato.limiteParticipantes }}
           </p>
         </div>
         <div class="icon-align">
@@ -51,8 +51,10 @@
             [size]="20"
             [color]="'var(--purple-desc)'"
           ></lucide-angular>
-          <p><strong>Modalidade: </strong>{{ getModalidadeNome(campeonato.idModalidadeEsportiva) }}</p>
-
+          <p>
+            <strong>Modalidade: </strong
+            >{{ getModalidadeNome(campeonato.idModalidadeEsportiva) }}
+          </p>
         </div>
         <div class="icon-align">
           <lucide-angular
@@ -100,7 +102,9 @@
                   [size]="20"
                   [color]="'var(--yellow-desc)'"
                 ></lucide-angular>
-                <p><strong>Criador: </strong>math_aa</p>
+                <p>
+                  <strong>Criador: </strong>{{ campeonato.usernameCriador }}
+                </p>
               </div>
               <div class="icon-align">
                 <lucide-angular
@@ -215,19 +219,20 @@
       </div>
     </li>
   </ul>
-  <ion-button 
-  id="open-toast" 
-  size="small" 
-  expand="block" 
-  class="icon-button" 
-  (click)="carregarMaisCampeonatos()">
-  <div class="text-container">Mais Campeonatos</div>
-  <div class="icon-align">
-    <lucide-angular
-      [img]="RotateCw"
-      class="btn-inscrever-se"
-      [size]="20"
-    ></lucide-angular>
-  </div>
-</ion-button>
+  <ion-button
+    id="open-toast"
+    size="small"
+    expand="block"
+    class="icon-button"
+    (click)="carregarMaisCampeonatos()"
+  >
+    <div class="text-container">Mais Campeonatos</div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="RotateCw"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+    </div>
+  </ion-button>
 </div>

@@ -12,8 +12,7 @@ import {
   IonList,
   IonItem,
   IonText,
-  IonTextarea,
-} from '@ionic/angular/standalone';
+  IonTextarea, IonLabel } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.component';
 import { Router } from '@angular/router';
 import { PublicacaoService } from '../../services/publicacao.service';
@@ -21,13 +20,14 @@ import { Publicacao } from '../../models/publicacao.model';
 import { Academico } from 'src/app/models/academico.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostsComponent } from 'src/app/components/posts/posts.component';
+import { ArrowRight, LucideAngularModule, MessageCircleQuestion, NotebookPen } from 'lucide-angular';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.page.html',
   styleUrls: ['./post.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonLabel, 
     IonTextarea,
     IonButton,
     IonContent,
@@ -40,6 +40,7 @@ import { PostsComponent } from 'src/app/components/posts/posts.component';
     IonList,
     IonItem,
     IonText,
+    LucideAngularModule
   ],
 })
 export class PostPage implements OnInit {
@@ -52,6 +53,10 @@ export class PostPage implements OnInit {
 
   showToast: boolean = false;
   toastMessage: string = '';
+
+  readonly ArrowRight = ArrowRight;
+  readonly NotebookPen = NotebookPen;
+  readonly MessageCircleQuestion = MessageCircleQuestion;
 
   @ViewChild(PostsComponent) postsComponent: PostsComponent | undefined;
 
@@ -72,6 +77,7 @@ export class PostPage implements OnInit {
   }
 
   onSubmit() {
+    console.log('publicacao',this.publicacao)
     this.publicacaoService.postPublicacao(this.publicacao).subscribe(
       (response) => {
         if (response) {
@@ -92,12 +98,7 @@ export class PostPage implements OnInit {
     );
   }
 
-  
-  onSelectChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    const selectedValue = selectElement.value;
-    this.publicacao.idModalidadeEsportiva = null;
-  }
+
 
   voltarComunidadePostCriado() {
     setTimeout(() => {

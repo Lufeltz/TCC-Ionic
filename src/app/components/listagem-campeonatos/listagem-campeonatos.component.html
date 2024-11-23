@@ -127,7 +127,9 @@
                     [size]="20"
                     [color]="'var(--yellow-desc)'"
                   ></lucide-angular>
-                  <p><strong>Criador: </strong>??</p>
+                  <p>
+                    <strong>Criador: </strong>{{ campeonato.usernameCriador }}
+                  </p>
                 </div>
                 <div class="icon-align">
                   <lucide-angular
@@ -227,21 +229,23 @@
                   </div>
                 </div>
                 <ion-button
-                size="small"
-                expand="block"
-                class="icon-button"
-                [routerLink]="['/homepage/campeonato-gerenciamento', campeonato.codigo]"
-              >
-                <div class="text-container">Acessar</div>
-                <div class="icon-align">
-                  <lucide-angular
-                    [img]="ExternalLink"
-                    class="btn-inscrever-se"
-                    [size]="20"
-                  ></lucide-angular>
-                </div>
-              </ion-button>
-              
+                  size="small"
+                  expand="block"
+                  class="icon-button"
+                  [routerLink]="[
+                    '/homepage/campeonato-gerenciamento',
+                    campeonato.codigo
+                  ]"
+                >
+                  <div class="text-container">Acessar</div>
+                  <div class="icon-align">
+                    <lucide-angular
+                      [img]="ExternalLink"
+                      class="btn-inscrever-se"
+                      [size]="20"
+                    ></lucide-angular>
+                  </div>
+                </ion-button>
               </div>
             </ion-accordion>
           </ion-accordion-group>
