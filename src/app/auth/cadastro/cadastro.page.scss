@@ -2,6 +2,7 @@
   padding: 2rem;
   height: 100vh;
   background-color: #202024;
+  
 
   h1 {
     color: var(--light-blue);
@@ -24,8 +25,12 @@
     color: var(--gray-50);
     --border-radius: 5px;
     margin-bottom: 15px;
+    border-radius: 5px;
     --padding-bottom: 10px;
     --padding-top: 10px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+    border-right: 2px solid var(--yellow-desc);
+    border-bottom: 2px solid var(--yellow-desc);
   }
 
   ion-icon {
@@ -102,7 +107,7 @@ ion-button {
 
 /* Estilo para o placeholder */
 .styled-input::placeholder {
-  color: var(--text-white)
+  color: var(--text-white);
 }
 
 /* Estilo para o placeholder simulado */
@@ -157,6 +162,102 @@ ion-item[id="curso"] {
   color: var(--gray-50);
   border: none; /* Remove a borda interna do campo */
   padding: 0 10px; /* Adiciona um pouco de padding ao redor */
-  
 }
 
+.custom-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-select {
+  appearance: none;
+  background-color: var(--background-dark);
+  border: none;
+  // border-bottom: 2px solid var(--light-blue);
+  // border-right: 2px solid var(--light-blue);
+  border-radius: 5px;
+  padding: 0.5rem;
+  width: 100%;
+  cursor: pointer;
+  // box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  // transition: background-color 0.3s, transform 0.3s;
+  text-align: center;
+  overflow: hidden; /* Impede que o texto ultrapasse o campo */
+  word-wrap: break-word; /* Quebra palavras longas */
+  white-space: normal; /* Permite quebra de linha dentro das opções */
+}
+
+/* Estilo de foco do select */
+.custom-select:focus {
+  outline: none;
+  background-color: var(--background-dark);
+  // border-bottom: 2px solid var(--light-blue);
+}
+
+/* Estilo das opções dentro do select */
+.custom-select option {
+  background-color: var(--background-dark);
+  color: var(--text-white);
+  padding: 0.5rem; /* Dê algum padding para as opções */
+  white-space: normal; /* Permite a quebra de linha nas opções */
+  word-wrap: break-word; /* Quebra palavras longas */
+  max-width: 100%; /* Garante que o texto não ultrapasse a largura do select */
+}
+
+/* Estilo das opções quando selecionadas */
+.custom-select option[value="futebol"]:checked {
+  background-color: var(--background-dark);
+  color: var(--light-blue);
+}
+
+.custom-select option:checked {
+  background-color: var(--background-dark);
+  color: var(--light-blue);
+}
+
+/* Estilo das opções quando o mouse passa por cima */
+.custom-select option:hover {
+  background-color: var(--light-blue);
+  color: var(--text-white);
+}
+
+/* Estilo do select quando o mouse passa por cima */
+.custom-select:hover {
+  background-color: var(--background-dark);
+}
+
+.icon-align ion-label {
+  color: var(--yellow-desc);
+}
+
+.icon-align {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.icon-align2 {
+  padding: 0.25rem;
+}
+
+ion-content {
+  margin-bottom: 2rem;
+  padding-bottom: 20rem;
+}
+
+/* Estilo para o link 'Já possui uma conta?' */
+.margin-bot {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20rem ; /* Adicione a margem inferior aqui */
+}
+
+.margin-bot a {
+  color: var(--light-blue);
+  text-decoration: none;
+}
+
+.margin-bot a:hover {
+  text-decoration: underline;
+}

@@ -12,8 +12,7 @@ import {
   IonItem,
   IonInput,
   IonRadio,
-  IonRadioGroup,
-} from '@ionic/angular/standalone';
+  IonRadioGroup, IonLabel } from '@ionic/angular/standalone';
 
 import { Router, RouterModule } from '@angular/router';
 import { AcademicoService } from 'src/app/services/academico.service';
@@ -31,13 +30,14 @@ import {
   Smartphone,
   User,
 } from 'lucide-angular';
+import { Academico } from 'src/app/models/academico.model';
 
 @Component({
   selector: 'app-cadastro',
   templateUrl: './cadastro.page.html',
   styleUrls: ['./cadastro.page.scss'],
   standalone: true,
-  imports: [
+  imports: [IonLabel, 
     IonContent,
     IonHeader,
     IonTitle,
@@ -69,8 +69,23 @@ export class CadastroPage {
   @ViewChild('dateInput') dateInput!: ElementRef;
   message!: string;
   academico: Cadastro = new Cadastro();
+  user: Academico | null = null;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  cursos: string[] = [];
+  loading: boolean = true;
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private academicoService: AcademicoService
+  ) {}
+
+  ngOnInit() {
+    this.user = this.authService.getUser();
+    this.loadCursos();
+  }
+
+  // Removido a formatação de telefone
 
   // Método para formatar a data
   formatDateToFullDate(dateString: string): string {
@@ -103,6 +118,24 @@ export class CadastroPage {
       },
       error: (err) => {
         console.log('Erro ao cadastrar academico', err);
+      },
+    });
+  }
+
+  loadCursos(): void {
+    this.academicoService.getCursos().subscribe({
+      next: (cursos) => {
+        if (cursos && cursos.length > 0) {
+          this.cursos = cursos;
+          console.log(this.cursos)
+        } else {
+          console.warn('Nenhum curso encontrado');
+        }
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar cursos', err);
+        this.loading = false;
       },
     });
   }

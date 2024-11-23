@@ -4,121 +4,138 @@
       <h1>Sportfy</h1>
       <p>Faça seu cadastro abaixo.</p>
       <ion-list lines="none">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="User"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Nome</ion-label>
+        </div>
         <ion-item>
-          <div class="icon-align">
-            <lucide-angular
-              [img]="User"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--yellow-desc)'"
-            ></lucide-angular>
-          </div>
           <ion-input
             type="text"
             name="nome"
             id="nome"
-            placeholder="Nome Completo"
+            placeholder="Exemplo: Carlos Roberto"
             [(ngModel)]="academico.nome"
             #nome="ngModel"
           ></ion-input>
         </ion-item>
 
+        <div class="icon-align">
+          <lucide-angular
+            [img]="ALargeSmall"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Usuário</ion-label>
+        </div>
         <ion-item>
-          <div class="icon-align">
-            <lucide-angular
-              [img]="ALargeSmall"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--yellow-desc)'"
-            ></lucide-angular>
-          </div>
           <ion-input
             type="text"
             name="username"
             id="username"
-            placeholder="Nome de Usuario"
+            placeholder="Exemplo: carlos_ro"
             [(ngModel)]="academico.username"
             #username="ngModel"
           ></ion-input>
         </ion-item>
 
+        <div class="icon-align">
+          <lucide-angular
+            [img]="AtSign"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>E-mail</ion-label>
+        </div>
         <ion-item lines="none">
-          <div class="icon-align">
-            <lucide-angular
-              [img]="AtSign"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--yellow-desc)'"
-            ></lucide-angular>
-          </div>
           <ion-input
             type="email"
             name="email"
             id="email"
-            placeholder="E-mail@ufpr.br"
+            placeholder="Exemplo: carlos.roberto@ufpr.br"
             [(ngModel)]="academico.email"
             #email="ngModel"
           ></ion-input>
         </ion-item>
 
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Phone"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Telefone</ion-label>
+        </div>
         <ion-item>
-          <div class="icon-align">
-            <lucide-angular
-              [img]="Phone"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--yellow-desc)'"
-            ></lucide-angular>
-          </div>
           <ion-input
             type="number"
             name="telefone"
             id="telefone"
-            placeholder="Telefone"
+            placeholder="Exemplo: (41) 9 9214-4435"
             [(ngModel)]="academico.telefone"
             #telefone="ngModel"
           ></ion-input>
         </ion-item>
 
+        <div class="icon-align">
+          <lucide-angular
+            [img]="CalendarArrowUp"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Data de Nascimento</ion-label>
+        </div>
+
         <ion-item>
-          <div class="icon-align">
-            <lucide-angular
-              [img]="CalendarArrowUp"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--yellow-desc)'"
-            ></lucide-angular>
-          </div>
           <ion-input
             type="date"
             id="dataNascimento"
             name="dataNascimento"
-          
             [(ngModel)]="academico.dataNascimento"
             #dataNascimento
             class="styled-input"
           ></ion-input>
         </ion-item>
 
-        <ion-item id="curso">
-          <div class="icon-align">
-            <lucide-angular
-              [img]="GraduationCap"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--yellow-desc)'"
-            ></lucide-angular>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="GraduationCap"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Curso</ion-label>
+        </div>
+
+        <ion-item id="curso item-lista">
+          <div class="input-space">
+            <div *ngIf="cursos.length > 0">
+              <!-- Só exibe quando cursos estiver carregado -->
+              <select
+                class="custom-select"
+                id="modalidade-select"
+                [(ngModel)]="academico!.curso"
+              >
+                <!-- Opção placeholder -->
+                <option value="" disabled selected>Selecione o curso</option>
+                
+                <!-- Lista de cursos -->
+                <option *ngFor="let curso of cursos" [value]="curso">
+                  {{ curso }}
+                </option>
+              </select>
+            </div>
           </div>
-          <ion-input
-            type="text"
-            name="curso"
-            id="curso"
-            placeholder="Curso"
-            [(ngModel)]="academico.curso"
-            #curso="ngModel"
-            class="styled-input"
-          ></ion-input>
         </ion-item>
+        
       </ion-list>
 
       <!-- <p>Gênero:</p>
@@ -141,7 +158,7 @@
         class="icon-button"
       >
         <div class="text-container">Registrar</div>
-        <div class="icon-align">
+        <div class="icon-align2">
           <lucide-angular
             [img]="SaveAll"
             class="btn-inscrever-se"
@@ -149,7 +166,7 @@
           ></lucide-angular>
         </div>
       </ion-button>
-      <p>Já possui uma conta? <a routerLink="/login">Log in</a></p>
+      <p class="margin-bot">Já possui uma conta? <a routerLink="/login">Log in</a></p>
     </div>
   </form>
 </ion-content>

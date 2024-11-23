@@ -96,3 +96,18 @@
   color: var(--text-white);
   font-size: 1rem;
 }
+
+/* Estilo para o link 'Já possui uma conta?' */
+.margin-bot {
+  text-align: center;  /* Alinha o texto ao centro */
+  margin-top: 20px;    /* Adiciona espaçamento no topo */
+}
+
+.margin-bot a {
+  color: var(--light-blue);  /* Cor do link */
+  text-decoration: none;     /* Remove o sublinhado */
+}
+
+.margin-bot a:hover {
+  text-decoration: underline;  /* Sublinha o link ao passar o mouse */
+}
