@@ -46,7 +46,7 @@
               [size]="20"
               [color]="'var(--purple-desc)'"
             ></lucide-angular>
-            <p><strong> Times: </strong>?? / {{ campeonato.limiteTimes }}</p>
+            <p><strong> Times: </strong>{{times.length}} / {{ campeonato.limiteTimes }}</p>
           </div>
           <div class="icon-align">
             <p *ngIf="campeonato">
@@ -57,7 +57,7 @@
                 [color]="'var(--purple-desc)'"
               ></lucide-angular>
               <strong>Jogadores: </strong>
-              ?? /
+              {{jogadores.length}} /
               {{
                 (campeonato.limiteParticipantes || 0) *
                   (campeonato.limiteTimes || 0)

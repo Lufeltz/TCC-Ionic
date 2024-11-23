@@ -40,6 +40,10 @@ import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { TitleCasePipe } from 'src/app/pipes/title-case.pipe';
 import { NgxMaskPipe } from 'ngx-mask';
 import { ActivatedRoute } from '@angular/router';
+import { PartidaService } from 'src/app/services/partida.service';
+import { Time } from 'src/app/models/time.model';
+import { Jogador } from 'src/app/models/jogador.model';
+import { JogadorResponse } from 'src/app/models/jogador-response.model';
 @Component({
   selector: 'app-campeonato-detalhes',
   templateUrl: './campeonato-detalhes.component.html',
@@ -87,16 +91,21 @@ export class CampeonatoDetalhesComponent implements OnInit {
   academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
 
   codigo: string = '';
+  error: string = ''; // Mensagem de erro
 
   currentPage: number = 0;
   pageSize: number = 5;
   totalPages: number = 0;
 
+  times: Time[] = [];
+  jogadores: Jogador[] = [];
+
   constructor(
     private campeonatoService: CampeonatoService,
     private alertController: AlertController,
     private modalidadeService: ModalidadesService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private partidaService: PartidaService
   ) {}
 
   getLockColor(privacidade: string): string {
@@ -111,7 +120,39 @@ export class CampeonatoDetalhesComponent implements OnInit {
       this.codigo = params.get('codigo')!;
       console.log(this.codigo); // Você pode usar o código aqui para buscar os detalhes do campeonato
     });
-    this.buscarCampeonatoPorCodigo(this.codigo)
+    this.buscarCampeonatoPorCodigo(this.codigo);
+  }
+
+  listarTimesPorCampeonato(idCampeonato: number): void {
+    this.loading = true;
+    this.partidaService.listarTimes(idCampeonato).subscribe({
+      next: (times: Time[]) => {
+        // Armazena os times no objeto timesPorCampeonato usando o idCampeonato como chave
+        this.times = times;
+        console.log('times: ', this.times);
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Erro ao carregar os times.';
+        this.loading = false;
+      },
+    });
+  }
+
+  listarJogadoresPorCampeonato(idCampeonato: number): void {
+    this.loading = true;
+    this.partidaService.listarJogadores(idCampeonato).subscribe({
+      next: (response: JogadorResponse) => {
+        // Armazena os jogadores no objeto jogadoresPorCampeonato usando o idCampeonato como chave
+        this.jogadores = response.content || [];
+        console.log('jogadores:', this.jogadores);
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Erro ao carregar os jogadores.';
+        this.loading = false;
+      },
+    });
   }
 
   // Método para buscar campeonato por código
@@ -122,6 +163,8 @@ export class CampeonatoDetalhesComponent implements OnInit {
         if (campeonatos && campeonatos.length > 0) {
           this.campeonato = campeonatos[0]; // Salva o primeiro campeonato na variável campeonato
           console.log('Campeonato encontrado nos detalhes:', this.campeonato);
+          this.listarTimesPorCampeonato(this.campeonato.idCampeonato);
+          this.listarJogadoresPorCampeonato(this.campeonato.idCampeonato);
         } else {
           this.campeonato = null; // Caso não encontre o campeonato
           console.warn('Campeonato não encontrado');
@@ -134,7 +177,6 @@ export class CampeonatoDetalhesComponent implements OnInit {
       },
     });
   }
-  
 
   loadModalidades(): void {
     this.modalidadeService.getAllModalidades().subscribe({
