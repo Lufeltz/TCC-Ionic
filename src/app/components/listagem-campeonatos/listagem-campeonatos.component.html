@@ -48,6 +48,7 @@
               >{{ campeonato.situacaoCampeonato | titleCase }}
             </p>
           </div>
+
           <div class="icon-align">
             <lucide-angular
               [img]="Users"
@@ -55,20 +56,26 @@
               [size]="20"
               [color]="'var(--purple-desc)'"
             ></lucide-angular>
-            <p><strong> Times: </strong>?? / {{ campeonato.limiteTimes }}</p>
-          </div>
-          <div class="icon-align">
             <p>
-              <lucide-angular
-                [img]="User"
-                class="btn-inscrever-se"
-                [size]="20"
-                [color]="'var(--purple-desc)'"
-              ></lucide-angular>
-              <strong>Jogadores: </strong>
-              ?? / {{ campeonato.limiteParticipantes }}
+              <strong>Times: </strong>
+              {{ timesPorCampeonato[campeonato.idCampeonato]?.length || 0 }} /
+              {{ campeonato.limiteTimes }}
             </p>
           </div>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="User"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--purple-desc)'"
+            ></lucide-angular>
+            <p>
+              <strong>Jogadores: </strong>
+              {{ jogadoresPorCampeonato[campeonato.idCampeonato]?.length || 0 }} /
+              {{ (campeonato.limiteParticipantes || 0) * (campeonato.limiteTimes || 0) }}
+            </p>
+          </div>
+
           <div class="icon-align">
             <lucide-angular
               [img]="Volleyball"

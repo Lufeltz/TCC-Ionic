@@ -58,6 +58,10 @@ import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { Academico } from 'src/app/models/academico.model';
 import { RouterModule } from '@angular/router';
 import { debounceTime, Subject, switchMap } from 'rxjs';
+import { Time } from 'src/app/models/time.model';
+import { PartidaService } from 'src/app/services/partida.service';
+import { Jogador } from 'src/app/models/jogador.model';
+import { JogadorResponse } from 'src/app/models/jogador-response.model';
 
 @Component({
   selector: 'app-listagem-campeonatos',
@@ -81,7 +85,7 @@ import { debounceTime, Subject, switchMap } from 'rxjs';
   ],
   standalone: true,
 })
-export class ListagemCampeonatosComponent implements OnInit, OnChanges {
+export class ListagemCampeonatosComponent implements OnInit {
   readonly SquareArrowUpRight = SquareArrowUpRight;
   readonly Lock = Lock;
   readonly LockOpen = LockOpen;
@@ -113,21 +117,107 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
   loading: boolean = true;
   filteredCampeonatos: Campeonato[] = [];
   academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
+  times: Time[] = [];
+  jogadores: Jogador[] = []
 
   currentPage: number = 0;
   pageSize: number = 5;
   totalPages: number = 0;
+  error: string = '';  // Mensagem de erro
 
   searchedCampeonatos: string = ''; // Variável que armazenará o valor da pesquisa
   searchSubject: Subject<string> = new Subject<string>();
 
+  timesPorCampeonato: { [idCampeonato: number]: Time[] } = {};
+  jogadoresPorCampeonato: { [idCampeonato: number]: Jogador[] } = [];
+
+
   // Outros métodos e propriedades do componente
 
   // Método que é chamado sempre que o usuário digita no IonSearchbar
-  onSearchInput(event: any): void {
-    this.searchedCampeonatos = event.target.value;
-    this.searchSubject.next(this.searchedCampeonatos); // Emite o valor para o Subject
+
+  constructor(
+    private alertController: AlertController,
+    private campeonatoService: CampeonatoService,
+    private modalidadeService: ModalidadesService,
+    private partidaService: PartidaService
+  ) {}
+
+
+  ngOnInit() {
+    this.loadModalidades();
+    this.listarCampeonatos();
+    this.subscribeToSearch();
+    // this.listarTimesPorCampeonato(1)
+    // this.listarJogadoresPorCampeonato(1)
   }
+
+  listarTimesPorCampeonato(idCampeonato: number): void {
+    this.loading = true;
+    this.partidaService.listarTimes(idCampeonato).subscribe({
+      next: (times: Time[]) => {
+        // Armazena os times no objeto timesPorCampeonato usando o idCampeonato como chave
+        this.timesPorCampeonato[idCampeonato] = times;
+        console.log('times: ', this.timesPorCampeonato);
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Erro ao carregar os times.';
+        this.loading = false;
+      }
+    });
+  }
+  
+  listarJogadoresPorCampeonato(idCampeonato: number): void {
+    this.loading = true;
+    this.partidaService.listarJogadores(idCampeonato).subscribe({
+      next: (response: JogadorResponse) => {
+        // Armazena os jogadores no objeto jogadoresPorCampeonato usando o idCampeonato como chave
+        this.jogadoresPorCampeonato[idCampeonato] = response.content || [];
+        console.log('jogadores:', this.jogadoresPorCampeonato);
+        this.loading = false;
+      },
+      error: (err) => {
+        this.error = 'Erro ao carregar os jogadores.';
+        this.loading = false;
+      }
+    });
+  }
+  
+  listarCampeonatos(): void {
+    this.campeonatoService
+      .getAllCampeonatos(this.currentPage, this.pageSize)
+      .subscribe({
+        next: (data: any) => {
+          this.loading = false; // Define loading como falso quando os dados são recebidos
+          if (data.content == null) {
+            this.campeonatos = [];
+          } else {
+            if (this.currentPage === 0) {
+              this.campeonatos = data.content;
+              console.log(this.campeonatos);
+            } else {
+              this.campeonatos = [...this.campeonatos, ...data.content]; // Concatenando os novos dados
+            }
+  
+            // Chamar os métodos de times e jogadores para cada campeonato
+            this.campeonatos.forEach(campeonato => {
+              this.listarTimesPorCampeonato(campeonato.idCampeonato);
+              this.listarJogadoresPorCampeonato(campeonato.idCampeonato);
+            });
+  
+            this.totalPages = data.totalPages;
+          }
+        },
+        error: (err) => {
+          this.loading = false; // Define loading como falso em caso de erro
+          this.mensagem = 'Erro buscando lista de campeonatos';
+          this.mensagem_detalhes = `[${err.status} ${err.message}]`;
+        },
+      });
+  }
+  
+
 
   // Inscreve-se no subject para debouncing e para realizar a pesquisa
   subscribeToSearch(): void {
@@ -165,11 +255,11 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
     participando?: boolean; // Ensure this is a boolean value
   } = { participando: true };
 
-  constructor(
-    private alertController: AlertController,
-    private campeonatoService: CampeonatoService,
-    private modalidadeService: ModalidadesService
-  ) {}
+  onSearchInput(event: any): void {
+    this.searchedCampeonatos = event.target.value;
+    this.searchSubject.next(this.searchedCampeonatos); // Emite o valor para o Subject
+  }
+
 
   getLockColor(privacidade: string): string {
     return privacidade === 'PRIVADO'
@@ -177,11 +267,7 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
       : 'var(--text-new-green)'; // 'red' para 'privado', 'green' para 'público'
   }
 
-  ngOnInit() {
-    this.loadModalidades();
-    this.listarCampeonatos();
-    this.subscribeToSearch();
-  }
+
 
   loadModalidades(): void {
     this.modalidadeService.getAllModalidades().subscribe({
@@ -223,35 +309,6 @@ export class ListagemCampeonatosComponent implements OnInit, OnChanges {
     return modalidade ? modalidade.nome : 'Modalidade não encontrada'; // Retorna o nome ou uma mensagem de erro
   }
 
-  listarCampeonatos(): void {
-    this.campeonatoService
-      .getAllCampeonatos(this.currentPage, this.pageSize)
-      .subscribe({
-        next: (data: any) => {
-          this.loading = false; // Define loading como falso quando os dados são recebidos
-          if (data.content == null) {
-            this.campeonatos = [];
-          } else {
-            if (this.currentPage === 0) {
-              this.campeonatos = data.content;
-              console.log(this.campeonatos);
-            } else {
-              this.campeonatos = [...this.campeonatos, ...data.content]; // Concatenando os novos dados
-            }
-            this.totalPages = data.totalPages;
-          }
-        },
-        error: (err) => {
-          this.loading = false; // Define loading como falso em caso de erro
-          this.mensagem = 'Erro buscando lista de campeonatos';
-          this.mensagem_detalhes = `[${err.status} ${err.message}]`;
-        },
-      });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    // Implementar se necessário
-  }
 
   loadMore(): void {
     if (this.currentPage < this.totalPages - 1) {

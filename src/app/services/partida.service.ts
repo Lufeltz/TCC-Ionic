@@ -41,8 +41,8 @@ export class PartidaService {
     idUsuario: number
   ): Observable<any> {
     // Modificando a URL para refletir o formato correto
-    const url = `${this.BASE_URL}/${idCampeonato}/times/${idUsuario}`; 
-  
+    const url = `${this.BASE_URL}/${idCampeonato}/times/${idUsuario}`;
+
     return this._http.post(url, {}, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<any>) => {
         if (resp.status === 201) {
@@ -56,7 +56,6 @@ export class PartidaService {
       })
     );
   }
-  
 
   // Novo método para salvar a pontuação de uma partida
   salvarPontuacao(partida: Partida): Observable<any> {

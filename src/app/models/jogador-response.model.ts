@@ -15,7 +15,7 @@ export class JogadorResponse {
   } = {
     empty: false,
     sorted: false,
-    unsorted: true
+    unsorted: true,
   };
   numberOfElements: number = 0;
   pageable: {
@@ -35,11 +35,11 @@ export class JogadorResponse {
     sort: {
       empty: false,
       sorted: false,
-      unsorted: true
+      unsorted: true,
     },
     offset: 0,
     paged: true,
-    unpaged: false
+    unpaged: false,
   };
   empty: boolean = false;
 }
