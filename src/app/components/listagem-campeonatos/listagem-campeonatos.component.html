@@ -71,8 +71,14 @@
             ></lucide-angular>
             <p>
               <strong>Jogadores: </strong>
-              {{ jogadoresPorCampeonato[campeonato.idCampeonato]?.length || 0 }} /
-              {{ (campeonato.limiteParticipantes || 0) * (campeonato.limiteTimes || 0) }}
+              {{
+                jogadoresPorCampeonato[campeonato.idCampeonato]?.length || 0
+              }}
+              /
+              {{
+                (campeonato.limiteParticipantes || 0) *
+                  (campeonato.limiteTimes || 0)
+              }}
             </p>
           </div>
 
@@ -261,6 +267,7 @@
     </ul>
 
     <ion-button
+      *ngIf="showLoadMoreButton"
       size="small"
       expand="block"
       class="icon-button"
