@@ -210,6 +210,10 @@ export class ListagemCampeonatosComponent implements OnInit {
               this.campeonatos = data.content;
               this.totalPages = data.totalPages; // Atualiza o número total de páginas
               this.currentPage = 1; // Começa a contagem a partir de 1
+              this.campeonatos.forEach((campeonato) => {
+                this.listarTimesPorCampeonato(campeonato.idCampeonato);
+                this.listarJogadoresPorCampeonato(campeonato.idCampeonato);
+              });
             } else {
               console.log('Não há campeonatos disponíveis.');
               this.campeonatos = [];
@@ -231,9 +235,9 @@ export class ListagemCampeonatosComponent implements OnInit {
     this.academico = this.authService.getUser();
     if (this.academico) {
       if (this.loading) return; // Evita múltiplos carregamentos simultâneos
-  
+
       this.loading = true; // Define loading como verdadeiro enquanto os dados estão sendo carregados
-  
+
       // Carrega mais campeonatos com base na página atual
       this.campeonatoService
         .getCampeonatosPorModalidadeAcademico(
@@ -245,7 +249,7 @@ export class ListagemCampeonatosComponent implements OnInit {
         .subscribe({
           next: (data: any) => {
             this.loading = false; // Define loading como falso quando os dados são recebidos
-  
+
             if (data.content && data.content.length > 0) {
               // Concatenando os novos campeonatos com os existentes
               this.campeonatos = [...this.campeonatos, ...data.content];
@@ -257,12 +261,12 @@ export class ListagemCampeonatosComponent implements OnInit {
           },
           error: (err) => {
             this.loading = false; // Define loading como falso em caso de erro
-  
+
             if (err.status === 500) {
-              console.log("Erro 500: Não há mais campeonatos para carregar.");
+              console.log('Erro 500: Não há mais campeonatos para carregar.');
               this.showLoadMoreButton = false; // Esconde o botão
             }
-  
+
             this.mensagem = 'Erro buscando mais campeonatos';
             this.mensagem_detalhes = `[${err.status} ${err.message}]`;
           },
@@ -272,7 +276,6 @@ export class ListagemCampeonatosComponent implements OnInit {
       this.loading = false;
     }
   }
-  
 
   // listarCampeonatos(): void {
   //   this.campeonatoService
