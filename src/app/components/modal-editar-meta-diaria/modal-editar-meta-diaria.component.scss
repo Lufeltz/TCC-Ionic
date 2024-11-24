@@ -17,9 +17,9 @@
   color: var(--text-white);
   padding: 20px;
   border-radius: 8px;
-  z-index: 20;
-  border-right: 3px solid var(--text-new-green); /* Borda direita amarela */
-  border-bottom: 2px solid var(--text-new-green); /* Borda inferior amarela */
+  z-index: 2000;
+  border-right: 3px solid var(--yellow-desc); /* Borda direita amarela */
+  border-bottom: 2px solid var(--yellow-desc); /* Borda inferior amarela */
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   width: 86%; /* Largura proporcional */
   max-width: 800px; /* Largura máxima */
@@ -90,8 +90,8 @@ ion-button {
 }
 
 ion-input {
-  border-right: 2px solid var(--text-new-green);
-  border-bottom: 2px solid var(--text-new-green);
+  border-right: 2px solid var(--yellow-desc);
+  border-bottom: 2px solid var(--yellow-desc);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   transition: background-color 0.3s, transform 0.3s;
 }
@@ -106,4 +106,13 @@ ion-input {
 .button-group ion-button {
   flex: 1;
   margin: 0 15px; /* Espaçamento entre os botões */
+}
+
+.icon-align.centered {
+  justify-content: center; /* Centraliza o conteúdo horizontalmente */
+}
+
+.meta-title {
+  color: var(--yellow-desc); /* Define a cor do texto */
+  margin: 0; /* Remove margem do título */
 }

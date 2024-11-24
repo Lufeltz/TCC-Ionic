@@ -17,7 +17,7 @@
   color: var(--text-white);
   padding: 20px;
   border-radius: 8px;
-  z-index: 20;
+  z-index: 2000;
   border-right: 3px solid var(--text-new-green); /* Borda direita amarela */
   border-bottom: 2px solid var(--text-new-green); /* Borda inferior amarela */
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
@@ -125,4 +125,9 @@ ion-input {
 .button-group ion-button {
   flex: 1;
   margin: 0 15px; /* Espaçamento entre os botões */
+}
+
+
+ion-toast {
+  --background: var(--text-white);
 }

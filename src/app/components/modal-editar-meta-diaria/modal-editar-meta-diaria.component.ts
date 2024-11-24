@@ -3,6 +3,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import {
   CaseUpper,
   CircleX,
+  Goal,
   LucideAngularModule,
   NotebookText,
   Ruler,
@@ -50,6 +51,7 @@ export class ModalEditarMetaDiariaComponent {
   readonly Target = Target;
   readonly Ruler = Ruler;
   readonly Save = Save;
+  readonly Goal = Goal;
 
   closeModal() {
     this.close.emit(); // Emite o evento para fechar o modal

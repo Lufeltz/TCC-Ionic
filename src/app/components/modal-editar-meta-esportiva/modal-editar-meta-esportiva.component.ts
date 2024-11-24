@@ -1,6 +1,11 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MetaEsportiva } from 'src/app/models/meta-esportiva.model';
-import { IonButton, IonLabel, IonInput } from '@ionic/angular/standalone';
+import {
+  IonButton,
+  IonLabel,
+  IonInput,
+  IonToast,
+} from '@ionic/angular/standalone';
 import {
   CaseUpper,
   CircleX,
@@ -25,6 +30,7 @@ import { ConquistasService } from 'src/app/services/conquistas.service';
   styleUrls: ['./modal-editar-meta-esportiva.component.scss'],
   standalone: true,
   imports: [
+    IonToast,
     IonInput,
     IonLabel,
     IonButton,

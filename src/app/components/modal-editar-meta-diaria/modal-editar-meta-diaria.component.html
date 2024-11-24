@@ -1,7 +1,15 @@
 <div class="modal-background" (click)="closeModal()"></div>
 <div class="modal-content">
   <div class="meta-details">
-    <h3>{{ meta.titulo }}</h3>
+    <div class="icon-align centered">
+      <lucide-angular
+        [img]="Goal"
+        class="btn-inscrever-se"
+        [size]="30"
+        [color]="'var(--yellow-desc)'"
+      ></lucide-angular>
+      <h3 class="meta-title" >{{ meta.titulo }}</h3>
+    </div>
 
     <ul>
       <li class="item-lista2">
@@ -10,7 +18,7 @@
             [img]="CaseUpper"
             class="btn-inscrever-se"
             [size]="20"
-            [color]="'var(--text-light)'"
+            [color]="'var(--yellow-desc)'"
           ></lucide-angular>
           <ion-label>Título</ion-label>
         </div>
@@ -27,7 +35,7 @@
             [img]="NotebookText"
             class="btn-inscrever-se"
             [size]="20"
-            [color]="'var(--text-light)'"
+            [color]="'var(--yellow-desc)'"
           ></lucide-angular>
           <ion-label>Descrição</ion-label>
         </div>
@@ -44,7 +52,7 @@
             [img]="Ruler"
             class="btn-inscrever-se"
             [size]="20"
-            [color]="'var(--text-light)'"
+            [color]="'var(--yellow-desc)'"
           ></lucide-angular>
           <ion-label>Progresso Atual</ion-label>
         </div>
@@ -61,7 +69,7 @@
             [img]="Target"
             class="btn-inscrever-se"
             [size]="20"
-            [color]="'var(--text-light)'"
+            [color]="'var(--yellow-desc)'"
           ></lucide-angular>
           <ion-label>Objetivo</ion-label>
         </div>
@@ -78,7 +86,7 @@
             [img]="Ruler"
             class="btn-inscrever-se"
             [size]="20"
-            [color]="'var(--text-light)'"
+            [color]="'var(--yellow-desc)'"
           ></lucide-angular>
           <ion-label>Medida</ion-label>
         </div>
@@ -88,7 +96,6 @@
           class="styled-input"
         ></ion-input>
       </li>
-
     </ul>
   </div>
 

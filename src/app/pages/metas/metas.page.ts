@@ -108,11 +108,9 @@ export class MetasPage implements OnInit {
   metaDiaria: MetaDiaria[] = [];
   metaDiaria2: MetaDiaria = new MetaDiaria();
 
-  // Modal meta diaria
   modalEditarVisivel: boolean = false;
   metaParaEditar!: MetaDiaria;
 
-  // Modal meta esportiva
   modalEsportivaEditarVisivel: boolean = false;
   ConquistaParaEditar!: Conquista;
 
@@ -190,69 +188,64 @@ export class MetasPage implements OnInit {
     }
   }
 
-  menuVisibilityMetaDiaria: { [key: number]: boolean } = {}; // Para visibilidade dos menus de meta diária
-  // menuVisibilityConquista: { [key: number]: boolean } = {}; // Para visibilidade dos menus de meta esportiva
+  menuVisibilityMetaDiaria: { [key: number]: boolean } = {};
 
   toggleMenuMetaDiaria(metaDiariaId: number): void {
-    // Fecha todos os outros menus de meta diária
     for (const id in this.menuVisibilityMetaDiaria) {
       if (Number(id) !== metaDiariaId) {
         this.menuVisibilityMetaDiaria[id] = false;
       }
     }
 
-    // Alterna a visibilidade do menu de meta diária
     this.menuVisibilityMetaDiaria[metaDiariaId] =
       !this.menuVisibilityMetaDiaria[metaDiariaId];
   }
 
-  editarMetaDiaria(metaDiariaId: number): void {
+  editarMetaDiaria(metaDiariaId: number, meta: MetaDiaria): void {
     console.log('Editando a meta diária...', metaDiariaId);
+    this.abrirModalEditar(meta);
 
-    // Fechar o menu após a ação
     this.menuVisibilityMetaDiaria[metaDiariaId] = false;
   }
 
-  deletarMetaDiaria(metaDiariaId: number): void {
+  deletarMetaDiaria(metaDiariaId: number, meta: MetaDiaria): void {
     console.log('Deletando meta diária...', metaDiariaId);
 
-    // Fechar o menu após a ação
+    this.excluirMeta(meta);
+
     this.menuVisibilityMetaDiaria[metaDiariaId] = false;
   }
 
-// Definição do tipo correto
-menuVisibilityConquista: { [key: string]: boolean } = {}; // Agora aceita string como chave
+  menuVisibilityConquista: { [key: string]: boolean } = {};
 
-// Toggle para o menu de Conquista (Meta Esportiva)
-toggleMenuConquista(modalidadeId: number, conquistaId: number): void {
-  // Fecha todos os outros menus de meta esportiva
-  Object.keys(this.menuVisibilityConquista).forEach(id => {
-    if (id !== 'conquista_' + modalidadeId + '_' + conquistaId) {
-      this.menuVisibilityConquista[id] = false;
-    }
-  });
+  toggleMenuConquista(modalidadeId: number, conquistaId: number): void {
+    Object.keys(this.menuVisibilityConquista).forEach((id) => {
+      if (id !== 'conquista_' + modalidadeId + '_' + conquistaId) {
+        this.menuVisibilityConquista[id] = false;
+      }
+    });
 
-  // Alterna a visibilidade do menu de meta esportiva
-  this.menuVisibilityConquista['conquista_' + modalidadeId + '_' + conquistaId] =
-    !this.menuVisibilityConquista['conquista_' + modalidadeId + '_' + conquistaId];
-}
+    this.menuVisibilityConquista[
+      'conquista_' + modalidadeId + '_' + conquistaId
+    ] =
+      !this.menuVisibilityConquista[
+        'conquista_' + modalidadeId + '_' + conquistaId
+      ];
+  }
 
-// Editar Meta Esportiva
-editarConquista(modalidadeId: number, conquistaId: number): void {
-  console.log('Editando a meta esportiva...', modalidadeId, conquistaId);
+  editarConquista(
+    modalidadeId: number,
+    conquistaId: number,
+    conquista: Conquista
+  ): void {
+    console.log('Editando a meta esportiva...', modalidadeId, conquistaId);
 
-  // Fechar o menu após a ação
-  this.menuVisibilityConquista['conquista_' + modalidadeId + '_' + conquistaId] = false;
-}
+    this.abrirModalEditarEsportiva(conquista);
 
-// Deletar Meta Esportiva
-deletarConquista(modalidadeId: number, conquistaId: number): void {
-  console.log('Deletando meta esportiva...', modalidadeId, conquistaId);
-
-  // Fechar o menu após a ação
-  this.menuVisibilityConquista['conquista_' + modalidadeId + '_' + conquistaId] = false;
-}
-
+    this.menuVisibilityConquista[
+      'conquista_' + modalidadeId + '_' + conquistaId
+    ] = false;
+  }
 
   private carregarDadosUsuario(): void {
     this.carregarModalidades();
@@ -364,7 +357,7 @@ deletarConquista(modalidadeId: number, conquistaId: number): void {
       this.metaDiariaService.postMetaDiaria(this.metaDiaria2).subscribe({
         next: (data) => {
           this.listarMetaDiarias();
-          this.resetMetaDiariaForm(); // Adicione esta linha
+          this.resetMetaDiariaForm();
         },
         error: (err) => {
           console.error('Erro ao criar Meta Diária:', err);
@@ -390,7 +383,7 @@ deletarConquista(modalidadeId: number, conquistaId: number): void {
 
   async excluirPresentAlert(meta: MetaDiaria) {
     const alert = await this.alertController.create({
-      header: 'Exclusão de meta',
+      header: 'Conclusão de Meta',
       message: '',
       buttons: [
         {
@@ -401,7 +394,7 @@ deletarConquista(modalidadeId: number, conquistaId: number): void {
           },
         },
         {
-          text: 'Excluir',
+          text: 'Concluir',
           handler: () => {
             console.log('Meta confirmada:', meta);
             this.excluirMetaConfirmada(meta.idMetaDiaria.toString());

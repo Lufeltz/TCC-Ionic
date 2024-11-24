@@ -10,7 +10,7 @@
       ></lucide-angular>
       <h3 class="meta-title">{{ conquistaEsportiva.metaEsportiva.titulo }}</h3>
     </div>
-    
+
     <ul>
       <!-- <li class="item-lista2">
         <div class="icon-align">
@@ -100,7 +100,12 @@
       <div class="text-container">Fechar</div>
     </ion-button>
 
-    <ion-button size="small" expand="block" (click)="editarProgresso()">
+    <ion-button
+      id="open-toast"
+      size="small"
+      expand="block"
+      (click)="editarProgresso()"
+    >
       <lucide-angular
         [img]="Save"
         class="btn-inscrever-se"
@@ -109,4 +114,10 @@
       <div class="text-container">Salvar</div>
     </ion-button>
   </div>
+  <ion-toast
+    trigger="open-toast"
+    position="bottom"
+    message="Progresso da conquista atualizado!"
+    [duration]="5000"
+  ></ion-toast>
 </div>

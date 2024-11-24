@@ -177,10 +177,10 @@
                 class="dropdown-menu"
               >
                 <ul>
-                  <li (click)="editarMetaDiaria(meta.idMetaDiaria)">
+                  <li (click)="editarMetaDiaria(meta.idMetaDiaria, meta)">
                     Editar Meta Diária
                   </li>
-                  <li (click)="deletarMetaDiaria(meta.idMetaDiaria)">
+                  <li (click)="deletarMetaDiaria(meta.idMetaDiaria, meta)">
                     Deletar Meta Diária
                   </li>
                 </ul>
@@ -235,7 +235,7 @@
               </ion-label>
             </div>
           </div>
-          <div class="button-group">
+          <!-- <div class="button-group">
             <ion-button
               expand="small"
               class="centered-button meta-button"
@@ -265,7 +265,7 @@
                 ></lucide-angular>
               </div>
             </ion-button>
-          </div>
+          </div> -->
         </li>
 
         <!-- Iteração sobre as metas esportivas com filtro -->
@@ -301,24 +301,18 @@
 
               <!-- Menu suspenso -->
               <div
-              [class.show]="menuVisibilityConquista['conquista_' + conquista.metaEsportiva.idModalidadeEsportiva + '_' + conquista.idConquista]"
+                [class.show]="menuVisibilityConquista['conquista_' + conquista.metaEsportiva.idModalidadeEsportiva + '_' + conquista.idConquista]"
                 class="dropdown-menu"
               >
                 <ul>
                   <li
-                    (click)="editarConquista(conquista.metaEsportiva.idModalidadeEsportiva, conquista.idConquista)"
+                    (click)="editarConquista(conquista.metaEsportiva.idModalidadeEsportiva, conquista.idConquista, conquista)"
                   >
                     Editar Conquista
-                  </li>
-                  <li
-                    (click)="deletarConquista(conquista.metaEsportiva.idModalidadeEsportiva, conquista.idConquista)"
-                  >
-                    Deletar Conquista
                   </li>
                 </ul>
               </div>
             </div>
-            
           </h3>
           <div *ngIf="conquista.metaEsportiva.titulo">
             <div class="icon-align">
@@ -390,7 +384,7 @@
               </ion-label>
             </div>
           </div>
-          <div class="button-group">
+          <!-- <div class="button-group">
             <ion-button
               expand="small"
               class="centered-button meta-button"
@@ -405,7 +399,7 @@
                 ></lucide-angular>
               </div>
             </ion-button>
-          </div>
+          </div> -->
         </li>
       </ul>
     </div>
