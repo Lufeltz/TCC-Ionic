@@ -73,8 +73,6 @@ export class CampeonatoAcoesComponent implements OnInit {
   idCampeonato!: number;
 
   criarTime() {
-
-    // console.log(this.idCampeonato, this.usuarioLogado!.idAcademico)
     this.partidaService
       .criarTimeIndividual(this.idCampeonato, this.usuarioLogado!.idAcademico)
       .subscribe({
@@ -134,7 +132,7 @@ export class CampeonatoAcoesComponent implements OnInit {
   adicionarUsuario(idUsuario: number, time: Time) {
     // console.log("idusuario: ", idUsuario)
     // console.log("time: ", time);
-    
+
     this.partidaService.adicionarUsuarioAoTime(idUsuario, time).subscribe({
       next: (response) => {
         console.log('Usuário adicionado ao time:', response);

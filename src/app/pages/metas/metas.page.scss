@@ -21,12 +21,12 @@ ul {
   margin-bottom: 1rem;
   color: var(--text-white);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
+  
 }
 
 .item-lista:hover {
   background-color: rgba(41, 128, 185, 0.4);
-  transform: translateY(-2px);
+  // transform: translateY(-2px);
 }
 
 .item-lista h3 {
@@ -147,16 +147,16 @@ ul {
 
 .item-lista2:hover {
   background-color: var(--background-hover);
-  transform: translateY(-2px);
+  // transform: translateY(-2px);
 }
 
-.item-lista2 ion-label, .icon-align ion-label {
+.item-lista2 ion-label,
+.icon-align ion-label {
   color: var(--yellow-desc);
 }
 
-ion-label .span-text-white{
+ion-label .span-text-white {
   color: var(--text-white);
-  
 }
 
 .icon-align .text-green {
@@ -194,11 +194,12 @@ ion-input {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
+  // transition: background-color 0.3s, transform 0.3s;
 }
 
 .btn-inscrever-se {
   margin-right: 5px;
+  z-index: 500;
 }
 
 .align-esportivas,
@@ -283,7 +284,6 @@ ion-button {
   border-bottom: 2px solid var(--light-blue);
   border-right: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 .item-lista h3 {
@@ -372,7 +372,7 @@ ion-button {
 
 .icone-texto {
   display: flex;
-  align-items: center;  /* Alinha verticalmente o ícone e o texto */
+  align-items: center; /* Alinha verticalmente o ícone e o texto */
   justify-content: center; /* Alinha horizontalmente o ícone e o texto */
 }
 
@@ -392,9 +392,6 @@ ion-button {
   margin-left: 16px; /* Pode ser ajustado para o espaço entre o conjunto de ícone + texto e o toggle */
 }
 
-
-
-
 .novo-alinhamento-esportivas {
   display: flex;
   justify-content: center;
@@ -413,7 +410,7 @@ ion-button {
 
 .icone-texto-esportivas {
   display: flex;
-  align-items: center;  /* Alinha verticalmente o ícone e o texto */
+  align-items: center; /* Alinha verticalmente o ícone e o texto */
   justify-content: center; /* Alinha horizontalmente o ícone e o texto */
 }
 
@@ -433,7 +430,6 @@ ion-button {
   margin-left: 16px; /* Ajuste o espaço entre o conjunto ícone + texto e o toggle */
 }
 
-
 .icon-completo {
   color: var(--text-new-green) !important; /* Verde para completo */
 }
@@ -450,7 +446,51 @@ ion-button {
   color: var(--light-red);
 }
 
+.listagem-container {
+  padding: 16px;
+}
 
-.listagem-container{
-  // padding: 16px;
+.dropdown-menu {
+  position: absolute;
+  background-color: var(--background-dark);
+  border-radius: 8px;
+  right: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 4px 0;
+  width: 170px;
+  display: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-radius: 5px;
+  border-right: 2px solid var(--text-orange);
+  border-bottom: 2px solid var(--text-orange);
+}
+
+.dropdown-menu.show {
+  display: block;
+  opacity: 1;
+}
+
+.dropdown-menu ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+
+}
+
+.dropdown-menu li {
+  color: var(--text-light);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+  // border-right: 1px solid var(--light-blue);
+}
+
+.dropdown-menu li:hover {
+  background-color: var(--yellow-desc);
+}
+
+.dropdown-menu li:active {
+  background-color: var(--purple-desc);
 }

@@ -4,6 +4,8 @@ import {
   OnInit,
   OnChanges,
   ChangeDetectorRef,
+  ElementRef,
+  Renderer2,
 } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PostService } from 'src/app/services/post.service';
@@ -14,6 +16,7 @@ import { Comentario } from 'src/app/models/comentario.model';
 import {
   ArrowDown,
   ArrowDownToDot,
+  EllipsisVertical,
   LucideAngularModule,
   MessageCircleMore,
   RotateCw,
@@ -26,7 +29,7 @@ import { ModalCurtidasComponent } from '../modal-curtidas/modal-curtidas.compone
 import { FormsModule } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { Academico } from 'src/app/models/academico.model';
-import { PublicacaoService } from 'src/app/services/publicacao.service'; // Importar PublicacaoService
+import { PublicacaoService } from 'src/app/services/publicacao.service';
 import { catchError, debounceTime, EMPTY, Subject, switchMap } from 'rxjs';
 
 @Component({
@@ -55,63 +58,21 @@ export class PostsComponent implements OnInit, OnChanges {
 
   searchedCampeonatos: string = '';
 
-  searchSubject: Subject<string> = new Subject<string>(); // Subject para a pesquisa
+  searchSubject: Subject<string> = new Subject<string>();
 
-  onSearchInput(event: any): void {
-    this.searchedCampeonatos = event.target.value;
-    this.searchSubject.next(this.searchedCampeonatos); // Emite o valor para o Subject
-  }
-  
+  readonly RotateCw = RotateCw;
+  readonly UserRound = UserRound;
+  readonly Star = Star;
+  readonly EllipsisVertical = EllipsisVertical;
+  readonly ArrowDownToDot = ArrowDownToDot;
+  readonly MessageCircleMore = MessageCircleMore;
 
-  // Inscreve-se no subject para debouncing e para realizar a pesquisa
-  subscribeToSearch(): void {
-    this.searchSubject
-      .pipe(
-        debounceTime(3000), // Espera 3 segundos após a última digitação
-        switchMap((searchTerm) => {
-          if (searchTerm.trim() === '') {
-            // Se o termo de pesquisa estiver vazio, lista todos os posts
-            return this.postsService.getAllPosts(this.currentPage, this.pageSize);
-          } else {
-            // Caso contrário, filtra as publicações
-            return this.publicacaoService.filtrarPublicacoes(searchTerm).pipe(
-              catchError((err) => {
-                // Caso de erro (como 404), apenas loga o erro e retorna um array vazio
-                console.error('Erro ao buscar publicações', err);
-                return EMPTY; // Retorna um fluxo vazio em caso de erro
-              })
-            );
-          }
-        })
-      )
-      .subscribe({
-        next: (response) => {
-          // Verifique se a resposta tem a estrutura de PostApiResponse
-          const posts = Array.isArray(response) ? response : response?.content || [];
-          
-          if (posts.length > 0) {
-            const newPosts = posts.map((post: any) => ({
-              ...post,
-              isCurtiu: post.listaUsuarioCurtida.some(
-                (usuario: any) =>
-                  usuario.username === this.usuarioLogado?.username
-              ),
-            }));
-            this.filteredPublications = newPosts; // Atualiza a lista filtrada
-          } else {
-            this.filteredPublications = []; // Se não houver resultados
-          }
-        },
-        error: (err) => {
-          // Tratar erros genéricos caso ocorram fora do catchError
-          console.error('Erro ao buscar publicações', err);
-        },
-      });
-  }
-
-  ngOnChanges() {
-    this.filterPublications();
-  }
+  constructor(
+    private postsService: PostService,
+    private comentarioService: ComentarioService,
+    private authService: AuthService,
+    private publicacaoService: PublicacaoService
+  ) {}
 
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();
@@ -123,18 +84,114 @@ export class PostsComponent implements OnInit, OnChanges {
     this.subscribeToSearch();
   }
 
-  readonly RotateCw = RotateCw;
-  readonly UserRound = UserRound;
-  readonly Star = Star;
-  readonly ArrowDownToDot = ArrowDownToDot;
-  readonly MessageCircleMore = MessageCircleMore;
+  menuVisible: Boolean = false;
+  menuVisibilityPublicacao: { [key: number]: boolean } = {};
 
-  constructor(
-    private postsService: PostService,
-    private comentarioService: ComentarioService,
-    private authService: AuthService,
-    private publicacaoService: PublicacaoService
-  ) {}
+  toggleMenuPublicacao(publicacaoId: number): void {
+    for (const id in this.menuVisibilityPublicacao) {
+      if (Number(id) !== publicacaoId) {
+        this.menuVisibilityPublicacao[id] = false;
+      }
+    }
+
+    this.menuVisibilityPublicacao[publicacaoId] =
+      !this.menuVisibilityPublicacao[publicacaoId];
+  }
+
+  editarPublicacao(publicacaoId: number): void {
+    console.log('Editando a publicação...', publicacaoId);
+
+    this.menuVisibilityPublicacao[publicacaoId] = false;
+  }
+
+  deletarPublicacao(publicacaoId: number): void {
+    console.log('Deletando publicacao...', publicacaoId);
+
+    this.menuVisibilityPublicacao[publicacaoId] = false;
+  }
+
+  menuVisibilityComentario: { [key: number]: boolean } = {}; // Para visibilidade dos menus de comentários
+
+  toggleMenuComentario(comentarioId: number): void {
+    // Fecha todos os outros menus de comentário
+    for (const id in this.menuVisibilityComentario) {
+      if (Number(id) !== comentarioId) {
+        this.menuVisibilityComentario[id] = false;
+      }
+    }
+
+    // Alterna a visibilidade do menu de comentário
+    this.menuVisibilityComentario[comentarioId] =
+      !this.menuVisibilityComentario[comentarioId];
+  }
+
+  editarComentario(comentarioId: number): void {
+    console.log('Editando comentário...', comentarioId);
+
+    // Fechar o menu após a ação
+    this.menuVisibilityComentario[comentarioId] = false;
+  }
+
+  deletarComentario(comentarioId: number): void {
+    console.log('Deletando comentário...', comentarioId);
+
+    // Fechar o menu após a ação
+    this.menuVisibilityComentario[comentarioId] = false;
+  }
+
+  onSearchInput(event: any): void {
+    this.searchedCampeonatos = event.target.value;
+    this.searchSubject.next(this.searchedCampeonatos);
+  }
+
+  subscribeToSearch(): void {
+    this.searchSubject
+      .pipe(
+        debounceTime(3000),
+        switchMap((searchTerm) => {
+          if (searchTerm.trim() === '') {
+            return this.postsService.getAllPosts(
+              this.currentPage,
+              this.pageSize
+            );
+          } else {
+            return this.publicacaoService.filtrarPublicacoes(searchTerm).pipe(
+              catchError((err) => {
+                console.error('Erro ao buscar publicações', err);
+                return EMPTY;
+              })
+            );
+          }
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          const posts = Array.isArray(response)
+            ? response
+            : response?.content || [];
+
+          if (posts.length > 0) {
+            const newPosts = posts.map((post: any) => ({
+              ...post,
+              isCurtiu: post.listaUsuarioCurtida.some(
+                (usuario: any) =>
+                  usuario.username === this.usuarioLogado?.username
+              ),
+            }));
+            this.filteredPublications = newPosts;
+          } else {
+            this.filteredPublications = [];
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao buscar publicações', err);
+        },
+      });
+  }
+
+  ngOnChanges() {
+    this.filterPublications();
+  }
 
   filterPublications() {
     const searchTerm = this.searchedPosts.toLowerCase();
@@ -244,31 +301,31 @@ export class PostsComponent implements OnInit, OnChanges {
 
   listarPosts() {
     if (this.searchedCampeonatos.trim()) {
-      // Se houver filtro (pesquisa), use o serviço filtrarPublicacoes
-      this.publicacaoService.filtrarPublicacoes(this.searchedCampeonatos).subscribe(
-        (posts: any[]) => {
-          if (posts && posts.length > 0) {
-            const newPosts = posts.map((post) => ({
-              ...post,
-              isCurtiu: post.listaUsuarioCurtida.some(
-                (usuario: any) =>
-                  usuario.username === this.usuarioLogado?.username
-              ),
-            }));
-            this.filteredPublications = [
-              ...this.filteredPublications,
-              ...newPosts,
-            ];
-            this.currentPage++; // Atualiza a página
-            this.listarComentarios();
+      this.publicacaoService
+        .filtrarPublicacoes(this.searchedCampeonatos)
+        .subscribe(
+          (posts: any[]) => {
+            if (posts && posts.length > 0) {
+              const newPosts = posts.map((post) => ({
+                ...post,
+                isCurtiu: post.listaUsuarioCurtida.some(
+                  (usuario: any) =>
+                    usuario.username === this.usuarioLogado?.username
+                ),
+              }));
+              this.filteredPublications = [
+                ...this.filteredPublications,
+                ...newPosts,
+              ];
+              this.currentPage++;
+              this.listarComentarios();
+            }
+          },
+          (err) => {
+            console.error('Erro ao carregar posts filtrados', err);
           }
-        },
-        (err) => {
-          console.error('Erro ao carregar posts filtrados', err);
-        }
-      );
+        );
     } else {
-      // Se não houver filtro (pesquisa), use o serviço de buscar posts normalmente
       this.postsService.getAllPosts(this.currentPage, this.pageSize).subscribe(
         (response: PostApiResponse) => {
           if (response && response.content.length > 0) {
@@ -283,7 +340,7 @@ export class PostsComponent implements OnInit, OnChanges {
               ...this.filteredPublications,
               ...newPosts,
             ];
-            this.currentPage++; // Atualiza a página
+            this.currentPage++;
             this.listarComentarios();
           }
         },
@@ -293,34 +350,34 @@ export class PostsComponent implements OnInit, OnChanges {
       );
     }
   }
-  
+
   listarMaisPosts(): void {
     if (this.searchedCampeonatos.trim()) {
-      // Se houver filtro (pesquisa), usa o serviço de filtrar publicações
-      this.publicacaoService.filtrarPublicacoes(this.searchedCampeonatos).subscribe(
-        (posts: any[]) => {
-          if (posts && posts.length > 0) {
-            const newPosts = posts.map((post) => ({
-              ...post,
-              isCurtiu: post.listaUsuarioCurtida.some(
-                (usuario: any) =>
-                  usuario.username === this.usuarioLogado?.username
-              ),
-            }));
-            this.filteredPublications = [
-              ...this.filteredPublications,
-              ...newPosts,
-            ];
-            this.currentPage++; // Atualiza a página para carregar mais posts filtrados
-            this.listarComentarios(); // Atualiza os comentários se necessário
+      this.publicacaoService
+        .filtrarPublicacoes(this.searchedCampeonatos)
+        .subscribe(
+          (posts: any[]) => {
+            if (posts && posts.length > 0) {
+              const newPosts = posts.map((post) => ({
+                ...post,
+                isCurtiu: post.listaUsuarioCurtida.some(
+                  (usuario: any) =>
+                    usuario.username === this.usuarioLogado?.username
+                ),
+              }));
+              this.filteredPublications = [
+                ...this.filteredPublications,
+                ...newPosts,
+              ];
+              this.currentPage++;
+              this.listarComentarios();
+            }
+          },
+          (err) => {
+            console.error('Erro ao carregar mais posts filtrados', err);
           }
-        },
-        (err) => {
-          console.error('Erro ao carregar mais posts filtrados', err);
-        }
-      );
+        );
     } else {
-      // Se não houver filtro (pesquisa), carrega posts normalmente
       this.postsService.getAllPosts(this.currentPage, this.pageSize).subscribe(
         (response: PostApiResponse) => {
           if (response && response.content.length > 0) {
@@ -335,8 +392,8 @@ export class PostsComponent implements OnInit, OnChanges {
               ...this.filteredPublications,
               ...newPosts,
             ];
-            this.currentPage++; // Atualiza a página para carregar mais posts
-            this.listarComentarios(); // Atualiza os comentários se necessário
+            this.currentPage++;
+            this.listarComentarios();
           }
         },
         (err) => {
@@ -345,7 +402,6 @@ export class PostsComponent implements OnInit, OnChanges {
       );
     }
   }
-  
 
   listarComentarios() {
     this.filteredPublications.forEach((publicacao) => {
@@ -426,7 +482,7 @@ export class PostsComponent implements OnInit, OnChanges {
       (comentarioCriado) => {
         if (comentarioCriado) {
           publicacao.listaComentario.push(comentarioCriado);
-          this.novoComentario[publicacao.idPublicacao] = ''; // Limpa o campo de comentário
+          this.novoComentario[publicacao.idPublicacao] = '';
         }
       },
       (err) => {

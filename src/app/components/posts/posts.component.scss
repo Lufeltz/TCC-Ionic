@@ -62,8 +62,8 @@ li {
   margin-bottom: 8px;
   color: var(--text-green);
   cursor: pointer;
-  position: relative; /* Add this line */
-  z-index: 10; /* Add a higher z-index */
+  position: relative;
+  z-index: 10;
 }
 
 .curtidas-info ion-icon {
@@ -173,6 +173,7 @@ ion-item {
 
 .btn-inscrever-se {
   margin-left: 5px;
+  z-index: 500;
 }
 
 .icon-button .text-container {
@@ -223,16 +224,15 @@ ion-button {
   color: gray;
 }
 .yellow-desc {
-  color: var(--yellow-desc); /* Use the same yellow as the star icon */
+  color: var(--yellow-desc);
 }
 
-/* Manter o sublinhado no texto das curtidas, mesmo quando a estrela é dourada */
 .link-curtidas {
-  color: var(--text-highlight); /* Cor normal para o texto */
-  text-decoration: underline; /* Texto sublinhado */
-  cursor: pointer; /* Cursor de pointer */
-  margin-left: 8px; /* Pequeno espaçamento */
-  font-size: 14px; /* Tamanho da fonte */
+  color: var(--text-highlight);
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 8px;
+  font-size: 14px;
 }
 
 .text-gray {
@@ -240,17 +240,15 @@ ion-button {
 }
 
 .yellow-desc {
-  color: var(--yellow-desc); /* Cor dourada */
+  color: var(--yellow-desc);
 }
 
-/* Manter o sublinhado para a estrela dourada também */
 .curtidas-info .yellow-desc {
-  text-decoration: underline !important; /* Força o sublinhado quando a estrela é dourada */
+  text-decoration: underline !important;
 }
 
-/* Manter o sublinhado para os comentários também */
 .comentario-curtidas span {
-  text-decoration: underline; /* Texto sublinhado */
+  text-decoration: underline;
 }
 
 .comentario-input-container {
@@ -261,29 +259,29 @@ ion-button {
 
 .comentario-card {
   background-color: var(--background-light);
-  padding: 16px; /* Adicionado padding ao card */
+  padding: 16px;
   border-radius: 8px;
   border-right: 2px solid var(--text-orange);
   border-bottom: 2px solid var(--text-orange);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   margin-top: 16px;
   display: flex;
-  flex-direction: column; /* Garantir que os elementos fiquem em coluna */
-  align-items: center; /* Centralizar os elementos dentro do card */
-  justify-content: flex-start; /* Certificar-se de que o conteúdo comece do topo */
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .comentario-input {
-  width: 100%; /* Garantir que o input ocupe toda a largura do card */
+  width: 100%;
   padding: 8px;
-  height: 10rem; /* Aumentar a altura do input */
+  height: 10rem;
   border: none;
   border-radius: 4px;
   background-color: var(--background-dark);
   color: var(--text-white);
   font-size: 14px;
-  margin-bottom: 8px; /* Adicionar espaçamento entre o input e o botão */
-  --placeholder-color: rgba(255, 255, 255, 0.7); /* Placeholder styling */
+  margin-bottom: 8px;
+  --placeholder-color: rgba(255, 255, 255, 0.7);
   --placeholder-font-style: italic;
 }
 
@@ -298,25 +296,24 @@ ion-button {
 }
 
 .comentar-button {
-  width: auto; /* O botão agora tem largura automática */
-  padding: 8px 16px; /* Define padding adequado ao tamanho do texto */
+  width: auto;
+  padding: 8px 16px;
   background-color: var(--text-white);
   color: var(--background-dark);
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  display: block; /* Garante que o botão seja um bloco */
-  margin-top: 8px; /* Adicionado espaçamento entre o input e o botão */
-  align-self: center; /* Alinha o botão à direita */
+  display: block;
+  margin-top: 8px;
+  align-self: center;
 }
 
 .comentar-button:hover {
-  // background-color: var(--highlight-color); /* Mudar para cor de hover */
+  // background-color: var(--highlight-color);
   color: var(--background-dark);
 }
 
-/* Adicionar estilos específicos para textarea */
 textarea.styled-textarea {
   background-color: var(--background-dark);
   border-radius: 5px;
@@ -328,7 +325,7 @@ textarea.styled-textarea {
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   transition: background-color 0.3s, transform 0.3s;
   width: 100%;
-  height: 4rem; /* Altura ajustada */
+  height: 4rem;
   resize: none;
 }
 
@@ -342,11 +339,9 @@ textarea.styled-textarea:focus {
   outline: none;
 }
 
-/* Específico para textarea do título */
 textarea.styled-textarea.titulo-input {
-  height: 5rem; /* Altura ajustada */
+  height: 5rem;
 }
-
 
 p {
   color: var(--text-orange);
@@ -361,18 +356,17 @@ p {
   color: var(--text-new-green);
 }
 
-/* Remover hover, focus e active do ion-item e ion-label dentro da classe comentarios-header */
-.comentarios-header:hover, 
-.comentarios-header:focus, 
+.comentarios-header:hover,
+.comentarios-header:focus,
 .comentarios-header:active {
-  background-color: transparent;  /* Garantir que o fundo não mude em nenhuma dessas ações */
-  color: var(--light-blue); /* Garantir que a cor não mude */
+  background-color: transparent;
+  color: var(--light-blue);
 }
 
-.comentarios-header ion-label:hover, 
-.comentarios-header ion-label:focus, 
+.comentarios-header ion-label:hover,
+.comentarios-header ion-label:focus,
 .comentarios-header ion-label:active {
-  color: var(--light-blue); /* Garantir que a cor do label também não mude */
+  color: var(--light-blue);
 }
 
 ion-searchbar {
@@ -380,3 +374,44 @@ ion-searchbar {
   --background: var(--background-dark);
   margin-top: -1rem;
 }
+
+.dropdown-menu {
+  position: absolute;
+  background-color: var(--background-dark);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 4px 0;
+  width: 170px;
+  display: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.dropdown-menu.show {
+  display: block;
+  opacity: 1;
+}
+
+
+.dropdown-menu ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.dropdown-menu li {
+  color: var(--text-light);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-menu li:hover {
+  background-color: var(--yellow-desc);
+}
+
+.dropdown-menu li:active {
+  background-color: var(--purple-desc);
+}
+

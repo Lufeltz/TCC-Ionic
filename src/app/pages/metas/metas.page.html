@@ -163,6 +163,28 @@
             >
             <div class="align-diarias">
               <span class="texto-light">Diárias</span>
+              <lucide-angular
+                [img]="EllipsisVertical"
+                class="btn-inscrever-se"
+                [size]="20"
+                color="var(--yellow-desc)"
+                (click)="toggleMenuMetaDiaria(meta.idMetaDiaria)"
+              ></lucide-angular>
+
+              <!-- Menu suspenso -->
+              <div
+                [class.show]="menuVisibilityMetaDiaria[meta.idMetaDiaria]"
+                class="dropdown-menu"
+              >
+                <ul>
+                  <li (click)="editarMetaDiaria(meta.idMetaDiaria)">
+                    Editar Meta Diária
+                  </li>
+                  <li (click)="deletarMetaDiaria(meta.idMetaDiaria)">
+                    Deletar Meta Diária
+                  </li>
+                </ul>
+              </div>
             </div>
           </h3>
           <div *ngIf="meta.titulo">
@@ -269,7 +291,34 @@
                 getModalidadeName(conquista.metaEsportiva.idModalidadeEsportiva)
                 || 'Desconhecida' }}
               </span>
+              <lucide-angular
+                [img]="EllipsisVertical"
+                class="btn-inscrever-se"
+                [size]="20"
+                color="var(--light-red)"
+                (click)="toggleMenuConquista(conquista.metaEsportiva.idModalidadeEsportiva, conquista.idConquista)"
+              ></lucide-angular>
+
+              <!-- Menu suspenso -->
+              <div
+              [class.show]="menuVisibilityConquista['conquista_' + conquista.metaEsportiva.idModalidadeEsportiva + '_' + conquista.idConquista]"
+                class="dropdown-menu"
+              >
+                <ul>
+                  <li
+                    (click)="editarConquista(conquista.metaEsportiva.idModalidadeEsportiva, conquista.idConquista)"
+                  >
+                    Editar Conquista
+                  </li>
+                  <li
+                    (click)="deletarConquista(conquista.metaEsportiva.idModalidadeEsportiva, conquista.idConquista)"
+                  >
+                    Deletar Conquista
+                  </li>
+                </ul>
+              </div>
             </div>
+            
           </h3>
           <div *ngIf="conquista.metaEsportiva.titulo">
             <div class="icon-align">
