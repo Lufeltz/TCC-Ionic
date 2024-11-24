@@ -17,7 +17,7 @@ import {
   IonSearchbar,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { lockClosed, lockOpen } from 'ionicons/icons';
+import { lockClosed, lockOpen, thumbsUpSharp } from 'ionicons/icons';
 import { NgxMaskPipe } from 'ngx-mask';
 import { AlertController } from '@ionic/angular';
 import {
@@ -62,6 +62,7 @@ import { Time } from 'src/app/models/time.model';
 import { PartidaService } from 'src/app/services/partida.service';
 import { Jogador } from 'src/app/models/jogador.model';
 import { JogadorResponse } from 'src/app/models/jogador-response.model';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-listagem-campeonatos',
@@ -121,16 +122,15 @@ export class ListagemCampeonatosComponent implements OnInit {
   pageSize: number = 5;
   totalPages: number = 0;
 
-
   searchedCampeonatos: string = ''; // Variável que armazenará o valor da pesquisa
   searchSubject: Subject<string> = new Subject<string>();
 
   loading: boolean = true;
   times: Time[] = [];
-  jogadores: Jogador[] = []
+  jogadores: Jogador[] = [];
   timesPorCampeonato: { [idCampeonato: number]: Time[] } = {};
   jogadoresPorCampeonato: { [idCampeonato: number]: Jogador[] } = [];
-  error: string = '';  // Mensagem de erro
+  error: string = ''; // Mensagem de erro
 
   // Outros métodos e propriedades do componente
 
@@ -140,14 +140,17 @@ export class ListagemCampeonatosComponent implements OnInit {
     private alertController: AlertController,
     private campeonatoService: CampeonatoService,
     private modalidadeService: ModalidadesService,
-    private partidaService: PartidaService
+    private partidaService: PartidaService,
+    private authService: AuthService
   ) {}
 
-
   ngOnInit() {
+    this.academico = this.authService.getUser();
     this.loadModalidades();
-    this.listarCampeonatos();
     this.subscribeToSearch();
+    if (this.academico) {
+      this.listarCampeonatos();
+    }
     // this.listarTimesPorCampeonato(1)
     // this.listarJogadoresPorCampeonato(1)
   }
@@ -164,10 +167,10 @@ export class ListagemCampeonatosComponent implements OnInit {
       error: (err) => {
         this.error = 'Erro ao carregar os times.';
         this.loading = false;
-      }
+      },
     });
   }
-  
+
   listarJogadoresPorCampeonato(idCampeonato: number): void {
     this.loading = true;
     this.partidaService.listarJogadores(idCampeonato).subscribe({
@@ -180,44 +183,121 @@ export class ListagemCampeonatosComponent implements OnInit {
       error: (err) => {
         this.error = 'Erro ao carregar os jogadores.';
         this.loading = false;
-      }
+      },
     });
   }
-  
-  listarCampeonatos(): void {
-    this.campeonatoService
-      .getAllCampeonatos(this.currentPage, this.pageSize)
-      .subscribe({
-        next: (data: any) => {
-          this.loading = false; // Define loading como falso quando os dados são recebidos
-          if (data.content == null) {
-            this.campeonatos = [];
-          } else {
-            if (this.currentPage === 0) {
-              this.campeonatos = data.content;
-              console.log(this.campeonatos);
-            } else {
-              this.campeonatos = [...this.campeonatos, ...data.content]; // Concatenando os novos dados
-            }
-  
-            // Chamar os métodos de times e jogadores para cada campeonato
-            this.campeonatos.forEach(campeonato => {
-              this.listarTimesPorCampeonato(campeonato.idCampeonato);
-              this.listarJogadoresPorCampeonato(campeonato.idCampeonato);
-            });
-  
-            this.totalPages = data.totalPages;
-          }
-        },
-        error: (err) => {
-          this.loading = false; // Define loading como falso em caso de erro
-          this.mensagem = 'Erro buscando lista de campeonatos';
-          this.mensagem_detalhes = `[${err.status} ${err.message}]`;
-        },
-      });
-  }
-  
 
+  listarCampeonatos(): void {
+    this.academico = this.authService.getUser();
+    if (this.academico) {
+      this.loading = true; // Define loading como verdadeiro enquanto os dados estão sendo carregados
+
+      // Carrega os campeonatos com base na página inicial
+      this.campeonatoService
+        .getCampeonatosPorModalidadeAcademico(
+          this.academico.idAcademico, // Passa o id do acadêmico
+          0, // Página inicial (sempre começa do 0)
+          this.pageSize, // Tamanho da página
+          'dataCriacao,desc' // Ordena pela data de criação (descendente)
+        )
+        .subscribe({
+          next: (data: any) => {
+            this.loading = false; // Define loading como falso quando os dados são recebidos
+
+            if (data.content && data.content.length > 0) {
+              // Apenas atualiza a lista de campeonatos
+              this.campeonatos = data.content;
+              this.totalPages = data.totalPages; // Atualiza o número total de páginas
+              this.currentPage = 1; // Começa a contagem a partir de 1
+            } else {
+              console.log('Não há campeonatos disponíveis.');
+              this.campeonatos = [];
+            }
+          },
+          error: (err) => {
+            this.loading = false; // Define loading como falso em caso de erro
+            this.mensagem = 'Erro buscando lista de campeonatos';
+            this.mensagem_detalhes = `[${err.status} ${err.message}]`;
+          },
+        });
+    } else {
+      console.error('Usuário não logado');
+      this.loading = false;
+    }
+  }
+
+  listarMaisCampeonatos(): void {
+    this.academico = this.authService.getUser();
+    if (this.academico) {
+      if (this.loading) return; // Evita múltiplos carregamentos simultâneos
+
+      this.loading = true; // Define loading como verdadeiro enquanto os dados estão sendo carregados
+
+      // Carrega mais campeonatos com base na página atual
+      this.campeonatoService
+        .getCampeonatosPorModalidadeAcademico(
+          this.academico.idAcademico, // Passa o id do acadêmico
+          this.currentPage, // Página atual
+          this.pageSize, // Tamanho da página
+          'dataCriacao,desc' // Ordena pela data de criação (descendente)
+        )
+        .subscribe({
+          next: (data: any) => {
+            this.loading = false; // Define loading como falso quando os dados são recebidos
+
+            if (data.content && data.content.length > 0) {
+              // Concatenando os novos campeonatos com os existentes
+              this.campeonatos = [...this.campeonatos, ...data.content];
+              this.currentPage++; // Atualiza a página para carregar mais campeonatos
+              this.totalPages = data.totalPages; // Atualiza o número total de páginas
+            } else {
+              console.log('Não há mais campeonatos para carregar.');
+            }
+          },
+          error: (err) => {
+            this.loading = false; // Define loading como falso em caso de erro
+            this.mensagem = 'Erro buscando mais campeonatos';
+            this.mensagem_detalhes = `[${err.status} ${err.message}]`;
+          },
+        });
+    } else {
+      console.error('Usuário não logado');
+      this.loading = false;
+    }
+  }
+
+  // listarCampeonatos(): void {
+  //   this.campeonatoService
+  //     .getAllCampeonatos(this.currentPage, this.pageSize)
+  //     .subscribe({
+  //       next: (data: any) => {
+  //         this.loading = false; // Define loading como falso quando os dados são recebidos
+  //         if (data.content == null) {
+  //           this.campeonatos = [];
+  //         } else {
+  //           if (this.currentPage === 0) {
+  //             this.campeonatos = data.content;
+  //             console.log(this.campeonatos);
+  //           } else {
+  //             this.campeonatos = [...this.campeonatos, ...data.content]; // Concatenando os novos dados
+  //           }
+
+  //           // Chamar os métodos de times e jogadores para cada campeonato
+  //           this.campeonatos.forEach(campeonato => {
+  //             this.listarTimesPorCampeonato(campeonato.idCampeonato);
+  //             this.listarJogadoresPorCampeonato(campeonato.idCampeonato);
+  //           });
+
+  //           this.totalPages = data.totalPages;
+  //         }
+  //       },
+  //       error: (err) => {
+  //         this.loading = false; // Define loading como falso em caso de erro
+  //         this.mensagem = 'Erro buscando lista de campeonatos';
+  //         this.mensagem_detalhes = `[${err.status} ${err.message}]`;
+  //       },
+  //     });
+  // }
 
   // Inscreve-se no subject para debouncing e para realizar a pesquisa
   subscribeToSearch(): void {
@@ -260,14 +340,11 @@ export class ListagemCampeonatosComponent implements OnInit {
     this.searchSubject.next(this.searchedCampeonatos); // Emite o valor para o Subject
   }
 
-
   getLockColor(privacidade: string): string {
     return privacidade === 'PRIVADO'
       ? 'var(--light-red)'
       : 'var(--text-new-green)'; // 'red' para 'privado', 'green' para 'público'
   }
-
-
 
   loadModalidades(): void {
     this.modalidadeService.getAllModalidades().subscribe({
@@ -308,7 +385,6 @@ export class ListagemCampeonatosComponent implements OnInit {
     );
     return modalidade ? modalidade.nome : 'Modalidade não encontrada'; // Retorna o nome ou uma mensagem de erro
   }
-
 
   loadMore(): void {
     if (this.currentPage < this.totalPages - 1) {

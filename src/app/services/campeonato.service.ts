@@ -208,6 +208,37 @@ export class CampeonatoService {
       );
   }
 
+  getCampeonatosPorModalidadeAcademico(
+    idAcademico: number,
+    page: number,
+    size: number,
+    sort: string = 'dataCriacao,desc' // Definindo um valor padrão para sort
+  ): Observable<Campeonato[] | null> {
+    return this._http
+      .get<Campeonato[]>(
+        `${this.NEW_URL}/${idAcademico}/listar?page=${page}&size=${size}&sort=${sort}`, // Corrigido a URL
+        this.getHttpOptions()
+      )
+      .pipe(
+        map((resp: HttpResponse<Campeonato[]>) => {
+          if (resp.status === 200) {
+            return resp.body;
+          } else {
+            return [];
+          }
+        }),
+        catchError((err) => {
+          if (err.status === 404) {
+            return of([]); // Retorna um array vazio se não encontrar resultados
+          } else {
+            return throwError(() => err); // Lança o erro se for outro tipo de falha
+          }
+        })
+      );
+  }
+  
+  
+
   getAllCampeonatos(
     page: number,
     size: number
