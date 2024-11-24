@@ -3,7 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IonButton } from '@ionic/angular/standalone';
-import { LucideAngularModule, SquarePen } from 'lucide-angular';
+import {
+  Flag,
+  LucideAngularModule,
+  SquarePen,
+  User,
+  Users,
+} from 'lucide-angular';
 import { Academico } from 'src/app/models/academico.model';
 import { Campeonato } from 'src/app/models/campeonato.model';
 import { JogadorResponse } from 'src/app/models/jogador-response.model';
@@ -25,6 +31,9 @@ export class CampeonatoStatusComponent implements OnInit {
   mapaTimes: Map<number, string> = new Map(); // Mapa para associar idTime ao nome do time
 
   readonly SquarePen = SquarePen;
+  readonly Flag = Flag;
+  readonly Users = Users;
+  readonly User = User;
 
   codigo: string = '';
   loading: boolean = true;
@@ -54,6 +63,15 @@ export class CampeonatoStatusComponent implements OnInit {
     });
   }
 
+
+  formatarSituacaoCampeonato(situacao: string): string {
+    // Substitui os underscores por espaços e capitaliza a primeira letra de cada palavra
+    return situacao
+      .toLowerCase() // Converte toda a string para minúsculas
+      .replace(/_/g, ' ') // Substitui os underscores por espaços
+      .replace(/\b\w/g, (match) => match.toUpperCase()); // Capitaliza a primeira letra de cada palavra
+  }
+  
   // Função para verificar se a partida final foi concluída e tem um vencedor
   hasVencedor(): boolean {
     const finalPartida = this.getEtapa('FINAL')[0]; // Obtemos a primeira partida da final

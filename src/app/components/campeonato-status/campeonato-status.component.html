@@ -1,12 +1,51 @@
 <div class="campeonatos-container">
   <h3 *ngIf="campeonato">{{ campeonato.titulo }}</h3>
   <div>...</div>
-  <p *ngIf="campeonato">Status: {{ campeonato.situacaoCampeonato }}</p>
-  <p>Total de Times: {{ times.length }} / {{ campeonato!.limiteTimes }}</p>
-  <p *ngIf="campeonato && times">
-    Total de Participantes: {{ size }} /
-    {{ (campeonato.limiteParticipantes || 0) * (campeonato.limiteTimes || 0) }}
-  </p>
+  <div class="icon-align">
+    <lucide-angular
+      [img]="Flag"
+      class="btn-inscrever-se"
+      [size]="20"
+      [color]="'var(--purple-desc)'"
+    ></lucide-angular>
+    <p *ngIf="campeonato">
+      <strong>Status: </strong>
+      <span>{{
+        formatarSituacaoCampeonato(campeonato.situacaoCampeonato)
+      }}</span>
+    </p>
+  </div>
+
+  <div class="icon-align">
+    <lucide-angular
+      [img]="Users"
+      class="btn-inscrever-se"
+      [size]="20"
+      [color]="'var(--purple-desc)'"
+    ></lucide-angular>
+    <p>
+      <strong>Total de Times: </strong>
+      <span>{{ times.length }} / {{ campeonato!.limiteTimes }}</span>
+    </p>
+  </div>
+
+  <div class="icon-align">
+    <lucide-angular
+      [img]="User"
+      class="btn-inscrever-se"
+      [size]="20"
+      [color]="'var(--purple-desc)'"
+    ></lucide-angular>
+    <p *ngIf="campeonato && times">
+      <strong>Total de Participantes: </strong>
+      <span
+        >{{ size }} /
+        {{
+          (campeonato.limiteParticipantes || 0) * (campeonato.limiteTimes || 0)
+        }}
+      </span>
+    </p>
+  </div>
 
   <ion-button
     *ngIf="!isCampeonatoIniciado"
@@ -221,6 +260,5 @@
         <h6>{{ vencedorNome }}</h6>
       </div>
     </li>
-    
   </ul>
 </div>

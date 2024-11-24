@@ -13,6 +13,16 @@ body {
 //   width: 80%; /* Limita a largura do componente principal para 80% */
 // }
 
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+p span {
+  color: var(--text-white);
+}
+
 .card-container {
   display: flex;
   flex-direction: column; /* Muda a direção para coluna */
@@ -124,7 +134,7 @@ li {
 
 .icon-align p {
   margin: 0;
-  color: var(--yellow-desc);
+  color: var(--purple-desc);
   font-size: 1rem;
 }
 

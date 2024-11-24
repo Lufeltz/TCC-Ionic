@@ -5,6 +5,7 @@ import { CaseUpper, CircleX, Key, LucideAngularModule, Save } from 'lucide-angul
 import { IonButton, IonLabel, IonInput } from '@ionic/angular/standalone';
 import { CriarTime } from 'src/app/models/criar-time.model';
 import { PartidaService } from 'src/app/services/partida.service';
+import { Campeonato } from 'src/app/models/campeonato.model';
 
 @Component({
   selector: 'app-modal-criar-time',
@@ -22,6 +23,7 @@ import { PartidaService } from 'src/app/services/partida.service';
 })
 export class ModalCriarTimeComponent implements OnInit {
   @Input() idCampeonato!: number; // Recebe o ID do campeonato
+  @Input() campeonato!: Campeonato | null; // Recebe o ID do campeonato
   @Output() close = new EventEmitter<void>(); // Evento para fechar o modal
 
   time: CriarTime = new CriarTime(); // Inicializa o objeto time com um valor padrão

@@ -19,7 +19,7 @@
   </div>
 </h3>
 
-<div class="criar-post">
+<div class="criar-post" *ngIf="campeonato?.limiteParticipantes !== 1">
   <ion-button size="small" (click)="abrirModalEditar()">
     <div class="icon-align">
       Criar Time
@@ -31,7 +31,7 @@
   ></ion-button>
 </div>
 
-<div class="criar-post">
+<div class="criar-post" *ngIf="campeonato?.limiteParticipantes === 1">
   <ion-button size="small" (click)="criarTime()">
     <div class="icon-align">
       Criar Time Individual
@@ -58,7 +58,10 @@
             [color]="'var(--yellow-desc)'"
             (click)="toggleMenu()"
           ></lucide-angular>
-          <p>Jogadores: {{ jogadoresPorTime[time.idTime]?.length || 0 }} / {{ campeonato?.limiteParticipantes }}</p>
+          <p>
+            Jogadores: {{ jogadoresPorTime[time.idTime]?.length || 0 }} /
+            {{ campeonato?.limiteParticipantes }}
+          </p>
         </div>
       </div>
 
@@ -71,7 +74,10 @@
             <ul>
               <!-- Exibindo os jogadores do time -->
               <li *ngFor="let jogador of jogadoresPorTime[time.idTime]">
-                <div class="icon-align"  (click)="navegarParaPerfil(jogador.username)">
+                <div
+                  class="icon-align"
+                  (click)="navegarParaPerfil(jogador.username)"
+                >
                   <div>
                     <lucide-angular
                       [img]="User"
@@ -91,7 +97,10 @@
               </li>
             </ul>
             <div class="criar-post">
-              <ion-button size="small" (click)="adicionarUsuario(usuarioLogado!.idAcademico, time)">
+              <ion-button
+                size="small"
+                (click)="adicionarUsuario(usuarioLogado!.idAcademico, time)"
+              >
                 <div class="icon-align">
                   Inscrever-se
                   <lucide-angular
@@ -108,10 +117,10 @@
   </ul>
 </div>
 
-
 <app-modal-criar-time
   *ngIf="modalEditarVisivel"
   [idCampeonato]="idCampeonato"
+  [campeonato]="campeonato"
   (close)="fecharModal()"
 >
 </app-modal-criar-time>
