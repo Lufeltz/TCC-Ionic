@@ -10,6 +10,8 @@ import { Campeonato } from '../models/campeonato.model';
 import { CampeonatoCriacao } from '../models/campeonato-criacao.model';
 import { Avaliacao } from '../models/avaliacao.model';
 import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
+import { Jogador } from '../models/jogador.model';
+import { JogadorResponse } from '../models/jogador-response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -38,6 +40,37 @@ export class CampeonatoService {
       headers: headers,
       observe: 'response' as 'response',
     };
+  }
+
+  getJogadoresEnfrentados(
+    idAcademico: number,
+    page: number,
+    size: number,
+    sort: string = 'dataCriacao,desc' // Valor padrão para sort
+  ): Observable<JogadorResponse | null> {
+    // Alterado para retornar um único objeto JogadorResponse
+    return this._http
+      .get<JogadorResponse>( // Aqui, você espera um único JogadorResponse, não um array
+        `${this.NEW_URL}/${idAcademico}/jogadores-enfrentados?page=${page}&size=${size}&sort=${sort}`,
+        this.getHttpOptions()
+      )
+      .pipe(
+        map((resp: HttpResponse<JogadorResponse>) => {
+          // Alterado para tratar a resposta como JogadorResponse
+          if (resp.status === 200) {
+            return resp.body; // Retorna os dados do corpo da resposta
+          } else {
+            return null; // Retorna null caso não tenha sucesso
+          }
+        }),
+        catchError((err) => {
+          if (err.status === 404) {
+            return of(null); // Retorna null se a resposta for 404
+          } else {
+            return throwError(() => err); // Lança erro para outros tipos de falha
+          }
+        })
+      );
   }
 
   // Novo método para filtrar campeonatos por código
@@ -236,8 +269,6 @@ export class CampeonatoService {
         })
       );
   }
-  
-  
 
   getAllCampeonatos(
     page: number,

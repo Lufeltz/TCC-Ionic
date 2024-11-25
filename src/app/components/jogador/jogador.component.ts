@@ -26,6 +26,10 @@ import { IonButton, IonSearchbar } from '@ionic/angular/standalone';
 import { EstatisticaModalidade } from 'src/app/models/estatistica-modalidade.model';
 import { FormsModule } from '@angular/forms';
 import { debounceTime, Subject, switchMap } from 'rxjs';
+import { ConteudoVazioComponent } from '../conteudo-vazio/conteudo-vazio.component';
+import { CampeonatoService } from 'src/app/services/campeonato.service';
+import { Jogador } from 'src/app/models/jogador.model';
+import { JogadorResponse } from 'src/app/models/jogador-response.model';
 
 @Component({
   selector: 'app-jogador',
@@ -38,18 +42,24 @@ import { debounceTime, Subject, switchMap } from 'rxjs';
     CommonModule,
     LucideAngularModule,
     FormsModule,
+    ConteudoVazioComponent,
   ],
 })
 export class JogadorComponent implements OnInit, OnChanges {
   @Input() searchedJogadores!: string;
   academicos: Academico[] = [];
-  public filteredJogadores: Academico[] = [];
+  public filteredJogadores: Academico[] = []; // Para armazenar a lista filtrada de acadêmicos
+
   mensagem!: string;
   mensagem_detalhes!: string;
 
   // Controle de carregamento de mais jogadores
   currentPage: number = 0;
   pageSize: number = 5;
+
+  // Variáveis para armazenar jogadores enfrentados
+  public jogadoresEnfrentados: Jogador[] = []; // Lista dos jogadores que o usuário enfrentou
+  public totalJogadoresEnfrentados: number = 0; // Total de jogadores enfrentados
 
   // Variável para armazenar as estatísticas por acadêmico
   estatisticasMap: Map<number, EstatisticaModalidade> = new Map();
@@ -66,17 +76,26 @@ export class JogadorComponent implements OnInit, OnChanges {
   searchedCampeonatos: string = ''; // Variável que armazenará o valor da pesquisa
   searchSubject: Subject<string> = new Subject<string>(); // Subject para pesquisa
 
+  isBlocked: boolean = false; // Controla se o usuário está bloqueado
+  mensagemAusencia: string =
+    'Você ainda não jogou com ninguém, participe de campeonatos para visualizar outros jogadores.';
+
   constructor(
     private academicoService: AcademicoService,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private campeonatoService: CampeonatoService
   ) {}
 
   user: Academico | null = null;
 
+  userLogado: Academico | null = null;
+
   ngOnInit() {
+    this.userLogado = this.authService.getUser();
     this.getUsuarios();
     this.subscribeToSearch(); // Inscreve-se para realizar a pesquisa
+    this.getJogadoresEnfrentados();
   }
 
   // Método que é chamado sempre que o usuário digita no IonSearchbar
@@ -113,20 +132,43 @@ export class JogadorComponent implements OnInit, OnChanges {
   }
 
   filterJogadores(): void {
-    // Se não houver texto de pesquisa, mostra todos os acadêmicos
-    if (!this.searchedJogadores || this.searchedJogadores.trim() === '') {
-      this.filteredJogadores = this.academicos;
-    } else {
-      const searchTerm = this.searchedJogadores.toLowerCase().trim(); // Garantir que o termo de pesquisa não tenha espaços extras
+    // Primeiro, inicia com a lista completa de acadêmicos
+    let jogadoresParaFiltrar = [...this.academicos];
 
-      // Filtra os acadêmicos pelo nome de usuário
-      this.filteredJogadores = this.academicos.filter((jogador) => {
-        const username = jogador.username ? jogador.username.toLowerCase() : '';
-        return username.includes(searchTerm); // Compara o nome do jogador com o termo de pesquisa
-      });
-
-      console.log('Jogadores filtrados: ', this.filteredJogadores); // Verifique os resultados
+    if (this.searchedJogadores && this.searchedJogadores.trim() !== '') {
+      const searchTerm = this.searchedJogadores.toLowerCase().trim();
+      jogadoresParaFiltrar = jogadoresParaFiltrar.filter(
+        (academico) =>
+          academico.username &&
+          academico.username.toLowerCase().includes(searchTerm)
+      );
     }
+
+    // Agora, aplica o filtro de jogadores enfrentados
+    if (this.jogadoresEnfrentados.length > 0) {
+      jogadoresParaFiltrar = jogadoresParaFiltrar.filter((academico) =>
+        this.jogadoresEnfrentados.some(
+          (enfrentado) => enfrentado.username === academico.username
+        )
+      );
+    }
+
+    // Atualiza a lista filtrada com os jogadores que passaram nos filtros
+    this.filteredJogadores = jogadoresParaFiltrar;
+  }
+
+  filtrarJogadoresEnfrentados() {
+    // Esse método agora apenas vai filtrar a lista de acadêmicos com base nos jogadores enfrentados
+    // if (this.jogadoresEnfrentados.length > 0) {
+    //   this.filteredJogadores = this.academicos.filter((academico) =>
+    //     this.jogadoresEnfrentados.some(
+    //       (enfrentado) => enfrentado.username === academico.username
+    //     )
+    //   );
+    // } else {
+    //   // Caso não haja jogadores enfrentados, exibe todos os acadêmicos
+    //   this.filteredJogadores = [...this.academicos];
+    // }
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -135,6 +177,41 @@ export class JogadorComponent implements OnInit, OnChanges {
       this.searchedJogadores !== changes['searchedJogadores'].previousValue
     ) {
       this.filterJogadores(); // Aplica o filtro quando houver alteração no valor da pesquisa
+    }
+  }
+
+  getJogadoresEnfrentados(): void {
+    if (this.userLogado) {
+      const idAcademico = this.userLogado.idAcademico;
+      const page = this.currentPage;
+      const size = this.pageSize;
+
+      this.campeonatoService
+        .getJogadoresEnfrentados(idAcademico, page, size)
+        .subscribe({
+          next: (response: JogadorResponse | null) => {
+            if (response) {
+              if (response.content && response.content.length > 0) {
+                this.jogadoresEnfrentados = response.content; // Atualiza os jogadores enfrentados
+                this.totalJogadoresEnfrentados = response.totalElements || 0;
+                this.filtrarJogadoresEnfrentados(); // Aplica o filtro após atualizar a lista
+              } else {
+                this.jogadoresEnfrentados = [];
+                this.totalJogadoresEnfrentados = 0;
+                this.filtrarJogadoresEnfrentados();
+                this.isBlocked = true; // Marca o usuário como bloqueado quando não há jogadores enfrentados
+                this.mensagem = 'Você não tem jogadores enfrentados.';
+                this.mensagem_detalhes =
+                  'Nenhum jogador foi encontrado para este usuário.';
+              }
+            }
+          },
+          error: (err) => {
+            // Para outros erros, você mantém a lógica de mensagem de erro
+            this.mensagem = 'Erro buscando jogadores enfrentados';
+            this.mensagem_detalhes = `[${err.status} ${err.message}]`;
+          },
+        });
     }
   }
 

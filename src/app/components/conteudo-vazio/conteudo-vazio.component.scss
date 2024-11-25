@@ -1,0 +1,34 @@
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* Centraliza verticalmente */
+  height: 60vh; /* Garante que a altura ocupe 100% da altura da janela */
+  padding: 20px;
+  box-sizing: border-box; /* Garante que o padding não ultrapasse o tamanho do contêiner */
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px; /* Espaço entre o ícone e a mensagem */
+}
+
+.error-icon {
+  display: inline-block;
+}
+
+.message-container {
+  text-align: center;
+}
+
+.error-message {
+  font-size: 18px;
+  
+  color: var(--text-new-green);
+  padding: 10px 20px;
+}
+
+.error-message span {
+  color: var(--yellow-desc); /* Adapte a cor do link para sua preferência */
+}

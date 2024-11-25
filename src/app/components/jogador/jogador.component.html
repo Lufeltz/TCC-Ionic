@@ -1,125 +1,131 @@
-<div class="jogadores-container">
-  <ion-searchbar
-  animated="true"
-  placeholder="Procurar"
-  [(ngModel)]="searchedJogadores"  
-  (ionInput)="onSearchInput($event)"
-></ion-searchbar>
+<div *ngIf="isBlocked; else showCampeonatos">
+  <app-conteudo-vazio
+    [mensagemAusencia]="mensagemAusencia"
+  ></app-conteudo-vazio>
+</div>
 
-  <ul>
-    <li
-      *ngFor="let academico of filteredJogadores"
-      class="jogador"
-      (click)="navigateToPerfil(academico)"
-    >
-      <div class="jogador-header">
-        <div class="username">
-          <lucide-angular
-            [img]="UserRound"
-            class="btn-inscrever-se"
-            [size]="20"
-            color="var(--text-new-green)"
-          ></lucide-angular>
-          <p class="jogador-nome">{{ academico.username }}</p>
+<ng-template #showCampeonatos>
+  <div class="jogadores-container">
+    <ion-searchbar
+      animated="true"
+      placeholder="Procurar"
+      [(ngModel)]="searchedJogadores"
+      (ionInput)="onSearchInput($event)"
+    ></ion-searchbar>
+
+    <ul>
+      <li
+        *ngFor="let academico of filteredJogadores"
+        class="jogador"
+        (click)="navigateToPerfil(academico)"
+      >
+        <div class="jogador-header">
+          <div class="username">
+            <lucide-angular
+              [img]="UserRound"
+              class="btn-inscrever-se"
+              [size]="20"
+              color="var(--text-new-green)"
+            ></lucide-angular>
+            <p class="jogador-nome">{{ academico.username }}</p>
+          </div>
+          <div class="data">
+            <lucide-angular
+              [img]="CalendarArrowUp"
+              class="btn-inscrever-se"
+              [size]="20"
+              color="var(--text-light)"
+            ></lucide-angular>
+            <p class="jogador-data">
+              {{ academico.dataCriacao | date : "dd/MM/yy" }}
+            </p>
+          </div>
         </div>
-        <div class="data">
+        <div class="icon-align">
           <lucide-angular
-            [img]="CalendarArrowUp"
+            [img]="Bike"
             class="btn-inscrever-se"
             [size]="20"
-            color="var(--text-light)"
+            color="var(--purple-desc)"
           ></lucide-angular>
-          <p class="jogador-data">
-            {{ academico.dataCriacao | date : "dd/MM/yy" }}
+          <p class="jogador-curso">
+            {{ getModalidades(academico) }}
           </p>
         </div>
-      </div>
-      <div class="icon-align">
-        <lucide-angular
-          [img]="Bike"
-          class="btn-inscrever-se"
-          [size]="20"
-          color="var(--purple-desc)"
-        ></lucide-angular>
-        <p class="jogador-curso">
-          {{ getModalidades(academico) }}
-        </p>
-      </div>
 
-      <div class="icon-align">
-        <lucide-angular
-          [img]="Star"
-          class="btn-inscrever-se"
-          [size]="20"
-          color="var(--yellow-desc)"
-        ></lucide-angular>
-        <p class="jogador-curso">
-          <!-- Verifica as estatísticas do acadêmico -->
-          {{
-            getEstatisticasDoAcademico(academico.idAcademico)?.vitorias || 0
-          }}
-          Vitórias
-        </p>
-      </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Star"
+            class="btn-inscrever-se"
+            [size]="20"
+            color="var(--yellow-desc)"
+          ></lucide-angular>
+          <p class="jogador-curso">
+            <!-- Verifica as estatísticas do acadêmico -->
+            {{
+              getEstatisticasDoAcademico(academico.idAcademico)?.vitorias || 0
+            }}
+            Vitórias
+          </p>
+        </div>
 
-      <div class="icon-align">
-        <lucide-angular
-          [img]="SquareX"
-          class="btn-inscrever-se"
-          [size]="20"
-          color="var(--light-red)"
-        ></lucide-angular>
-        <p class="jogador-curso">
-          {{
-            getEstatisticasDoAcademico(academico.idAcademico)?.derrotas || 0
-          }}
-          Derrotas
-        </p>
-      </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="SquareX"
+            class="btn-inscrever-se"
+            [size]="20"
+            color="var(--light-red)"
+          ></lucide-angular>
+          <p class="jogador-curso">
+            {{
+              getEstatisticasDoAcademico(academico.idAcademico)?.derrotas || 0
+            }}
+            Derrotas
+          </p>
+        </div>
 
-      <div class="icon-align">
-        <lucide-angular
-          [img]="Trophy"
-          class="btn-inscrever-se"
-          [size]="20"
-          color="var(--text-orange)"
-        ></lucide-angular>
-        <p class="jogador-curso">
-          {{
-            getEstatisticasDoAcademico(academico.idAcademico)?.jogos || 0
-          }}
-          Jogos
-        </p>
-      </div>
-      <div class="icon-align">
-        <lucide-angular
-          [img]="GraduationCap"
-          class="btn-inscrever-se"
-          [size]="20"
-          color="var(--text-pink)"
-        ></lucide-angular>
-        <p class="jogador-curso">
-          {{ academico.curso }}
-        </p>
-      </div>
-      <p class="jogador-foto">{{ academico.foto }}</p>
-    </li>
-  </ul>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Trophy"
+            class="btn-inscrever-se"
+            [size]="20"
+            color="var(--text-orange)"
+          ></lucide-angular>
+          <p class="jogador-curso">
+            {{ getEstatisticasDoAcademico(academico.idAcademico)?.jogos || 0 }}
+            Jogos
+          </p>
+        </div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="GraduationCap"
+            class="btn-inscrever-se"
+            [size]="20"
+            color="var(--text-pink)"
+          ></lucide-angular>
+          <p class="jogador-curso">
+            {{ academico.curso }}
+          </p>
+        </div>
+        <p class="jogador-foto">{{ academico.foto }}</p>
+      </li>
+    </ul>
 
-  <!-- Botão para carregar mais jogadores -->
-  <ion-button
-    size="small"
-    expand="block"
-    class="icon-button"
-    (click)="loadMore()"
-  >
-    <div class="text-container">Mais Jogadores</div>
-    <div class="icon-align">
-      <lucide-angular
-        [img]="ArrowDownToDot"
-        class="btn-inscrever-se"
-        [size]="20"
-      ></lucide-angular>
-    </div>
-  </ion-button>
-</div>
+    <!-- Botão para carregar mais jogadores -->
+    <ion-button
+      size="small"
+      expand="block"
+      class="icon-button"
+      (click)="loadMore()"
+    >
+      <div class="text-container">Mais Jogadores</div>
+      <div class="icon-align">
+        <lucide-angular
+          [img]="ArrowDownToDot"
+          class="btn-inscrever-se"
+          [size]="20"
+        ></lucide-angular>
+      </div>
+    </ion-button>
+  </div>
+</ng-template>

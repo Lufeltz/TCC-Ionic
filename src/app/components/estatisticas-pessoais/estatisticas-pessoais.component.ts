@@ -40,6 +40,7 @@ export class EstatisticasPessoaisComponent implements OnInit {
   isBlocked: boolean = false; // Controla se o usuário está bloqueado
   mensagemBloqueio: string =
     'O acadêmico bloqueou a visualização das estatísticas.';
+    
   user: Academico | null = null;
 
   // Lucide Icons

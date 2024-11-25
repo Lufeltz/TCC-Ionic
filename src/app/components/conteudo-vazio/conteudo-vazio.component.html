@@ -1,0 +1,16 @@
+<div class="content">
+  <div class="icon-container">
+    <lucide-angular
+      *ngIf="tipoErro === '404' || tipoErro === '204'"
+      [img]="CircleHelp"
+      class="error-icon"
+      [size]="70"
+      [color]="'var(--text-new-green)'"
+    ></lucide-angular>
+  </div>
+
+  <!-- Modificação no link dentro da mensagem -->
+  <p class="error-message">
+    {{ mensagemAusencia }}
+  </p>
+</div>
