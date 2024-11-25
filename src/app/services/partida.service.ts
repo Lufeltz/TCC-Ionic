@@ -36,14 +36,41 @@ export class PartidaService {
   }
 
   // Novo método para criar um time individual para o usuário
-  criarTimeIndividual(
-    idCampeonato: number,
-    idUsuario: number
-  ): Observable<any> {
-    // Modificando a URL para refletir o formato correto
-    const url = `${this.BASE_URL}/${idCampeonato}/times/${idUsuario}`;
+// Novo método para criar um time individual para o usuário
+criarTimeIndividual(
+  idCampeonato: number,
+  idUsuario: number,
+  senha?: string
+): Observable<any> {
+  // Modificando a URL para refletir o formato correto
+  const url = `${this.BASE_URL}/${idCampeonato}/times/${idUsuario}`;
 
-    return this._http.post(url, {}, this.getHttpOptions()).pipe(
+  // Se a senha for fornecida, envia ela diretamente, sem envolver em um objeto
+  const body = senha ? senha : {};
+  console.log('senha recebida no service', senha)
+  console.log('idcampeonato no service', idCampeonato)
+  console.log('idUsuario no service', idUsuario)
+
+  return this._http.post(url, body, this.getHttpOptions()).pipe(
+    map((resp: HttpResponse<any>) => {
+      if (resp.status === 201) {
+        return resp.body; // Retorna a resposta do corpo da requisição
+      } else {
+        return null; // Caso não tenha sucesso
+      }
+    }),
+    catchError((err) => {
+      return throwError(() => err); // Retorna o erro em caso de falha
+    })
+  );
+}
+
+  
+
+  // Função para inscrever um time em um campeonato
+  inscreverTime(time: CriarTime): Observable<any> {
+    const url = `${this.NEW_URL}`;
+    return this._http.post(url, time, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<any>) => {
         if (resp.status === 201) {
           return resp.body; // Retorna a resposta do corpo da requisição
@@ -109,23 +136,6 @@ export class PartidaService {
         } else {
           return throwError(() => err); // Retorna o erro em caso de falha
         }
-      })
-    );
-  }
-
-  // Função para inscrever um time em um campeonato
-  inscreverTime(time: CriarTime): Observable<any> {
-    const url = `${this.NEW_URL}`;
-    return this._http.post(url, time, this.getHttpOptions()).pipe(
-      map((resp: HttpResponse<any>) => {
-        if (resp.status === 201) {
-          return resp.body; // Retorna a resposta do corpo da requisição
-        } else {
-          return null; // Caso não tenha sucesso
-        }
-      }),
-      catchError((err) => {
-        return throwError(() => err); // Retorna o erro em caso de falha
       })
     );
   }

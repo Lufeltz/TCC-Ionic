@@ -72,6 +72,8 @@ export class CampeonatoAcoesComponent implements OnInit {
   modalEditarVisivel: boolean = false;
   idCampeonato!: number;
 
+  public usuarioInscritoNoCampeonato: boolean = false; // Adicione a variável
+
   criarTime() {
     this.partidaService
       .criarTimeIndividual(this.idCampeonato, this.usuarioLogado!.idAcademico)
@@ -83,6 +85,20 @@ export class CampeonatoAcoesComponent implements OnInit {
           console.error('Erro ao inscrever o time:', err);
         },
       });
+  }
+
+  abrirModalEditar() {
+    if (this.campeonato && this.campeonato.idCampeonato) {
+      this.idCampeonato = this.campeonato.idCampeonato;
+      console.log('Abrindo modal com idCampeonato:', this.idCampeonato); // Verifique o valor
+      this.modalEditarVisivel = true;
+    } else {
+      console.warn('Campeonato não encontrado ou idCampeonato inválido.');
+    }
+  }
+
+  fecharModal() {
+    this.modalEditarVisivel = false;
   }
 
   toggleMenu() {
@@ -113,16 +129,25 @@ export class CampeonatoAcoesComponent implements OnInit {
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();
     if (this.usuarioLogado) {
-      // this.listarPosts();
+      // Atualiza o estado de inscrição do usuário
+      this.verificarInscricaoUsuario();
     } else {
       console.error('Usuário não logado');
     }
 
     this.route.paramMap.subscribe((params) => {
       this.codigo = params.get('codigo')!;
-      // console.log(this.codigo); // Você pode usar o código aqui para buscar os detalhes do campeonato
       this.buscarCampeonatoPorCodigo(this.codigo);
     });
+  }
+
+  // Verificar se o usuário está inscrito no campeonato
+  verificarInscricaoUsuario() {
+    // Verifique se o usuário está inscrito em algum time no campeonato
+    const jogadorInscrito = Object.values(this.jogadoresPorTime).some(jogadores =>
+      jogadores.some(jogador => jogador.idAcademico === this.usuarioLogado!.idAcademico)
+    );
+    this.usuarioInscritoNoCampeonato = jogadorInscrito;
   }
 
   navegarParaPerfil(username: string) {
@@ -161,6 +186,9 @@ export class CampeonatoAcoesComponent implements OnInit {
               {}
             );
             console.log('Jogadores por Time:', this.jogadoresPorTime);
+
+            // Atualiza a verificação de inscrição após listar os jogadores
+            this.verificarInscricaoUsuario();
           } else {
             console.error(
               'A resposta não contém o array "content" esperado ou a estrutura está incorreta.'
@@ -215,20 +243,6 @@ export class CampeonatoAcoesComponent implements OnInit {
         this.loading = false; // Define loading como false caso ocorra um erro na requisição
       },
     });
-  }
-
-  abrirModalEditar() {
-    if (this.campeonato && this.campeonato.idCampeonato) {
-      this.idCampeonato = this.campeonato.idCampeonato;
-      console.log('Abrindo modal com idCampeonato:', this.idCampeonato); // Verifique o valor
-      this.modalEditarVisivel = true;
-    } else {
-      console.warn('Campeonato não encontrado ou idCampeonato inválido.');
-    }
-  }
-
-  fecharModal() {
-    this.modalEditarVisivel = false;
   }
 
   // Este método pode ser expandido se necessário para lidar com a seleção do time

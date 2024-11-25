@@ -1,10 +1,30 @@
 <div class="modal-background" (click)="closeModal()"></div>
 <div class="modal-content">
   <div class="meta-details">
+    <!-- Exibe a mensagem "Criar o seu próprio time?" quando o campeonato for individual e não for privado -->
+    <h3
+      *ngIf="
+        campeonato?.limiteParticipantes === 1 &&
+        campeonato?.privacidadeCampeonato !== 'PRIVADO'
+      "
+      class="centralizado texto-verde"
+    >
+      Criar o seu próprio time?
+    </h3>
+    <p
+      *ngIf="
+        campeonato?.limiteParticipantes === 1 &&
+        campeonato?.privacidadeCampeonato !== 'PRIVADO'
+      "
+      class="centralizado text-light"
+    >
+      O nome do time será o do seu usuário.
+    </p>
+
     <h3>{{ time.nome }}</h3>
 
     <ul>
-      <li class="item-lista2">
+      <li class="item-lista2" *ngIf="campeonato?.limiteParticipantes !== 1">
         <div class="icon-align">
           <lucide-angular
             [img]="CaseUpper"
@@ -21,7 +41,10 @@
         ></ion-input>
       </li>
 
-      <li class="item-lista2" *ngIf="campeonato?.privacidadeCampeonato === 'PRIVADO'">
+      <li
+        class="item-lista2"
+        *ngIf="campeonato?.privacidadeCampeonato === 'PRIVADO'"
+      >
         <div class="icon-align">
           <lucide-angular
             [img]="Key"

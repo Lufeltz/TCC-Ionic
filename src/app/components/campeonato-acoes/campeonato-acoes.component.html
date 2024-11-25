@@ -1,4 +1,4 @@
-<h3 style="display: flex; justify-content: space-between">
+<!-- <h3 style="display: flex; justify-content: space-between">
   <div class="icon-align">
     <ion-label> Participar</ion-label>
     <lucide-angular
@@ -9,7 +9,7 @@
       (click)="toggleMenu()"
     ></lucide-angular>
 
-    <!-- Menu suspenso -->
+    
     <div [class.show]="menuVisible" class="dropdown-menu">
       <ul>
         <li (click)="sairDoCampeonato()">Sair do Campeonato</li>
@@ -17,7 +17,7 @@
       </ul>
     </div>
   </div>
-</h3>
+</h3> -->
 
 <div class="criar-post" *ngIf="campeonato?.limiteParticipantes !== 1">
   <ion-button size="small" (click)="abrirModalEditar()">
@@ -32,7 +32,8 @@
 </div>
 
 <div class="criar-post" *ngIf="campeonato?.limiteParticipantes === 1">
-  <ion-button size="small" (click)="criarTime()">
+  <ion-button size="small" (click)="abrirModalEditar()">
+    <!-- <ion-button size="small" (click)="criarTime()"> -->
     <div class="icon-align">
       Criar Time Individual
       <lucide-angular
@@ -96,7 +97,14 @@
                 </div>
               </li>
             </ul>
-            <div class="criar-post">
+            <div
+              class="criar-post"
+              *ngIf="
+                (jogadoresPorTime[time.idTime]?.length || 0) <
+                  (campeonato?.limiteParticipantes || 0) &&
+                !usuarioInscritoNoCampeonato
+              "
+            >
               <ion-button
                 size="small"
                 (click)="adicionarUsuario(usuarioLogado!.idAcademico, time)"
@@ -107,8 +115,9 @@
                     [img]="SquarePen"
                     class="btn-inscrever-se"
                     [size]="20"
-                  ></lucide-angular></div
-              ></ion-button>
+                  ></lucide-angular>
+                </div>
+              </ion-button>
             </div>
           </div>
         </ion-accordion>
