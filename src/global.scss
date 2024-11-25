@@ -17,6 +17,10 @@ ion-segment {
   margin-bottom: 0.5rem !important;
 }
 
+ion-button {
+  text-transform: capitalize; /* Texto capitalizado */
+}
+
 ion-segment-button {
   --color: var(--light-blue); /* Cor da fonte padrão */
   --color-checked: var(--light-blue); /* Cor da fonte quando selecionado */

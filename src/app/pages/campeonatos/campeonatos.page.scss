@@ -3,7 +3,6 @@ ion-label {
 }
 
 ion-segment {
-  margin-top: 2.5rem;
   --background: var(--background-dark);
 }
 
@@ -216,7 +215,6 @@ ion-button {
   margin-bottom: 0.5rem;
 }
 
-
 .input-container ion-input {
   background-color: var(--background-dark);
   color: var(--text-white);
@@ -412,7 +410,7 @@ ion-datetime .days .day.selected {
 
 .input-space {
   margin-top: 0.75rem;
-  margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
 }
 
 .custom-select-wrapper {
@@ -479,6 +477,6 @@ ion-datetime .days .day.selected {
   background-color: var(--background-dark);
 }
 
-ion-text p{
+ion-text p {
   color: var(--purple-desc);
 }

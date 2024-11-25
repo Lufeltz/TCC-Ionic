@@ -3,7 +3,7 @@ ion-label {
 }
 
 ion-segment {
-  margin-top: 1rem;
+  // margin-top: 0rem !important;
   --background: #121214;
 }
 
@@ -19,7 +19,8 @@ ion-button {
   --background: var(--text-white);
   color: var(--background-dark);
   font-size: 1rem;
-  margin-top: 2.5rem;
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
   // font-weight: 600;
 }
 
