@@ -19,8 +19,8 @@
       alt="rhino standing near grass"
       src="https://images.unsplash.com/flagged/photo-1556983257-71fddc36bc75?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
     />
-    <ion-list lines="none">
-      <ion-item>
+    <ul class="menu-list">
+      <li class="menu-item">
         <div class="item">
           <lucide-angular
             [img]="User"
@@ -29,10 +29,10 @@
           ></lucide-angular>
           <ion-label>{{ user?.nome }}</ion-label>
         </div>
-      </ion-item>
+      </li>
 
       <!-- Dados gerais -->
-      <ion-item>
+      <li class="menu-item">
         <div class="item">
           <lucide-angular
             [img]="GraduationCap"
@@ -41,20 +41,20 @@
           ></lucide-angular>
           <ion-label>{{ user?.curso }}</ion-label>
         </div>
-      </ion-item>
-      <ion-item>
+      </li>
+      <li class="menu-item">
         <div class="item">
           <lucide-angular [img]="Bell" class="i-tem"></lucide-angular>
           <ion-label (click)="goToPage('/pref-notif')">Preferências</ion-label>
         </div>
-      </ion-item>
-      <ion-item>
+      </li>
+      <li class="menu-item">
         <div class="item">
           <lucide-angular [img]="HeartPulse" class="i-tem"></lucide-angular>
           <ion-label (click)="goToPage('/canal-saude')">Canal Saúde</ion-label>
         </div>
-      </ion-item>
-      <ion-item>
+      </li>
+      <li class="menu-item">
         <div class="item">
           <lucide-angular
             [img]="ChartNoAxesCombined"
@@ -64,15 +64,15 @@
             >Estatísticas</ion-label
           >
         </div>
-      </ion-item>
-      <ion-item>
+      </li>
+      <li class="menu-item">
         <div class="item">
           <lucide-angular [img]="Settings" class="i-tem"></lucide-angular>
           <ion-label (click)="goToPage('/estatisticas')">Perfil</ion-label>
         </div>
-      </ion-item>
+      </li>
 
-      <ion-item>
+      <li class="menu-item">
         <div class="item">
           <!-- Exibição das estrelas -->
           <div class="stars">
@@ -86,8 +86,8 @@
 
           <!-- Exibição da média e quantidade -->
         </div>
-      </ion-item>
-      <ion-item>
+      </li>
+      <li class="menu-item">
         <div class="rating-info-inline">
           <ion-label
             >Média Geral:
@@ -97,51 +97,14 @@
             avaliações)</ion-label
           >
         </div>
-      </ion-item>
+      </li>
 
-      <!--       
-      <ion-item>
-        <div class="item">
-          <lucide-angular [img]="Calendar1" class="metas"></lucide-angular>
-          <ion-label>Metas Diárias</ion-label>
-        </div>
-      </ion-item>
-
-      <ion-item *ngFor="let meta of metasDiarias">
-        <div class="sublist">
-          <lucide-angular [img]="DiamondPlus" class="sub-list"></lucide-angular>
-          <ion-label>{{ meta.titulo }}</ion-label>
-        </div>
-      </ion-item>
-
-      <ion-item>
-        <div class="item">
-          <lucide-angular [img]="Dumbbell" class="metas"></lucide-angular>
-          <ion-label>Metas Esportivas</ion-label>
-        </div>
-      </ion-item>
-
-      <ion-item *ngFor="let modalidade of metasPorModalidadeArray">
-        <ion-list class="meta-list">
-          <ion-item *ngFor="let meta of modalidade.metas">
-            <div class="sublist">
-              <lucide-angular
-                [img]="DiamondPlus"
-                class="sub-list"
-              ></lucide-angular>
-
-              <p class="meta-descricao">{{ meta.descricao }}</p>
-            </div>
-          </ion-item>
-        </ion-list>
-      </ion-item> -->
-
-      <ion-item>
+      <li class="menu-item">
         <div class="logout" (click)="logout()">
-          <lucide-angular [img]="LogOut" class="log-out"></lucide-angular>
+          <lucide-angular [img]="LogOut" [color]="'var(--light-red)'" class="log-out"></lucide-angular>
           <ion-label>Sair</ion-label>
         </div>
-      </ion-item>
-    </ion-list>
+      </li>
+    </ul>
   </ion-content>
 </ion-menu>

@@ -2,6 +2,45 @@ ion-content {
   --background: var(--background-light);
 }
 
+ion-list {
+  --background: var(--background-dark);
+  background: var(--background-dark);
+}
+
+ion-segment {
+  --background: white; /* Fundo branco */
+  --color: var(--light-blue); /* Cor da fonte */
+  text-transform: capitalize; /* Texto capitalizado */
+  font-size: 0.8rem; /* Tamanho da fonte reduzido */
+  border-radius: 15px;
+  margin-top: 3.5rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+ion-segment-button {
+  --color: var(--light-blue); /* Cor da fonte padrão */
+  --color-checked: var(--light-blue); /* Cor da fonte quando selecionado */
+  --background-checked: white; /* Fundo branco quando selecionado */
+  --color-focused: var(--light-blue); /* Cor da fonte quando focado */
+  --color-hover: var(--light-blue); /* Cor da fonte quando em hover */
+  --indicator-color: var(--light-blue); /* Cor do indicador */
+  text-transform: capitalize; /* Texto capitalizado */
+  font-size: 0.8rem; /* Tamanho da fonte reduzido */
+  height: 100%; /* Garante que o botão preencha a altura do segmento */
+  display: flex;
+  align-items: center; /* Alinha verticalmente */
+  justify-content: center; /* Alinha horizontalmente */
+  padding: 0; /* Remove padding padrão para centralizar o conteúdo */
+  color: var(--light-blue); /* Define a cor da fonte diretamente */
+  transition: color 0.3s ease, background-color 0.3s ease; /* Adiciona transição suave */
+}
+
+ion-segment-button::part(native) {
+  color: var(--light-blue); /* Define a cor da fonte para o elemento nativo */
+}
+
+
+
 :root {
   // backgrounds
   --background-light: #202024;

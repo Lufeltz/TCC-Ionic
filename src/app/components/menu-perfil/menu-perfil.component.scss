@@ -6,7 +6,7 @@
 
 .toolbar-menu {
   --background: var(--background-dark);
-  border-bottom: 1px solid var(--light-blue);
+  // border-bottom: 1px solid var(--light-blue);
 }
 
 ion-menu {
@@ -18,40 +18,37 @@ ion-content {
   border-left: 2px solid var(--light-blue);
 }
 
-ion-item {
-  --background: var(--background-dark);
+.menu-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  background: var(--background-dark);
+}
+
+.menu-item {
+  background: var(--background-dark);
   color: var(--gray-50);
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  // border-bottom: 1px solid var(--light-blue);
 }
 
-ion-label:hover {
+.menu-item:hover ion-label {
   color: var(--light-blue);
 }
 
-.sublist ion-label:hover {
-  color: var(--yellow-desc);
-}
-
-.logout ion-label:hover {
-  color: var(--light-red);
-}
-
-ion-title {
-  color: var(--light-blue);
-}
-
-ion-menu-button {
-  color: var(--light-blue);
-}
-
-.item {
+.menu-item .item {
   display: flex;
   align-items: center;
   gap: 10px;
+  background-color: var(--background-dark);
 }
 
 .i-tem {
   font-size: 1.5rem;
   color: var(--light-blue);
+  background-color: var(--background-dark);
 }
 
 .metas {
@@ -70,10 +67,11 @@ ion-menu-button {
   align-items: center;
   margin-left: 30px;
   gap: 10px;
+  background-color: var(--background-dark);
+}
 
-  .sub-list {
-    color: var(--yellow-desc);
-  }
+.sublist ion-label:hover {
+  color: var(--yellow-desc);
 }
 
 .logout {
@@ -83,10 +81,11 @@ ion-menu-button {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  background: var(--background-dark);
+}
 
-  .log-out {
-    color: var(--light-red);
-  }
+.logout ion-label:hover {
+  color: var(--light-red);
 }
 
 .item .stars {
@@ -108,4 +107,10 @@ ion-menu-button {
   color: var(--yellow-desc);
 }
 
+ion-title {
+  color: var(--light-blue);
+}
 
+ion-menu-button {
+  color: var(--light-blue);
+}

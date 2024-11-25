@@ -89,6 +89,11 @@ export class ModalidadesPage implements OnInit {
   modalEditarVisivel: boolean = false;
   modalidadeParaEditar!: any;
 
+  isBlocked: boolean = false; // Controla se o usuário está bloqueado
+  mensagemAusencia: string =
+    'Você ainda não se inscreveu em nenhuma modalidade.';
+
+
   contagemPorModalidade: {
     [key: number]: { conquistados: number; naoConquistados: number };
   } = {};
