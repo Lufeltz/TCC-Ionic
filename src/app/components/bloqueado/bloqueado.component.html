@@ -1,0 +1,23 @@
+<div class="content">
+  <div class="icon-container">
+    <lucide-angular
+      *ngIf="tipoErro === '404'"
+      [img]="Lock"
+      class="error-icon"
+      [size]="70"
+      [color]="'var(--light-red)'"
+    ></lucide-angular>
+
+    <lucide-angular
+      *ngIf="tipoErro === '403'"
+      [img]="CircleHelp"
+      class="error-icon"
+      [size]="50"
+      [color]="'var(--light-blue)'"
+    ></lucide-angular>
+  </div>
+
+  <div class="message-container">
+    <p class="error-message">{{ mensagemBloqueio }}</p>
+  </div>
+</div>

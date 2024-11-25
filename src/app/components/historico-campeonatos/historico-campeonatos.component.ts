@@ -52,6 +52,7 @@ import { AcademicoService } from 'src/app/services/academico.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { PartidaService } from 'src/app/services/partida.service';
+import { BloqueadoComponent } from "../bloqueado/bloqueado.component";
 
 @Component({
   selector: 'app-historico-campeonatos',
@@ -69,8 +70,9 @@ import { PartidaService } from 'src/app/services/partida.service';
     CommonModule,
     NgxMaskPipe,
     LucideAngularModule,
-    RouterModule
-  ],
+    RouterModule,
+    BloqueadoComponent
+],
 })
 export class HistoricoCampeonatosComponent implements OnInit {
   readonly SquareArrowUpRight = SquareArrowUpRight;
@@ -127,6 +129,8 @@ export class HistoricoCampeonatosComponent implements OnInit {
     iniciado?: boolean;
   } = {};
 
+  isBlocked: boolean = false; // Controla se o usuário está bloqueado
+  mensagemBloqueio: string = 'O acadêmico bloqueou a visualização do histórico.';  
   @Input() searchedCampeonatos: string = '';
 
   constructor(
@@ -187,7 +191,7 @@ export class HistoricoCampeonatosComponent implements OnInit {
   getHistoricoCampeonato(id: number, page: number, size: number, sort: string) {
     const idAcademico = this.academico?.idAcademico || 0; // Garantir que temos o ID do acadêmico
     const idUsuarioLogado = this.authService.getUser()?.idAcademico; // Obtendo o ID do usuário logado
-    
+
     // Verificar se o idAcademico é igual ao id do usuário logado
     if (idAcademico === idUsuarioLogado) {
       this.campeonatoService
@@ -210,7 +214,12 @@ export class HistoricoCampeonatosComponent implements OnInit {
             }
           },
           error: (err) => {
-            console.error('Erro ao buscar histórico de campeonatos:', err);
+            // Verifique o código de status do erro
+            if (err.status === 403) {
+              this.isBlocked = true;  // Define como bloqueado
+            } else {
+              console.error('Erro ao buscar histórico de campeonatos:', err);
+            }
           },
         });
     } else {
@@ -234,7 +243,12 @@ export class HistoricoCampeonatosComponent implements OnInit {
             }
           },
           error: (err) => {
-            console.error('Erro ao buscar histórico de campeonatos para acadêmico:', err);
+            // Verifique o código de status do erro
+            if (err.status === 403) {
+              this.isBlocked = true;  // Define como bloqueado
+            } else {
+              console.error('Erro ao buscar histórico de campeonatos para acadêmico:', err);
+            }
           },
         });
     }

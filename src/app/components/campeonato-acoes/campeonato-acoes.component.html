@@ -31,7 +31,8 @@
   ></ion-button>
 </div>
 
-<div class="criar-post" *ngIf="campeonato?.limiteParticipantes === 1">
+<div class="criar-post" *ngIf="campeonato?.limiteParticipantes === 1 &&
+                !usuarioInscritoNoCampeonato">
   <ion-button size="small" (click)="abrirModalEditar()">
     <!-- <ion-button size="small" (click)="criarTime()"> -->
     <div class="icon-align">
@@ -105,10 +106,11 @@
                 !usuarioInscritoNoCampeonato
               "
             >
-              <ion-button
+              <ion-button size="small" (click)="abrirModalInscrever(time)">
+                <!-- <ion-button
                 size="small"
                 (click)="adicionarUsuario(usuarioLogado!.idAcademico, time)"
-              >
+              > -->
                 <div class="icon-align">
                   Inscrever-se
                   <lucide-angular
@@ -133,3 +135,12 @@
   (close)="fecharModal()"
 >
 </app-modal-criar-time>
+
+<app-modal-inscrever-se
+  *ngIf="modalEditarVisivelInscrever"
+  [idUsuario]="idUsuario"
+  [time]="time"
+  [campeonato]="campeonato"
+  (close)="fecharModalInscrever()"
+>
+</app-modal-inscrever-se>

@@ -30,6 +30,7 @@ import { JogadorResponse } from 'src/app/models/jogador-response.model';
 import { Time } from 'src/app/models/time.model';
 import { Academico } from 'src/app/models/academico.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { ModalInscreverSeComponent } from '../modal-inscrever-se/modal-inscrever-se.component';
 
 @Component({
   selector: 'app-campeonato-acoes',
@@ -47,6 +48,7 @@ import { AuthService } from 'src/app/services/auth.service';
     IonAccordion,
     IonAccordionGroup,
     ModalCriarTimeComponent,
+    ModalInscreverSeComponent,
   ],
   standalone: true,
 })
@@ -67,10 +69,42 @@ export class CampeonatoAcoesComponent implements OnInit {
   readonly SquarePen = SquarePen;
 
   menuVisible: boolean = false;
-
-  // Modal meta diaria
   modalEditarVisivel: boolean = false;
+
   idCampeonato!: number;
+
+  menuVisibleInscrever: boolean = false;
+  modalEditarVisivelInscrever: boolean = false;
+
+  idUsuario!: number;
+  time!: Time;
+
+  abrirModalInscrever(time: Time) {
+    if (this.campeonato && this.campeonato.idCampeonato) {
+      // Define o id do campeonato
+      this.idCampeonato = this.campeonato.idCampeonato;
+      
+      // Define o time que foi clicado no botão
+      this.time = time;
+      
+      // Define o id do usuário logado
+      this.idUsuario = this.usuarioLogado!.idAcademico;
+  
+      console.log('Abrindo modal com idCampeonato:', this.idCampeonato);
+      console.log('Time selecionado:', this.time);
+      console.log('Id do usuário:', this.idUsuario);
+      
+      this.modalEditarVisivelInscrever = true;
+    } else {
+      console.warn('Campeonato não encontrado ou idCampeonato inválido.');
+    }
+  }
+  
+
+
+  fecharModalInscrever() {
+    this.modalEditarVisivelInscrever = false;
+  }
 
   public usuarioInscritoNoCampeonato: boolean = false; // Adicione a variável
 
@@ -144,8 +178,11 @@ export class CampeonatoAcoesComponent implements OnInit {
   // Verificar se o usuário está inscrito no campeonato
   verificarInscricaoUsuario() {
     // Verifique se o usuário está inscrito em algum time no campeonato
-    const jogadorInscrito = Object.values(this.jogadoresPorTime).some(jogadores =>
-      jogadores.some(jogador => jogador.idAcademico === this.usuarioLogado!.idAcademico)
+    const jogadorInscrito = Object.values(this.jogadoresPorTime).some(
+      (jogadores) =>
+        jogadores.some(
+          (jogador) => jogador.idAcademico === this.usuarioLogado!.idAcademico
+        )
     );
     this.usuarioInscritoNoCampeonato = jogadorInscrito;
   }

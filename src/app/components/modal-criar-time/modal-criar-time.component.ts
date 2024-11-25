@@ -66,10 +66,6 @@ export class ModalCriarTimeComponent implements OnInit {
     }
   }
 
-  closeModal() {
-    this.close.emit(); // Emite o evento para fechar o modal
-  }
-
   criarTime() {
     // Verifica se os valores estão sendo atribuídos corretamente antes de enviar
     console.log('Dados do time antes de enviar:', this.time);
@@ -109,5 +105,9 @@ export class ModalCriarTimeComponent implements OnInit {
     } else {
       console.error('Informações do campeonato inválidas.');
     }
+  }
+
+  closeModal() {
+    this.close.emit(); // Emite o evento para fechar o modal
   }
 }

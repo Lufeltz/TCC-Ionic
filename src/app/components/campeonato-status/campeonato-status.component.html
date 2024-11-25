@@ -62,7 +62,7 @@
     </div>
   </ion-button>
 
-  <div class="criar-post" *ngIf="isCampeonatoIniciado">
+  <div class="criar-post" *ngIf="isCampeonatoIniciado && campeonato?.situacaoCampeonato !== 'FINALIZADO'">
     <ion-button size="small" (click)="avancarFase()">
       <div class="icon-align">
         Avançar Fase
