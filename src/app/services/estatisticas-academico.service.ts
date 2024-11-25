@@ -58,28 +58,55 @@ export class EstatisticasAcademicoService {
     idModalidade: number
   ): Observable<EstatisticaModalidade[] | null> {
     const url = `${this.BASE_URL}/estatisticas/${idAcademico}/modalidade/${idModalidade}`;
-    return this._http.get<EstatisticaModalidade[]>(url, this.getHttpOptions()).pipe(
-      map((resp: HttpResponse<EstatisticaModalidade[]>) => {
-        if (resp.status == 200) {
-          return resp.body;
-        } else {
-          return [];
-        }
-      }),
-      catchError((err, caught) => {
-        if (err.status == 404) {
-          return of([] as EstatisticaModalidade[]);
-        } else {
-          return throwError(() => err);
-        }
-      })
-    );
+    return this._http
+      .get<EstatisticaModalidade[]>(url, this.getHttpOptions())
+      .pipe(
+        map((resp: HttpResponse<EstatisticaModalidade[]>) => {
+          if (resp.status == 200) {
+            return resp.body;
+          } else {
+            return [];
+          }
+        }),
+        catchError((err, caught) => {
+          if (err.status == 404) {
+            return of([] as EstatisticaModalidade[]);
+          } else {
+            return throwError(() => err);
+          }
+        })
+      );
   }
 
   getEstatisticasMetasEsportivas(
     idAcademico: number
   ): Observable<EstatisticaModalidadeGeral | null> {
     const url = `${this.ESTATISTICAS_URL}/visualizarEstatisticasMetasEsportivas/${idAcademico}`;
+    return this._http
+      .get<EstatisticaModalidadeGeral>(url, this.getHttpOptions())
+      .pipe(
+        map((resp: HttpResponse<EstatisticaModalidadeGeral>) => {
+          if (resp.status === 200) {
+            return resp.body; // Retorna um único objeto EstatisticaModalidadeGeral
+          } else {
+            return null; // Caso o status não seja 200, retorna null
+          }
+        }),
+        catchError((err, caught) => {
+          if (err.status === 404) {
+            return of(null); // Retorna null caso o erro seja 404
+          } else {
+            return throwError(() => err); // Repassa outros erros
+          }
+        })
+      );
+  }
+
+  // Novo método para o endpoint visualizarEstatisticasMetasEsportivasOutroAcademico
+  getEstatisticasMetasEsportivasOutroAcademico(
+    idAcademico: number
+  ): Observable<EstatisticaModalidadeGeral | null> {
+    const url = `${this.ESTATISTICAS_URL}/visualizarEstatisticasMetasEsportivasOutroAcademico/${idAcademico}`;
     return this._http
       .get<EstatisticaModalidadeGeral>(url, this.getHttpOptions())
       .pipe(

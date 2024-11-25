@@ -252,6 +252,7 @@
       expand="block"
       class="icon-button"
       (click)="carregarMaisCampeonatos()"
+      *ngIf="isBlocked"
     >
       <div class="text-container">Mais Campeonatos</div>
       <div class="icon-align">

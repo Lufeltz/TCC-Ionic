@@ -19,13 +19,14 @@ import {
 import { AcademicoService } from 'src/app/services/academico.service';
 import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
 import { Subscription } from 'rxjs';
+import { BloqueadoComponent } from '../bloqueado/bloqueado.component';
 
 @Component({
   selector: 'app-estatisticas-pessoais',
   templateUrl: './estatisticas-pessoais.component.html',
   styleUrls: ['./estatisticas-pessoais.component.scss'],
   standalone: true,
-  imports: [CommonModule, LucideAngularModule],
+  imports: [CommonModule, LucideAngularModule, BloqueadoComponent],
 })
 export class EstatisticasPessoaisComponent implements OnInit {
   estatisticasUso: EstatisticaUso[] = [];
@@ -35,6 +36,11 @@ export class EstatisticasPessoaisComponent implements OnInit {
 
   @Input() username: string = '';
   private modalidadeUpdateSubscription!: Subscription;
+
+  isBlocked: boolean = false; // Controla se o usuário está bloqueado
+  mensagemBloqueio: string =
+    'O acadêmico bloqueou a visualização das estatísticas.';
+  user: Academico | null = null;
 
   // Lucide Icons
   readonly CircleDashed = CircleDashed;
@@ -53,24 +59,27 @@ export class EstatisticasPessoaisComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.user = this.authService.getUser();
     // Verifica se o 'username' foi passado via @Input
-    const usernameFinal = this.username || this.authService.getUser()?.username || ''; // Se não for passado, tenta pegar do AuthService
-  
+    const usernameFinal =
+      this.username || this.authService.getUser()?.username || ''; // Se não for passado, tenta pegar do AuthService
+
     // Se o usernameFinal não estiver vazio, tenta buscar o acadêmico
     if (usernameFinal) {
       this.buscarAcademicoPorUsername(usernameFinal);
 
-      this.modalidadeUpdateSubscription = this.stateModalidadesService.updateModalidades$.subscribe(() => {
-        this.loadEstatisticasUso(this.academico!.idAcademico);
-        this.loadEstatisticasMetasEsportivas(this.academico!.idAcademico);
-      });
+      this.modalidadeUpdateSubscription =
+        this.stateModalidadesService.updateModalidades$.subscribe(() => {
+          if (this.academico) {
+            this.loadEstatisticasUso(this.academico.idAcademico);
+            this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
+          }
+        });
     } else {
       console.error('Username não fornecido');
     }
-
-
   }
-  
+
   // Função para buscar o acadêmico pelo username
   buscarAcademicoPorUsername(username: string) {
     this.academicoService.getAcademicoByUsername(username).subscribe({
@@ -86,7 +95,7 @@ export class EstatisticasPessoaisComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erro ao buscar acadêmico:', err);
-      }
+      },
     });
   }
 
@@ -120,17 +129,43 @@ export class EstatisticasPessoaisComponent implements OnInit {
       });
   }
 
-  // Função para realizar a requisição e salvar os dados de todas as modalidades
   loadEstatisticasMetasEsportivas(idAcademico: number) {
-    this.estatisticaService
-      .getEstatisticasMetasEsportivas(idAcademico)
-      .subscribe({
-        next: (data: EstatisticaModalidadeGeral | null) => {
-          this.estatisticasModalidadeGeral = data;
-        },
-        error: (err) => {
-          console.error('Erro ao buscar dados de todas as modalidades:', err);
-        },
-      });
+    if (this.user && idAcademico === this.user.idAcademico) {
+      this.estatisticaService
+        .getEstatisticasMetasEsportivas(idAcademico)
+        .subscribe({
+          next: (data: EstatisticaModalidadeGeral | null) => {
+            this.estatisticasModalidadeGeral = data;
+          },
+          error: (err) => {
+            if (err.status === 403) {
+              this.isBlocked = true; // Define como bloqueado
+            } else {
+              console.error(
+                'Erro ao buscar dados de todas as modalidades:',
+                err
+              );
+            }
+          },
+        });
+    } else {
+      this.estatisticaService
+        .getEstatisticasMetasEsportivasOutroAcademico(idAcademico)
+        .subscribe({
+          next: (data: EstatisticaModalidadeGeral | null) => {
+            this.estatisticasModalidadeGeral = data;
+          },
+          error: (err) => {
+            if (err.status === 403) {
+              this.isBlocked = true; // Define como bloqueado
+            } else {
+              console.error(
+                'Erro ao buscar dados de todas as modalidades do outro acadêmico:',
+                err
+              );
+            }
+          },
+        });
+    }
   }
 }

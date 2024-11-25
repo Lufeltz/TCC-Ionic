@@ -1,93 +1,88 @@
-<div
-  *ngIf="
-    estatisticasModalidadeGeral &&
-    estatisticasModalidadeGeral.listaEstatisticaPorModalidadeEsportivaDto
-      .length > 0
-  "
->
+<div *ngIf="isBlocked; else showCampeonatos">
+  <app-bloqueado [mensagemBloqueio]="mensagemBloqueio"></app-bloqueado>
+</div>
+
+<ng-template #showCampeonatos>
   <div
-    *ngFor="
-      let modalidade of estatisticasModalidadeGeral.listaEstatisticaPorModalidadeEsportivaDto
+    *ngIf="
+      estatisticasModalidadeGeral &&
+      estatisticasModalidadeGeral.listaEstatisticaPorModalidadeEsportivaDto
+        .length > 0
     "
   >
-    <div class="item-lista meta-esportiva meta-completo">
-      <div class="estatistica-info">
-        <h3 class="titulo-completo">
-          {{ modalidade.nomeModalidadeEsportiva }}
-          <span class="texto-light">Modalidade Esportiva</span>
-        </h3>
+    <div
+      *ngFor="
+        let modalidade of estatisticasModalidadeGeral.listaEstatisticaPorModalidadeEsportivaDto
+      "
+    >
+      <div class="item-lista meta-esportiva meta-completo">
+        <div class="estatistica-info">
+          <h3 class="titulo-completo">
+            {{ modalidade.nomeModalidadeEsportiva }}
+            <span class="texto-light">Modalidade Esportiva</span>
+          </h3>
 
-        <div class="icon-align">
-          <lucide-angular
-            [img]="Award"
-            class="btn-inscrever-se"
-            [size]="20"
-            [ngClass]="{
-              'icon-completo': true
-            }"
-          ></lucide-angular>
-          <p class="estatistica-descricao">
-            Total de Metas Inscritas:
-            {{ modalidade.totalMetasEsportivasInscritas }}
-          </p>
-        </div>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="Award"
+              class="btn-inscrever-se"
+              [size]="20"
+              [ngClass]="{
+                'icon-completo': true
+              }"
+            ></lucide-angular>
+            <p class="estatistica-descricao">
+              Total de Metas Inscritas:
+              {{ modalidade.totalMetasEsportivasInscritas }}
+            </p>
+          </div>
 
-        <div class="icon-align">
-          <lucide-angular
-            [img]="Medal"
-            class="btn-inscrever-se"
-            [size]="20"
-            [ngClass]="{
-              'icon-completo': true
-            }"
-          ></lucide-angular>
-          <p class="estatistica-progresso">
-            Total de Conquistas Alcançadas:
-            {{ modalidade.totalConquistasAlcancadas }}
-          </p>
-        </div>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="Medal"
+              class="btn-inscrever-se"
+              [size]="20"
+              [ngClass]="{
+                'icon-completo': true
+              }"
+            ></lucide-angular>
+            <p class="estatistica-progresso">
+              Total de Conquistas Alcançadas:
+              {{ modalidade.totalConquistasAlcancadas }}
+            </p>
+          </div>
 
-        <div class="icon-align">
-          <lucide-angular
-            [img]="MapPinPlus"
-            class="btn-inscrever-se"
-            [size]="20"
-            [ngClass]="{
-              'icon-completo': true
-            }"
-          ></lucide-angular>
-          <p class="estatistica-objetivo">
-            Total de Campeonatos Criados:
-            {{ modalidade.totalCampeonatosCriados }}
-          </p>
-        </div>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="MapPinPlus"
+              class="btn-inscrever-se"
+              [size]="20"
+              [ngClass]="{
+                'icon-completo': true
+              }"
+            ></lucide-angular>
+            <p class="estatistica-objetivo">
+              Total de Campeonatos Criados:
+              {{ modalidade.totalCampeonatosCriados }}
+            </p>
+          </div>
 
-        <div class="icon-align">
-          <lucide-angular
-            [img]="Trophy"
-            class="btn-inscrever-se"
-            [size]="20"
-            [ngClass]="{
-              'icon-completo': true
-            }"
-          ></lucide-angular>
-          <p class="estatistica-objetivo">
-            Total de Campeonatos Participados:
-            {{ modalidade.totalCampeonatosParticipados }}
-          </p>
+          <div class="icon-align">
+            <lucide-angular
+              [img]="Trophy"
+              class="btn-inscrever-se"
+              [size]="20"
+              [ngClass]="{
+                'icon-completo': true
+              }"
+            ></lucide-angular>
+            <p class="estatistica-objetivo">
+              Total de Campeonatos Participados:
+              {{ modalidade.totalCampeonatosParticipados }}
+            </p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Caso não haja dados -->
-<div
-  *ngIf="
-    !estatisticasModalidadeGeral ||
-    estatisticasModalidadeGeral.listaEstatisticaPorModalidadeEsportivaDto
-      .length === 0
-  "
->
-  <p>Não há estatísticas de modalidades para exibir.</p>
-</div>
+</ng-template>
