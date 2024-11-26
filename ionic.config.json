@@ -1,7 +1,8 @@
 {
   "name": "login-signup-ui",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
   "type": "angular-standalone"
 }
