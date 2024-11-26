@@ -24,6 +24,7 @@
             {{ publicacao.dataPublicacao | date : "dd/MM/yy, hh:mm" }}
           </p>
           <lucide-angular
+            *ngIf="usuarioLogado!.username === publicacao.Usuario.username"
             [img]="EllipsisVertical"
             class="btn-inscrever-se"
             [size]="20"
@@ -109,6 +110,10 @@
                         }}
                       </p>
                       <lucide-angular
+                        *ngIf="
+                          usuarioLogado!.username ===
+                          comentario.Usuario.username
+                        "
                         [img]="EllipsisVertical"
                         class="btn-inscrever-se"
                         [size]="20"
