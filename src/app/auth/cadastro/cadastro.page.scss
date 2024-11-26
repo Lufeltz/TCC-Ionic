@@ -261,3 +261,11 @@ ion-content {
 .margin-bot a:hover {
   text-decoration: underline;
 }
+
+
+ion-list div .error-message p {
+  color: var(--light-red);
+  font-size: 1rem;
+  
+  margin-top: 10px;
+}

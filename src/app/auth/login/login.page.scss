@@ -24,7 +24,6 @@
     --background: var(--text-white);
     --color: var(--background-dark);
   }
-  
 
   ion-item {
     --background: #121214;
@@ -75,8 +74,6 @@
   font-size: 1rem;
 }
 
-
-
 .btn-inscrever-se {
   margin-left: 5px;
 }
@@ -97,17 +94,23 @@
   font-size: 1rem;
 }
 
-/* Estilo para o link 'Já possui uma conta?' */
 .margin-bot {
-  text-align: center;  /* Alinha o texto ao centro */
-  margin-top: 20px;    /* Adiciona espaçamento no topo */
+  text-align: center;
+  margin-top: 20px;
 }
 
 .margin-bot a {
-  color: var(--light-blue);  /* Cor do link */
-  text-decoration: none;     /* Remove o sublinhado */
+  color: var(--light-blue);
+  text-decoration: none;
 }
 
 .margin-bot a:hover {
-  text-decoration: underline;  /* Sublinha o link ao passar o mouse */
+  text-decoration: underline;
+}
+
+.container .error-message {
+  color: var(--light-red);
+  font-size: 1rem;
+  text-align: center;
+  margin-top: 10px;
 }

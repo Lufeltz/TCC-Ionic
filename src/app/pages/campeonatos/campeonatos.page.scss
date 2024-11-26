@@ -478,5 +478,11 @@ ion-datetime .days .day.selected {
 }
 
 ion-text p {
-  color: var(--purple-desc);
+  color: var(--text-light);
+}
+
+.danger p {
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-top: 10px;
 }

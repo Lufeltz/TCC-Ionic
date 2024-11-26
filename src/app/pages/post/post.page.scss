@@ -239,3 +239,10 @@ ion-button:active {
 .post-container {
   padding: 16px;
 }
+
+
+div .error-message p {
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-top: 5px;
+}

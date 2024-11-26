@@ -22,16 +22,13 @@
         placeholder="Exemplo: Campeonato de Futebol (máx 50 caracteres)"
         maxlength="50"
         [(ngModel)]="publicacao.titulo"
+        name="titulo"
+        required
+        #titulo="ngModel"
       ></ion-textarea>
-
-      <!-- <ion-textarea
-      class="input-space styled-textarea titulo-input"
-      label="Título"
-      labelPlacement="floating"
-      placeholder="Digite o título (máx 50 caracteres)"
-      maxlength="50"
-      [(ngModel)]="publicacao.titulo"
-    ></ion-textarea> -->
+      <div *ngIf="titulo.invalid && titulo.touched" class="error-message">
+        <p *ngIf="titulo.errors?.['required']">O título é obrigatório.</p>
+      </div>
 
       <div class="icon-align">
         <lucide-angular
@@ -48,22 +45,13 @@
         placeholder="Exemplo: Levar chuteira e caneleira (máx 150 caracteres)"
         maxlength="150"
         [(ngModel)]="publicacao.descricao"
+        name="descricao"
+        required
+        #descricao="ngModel"
       ></ion-textarea>
-
-      <!-- <ion-textarea
-      class="input-space styled-textarea message-input"
-      label="Mensagem"
-      labelPlacement="floating"
-      placeholder="Digite sua mensagem (máx 150 caracteres)"
-      maxlength="150"
-      [(ngModel)]="publicacao.descricao"
-    ></ion-textarea> -->
-
-      <ion-toast
-        trigger="open-toast"
-        message="Post criado com sucesso, redirecionando..."
-        [duration]="2500"
-      ></ion-toast>
+      <div *ngIf="descricao.invalid && descricao.touched" class="error-message">
+        <p *ngIf="descricao.errors?.['required']">A mensagem é obrigatória.</p>
+      </div>
 
       <div class="icon-align">
         <lucide-angular
@@ -81,8 +69,12 @@
             class="custom-select"
             id="modalidade-select"
             [(ngModel)]="publicacao.idModalidadeEsportiva"
+            name="modalidadeEsportiva"
+            required
+            #modalidadeEsportiva="ngModel"
           >
             <option [ngValue]="null" selected>Sem Modalidade</option>
+            <!-- <option value="null" selected>Selecione uma modalidade</option> -->
             <option [ngValue]="1">Futebol</option>
             <option [ngValue]="2">Vôlei</option>
             <option [ngValue]="3">Basquete</option>
@@ -90,12 +82,21 @@
           </select>
         </div>
       </div>
+      <!-- <div
+        *ngIf="modalidadeEsportiva.invalid && modalidadeEsportiva.touched"
+        class="error-message"
+      >
+        <p *ngIf="modalidadeEsportiva.errors?.['required']">
+          A modalidade esportiva é obrigatória.
+        </p>
+      </div> -->
 
       <ion-button
         size="small"
         expand="block"
         class="icon-button"
         (click)="onSubmit()"
+        [disabled]="!titulo.valid || !descricao.valid"
       >
         <div class="text-container">Criar Publicação</div>
         <div class="icon-align">

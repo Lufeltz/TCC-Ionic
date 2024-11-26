@@ -74,6 +74,13 @@ ion-content {
   color: var(--yellow-desc);
 }
 
+ion-title {
+  text-align: center;  /* Centraliza o texto */
+  width: 100%;         /* Garante que o título ocupe toda a largura disponível */
+  margin-left: 25px;
+}
+
+
 .logout {
   width: 100%;
   margin-top: 2rem;

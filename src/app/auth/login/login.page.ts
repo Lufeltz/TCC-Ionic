@@ -97,15 +97,23 @@ export class LoginPage implements OnInit {
             this.authService.loadUserData();
           });
 
-          // console.log(decodedToken);
         } else {
+          // Caso o token seja inválido
           this.message = 'Usuário/Senha inválidos.';
         }
         this.loading = false;
       },
       error: (err) => {
         this.loading = false;
-        this.message = `Erro efetuando login: ${err.message}`;
+
+        // Verificar o código de erro e exibir a mensagem correspondente
+        if (err.status === 400) {
+          this.message = 'Erro no login. Verifique o usuário e a senha novamente.';
+        } else if (err.status === 401) {
+          this.message = 'Login ou senha incorretos.';
+        } else {
+          this.message = `Erro desconhecido: ${err.message}`;
+        }
       },
     });
   }

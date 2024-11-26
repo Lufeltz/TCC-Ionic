@@ -490,3 +490,9 @@ ion-button {
 .dropdown-menu li:active {
   background-color: var(--purple-desc);
 }
+
+.error-message p {
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-top: 10px;
+}
