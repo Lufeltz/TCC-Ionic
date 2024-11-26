@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { IonButton } from '@ionic/angular/standalone';
 import {
+  Crown,
   Flag,
   LucideAngularModule,
   SquarePen,
@@ -34,6 +35,7 @@ export class CampeonatoStatusComponent implements OnInit {
   readonly Flag = Flag;
   readonly Users = Users;
   readonly User = User;
+  readonly Crown = Crown;
 
   codigo: string = '';
   loading: boolean = true;

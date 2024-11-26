@@ -56,8 +56,8 @@ p span {
 
 h3 {
   display: flex;
-  justify-content: space-between;
-  color: var(--yellow-desc);
+  justify-content: center;
+  color: var(--text-new-green);
   margin-bottom: 8px;
   width: 100%; /* Garante que o título ocupe toda a largura do container */
 }
@@ -172,14 +172,44 @@ ion-button {
   align-items: center;
   width: 100%; /* Garante que os cards ocupem 100% da largura do container */
   border-radius: 8px;
-  border-right: 2px solid var(--yellow-desc);
-  border-bottom: 2px solid var(--yellow-desc);
-  // padding-top: 1rem;
-  // padding-right: 1rem;
-  // padding-left: 1rem;
+  border-right: 2px solid var(--text-new-green);
+  border-bottom: 2px solid var(--text-new-green);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  // padding: 1.75rem;s
   background-color: var(--background-dark);
+  color: var(--text-new-green);
+}
 
-  color: var(--yellow-desc);
+h4 {
+  margin-top: 2rem;
+  text-align: center;
+}
+
+h5 {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1.5rem;
+  color: var(--text-new-green);
+}
+
+h6 {
+  font-size: 1.5rem;
+}
+
+.icon-align h5 {
+  margin: 0;
+}
+
+h3 {
+  text-align: center;
+}
+
+li .icon-align {
+  // margin-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+li .space {
+  margin-top: 2rem;
 }
