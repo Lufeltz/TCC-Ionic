@@ -81,6 +81,8 @@
             name="progressoMaximo"
             required
             #progressoMaximo="ngModel"
+            type="number"
+            maxlength="3"
           ></ion-input>
           <div *ngIf="progressoMaximo.invalid && progressoMaximo.touched" class="error-message">
             <p *ngIf="progressoMaximo.errors?.['required']">O objetivo é obrigatório.</p>

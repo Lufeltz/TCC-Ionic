@@ -20,6 +20,7 @@
   <div *ngIf="selectedSegment === 'criacao'">
     <div class="container">
       <ul>
+        <!-- Título -->
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
@@ -35,9 +36,15 @@
             [(ngModel)]="campeonato.titulo"
             placeholder="Exemplo: Fut no SEPT(máx 50 caracteres)"
             auto-grow="true"
+            required
+            #titulo="ngModel"
           ></ion-textarea>
+          <ion-text color="danger" *ngIf="titulo?.invalid && titulo?.touched">
+            <p>O campo título é obrigatório.</p>
+          </ion-text>
         </li>
 
+        <!-- Descrição -->
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
@@ -53,9 +60,18 @@
             [(ngModel)]="campeonato.descricao"
             placeholder="Exemplo: Na quadra ao lado do SEPT, levem caneleiras"
             auto-grow="true"
+            required
+            #descricao="ngModel"
           ></ion-textarea>
+          <ion-text
+            color="danger"
+            *ngIf="descricao?.invalid && descricao?.touched"
+          >
+            <p>O campo descrição é obrigatório.</p>
+          </ion-text>
         </li>
 
+        <!-- Modalidade -->
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
@@ -73,38 +89,32 @@
                 id="modalidade-select"
                 [(ngModel)]="campeonato.idModalidadeEsportiva"
                 (change)="onSelectChange($event)"
+                required
+                #modalidade="ngModel"
               >
-                <option value="1" selected>Futebol</option>
+                <option value="" disabled selected>
+                  Selecione uma modalidade
+                </option>
+                <option value="1">Futebol</option>
                 <option value="2">Vôlei</option>
                 <option value="3">Basquete</option>
                 <option value="4">Tênis de Mesa</option>
               </select>
             </div>
           </div>
+          <ion-text
+            color="danger"
+            *ngIf="modalidade?.invalid && modalidade?.touched"
+          >
+            <p>O campo modalidade é obrigatório.</p>
+          </ion-text>
         </li>
 
+        <!-- Limite de Times -->
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
               [img]="CircleDollarSign"
-              class="btn-inscrever-se"
-              [size]="20"
-              [color]="'var(--yellow-desc)'"
-            ></lucide-angular>
-            <ion-label>Aposta</ion-label>
-          </div>
-          <ion-textarea
-            ngDefaultControl
-            [(ngModel)]="campeonato.aposta"
-            placeholder="Exemplo: Uma coca 2L"
-            auto-grow="true"
-          ></ion-textarea>
-        </li>
-
-        <li class="item-lista">
-          <div class="icon-align">
-            <lucide-angular
-              [img]="Users"
               class="btn-inscrever-se"
               [size]="20"
               [color]="'var(--yellow-desc)'"
@@ -118,19 +128,22 @@
             maxlength="2"
             type="text"
             (ionInput)="validateLimiteTimes($event)"
+            required
+            #limiteTimes="ngModel"
           ></ion-input>
-          
-          <!-- Exibe a mensagem de erro se houver -->
-          <ion-text color="danger" *ngIf="errorMessage">
-            <p>{{ errorMessage }}</p>
+          <ion-text
+            color="danger"
+            *ngIf="limiteTimes?.invalid && limiteTimes?.touched"
+          >
+            <p>O campo limite de times é obrigatório.</p>
           </ion-text>
         </li>
-        
-        
+
+        <!-- Limite de Participantes -->
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
-              [img]="User"
+              [img]="Users"
               class="btn-inscrever-se"
               [size]="20"
               [color]="'var(--yellow-desc)'"
@@ -144,10 +157,18 @@
             maxlength="2"
             type="text"
             (ionInput)="validateNumber($event)"
+            required
+            #limiteParticipantes="ngModel"
           ></ion-input>
+          <ion-text
+            color="danger"
+            *ngIf="limiteParticipantes?.invalid && limiteParticipantes?.touched"
+          >
+            <p>O campo limite de participantes é obrigatório.</p>
+          </ion-text>
         </li>
-        
 
+        <!-- Data e Hora de Início -->
         <li class="item-lista">
           <div
             class="input-data-hora-container"
@@ -170,7 +191,14 @@
                 required
                 [(ngModel)]="dataInicio"
                 class="styled-input"
+                #dataInicioField="ngModel"
               />
+              <ion-text
+                color="danger"
+                *ngIf="dataInicioField?.invalid && dataInicioField?.touched"
+              >
+                <p>O campo data de início é obrigatório.</p>
+              </ion-text>
             </div>
             <div style="flex: 2">
               <div class="icon-align">
@@ -189,11 +217,19 @@
                 required
                 [(ngModel)]="horaInicio"
                 class="styled-input"
+                #horaInicioField="ngModel"
               />
+              <ion-text
+                color="danger"
+                *ngIf="horaInicioField?.invalid && horaInicioField?.touched"
+              >
+                <p>O campo hora de início é obrigatório.</p>
+              </ion-text>
             </div>
           </div>
         </li>
 
+        <!-- Data e Hora de Término -->
         <li class="item-lista">
           <div
             class="input-data-hora-container"
@@ -216,7 +252,14 @@
                 required
                 [(ngModel)]="dataFim"
                 class="styled-input"
+                #dataFimField="ngModel"
               />
+              <ion-text
+                color="danger"
+                *ngIf="dataFimField?.invalid && dataFimField?.touched"
+              >
+                <p>O campo data de término é obrigatório.</p>
+              </ion-text>
             </div>
             <div style="flex: 2">
               <div class="icon-align">
@@ -235,7 +278,14 @@
                 required
                 [(ngModel)]="horaFim"
                 class="styled-input"
+                #horaFimField="ngModel"
               />
+              <ion-text
+                color="danger"
+                *ngIf="horaFimField?.invalid && horaFimField?.touched"
+              >
+                <p>O campo hora de término é obrigatório.</p>
+              </ion-text>
             </div>
           </div>
         </li>
@@ -318,7 +368,7 @@
               ></lucide-angular>
               <ion-label class="input-label">CEP</ion-label>
             </div>
-        
+
             <!-- Linha 2: campo de entrada e botão -->
             <div class="cep-footer">
               <ion-input
@@ -345,7 +395,6 @@
             </div>
           </div>
         </li>
-        
 
         <li class="item-lista">
           <div class="icon-align">
@@ -384,7 +433,6 @@
             (ionInput)="validateNumber2($event)"
           ></ion-input>
         </li>
-        
 
         <li class="item-lista">
           <div
@@ -468,6 +516,7 @@
         expand="small"
         class="centered-button"
         (click)="salvarDados()"
+        [disabled]="!horaFim"
       >
         <div class="icon-align">
           <lucide-angular
