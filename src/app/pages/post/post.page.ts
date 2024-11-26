@@ -44,7 +44,7 @@ import { ArrowRight, LucideAngularModule, MessageCircleQuestion, NotebookPen } f
   ],
 })
 export class PostPage implements OnInit {
-  pageTitle: string = 'Criar Post';
+  pageTitle: string = 'Criar Publicação';
   pageMenu: string = 'criar-post';
   pageContent: string = 'criar-post';
 
