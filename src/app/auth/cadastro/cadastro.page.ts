@@ -67,12 +67,15 @@ export class CadastroPage {
 
   @ViewChild('formCadastro') formCadastro!: NgForm;
   @ViewChild('dateInput') dateInput!: ElementRef;
+  @ViewChild('formLogin') formLogin!: NgForm; // Referência ao formulário
+
   message!: string;
   academico: Cadastro = new Cadastro();
   user: Academico | null = null;
 
   cursos: string[] = [];
   loading: boolean = true;
+
 
   constructor(
     private authService: AuthService,
@@ -85,6 +88,21 @@ export class CadastroPage {
     this.loadCursos();
   }
 
+  onTelefoneChange(event: any) {
+    let input = event.target.value;
+  
+    // Remover qualquer caractere não numérico
+    input = input.replace(/\D/g, ''); // Substitui tudo que não for número por nada
+  
+    // Limitar o comprimento do número para 11 caracteres (como o formato 41999999999)
+    if (input.length > 11) {
+      input = input.slice(0, 11); // Limita a quantidade de caracteres para 11
+    }
+  
+    // Atualiza o valor no modelo
+    this.academico.telefone = input;
+  }
+  
   // Removido a formatação de telefone
 
   // Método para formatar a data
@@ -104,23 +122,25 @@ export class CadastroPage {
 
   // Função chamada ao clicar em Registrar
   cadastrar() {
-    // Se houver dataNascimento, formata antes de salvar ou enviar
-    if (this.academico.dataNascimento) {
-      this.academico.dataNascimento = this.formatDateToFullDate(
-        this.academico.dataNascimento
-      );
+    // Se o formulário for válido, envia os dados
+    if (this.formLogin.valid) {
+      if (this.academico.dataNascimento) {
+        this.academico.dataNascimento = this.formatDateToFullDate(this.academico.dataNascimento);
+      }
+  
+      this.authService.cadastrar(this.academico).subscribe({
+        next: (academico) => {
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          console.log('Erro ao cadastrar acadêmico', err);
+        },
+      });
+    } else {
+      console.log('Por favor, preencha todos os campos corretamente.');
     }
-
-    // Envia os dados para o serviço de cadastro
-    this.authService.cadastrar(this.academico).subscribe({
-      next: (academico) => {
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        console.log('Erro ao cadastrar academico', err);
-      },
-    });
   }
+  
 
   loadCursos(): void {
     this.academicoService.getCursos().subscribe({
