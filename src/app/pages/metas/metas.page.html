@@ -18,6 +18,7 @@
   <div *ngIf="selectedSegment === 'criacao'">
     <div class="container">
       <ul>
+        <!-- Título -->
         <li class="item-lista2">
           <div class="icon-align">
             <lucide-angular
@@ -31,8 +32,16 @@
           <ion-textarea
             [(ngModel)]="metaDiaria2.titulo"
             placeholder="Exemplo: Hidrate-se"
+            name="titulo"
+            required
+            #titulo="ngModel"
           ></ion-textarea>
+          <div *ngIf="titulo.invalid && titulo.touched" class="error-message">
+            <p *ngIf="titulo.errors?.['required']">O título é obrigatório.</p>
+          </div>
         </li>
+
+        <!-- Descrição -->
         <li class="item-lista2">
           <div class="icon-align">
             <lucide-angular
@@ -46,8 +55,16 @@
           <ion-textarea
             [(ngModel)]="metaDiaria2.objetivo"
             placeholder="Exemplo: Beber 2 litros de água"
+            name="objetivo"
+            required
+            #objetivo="ngModel"
           ></ion-textarea>
+          <div *ngIf="objetivo.invalid && objetivo.touched" class="error-message">
+            <p *ngIf="objetivo.errors?.['required']">A descrição é obrigatória.</p>
+          </div>
         </li>
+
+        <!-- Objetivo -->
         <li class="item-lista2">
           <div class="icon-align">
             <lucide-angular
@@ -61,8 +78,16 @@
           <ion-input
             [(ngModel)]="metaDiaria2.progressoMaximo"
             placeholder="Exemplo: 2"
+            name="progressoMaximo"
+            required
+            #progressoMaximo="ngModel"
           ></ion-input>
+          <div *ngIf="progressoMaximo.invalid && progressoMaximo.touched" class="error-message">
+            <p *ngIf="progressoMaximo.errors?.['required']">O objetivo é obrigatório.</p>
+          </div>
         </li>
+
+        <!-- Medida -->
         <li class="item-lista2">
           <div class="icon-align">
             <lucide-angular
@@ -76,15 +101,23 @@
           <ion-input
             [(ngModel)]="metaDiaria2.progressoItem"
             placeholder="Exemplo: Litros, Quilômetros, Páginas"
+            name="progressoItem"
+            required
+            #progressoItem="ngModel"
           ></ion-input>
+          <div *ngIf="progressoItem.invalid && progressoItem.touched" class="error-message">
+            <p *ngIf="progressoItem.errors?.['required']">A medida é obrigatória.</p>
+          </div>
         </li>
       </ul>
 
+      <!-- Botão Criar -->
       <ion-button
         id="open-toast"
         expand="small"
         class="centered-button"
         (click)="salvarDados()"
+        [disabled]="!titulo.valid || !objetivo.valid || !progressoMaximo.valid || !progressoItem.valid"
       >
         <div class="icon-align">
           <lucide-angular
@@ -235,37 +268,6 @@
               </ion-label>
             </div>
           </div>
-          <!-- <div class="button-group">
-            <ion-button
-              expand="small"
-              class="centered-button meta-button"
-              (click)="abrirModalEditar(meta)"
-            >
-              <div class="icon-align">
-                <lucide-angular
-                  [img]="SquarePen"
-                  class="btn-inscrever-se"
-                  [size]="20"
-                  [color]="'var(--background-dark)'"
-                ></lucide-angular>
-              </div>
-            </ion-button>
-
-            <ion-button
-              expand="small"
-              class="centered-button meta-button"
-              (click)="excluirMeta(meta)"
-            >
-              <div class="icon-align">
-                <lucide-angular
-                  [img]="Trash2"
-                  class="btn-inscrever-se"
-                  [size]="20"
-                  [color]="'var(--background-dark)'"
-                ></lucide-angular>
-              </div>
-            </ion-button>
-          </div> -->
         </li>
 
         <!-- Iteração sobre as metas esportivas com filtro -->
@@ -424,3 +426,13 @@
     (close)="fecharModalEsportiva()"
   ></app-modal-editar-meta-esportiva>
 </ion-content>
+
+
+
+
+
+
+
+
+
+
