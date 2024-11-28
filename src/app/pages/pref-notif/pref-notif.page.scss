@@ -26,7 +26,6 @@ ul {
   border-bottom: 2px solid var(--light-blue);
   border-radius: 8px;
   padding: 10px;
-  transition: background-color 0.3s;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
 }
 
@@ -80,7 +79,6 @@ ion-button {
   margin-top: 16px;
   --background: var(--text-white);
   --color: var(--background-dark);
-  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ion-button:active {

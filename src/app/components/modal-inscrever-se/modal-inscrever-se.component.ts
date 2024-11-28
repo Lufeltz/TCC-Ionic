@@ -24,11 +24,10 @@ import { Campeonato } from 'src/app/models/campeonato.model';
 export class ModalInscreverSeComponent implements OnInit {
   constructor(private partidaService: PartidaService) {}
 
-  @Input() idUsuario!: number; // Recebe o ID do campeonato
-  @Input() time!: Time; // Recebe o ID do campeonato
-  @Input() campeonato!: Campeonato | null; // Recebe o ID do campeonato
-  @Output() close = new EventEmitter<void>(); // Evento para fechar o modal
-
+  @Input() idUsuario!: number;
+  @Input() time!: Time;
+  @Input() campeonato!: Campeonato | null;
+  @Output() close = new EventEmitter<void>();
 
   readonly CaseUpper = CaseUpper;
   readonly CircleX = CircleX;
@@ -37,13 +36,9 @@ export class ModalInscreverSeComponent implements OnInit {
   ngOnInit() {}
 
   adicionarUsuario(idUsuario: number, time: Time) {
-    // console.log("idusuario: ", idUsuario)
-    // console.log("time: ", time);
-
     this.partidaService.adicionarUsuarioAoTime(idUsuario, time).subscribe({
       next: (response) => {
-        console.log('Usuário adicionado ao time:', response);
-        this.closeModal()
+        this.closeModal();
       },
       error: (error) => {
         console.error('Erro ao adicionar usuário ao time:', error);
@@ -52,6 +47,6 @@ export class ModalInscreverSeComponent implements OnInit {
   }
 
   closeModal() {
-    this.close.emit(); // Emite o evento para fechar o modal
+    this.close.emit();
   }
 }

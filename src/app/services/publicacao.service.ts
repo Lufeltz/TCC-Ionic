@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { Publicacao } from '../models/publicacao.model';
 import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
+import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,9 @@ import { AuthService } from './auth.service'; // Importa o AuthService para obte
 export class PublicacaoService {
   constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
-  private readonly NEW_URL = 'http://localhost:8081';
+  private ip: string = APP_CONFIG.ip;
+
+  private readonly NEW_URL = `http://${this.ip}:8081`;
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

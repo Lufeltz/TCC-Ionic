@@ -93,11 +93,9 @@ export class EstatisticasPage implements OnInit {
     this.loadCursos();
   }
 
-  // Removido a formatação de telefone
   getUsuarioLogado() {
     this.academico = this.authService.getUser();
     if (this.academico) {
-      // Agora, o telefone é mantido como está, sem qualquer formatação
     }
   }
 
@@ -105,36 +103,25 @@ export class EstatisticasPage implements OnInit {
 
   salvarDados() {
     if (this.academico && this.user!.idAcademico) {
-      // Restaurando a data de nascimento original para o formato correto
       if (this.originalDataNascimento) {
         this.academico.dataNascimento = this.originalDataNascimento;
       }
 
-      // Não formatar mais a data de nascimento
       const dataNascimento = this.academico.dataNascimento;
       if (dataNascimento && dataNascimento !== '') {
-        // A data é tratada como string ou no formato ISO
-        const dataISO = new Date(dataNascimento).toISOString(); // Convertendo para ISO 8601
-        this.academico.dataNascimento = dataISO; // Atualiza o campo com a data no formato ISO
+        const dataISO = new Date(dataNascimento).toISOString();
+        this.academico.dataNascimento = dataISO;
       } else {
         console.warn('Data de nascimento inválida ou vazia');
       }
 
-      // Logando antes de enviar os dados ao serviço
-      console.log('academico sendo enviado: ', this.academico);
-
-      // Chamando o serviço para atualizar os dados do acadêmico
       this.academicoService
         .atualizar(this.user!.idAcademico, this.academico)
         .subscribe({
           next: (data: AcademicoAlteracao | null) => {
-            console.log('Resposta do servidor:', data);
             if (data) {
-              // Aqui chamamos o método para atualizar os dados locais após a atualização
               this.academico = data;
-              // this.getUsuarioLogado(); // Atualizando os dados do acadêmico com a resposta do backend
-              console.log(this.academico)
-              // Aqui, podemos exibir o toast ou mensagem de sucesso
+
               const toast = document.querySelector('ion-toast');
               if (toast) {
                 toast.present();

@@ -36,7 +36,7 @@ import { MetaEsportiva } from 'src/app/models/meta-esportiva.model';
 import { forkJoin, Subscription } from 'rxjs';
 import { Conquista } from 'src/app/models/conquista.model';
 import { ConquistasService } from 'src/app/services/conquistas.service';
-import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
+
 import {
   BicepsFlexed,
   CaseUpper,
@@ -55,6 +55,7 @@ import {
   Trash2,
 } from 'lucide-angular';
 import { ModalEditarMetaEsportivaComponent } from 'src/app/components/modal-editar-meta-esportiva/modal-editar-meta-esportiva.component';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-metas',
@@ -169,7 +170,7 @@ export class MetasPage implements OnInit {
     private alertController: AlertController,
     private authService: AuthService,
     private conquistasService: ConquistasService,
-    private stateModalidadesService: StateModalidadesService
+    private stateService: StateService
   ) {}
 
   ngOnInit(): void {
@@ -179,7 +180,7 @@ export class MetasPage implements OnInit {
       this.carregarDadosUsuario();
 
       this.modalidadeUpdateSubscription =
-        this.stateModalidadesService.updateModalidades$.subscribe(() => {
+        this.stateService.updateModalidades$.subscribe(() => {
           this.carregarModalidades();
           this.carregarConquistas();
         });
@@ -202,15 +203,12 @@ export class MetasPage implements OnInit {
   }
 
   editarMetaDiaria(metaDiariaId: number, meta: MetaDiaria): void {
-    console.log('Editando a meta diária...', metaDiariaId);
     this.abrirModalEditar(meta);
 
     this.menuVisibilityMetaDiaria[metaDiariaId] = false;
   }
 
   deletarMetaDiaria(metaDiariaId: number, meta: MetaDiaria): void {
-    console.log('Deletando meta diária...', metaDiariaId);
-
     this.excluirMeta(meta);
 
     this.menuVisibilityMetaDiaria[metaDiariaId] = false;
@@ -238,8 +236,6 @@ export class MetasPage implements OnInit {
     conquistaId: number,
     conquista: Conquista
   ): void {
-    console.log('Editando a meta esportiva...', modalidadeId, conquistaId);
-
     this.abrirModalEditarEsportiva(conquista);
 
     this.menuVisibilityConquista[
@@ -259,7 +255,6 @@ export class MetasPage implements OnInit {
       .subscribe({
         next: (modalidades) => {
           this.modalidadesUsuario = modalidades;
-          console.log(this.modalidadesUsuario);
           this.listarMetasEsportivas();
         },
         error: (err) => {
@@ -274,7 +269,6 @@ export class MetasPage implements OnInit {
       .subscribe({
         next: (conquistas) => {
           this.conquistasUsuario = conquistas || [];
-          console.log(this.conquistasUsuario);
         },
         error: (err) => {
           console.error('Erro ao carregar conquistas:', err);
@@ -297,7 +291,6 @@ export class MetasPage implements OnInit {
         this.metasEsportivas = resultados
           .flat()
           .filter((meta): meta is MetaEsportiva => meta !== null);
-        console.log(this.metasEsportivas);
       },
       error: (err) => {
         console.error('Erro ao buscar metas esportivas:', err);
@@ -376,9 +369,7 @@ export class MetasPage implements OnInit {
       meta.progressoAtual >= meta.progressoMaximo
     ) {
       this.excluirPresentAlert(meta);
-      console.log(`dentro`);
     }
-    console.log(`saiu`);
   }
 
   async excluirPresentAlert(meta: MetaDiaria) {
@@ -396,7 +387,6 @@ export class MetasPage implements OnInit {
         {
           text: 'Concluir',
           handler: () => {
-            console.log('Meta confirmada:', meta);
             this.excluirMetaConfirmada(meta.idMetaDiaria.toString());
           },
         },

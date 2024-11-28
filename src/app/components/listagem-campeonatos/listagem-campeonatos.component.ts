@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   IonLabel,
   IonAccordion,
@@ -16,8 +10,6 @@ import {
   IonToggle,
   IonSearchbar,
 } from '@ionic/angular/standalone';
-import { addIcons } from 'ionicons';
-import { lockClosed, lockOpen, thumbsUpSharp } from 'ionicons/icons';
 import { NgxMaskPipe } from 'ngx-mask';
 import { AlertController } from '@ionic/angular';
 import {
@@ -28,7 +20,6 @@ import {
   ExternalLink,
   RotateCw,
   Users,
-  PersonStanding,
   User,
   Volleyball,
   MessageSquareCode,
@@ -48,12 +39,7 @@ import { Campeonato } from 'src/app/models/campeonato.model';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { FormsModule } from '@angular/forms';
 import { TitleCasePipe } from 'src/app/pipes/title-case.pipe';
-import { EnderecoService } from 'src/app/services/endereco.service';
-import { Endereco } from 'src/app/models/endereco.model';
-import {
-  ModalidadeEsportiva,
-  Modalidades,
-} from 'src/app/models/modalidades.model';
+import { ModalidadeEsportiva } from 'src/app/models/modalidades.model';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { Academico } from 'src/app/models/academico.model';
 import { RouterModule } from '@angular/router';
@@ -64,6 +50,7 @@ import { Jogador } from 'src/app/models/jogador.model';
 import { JogadorResponse } from 'src/app/models/jogador-response.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConteudoVazioComponent } from '../conteudo-vazio/conteudo-vazio.component';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-listagem-campeonatos',
@@ -111,20 +98,20 @@ export class ListagemCampeonatosComponent implements OnInit {
   readonly UserPlus = UserPlus;
 
   campeonatos: Campeonato[] = [];
-  modalidades: ModalidadeEsportiva[] = []; // Armazena a lista de modalidades
+  modalidades: ModalidadeEsportiva[] = [];
   modalidadesSimplificadas: { idModalidadeEsportiva: number; nome: string }[] =
-    []; // Variável para armazenar o novo array
+    [];
 
   mensagem!: string;
   mensagem_detalhes!: string;
   filteredCampeonatos: Campeonato[] = [];
-  academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
+  academico: Academico | null = null;
 
   currentPage: number = 0;
   pageSize: number = 5;
   totalPages: number = 0;
 
-  searchedCampeonatos: string = ''; // Variável que armazenará o valor da pesquisa
+  searchedCampeonatos: string = '';
   searchSubject: Subject<string> = new Subject<string>();
 
   loading: boolean = true;
@@ -132,23 +119,20 @@ export class ListagemCampeonatosComponent implements OnInit {
   jogadores: Jogador[] = [];
   timesPorCampeonato: { [idCampeonato: number]: Time[] } = {};
   jogadoresPorCampeonato: { [idCampeonato: number]: Jogador[] } = [];
-  error: string = ''; // Mensagem de erro
+  error: string = '';
   showLoadMoreButton: boolean = true;
 
-  isBlocked: boolean = false; // Controla se o usuário está bloqueado
+  isBlocked: boolean = false;
   mensagemAusencia: string =
     'Não há campeonatos disponíveis. Inscreva-se em alguma modalidade para visualizá-los';
-
-  // Outros métodos e propriedades do componente
-
-  // Método que é chamado sempre que o usuário digita no IonSearchbar
 
   constructor(
     private alertController: AlertController,
     private campeonatoService: CampeonatoService,
     private modalidadeService: ModalidadesService,
     private partidaService: PartidaService,
-    private authService: AuthService
+    private authService: AuthService,
+    private stateService: StateService
   ) {}
 
   ngOnInit() {
@@ -157,18 +141,17 @@ export class ListagemCampeonatosComponent implements OnInit {
     this.subscribeToSearch();
     if (this.academico) {
       this.listarCampeonatos();
+      this.stateService.updateCampeonatos$.subscribe(() => {
+        this.listarCampeonatos();
+      });
     }
-    // this.listarTimesPorCampeonato(1)
-    // this.listarJogadoresPorCampeonato(1)
   }
 
   listarTimesPorCampeonato(idCampeonato: number): void {
     this.loading = true;
     this.partidaService.listarTimes(idCampeonato).subscribe({
       next: (times: Time[]) => {
-        // Armazena os times no objeto timesPorCampeonato usando o idCampeonato como chave
         this.timesPorCampeonato[idCampeonato] = times;
-        console.log('times: ', this.timesPorCampeonato);
         this.loading = false;
       },
       error: (err) => {
@@ -182,9 +165,7 @@ export class ListagemCampeonatosComponent implements OnInit {
     this.loading = true;
     this.partidaService.listarJogadores(idCampeonato).subscribe({
       next: (response: JogadorResponse) => {
-        // Armazena os jogadores no objeto jogadoresPorCampeonato usando o idCampeonato como chave
         this.jogadoresPorCampeonato[idCampeonato] = response.content || [];
-        console.log('jogadores:', this.jogadoresPorCampeonato);
         this.loading = false;
       },
       error: (err) => {
@@ -197,14 +178,14 @@ export class ListagemCampeonatosComponent implements OnInit {
   listarCampeonatos(): void {
     this.academico = this.authService.getUser();
     if (this.academico) {
-      this.loading = true; // Define loading como verdadeiro enquanto os dados estão sendo carregados
+      this.loading = true;
 
       this.campeonatoService
         .getCampeonatosPorModalidadeAcademico(
-          this.academico.idAcademico, // Passa o id do acadêmico
-          0, // Página inicial
-          this.pageSize, // Tamanho da página
-          'dataCriacao,desc' // Ordena pela data de criação
+          this.academico.idAcademico,
+          0,
+          this.pageSize,
+          'dataCriacao,desc'
         )
         .subscribe({
           next: (data: any) => {
@@ -218,9 +199,8 @@ export class ListagemCampeonatosComponent implements OnInit {
                 this.listarJogadoresPorCampeonato(campeonato.idCampeonato);
               });
             } else {
-              console.log('Não há campeonatos disponíveis.');
               this.campeonatos = [];
-              this.isBlocked = true; // Define como bloqueado
+              this.isBlocked = true;
             }
           },
           error: (err) => {
@@ -228,7 +208,7 @@ export class ListagemCampeonatosComponent implements OnInit {
             this.mensagem = 'Erro buscando lista de campeonatos';
             this.mensagem_detalhes = `[${err.status} ${err.message}]`;
             if (err.status === 404) {
-              this.isBlocked = true; // Define como bloqueado se o erro for 404
+              this.isBlocked = true;
 
               this.mensagemAusencia = `Não há campeonatos disponíveis no momento. Você pode ver as modalidades disponíveis <a href="/homepage/modalidades">aqui</a>.`;
             }
@@ -243,37 +223,35 @@ export class ListagemCampeonatosComponent implements OnInit {
   listarMaisCampeonatos(): void {
     this.academico = this.authService.getUser();
     if (this.academico) {
-      if (this.loading) return; // Evita múltiplos carregamentos simultâneos
+      if (this.loading) return;
 
-      this.loading = true; // Define loading como verdadeiro enquanto os dados estão sendo carregados
+      this.loading = true;
 
-      // Carrega mais campeonatos com base na página atual
       this.campeonatoService
         .getCampeonatosPorModalidadeAcademico(
-          this.academico.idAcademico, // Passa o id do acadêmico
-          this.currentPage, // Página atual
-          this.pageSize, // Tamanho da página
-          'dataCriacao,desc' // Ordena pela data de criação (descendente)
+          this.academico.idAcademico,
+          this.currentPage,
+          this.pageSize,
+          'dataCriacao,desc'
         )
         .subscribe({
           next: (data: any) => {
-            this.loading = false; // Define loading como falso quando os dados são recebidos
+            this.loading = false;
 
             if (data.content && data.content.length > 0) {
-              // Concatenando os novos campeonatos com os existentes
               this.campeonatos = [...this.campeonatos, ...data.content];
-              this.currentPage++; // Atualiza a página para carregar mais campeonatos
-              this.totalPages = data.totalPages; // Atualiza o número total de páginas
+              this.currentPage++;
+              this.totalPages = data.totalPages;
             } else {
               console.log('Não há mais campeonatos para carregar.');
             }
           },
           error: (err) => {
-            this.loading = false; // Define loading como falso em caso de erro
+            this.loading = false;
 
             if (err.status === 500) {
               console.log('Erro 500: Não há mais campeonatos para carregar.');
-              this.showLoadMoreButton = false; // Esconde o botão
+              this.showLoadMoreButton = false;
             }
 
             this.mensagem = 'Erro buscando mais campeonatos';
@@ -286,21 +264,19 @@ export class ListagemCampeonatosComponent implements OnInit {
     }
   }
 
-  // Inscreve-se no subject para debouncing e para realizar a pesquisa
   subscribeToSearch(): void {
     this.searchSubject
       .pipe(
-        debounceTime(3000), // Espera 3 segundos após a última digitação
+        debounceTime(3000),
         switchMap((searchTerm) => {
-          // Verifica se o termo de pesquisa começa com '#'
           if (searchTerm.startsWith('#')) {
-            const codigo = searchTerm; // Mantém o termo com '#', não codifica novamente
-            return this.campeonatoService.filtrarCampeonatos(codigo, undefined); // Passa o código com '#'
+            const codigo = searchTerm;
+            return this.campeonatoService.filtrarCampeonatos(codigo, undefined);
           } else {
             return this.campeonatoService.filtrarCampeonatos(
               undefined,
               searchTerm
-            ); // Passa o título
+            );
           }
         })
       )
@@ -319,26 +295,26 @@ export class ListagemCampeonatosComponent implements OnInit {
     aberto?: boolean;
     finalizado?: boolean;
     iniciado?: boolean;
-    participando?: boolean; // Ensure this is a boolean value
+    participando?: boolean;
   } = { participando: true };
 
   onSearchInput(event: any): void {
     this.searchedCampeonatos = event.target.value;
-    this.searchSubject.next(this.searchedCampeonatos); // Emite o valor para o Subject
+    this.searchSubject.next(this.searchedCampeonatos);
   }
 
   getLockColor(privacidade: string): string {
     return privacidade === 'PRIVADO'
       ? 'var(--light-red)'
-      : 'var(--text-new-green)'; // 'red' para 'privado', 'green' para 'público'
+      : 'var(--text-new-green)';
   }
 
   loadModalidades(): void {
     this.modalidadeService.getAllModalidades().subscribe({
       next: (modalidades) => {
         if (modalidades && modalidades.length > 0) {
-          this.modalidades = modalidades; // Atribui corretamente um array de ModalidadeEsportiva
-          this.gerarModalidadesSimplificadas(); // Chama a função para gerar o array simplificado
+          this.modalidades = modalidades;
+          this.gerarModalidadesSimplificadas();
         } else {
           console.warn('Nenhuma modalidade encontrada');
           this.modalidades = [];
@@ -351,9 +327,7 @@ export class ListagemCampeonatosComponent implements OnInit {
   }
 
   gerarModalidadesSimplificadas(): void {
-    // Verifica se `this.modalidades` é um array e não está vazio
     if (Array.isArray(this.modalidades) && this.modalidades.length > 0) {
-      // Mapeia o array diretamente e extrai o id e nome de cada modalidade
       this.modalidadesSimplificadas = this.modalidades.map((modalidade) => ({
         idModalidadeEsportiva: modalidade.idModalidadeEsportiva,
         nome: modalidade.nome,
@@ -366,11 +340,10 @@ export class ListagemCampeonatosComponent implements OnInit {
   }
 
   getNomeModalidade(id: number): string | undefined {
-    // Busca o nome da modalidade no array de modalidades simplificadas
     const modalidade = this.modalidadesSimplificadas.find(
       (mod) => mod.idModalidadeEsportiva === id
     );
-    return modalidade ? modalidade.nome : 'Modalidade não encontrada'; // Retorna o nome ou uma mensagem de erro
+    return modalidade ? modalidade.nome : 'Modalidade não encontrada';
   }
 
   loadMore(): void {
@@ -412,10 +385,9 @@ export class ListagemCampeonatosComponent implements OnInit {
   }
 
   verificarSenha(campeonato: Campeonato, senha: string) {
-    const senhaCorreta = 'senha123'; // Defina a senha correta aqui
+    const senhaCorreta = 'senha123';
 
     if (senha === senhaCorreta) {
-      console.log('Você entrou no campeonato:', campeonato.titulo);
     } else {
       this.presentAlertPrompt(campeonato, 'Senha errada. Tente novamente.');
     }

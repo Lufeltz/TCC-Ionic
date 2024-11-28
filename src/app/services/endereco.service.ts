@@ -3,14 +3,17 @@ import { Endereco } from '../models/endereco.model';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
+import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EnderecoService {
-  NEW_URL = 'http://localhost:8081/endereco';
-
   constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
+
+  private ip: string = APP_CONFIG.ip;
+
+  NEW_URL = 'http://192.168.0.133:8081/endereco';
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

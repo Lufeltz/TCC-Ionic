@@ -5,7 +5,7 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <ion-segment [(ngModel)]="selectedSegment">
+  <ion-segment [(ngModel)]="selectedSegment" (ngModelChange)="setSelectedSegment($event)">
     <ion-segment-button value="inscrito">
       <ion-label>Inscrito</ion-label>
     </ion-segment-button>
@@ -13,6 +13,9 @@
       <ion-label>Não Inscrito</ion-label>
     </ion-segment-button>
   </ion-segment>
+  
+
+    
 
   <!-- Modalidades inscritas -->
   <div *ngIf="selectedSegment === 'inscrito'">

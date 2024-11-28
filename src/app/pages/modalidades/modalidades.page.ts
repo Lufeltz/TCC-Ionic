@@ -32,10 +32,11 @@ import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { forkJoin } from 'rxjs';
 import { ModalEditarModalidadeComponent } from 'src/app/components/modal-editar-modalidade/modal-editar-modalidade.component';
 import { AuthService } from 'src/app/services/auth.service';
-import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
 import { ConquistasService } from 'src/app/services/conquistas.service';
 import { Conquista } from 'src/app/models/conquista.model';
-import { MetaDiaria } from 'src/app/models/meta-diaria.model';
+
+import { StateService } from 'src/app/services/state.service';
+import { Academico } from 'src/app/models/academico.model';
 
 @Component({
   selector: 'app-modalidades',
@@ -65,7 +66,19 @@ export class ModalidadesPage implements OnInit {
   pageMenu: string = 'modalidades-menu';
   pageContent: string = 'modalidades';
 
-  selectedSegment: string = 'inscrito'; // Segmento selecionado: 'inscrito' ou 'gerais'
+  selectedSegment: string = 'inscrito';
+
+  setSelectedSegment(segment: string) {
+    this.selectedSegment = segment;
+
+    if (segment === 'inscrito') {
+      // Recarregar as modalidades inscritas caso a segmentação seja alterada
+      this.modalidadesInscritas = this.modalidadesInscritas || [];
+    } else if (segment === 'nao-inscrito') {
+      // Recarregar as modalidades não inscritas caso a segmentação seja alterada
+      this.modalidadesDiferentes = this.modalidadesDiferentes || [];
+    }
+  }
 
   readonly SquareArrowUpRight = SquareArrowUpRight;
   readonly CircleX = CircleX;
@@ -78,21 +91,19 @@ export class ModalidadesPage implements OnInit {
   readonly Users = Users;
   readonly SquarePen = SquarePen;
 
-  // Variáveis para armazenar os resultados
-  modalidadesInscritas: any;
   todasModalidades: any;
-  modalidadesDiferentes: any; // Nova variável para armazenar as modalidades diferentes
-  conquistasUsuario: Conquista[] | null = []; // Variável para armazenar as conquistas
+  modalidadesInscritas: any;
+  modalidadesDiferentes: any;
+  conquistasUsuario: Conquista[] | null = [];
 
   alertButtons: AlertButton[] = [];
 
   modalEditarVisivel: boolean = false;
   modalidadeParaEditar!: any;
 
-  isBlocked: boolean = false; // Controla se o usuário está bloqueado
+  isBlocked: boolean = false;
   mensagemAusencia: string =
     'Você ainda não se inscreveu em nenhuma modalidade.';
-
 
   contagemPorModalidade: {
     [key: number]: { conquistados: number; naoConquistados: number };
@@ -105,13 +116,21 @@ export class ModalidadesPage implements OnInit {
     4: 'Tênis de Mesa',
     5: 'Handebol',
   };
-  
+
+  user: Academico | null = null;
+
+  constructor(
+    private modalidadesService: ModalidadesService,
+    private authService: AuthService,
+    private conquistaService: ConquistasService,
+    private stateService: StateService
+  ) {}
+
   processarConquistas(): void {
     this.conquistasUsuario!.forEach((conquista) => {
       const modalidade = conquista.metaEsportiva.idModalidadeEsportiva;
       const conquistado = conquista.conquistado;
 
-      // Verifica se a modalidade já existe no objeto de contagem
       if (!this.contagemPorModalidade[modalidade]) {
         this.contagemPorModalidade[modalidade] = {
           conquistados: 0,
@@ -119,80 +138,62 @@ export class ModalidadesPage implements OnInit {
         };
       }
 
-      // Atualiza a contagem de conquistas
       if (conquistado) {
         this.contagemPorModalidade[modalidade].conquistados++;
       } else {
         this.contagemPorModalidade[modalidade].naoConquistados++;
       }
     });
-
-    console.log(this.contagemPorModalidade);
   }
 
-  constructor(
-    private modalidadesService: ModalidadesService,
-    private authService: AuthService,
-    private stateModalidadesService: StateModalidadesService,
-    private conquistaService: ConquistasService
-  ) {}
-
   ngOnInit() {
-    const user = this.authService.getUser();
-    if (user) {
-      const usuarioId = user.idAcademico;
-
-      forkJoin({
-        modalidadesInscritas:
-          this.modalidadesService.getModalidadesInscritas(usuarioId),
-        todasModalidades: this.modalidadesService.getAllModalidades(),
-        conquistas: this.conquistaService.getConquistasByUserId(usuarioId), // Carrega as conquistas
-      }).subscribe({
-        next: (result) => {
-          this.modalidadesInscritas = result.modalidadesInscritas;
-          this.todasModalidades = result.todasModalidades;
-          this.conquistasUsuario = result.conquistas; // Atualiza as conquistas do usuário
-          this.processarConquistas()
-
-          console.log('Conquistas do usuário:', this.conquistasUsuario);
-
-          // Se não houver modalidades inscritas, inicializa como um array vazio
-          if (!this.modalidadesInscritas) {
-            this.modalidadesInscritas = [];
-          }
-
-          // Compara as modalidades inscritas com todas as modalidades
-          this.modalidadesDiferentes = this.compararModalidades(
-            this.modalidadesInscritas,
-            this.todasModalidades
-          );
-        },
-        error: (err) => {
-          if (err.status === 404) {
-            this.modalidadesInscritas = []; // Nenhuma modalidade inscrita
-            this.todasModalidades = err.error || []; // Lista todas as modalidades disponíveis
-            this.modalidadesDiferentes = this.todasModalidades; // Mostra todas as modalidades no caso de erro
-          } else {
-            console.error('Erro ao carregar modalidades ou conquistas:', err);
-          }
-        },
-      });
+    this.user = this.authService.getUser();
+    if (this.user) {
+      const usuarioId = this.user.idAcademico;
+      this.carregarModalidadesConquistas(usuarioId);
     } else {
       console.error('Usuário não autenticado');
     }
   }
 
+  carregarModalidadesConquistas(usuarioId: number) {
+    forkJoin({
+      modalidadesInscritas:
+        this.modalidadesService.getModalidadesInscritas(usuarioId),
+      todasModalidades: this.modalidadesService.getAllModalidades(),
+      conquistas: this.conquistaService.getConquistasByUserId(usuarioId),
+    }).subscribe({
+      next: (result) => {
+        this.modalidadesInscritas = result.modalidadesInscritas || [];
+        this.todasModalidades = result.todasModalidades;
+        this.conquistasUsuario = result.conquistas;
+        this.processarConquistas();
+
+        this.modalidadesDiferentes = this.compararModalidades(
+          this.modalidadesInscritas,
+          this.todasModalidades
+        );
+      },
+      error: (err) => {
+        if (err.status === 404) {
+          console.warn('Nenhuma modalidade ou conquista encontrada.');
+          this.modalidadesInscritas = [];
+          this.todasModalidades = [];
+          this.modalidadesDiferentes = [];
+        } else {
+          console.error('Erro ao carregar modalidades ou conquistas:', err);
+        }
+      },
+    });
+  }
   compararModalidades(inscritas: any[], todas: any[]): any[] {
-    // Verificando se as variáveis não são nulas ou indefinidas
     if (!inscritas || !todas) {
-      return []; // Retorna um array vazio se algum dos parâmetros for nulo
+      return [];
     }
 
-    // Criando arrays apenas com os IDs de cada modalidade para facilitar a comparação
     const inscritasIds = inscritas.map((mod) => mod.idModalidadeEsportiva);
     const todasIds = todas.map((mod) => mod.idModalidadeEsportiva);
 
-    // Encontrando as modalidades que estão em 'todas' mas não em 'inscritas'
     const modalidadesDiferentes = todas.filter(
       (mod) => !inscritasIds.includes(mod.idModalidadeEsportiva)
     );
@@ -200,7 +201,6 @@ export class ModalidadesPage implements OnInit {
     return modalidadesDiferentes;
   }
 
-  // Inscrição em uma modalidade
   inscreverModalidade(modalidadeId: number) {
     const user = this.authService.getUser();
     if (user) {
@@ -210,8 +210,8 @@ export class ModalidadesPage implements OnInit {
         .inscreverModalidade(usuarioId, modalidadeId)
         .subscribe({
           next: (resp) => {
-            this.stateModalidadesService.triggerUpdate(); // Dispara o evento de atualização
-            this.ngOnInit(); // Atualiza a listagem
+            this.stateService.triggerUpdateListagemModalidades();
+            this.stateService.triggerUpdateListagemCampeonatos();
           },
           error: (err) => {
             console.error('Erro ao realizar inscrição:', err);
@@ -229,8 +229,8 @@ export class ModalidadesPage implements OnInit {
         .removerModalidade(usuarioId, modalidadeId)
         .subscribe({
           next: (resp) => {
-            this.stateModalidadesService.triggerUpdate(); // Dispara o evento de atualização
-            this.ngOnInit(); // Atualiza a listagem
+            this.stateService.triggerUpdateListagemModalidades();
+            this.stateService.triggerUpdateListagemCampeonatos();
           },
           error: (err) => {
             console.error('Erro ao cancelar inscrição:', err);
@@ -239,13 +239,13 @@ export class ModalidadesPage implements OnInit {
     }
   }
 
-  // Função para resetar as conquistas ao inscrever ou remover uma modalidade
-
   setResult(event: any) {
     if (event.detail.role === 'confirm') {
-      console.log('Confirmação realizada');
     } else {
-      console.log('Ação cancelada');
+      console.log('Realizada a inscrição');
+      if (this.user) {
+        this.carregarModalidadesConquistas(this.user.idAcademico);
+      }
     }
   }
 

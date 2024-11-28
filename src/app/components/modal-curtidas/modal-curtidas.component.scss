@@ -25,7 +25,6 @@
   width: 86%; /* Largura do modal proporcional ao tamanho da tela */
   max-width: 800px; /* Largura máxima, igual ao tamanho do post */
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 h2 {
@@ -78,7 +77,6 @@ button {
   display: flex;
   align-items: center;
   justify-content: center; /* Centraliza o ícone e o texto dentro do botão */
-  transition: background-color 0.3s;
 }
 
 button:hover {

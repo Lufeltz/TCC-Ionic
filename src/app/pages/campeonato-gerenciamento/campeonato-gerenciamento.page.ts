@@ -90,21 +90,19 @@ export class CampeonatoGerenciamentoPage implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    // console.log(this.campeonatos);
-    this.loading = false; // Defina como falso após carregar os dados
+    this.loading = false;
   }
 
   getNomeModalidade(id: number): string | undefined {
-    // Busca o nome da modalidade no array de modalidades simplificadas
     const modalidade = this.modalidadesSimplificadas.find(
       (mod) => mod.idModalidadeEsportiva === id
     );
-    return modalidade ? modalidade.nome : 'Modalidade não encontrada'; // Retorna o nome ou uma mensagem de erro
+    return modalidade ? modalidade.nome : 'Modalidade não encontrada';
   }
 
   getLockColor(privacidade: string): string {
     return privacidade === 'PRIVADO'
       ? 'var(--light-red)'
-      : 'var(--text-new-green)'; // 'red' para 'privado', 'green' para 'público'
+      : 'var(--text-new-green)';
   }
 }

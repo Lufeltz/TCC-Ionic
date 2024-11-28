@@ -40,11 +40,11 @@ import { ConquistasService } from 'src/app/services/conquistas.service';
   ],
 })
 export class ModalEditarMetaEsportivaComponent {
-  @Input() conquistaEsportiva!: Conquista; // Recebe a meta a ser editada
-  @Input() modalidadesUsuario!: any[]; // Recebe a meta a ser editada
-  @Input() listarMetasEsportivas!: () => void; //
+  @Input() conquistaEsportiva!: Conquista;
+  @Input() modalidadesUsuario!: any[];
+  @Input() listarMetasEsportivas!: () => void;
 
-  @Output() close = new EventEmitter<void>(); // Evento para fechar o modal
+  @Output() close = new EventEmitter<void>();
 
   constructor(private conquistasService: ConquistasService) {}
 
@@ -57,7 +57,7 @@ export class ModalEditarMetaEsportivaComponent {
   readonly Goal = Goal;
 
   closeModal() {
-    this.close.emit(); // Emite o evento para fechar o modal
+    this.close.emit();
   }
 
   editarProgresso() {
@@ -65,13 +65,10 @@ export class ModalEditarMetaEsportivaComponent {
       .atualizarConquista(this.conquistaEsportiva)
       .subscribe({
         next: (response) => {
-          console.log('Conquista atualizada com sucesso:', response);
-          // this.listarMetasEsportivas()
-          this.closeModal(); // Fecha o modal após a atualização bem-sucedida
+          this.closeModal();
         },
         error: (err) => {
           console.error('Erro ao atualizar a conquista:', err);
-          // Exibir mensagem de erro para o usuário se necessário
         },
       });
   }

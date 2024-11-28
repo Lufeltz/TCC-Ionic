@@ -31,6 +31,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { Academico } from 'src/app/models/academico.model';
 import { PublicacaoService } from 'src/app/services/publicacao.service';
 import { catchError, debounceTime, EMPTY, Subject, switchMap } from 'rxjs';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-posts',
@@ -71,13 +72,17 @@ export class PostsComponent implements OnInit, OnChanges {
     private postsService: PostService,
     private comentarioService: ComentarioService,
     private authService: AuthService,
-    private publicacaoService: PublicacaoService
+    private publicacaoService: PublicacaoService,
+    private stateService: StateService
   ) {}
 
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();
     if (this.usuarioLogado) {
       this.listarPosts();
+      this.stateService.updatePublicacoes$.subscribe(() => {
+        this.listarPosts();
+      });
     } else {
       console.error('Usuário não logado');
     }
@@ -99,43 +104,31 @@ export class PostsComponent implements OnInit, OnChanges {
   }
 
   editarPublicacao(publicacaoId: number): void {
-    console.log('Editando a publicação...', publicacaoId);
-
     this.menuVisibilityPublicacao[publicacaoId] = false;
   }
 
   deletarPublicacao(publicacaoId: number): void {
-    console.log('Deletando publicacao...', publicacaoId);
-
     this.menuVisibilityPublicacao[publicacaoId] = false;
   }
 
-  menuVisibilityComentario: { [key: number]: boolean } = {}; // Para visibilidade dos menus de comentários
+  menuVisibilityComentario: { [key: number]: boolean } = {};
 
   toggleMenuComentario(comentarioId: number): void {
-    // Fecha todos os outros menus de comentário
     for (const id in this.menuVisibilityComentario) {
       if (Number(id) !== comentarioId) {
         this.menuVisibilityComentario[id] = false;
       }
     }
 
-    // Alterna a visibilidade do menu de comentário
     this.menuVisibilityComentario[comentarioId] =
       !this.menuVisibilityComentario[comentarioId];
   }
 
   editarComentario(comentarioId: number): void {
-    console.log('Editando comentário...', comentarioId);
-
-    // Fechar o menu após a ação
     this.menuVisibilityComentario[comentarioId] = false;
   }
 
   deletarComentario(comentarioId: number): void {
-    console.log('Deletando comentário...', comentarioId);
-
-    // Fechar o menu após a ação
     this.menuVisibilityComentario[comentarioId] = false;
   }
 

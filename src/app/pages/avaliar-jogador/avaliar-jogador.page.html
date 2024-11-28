@@ -6,13 +6,7 @@
   ></app-menu-perfil>
   <div class="container">
     <div class="card">
-      <div class="img-container">
-        <img
-          alt="rhino standing near grass"
-          src="https://images.unsplash.com/flagged/photo-1556983257-71fddc36bc75?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1742&q=80"
-          height="200px"
-        />
-      </div>
+      <div class="img-container"></div>
 
       <div class="icon-align">
         <lucide-angular
@@ -55,9 +49,9 @@
           [color]="'var(--purple-desc)'"
         ></lucide-angular>
         <p>
-          <strong class="media">Média: </strong>{{ mediaAvaliacao?.mediaGeral | number:'1.2-2' }}
+          <strong class="media">Média: </strong>{{ mediaAvaliacao?.mediaGeral |
+          number:'1.2-2' }}
         </p>
-        
       </div>
 
       <p>
@@ -102,28 +96,30 @@
     </div>
 
     <ion-button
-      id="open-toast"
-      size="small"
-      expand="block"
-      class="icon-button"
-      (click)="saveRating()"
-    >
-      <div class="text-container">Salvar Avaliação</div>
-      <div class="icon-align">
-        <lucide-angular
-          [img]="Save"
-          class="btn-inscrever-se"
-          [size]="20"
-        ></lucide-angular>
-        <!-- Toast exibido quando a avaliação é salva -->
-        <ion-toast
-          position="top"
-          trigger="open-toast"
-          message="Avaliação do usuário salva."
-          position="bottom"
-          [duration]="3000"
-        ></ion-toast>
-      </div>
-    </ion-button>
+    id="open-toast"
+    size="small"
+    expand="block"
+    class="icon-button"
+    [disabled]="isRatingSaved"
+    (click)="saveRating()"
+  >
+    <div class="text-container">Salvar Avaliação</div>
+    <div class="icon-align">
+      <lucide-angular
+        [img]="Save"
+        class="btn-inscrever-se"
+        [size]="20"
+      ></lucide-angular>
+      <!-- Toast exibido quando a avaliação é salva -->
+      <ion-toast
+        position="top"
+        trigger="open-toast"
+        message="Avaliação do usuário salva."
+        position="bottom"
+        [duration]="3000"
+      ></ion-toast>
+    </div>
+  </ion-button>
+  
   </div>
 </ion-content>

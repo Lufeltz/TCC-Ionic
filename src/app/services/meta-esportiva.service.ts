@@ -4,6 +4,7 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { MetaEsportiva } from '../models/meta-esportiva.model';
 import { ModalidadeEsportiva } from '../models/modalidades.model';
 import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
+import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +12,11 @@ import { AuthService } from './auth.service'; // Importa o AuthService para obte
 export class MetaEsportivaService {
   constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
-  NEW_URL = 'http://localhost:8081/metaEsportiva';
-  MODALIDADE_ALL = 'http://localhost:8081/modalidadeEsportiva';
-  MODALIDADE_URL = 'http://localhost:8081/modalidadeEsportiva/metaEsportiva';
+  private ip: string = APP_CONFIG.ip;
+
+  NEW_URL = `http://${this.ip}:8081/metaEsportiva`;
+  MODALIDADE_ALL = `http://${this.ip}:8081/modalidadeEsportiva`;
+  MODALIDADE_URL = `http://${this.ip}:8081/modalidadeEsportiva/metaEsportiva`;
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

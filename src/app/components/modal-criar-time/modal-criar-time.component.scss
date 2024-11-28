@@ -23,7 +23,6 @@
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   width: 86%; /* Largura proporcional */
   max-width: 800px; /* Largura máxima */
-  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
   z-index: 951;
 }
 
@@ -94,7 +93,6 @@ ion-input {
   border-right: 2px solid var(--text-new-green);
   border-bottom: 2px solid var(--text-new-green);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 .button-group {

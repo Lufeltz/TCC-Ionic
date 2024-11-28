@@ -1,6 +1,5 @@
 <div class="campeonatos-container">
   <h3 *ngIf="campeonato">{{ campeonato.titulo }}</h3>
-  <div>...</div>
   <div class="icon-align">
     <lucide-angular
       [img]="Flag"
@@ -115,10 +114,20 @@
         </div>
 
         <div class="salvar-button">
-          <ion-button size="small" (click)="salvarResultado(partida)">
+          <ion-button
+            id="open-toast-salvar"
+            size="small"
+            (click)="salvarResultado(partida)"
+          >
             Salvar Resultado
           </ion-button>
         </div>
+
+        <ion-toast
+          trigger="open-toast-salvar"
+          message="Placar salvo com sucesso!"
+          [duration]="3000"
+        ></ion-toast>
       </div>
     </li>
 

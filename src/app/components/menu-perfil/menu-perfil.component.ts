@@ -41,7 +41,6 @@ import { MetaDiaria } from 'src/app/models/meta-diaria.model';
 import { MetaEsportivaService } from 'src/app/services/meta-esportiva.service';
 import { MetaEsportiva } from 'src/app/models/meta-esportiva.model';
 import { forkJoin, Subscription } from 'rxjs';
-import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { Avaliacao } from 'src/app/models/avaliacao.model';
 
@@ -98,7 +97,6 @@ export class MenuPerfilComponent implements OnInit {
   metasPorModalidadeArray: any = [];
 
   mediaAvaliacao: Avaliacao | null = null;
-  private modalidadeUpdateSubscription!: Subscription;
   mediaAtual: number = 0;
   quantidadeEstrelas: number = 0;
   temEstrelaMeia: boolean = false;
@@ -119,7 +117,6 @@ export class MenuPerfilComponent implements OnInit {
       this.campeonatoService.getMediaAvaliacao(this.user.idAcademico).subscribe(
         (data: Avaliacao | null) => {
           this.mediaAvaliacao = data;
-          console.log('Média de Avaliação Recebida:', this.mediaAvaliacao);  // Verificando o valor recebido
           this.calcularMedia();
         },
         (error) => {
@@ -128,17 +125,15 @@ export class MenuPerfilComponent implements OnInit {
       );
     }
   }
-  
+
   calcularMedia() {
     if (this.mediaAvaliacao) {
       this.mediaAtual = this.mediaAvaliacao.mediaGeral;
-      console.log('Média Atual Calculada:', this.mediaAtual);  // Verificando o valor da média
       this.quantidadeEstrelas = Math.floor(this.mediaAtual);
       this.temEstrelaMeia = this.mediaAtual % 1 >= 0.5;
       this.atualizarEstrelas();
     }
   }
-  
 
   atualizarEstrelas() {
     // Atualize a quantidade de estrelas preenchidas

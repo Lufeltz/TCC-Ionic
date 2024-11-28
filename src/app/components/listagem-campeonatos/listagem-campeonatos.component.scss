@@ -26,7 +26,6 @@ ul {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 .campeonato-header {
@@ -204,7 +203,6 @@ ion-searchbar {
   margin-bottom: -1rem;
 }
 
-
 ion-accordion:hover .detalhes-header ion-label {
   color: var(--light-blue);
 }
@@ -363,7 +361,6 @@ ion-button {
   margin-top: 16px;
   --background: var(--text-white);
   --color: var(--background-dark);
-  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ion-button:active {

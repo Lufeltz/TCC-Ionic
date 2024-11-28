@@ -12,7 +12,9 @@ import {
   IonItem,
   IonInput,
   IonRadio,
-  IonRadioGroup, IonLabel } from '@ionic/angular/standalone';
+  IonRadioGroup,
+  IonLabel,
+} from '@ionic/angular/standalone';
 
 import { Router, RouterModule } from '@angular/router';
 import { AcademicoService } from 'src/app/services/academico.service';
@@ -37,7 +39,8 @@ import { Academico } from 'src/app/models/academico.model';
   templateUrl: './cadastro.page.html',
   styleUrls: ['./cadastro.page.scss'],
   standalone: true,
-  imports: [IonLabel, 
+  imports: [
+    IonLabel,
     IonContent,
     IonHeader,
     IonTitle,
@@ -76,7 +79,6 @@ export class CadastroPage {
   cursos: string[] = [];
   loading: boolean = true;
 
-
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -90,19 +92,19 @@ export class CadastroPage {
 
   onTelefoneChange(event: any) {
     let input = event.target.value;
-  
+
     // Remover qualquer caractere não numérico
     input = input.replace(/\D/g, ''); // Substitui tudo que não for número por nada
-  
+
     // Limitar o comprimento do número para 11 caracteres (como o formato 41999999999)
     if (input.length > 11) {
       input = input.slice(0, 11); // Limita a quantidade de caracteres para 11
     }
-  
+
     // Atualiza o valor no modelo
     this.academico.telefone = input;
   }
-  
+
   // Removido a formatação de telefone
 
   // Método para formatar a data
@@ -125,9 +127,11 @@ export class CadastroPage {
     // Se o formulário for válido, envia os dados
     if (this.formLogin.valid) {
       if (this.academico.dataNascimento) {
-        this.academico.dataNascimento = this.formatDateToFullDate(this.academico.dataNascimento);
+        this.academico.dataNascimento = this.formatDateToFullDate(
+          this.academico.dataNascimento
+        );
       }
-  
+
       this.authService.cadastrar(this.academico).subscribe({
         next: (academico) => {
           this.router.navigate(['/login']);
@@ -140,14 +144,12 @@ export class CadastroPage {
       console.log('Por favor, preencha todos os campos corretamente.');
     }
   }
-  
 
   loadCursos(): void {
     this.academicoService.getCursos().subscribe({
       next: (cursos) => {
         if (cursos && cursos.length > 0) {
           this.cursos = cursos;
-          console.log(this.cursos)
         } else {
           console.warn('Nenhum curso encontrado');
         }

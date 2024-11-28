@@ -12,7 +12,9 @@ import {
   IonList,
   IonItem,
   IonText,
-  IonTextarea, IonLabel } from '@ionic/angular/standalone';
+  IonTextarea,
+  IonLabel,
+} from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from '../../components/menu-perfil/menu-perfil.component';
 import { Router } from '@angular/router';
 import { PublicacaoService } from '../../services/publicacao.service';
@@ -20,14 +22,21 @@ import { Publicacao } from '../../models/publicacao.model';
 import { Academico } from 'src/app/models/academico.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { PostsComponent } from 'src/app/components/posts/posts.component';
-import { ArrowRight, LucideAngularModule, MessageCircleQuestion, NotebookPen } from 'lucide-angular';
+import {
+  ArrowRight,
+  LucideAngularModule,
+  MessageCircleQuestion,
+  NotebookPen,
+} from 'lucide-angular';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-post',
   templateUrl: './post.page.html',
   styleUrls: ['./post.page.scss'],
   standalone: true,
-  imports: [IonLabel, 
+  imports: [
+    IonLabel,
     IonTextarea,
     IonButton,
     IonContent,
@@ -40,7 +49,7 @@ import { ArrowRight, LucideAngularModule, MessageCircleQuestion, NotebookPen } f
     IonList,
     IonItem,
     IonText,
-    LucideAngularModule
+    LucideAngularModule,
   ],
 })
 export class PostPage implements OnInit {
@@ -63,7 +72,8 @@ export class PostPage implements OnInit {
   constructor(
     private router: Router,
     private publicacaoService: PublicacaoService,
-    private authService: AuthService
+    private authService: AuthService,
+    private stateService: StateService
   ) {}
 
   ngOnInit() {
@@ -77,7 +87,6 @@ export class PostPage implements OnInit {
   }
 
   onSubmit() {
-    console.log('publicacao',this.publicacao)
     this.publicacaoService.postPublicacao(this.publicacao).subscribe(
       (response) => {
         if (response) {
@@ -85,6 +94,7 @@ export class PostPage implements OnInit {
           this.showToast = true;
           // Chama o método de adicionar post para atualizar a lista no componente PostsComponent
           // this.postsComponent?.adicionarPost(response);
+          this.stateService.triggerUpdateListagemPublicacoes();
           this.voltarComunidadePostCriado(); // Navega para a tela de feed após 3 segundos
         } else {
           this.toastMessage = 'Erro ao criar o post. Tente novamente.';
@@ -98,12 +108,10 @@ export class PostPage implements OnInit {
     );
   }
 
-
-
   voltarComunidadePostCriado() {
     setTimeout(() => {
       this.router.navigate(['/feed']);
-      this.postsComponent?.listarPosts()
+      this.postsComponent?.listarPosts();
     }, 3000);
   }
 

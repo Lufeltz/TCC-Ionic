@@ -80,6 +80,9 @@ export class AvaliarJogadorPage implements OnInit {
 
   mediaAvaliacao: Avaliacao | null = null;
 
+  isRatingSaved: boolean = false;
+
+
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
@@ -92,7 +95,6 @@ export class AvaliarJogadorPage implements OnInit {
       this.username || this.authService.getUser()?.username || '';
 
     this.meuAcademico = this.authService.getUser();
-    console.log(this.meuAcademico);
 
     this.route.paramMap.subscribe((params) => {
       const usernameRota = params.get('username') || '';
@@ -106,23 +108,15 @@ export class AvaliarJogadorPage implements OnInit {
         console.error('Username não fornecido');
       }
     });
-
-    // Não é necessário chamar 'formatarModalidades' aqui, pois ela já é chamada
-    // dentro de 'buscarAcademicoPorUsername' quando o acadêmico for carregado
-    console.log('Username do jogador na avaliação', this.username);
   }
 
   obterMediaAvaliacao(): void {
     if (this.academico && this.academico.idAcademico) {
-      // Verifica se 'academico' não é null
       this.campeonatoService
         .getMediaAvaliacao(this.academico.idAcademico)
         .subscribe(
           (data: Avaliacao | null) => {
             this.mediaAvaliacao = data;
-            console.log('Média de avaliação:', this.mediaAvaliacao);
-
-            // Após obter a nova média, calcule novamente as estrelas
             this.calcularMedia();
           },
           (error) => {
@@ -137,18 +131,13 @@ export class AvaliarJogadorPage implements OnInit {
   buscarAcademicoPorUsername(username: string) {
     this.academicoService.getAcademicoByUsername(username).subscribe({
       next: (academico: Academico | null) => {
-        this.academico = academico; // Atribui o acadêmico à variável
+        this.academico = academico;
 
-        // Após o acadêmico ser carregado, formate as modalidades
         this.formatarModalidades();
 
-        // Agora que o acadêmico foi carregado, podemos buscar a média de avaliação
         if (this.academico) {
           this.obterMediaAvaliacao();
         }
-
-        // Verifique o acadêmico carregado
-        console.log('Acadêmico carregado', this.academico);
       },
       error: (err) => {
         console.error('Erro ao buscar acadêmico:', err);
@@ -162,60 +151,50 @@ export class AvaliarJogadorPage implements OnInit {
         .map((modalidade) => modalidade.nomeModalidade)
         .join(', ');
     } else {
-      this.modalidadesString = 'Sem modalidades'; // Exibe a mensagem "Sem modalidades" caso não haja modalidades
+      this.modalidadesString = 'Sem modalidades';
     }
   }
-  
 
   calcularMedia() {
     if (this.mediaAvaliacao) {
-      this.mediaAtual = this.mediaAvaliacao.mediaGeral; // Média geral da avaliação
+      this.mediaAtual = this.mediaAvaliacao.mediaGeral;
       this.quantidadeEstrelas = Math.floor(this.mediaAtual);
       this.temEstrelaMeia =
         this.mediaAtual % 1 >= 0.5 && this.mediaAtual % 1 < 1;
 
-      // Aqui você pode chamar uma função para atualizar a exibição das estrelas
       this.atualizarEstrelas();
     }
   }
 
   atualizarEstrelas() {
-    // Atualize a quantidade de estrelas preenchidas
     this.stars = Array.from({ length: 5 }, (_, index) => index + 1);
   }
 
   rate(stars: number) {
     this.selectedRating = stars;
-
-    // Chama a função para salvar a avaliação ao clicar na estrela
-    // this.saveRating();
   }
 
   saveRating() {
     if (this.selectedRating && this.academico && this.meuAcademico) {
-      const idAvaliador = this.meuAcademico.idAcademico; // id do acadêmico logado
-      const idAcademico = this.academico.idAcademico; // id do acadêmico sendo avaliado
-      const nota = this.selectedRating; // nota em estrelas
-      const idModalidade = this.academico.modalidades[0].idModalidade; // Assumindo que a modalidade é a primeira
-
-      // Enviar a avaliação para o servidor
+      const idAvaliador = this.meuAcademico.idAcademico;
+      const idAcademico = this.academico.idAcademico;
+      const nota = this.selectedRating;
+      const idModalidade = this.academico.modalidades[0].idModalidade;
+  
       this.campeonatoService
         .avaliarJogador(idAvaliador, idAcademico, nota, idModalidade)
         .subscribe(
           (response) => {
-            console.log('Avaliação salva com sucesso!', response);
-
-            // Após salvar, recalcular a média e atualizar as estrelas
-            this.obterMediaAvaliacao(); // Recalcular a média após salvar
+            this.obterMediaAvaliacao();
+            this.isRatingSaved = true;  // Defina como true após salvar a avaliação
           },
           (error) => {
             console.error('Erro ao salvar avaliação:', error);
           }
         );
     } else {
-      console.error(
-        'Selecione uma avaliação válida e verifique os dados do acadêmico.'
-      );
+      console.error('Selecione uma avaliação válida e verifique os dados do acadêmico.');
     }
   }
+  
 }

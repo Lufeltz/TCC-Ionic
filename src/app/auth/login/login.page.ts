@@ -13,21 +13,13 @@ import {
   IonInput,
 } from '@ionic/angular/standalone';
 
-import { addIcons } from 'ionicons';
-import { mailOutline, lockClosedOutline } from 'ionicons/icons';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { AcademicoService } from 'src/app/services/academico.service';
 import { jwtDecode } from 'jwt-decode';
-import {
-  Lock,
-  LogIn,
-  LucideAngularModule,
-  RotateCw,
-  User,
-} from 'lucide-angular';
+import { Lock, LogIn, LucideAngularModule, User } from 'lucide-angular';
 import { AuthService } from 'src/app/services/auth.service';
 import { LoginRequest } from 'src/app/models/login-request';
 import { Academico } from 'src/app/models/academico.model';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-login',
@@ -58,7 +50,8 @@ export class LoginPage implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private stateService: StateService
   ) {}
 
   @ViewChild('formLogin') formLogin!: NgForm;
@@ -95,8 +88,8 @@ export class LoginPage implements OnInit {
           this.router.navigate(['/homepage']).then(() => {
             // Carregar os dados do usuário após login
             this.authService.loadUserData();
+            this.stateService.triggerUpdateListagemCampeonatos();
           });
-
         } else {
           // Caso o token seja inválido
           this.message = 'Usuário/Senha inválidos.';
@@ -108,7 +101,8 @@ export class LoginPage implements OnInit {
 
         // Verificar o código de erro e exibir a mensagem correspondente
         if (err.status === 400) {
-          this.message = 'Erro no login. Verifique o usuário e a senha novamente.';
+          this.message =
+            'Erro no login. Verifique o usuário e a senha novamente.';
         } else if (err.status === 401) {
           this.message = 'Login ou senha incorretos.';
         } else {

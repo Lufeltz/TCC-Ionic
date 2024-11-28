@@ -64,9 +64,7 @@ export class PrefNotifPage implements OnInit {
     private authService: AuthService
   ) {}
 
-  mostrarEstadoToggle(estado: boolean): void {
-    // console.log(!estado);
-  }
+  mostrarEstadoToggle(estado: boolean): void {}
 
   ngOnInit() {
     const user = this.authService.getUser(); // Obtém o usuário autenticado
@@ -92,10 +90,7 @@ export class PrefNotifPage implements OnInit {
 
   atualizarPrivacidade() {
     this.privacidadeService.atualizarPrivacidade(this.privacidades).subscribe({
-      next: (data) => {
-        // console.log('Privacidade atualizada:', data);
-        // Você pode exibir uma notificação ou atualizar o estado local do componente
-      },
+      next: (data) => {},
       error: (err) => {
         console.error('Erro ao atualizar privacidade:', err);
       },

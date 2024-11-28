@@ -19,7 +19,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const token = this.authService.getToken();
 
     // Log para ver se o token foi encontrado
-    console.log('Token encontrado:', token);
+    
 
     if (token) {
       // Clona a requisição para adicionar o cabeçalho de autorização
@@ -30,13 +30,13 @@ export class AuthInterceptor implements HttpInterceptor {
       });
 
       // Log para ver a requisição clonada com o cabeçalho Authorization
-      console.log('Requisição com token:', clonedRequest);
+      
       
       return next.handle(clonedRequest);
     }
 
     // Se não tiver token, apenas passa a requisição original
-    console.log('Requisição sem token:', request);
+    
     return next.handle(request);
   }
 }

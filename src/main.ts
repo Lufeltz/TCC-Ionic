@@ -5,7 +5,10 @@ import {
   withPreloading,
   PreloadAllModules,
 } from '@angular/router';
-import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
+import {
+  IonicRouteStrategy,
+  provideIonicAngular,
+} from '@ionic/angular/standalone';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
@@ -19,7 +22,6 @@ export function initializeAuth(authService: AuthService) {
   return (): Observable<void> => authService.loadToken();
 }
 
-console.log('main.ts está sendo executado');
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

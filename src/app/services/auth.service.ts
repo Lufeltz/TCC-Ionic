@@ -8,13 +8,18 @@ import { LoginRequest } from '../models/login-request';
 import { LoginResponse } from '../models/login-response';
 import { jwtDecode } from 'jwt-decode';
 import { Academico } from '../models/academico.model';
+import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private NEW_URL = 'http://localhost:8081/academico';
-  private LOGIN_URL = 'http://localhost:8081/login/efetuarLogin';
+  constructor(private _http: HttpClient, private router: Router) {}
+
+  private ip: string = APP_CONFIG.ip;
+
+  private NEW_URL = `http://${this.ip}:8081/academico`;
+  private LOGIN_URL = `http://${this.ip}:8081/login/efetuarLogin`;
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -26,8 +31,6 @@ export class AuthService {
   user$ = this.userSubject.asObservable();
 
   private user: Academico | null = null;
-
-  constructor(private _http: HttpClient, private router: Router) {}
 
   loadToken(): Observable<void> {
     const token = localStorage.getItem('jwt');
@@ -110,7 +113,6 @@ export class AuthService {
   }
 
   getToken(): string | null {
-    console.log(localStorage.getItem('jwt'));
     return localStorage.getItem('jwt');
   }
 

@@ -16,8 +16,8 @@ import { AuthService } from 'src/app/services/auth.service';
 import { ConquistasService } from 'src/app/services/conquistas.service';
 import { IonLabel } from '@ionic/angular/standalone';
 import { Subscription } from 'rxjs';
-import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
 import { BloqueadoComponent } from '../bloqueado/bloqueado.component';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-conquistas',
@@ -48,11 +48,11 @@ export class ConquistasComponent implements OnInit {
   readonly SignalHigh = SignalHigh;
 
   academico: Academico | null = null;
-  conquistas: Conquista[] = []; // Variável para armazenar as conquistas
+  conquistas: Conquista[] = [];
   user: Academico | null = null;
-  @Input() username: string = ''; // Recebe o username como @Input()
+  @Input() username: string = '';
 
-  isBlocked: boolean = false; // Controla se o usuário está bloqueado
+  isBlocked: boolean = false;
   mensagemBloqueio: string =
     'O acadêmico bloqueou a visualização das conquistas.';
 
@@ -60,21 +60,19 @@ export class ConquistasComponent implements OnInit {
     private academicoService: AcademicoService,
     private conquistasService: ConquistasService,
     private authService: AuthService,
-    private stateModalidadesService: StateModalidadesService
+    private stateService: StateService
   ) {}
 
   ngOnInit() {
     this.user = this.authService.getUser();
     const usernameFinal =
-      this.username || this.authService.getUser()?.username || ''; // Se não for passado, tenta pegar do AuthService
-    console.log(usernameFinal);
-    // Se o usernameFinal não estiver vazio, tenta buscar o acadêmico
+      this.username || this.authService.getUser()?.username || '';
+
     if (usernameFinal) {
       this.buscarAcademicoPorUsername(usernameFinal);
 
       this.modalidadeUpdateSubscription =
-        this.stateModalidadesService.updateModalidades$.subscribe(() => {
-          // Verifica se this.academico não é nulo antes de tentar buscar as conquistas
+        this.stateService.updateModalidades$.subscribe(() => {
           if (this.academico) {
             this.buscarConquistasPorIdAcademico(this.academico.idAcademico);
           }
@@ -86,47 +84,44 @@ export class ConquistasComponent implements OnInit {
 
   buscarConquistasPorIdAcademico(idAcademico: number) {
     if (this.user && idAcademico === this.user.idAcademico) {
-      // Se o ID do acadêmico for igual ao do usuário logado
       this.conquistasService.getConquistasByUserId(idAcademico).subscribe({
         next: (conquistas: Conquista[] | null) => {
           this.conquistas = conquistas || [];
-          console.log('Conquistas recebidas:', this.conquistas);
         },
         error: (err) => {
           if (err.status === 403) {
-            this.isBlocked = true; // Define como bloqueado
+            this.isBlocked = true;
           } else {
             console.error('Erro ao buscar conquistas:', err);
           }
         },
       });
     } else {
-      // Se o ID do acadêmico for diferente do do usuário logado ou se this.user for nulo
-      this.conquistasService.getConquistasByOutroAcademico(idAcademico).subscribe({
-        next: (conquistas: Conquista[] | null) => {
-          this.conquistas = conquistas || [];
-          console.log('Conquistas recebidas de outro acadêmico:', this.conquistas);
-        },
-        error: (err) => {
-          if (err.status === 403) {
-            this.isBlocked = true; // Define como bloqueado
-          } else {
-            console.error('Erro ao buscar conquistas de outro acadêmico:', err);
-          }
-        },
-      });
+      this.conquistasService
+        .getConquistasByOutroAcademico(idAcademico)
+        .subscribe({
+          next: (conquistas: Conquista[] | null) => {
+            this.conquistas = conquistas || [];
+          },
+          error: (err) => {
+            if (err.status === 403) {
+              this.isBlocked = true;
+            } else {
+              console.error(
+                'Erro ao buscar conquistas de outro acadêmico:',
+                err
+              );
+            }
+          },
+        });
     }
   }
-  
 
-  // Função para buscar o acadêmico pelo username
   buscarAcademicoPorUsername(username: string) {
     this.academicoService.getAcademicoByUsername(username).subscribe({
       next: (academico: Academico | null) => {
-        this.academico = academico; // Atribui o acadêmico à variável
-        console.log(this.academico);
+        this.academico = academico;
 
-        // Após ter o 'academico', busca as conquistas
         if (this.academico) {
           this.buscarConquistasPorIdAcademico(this.academico.idAcademico);
         }

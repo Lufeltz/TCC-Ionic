@@ -3,8 +3,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { EstatisticaModalidade } from 'src/app/models/estatistica-modalidade.model';
 import { EstatisticaUso } from 'src/app/models/estatistica-uso.model';
 import { EstatisticasAcademicoService } from 'src/app/services/estatisticas-academico.service';
-import { AuthService } from 'src/app/services/auth.service'; // Importe o AuthService
-import { Academico } from 'src/app/models/academico.model'; // Importe o modelo Academico
+import { AuthService } from 'src/app/services/auth.service';
+import { Academico } from 'src/app/models/academico.model';
 import { EstatisticaModalidadeGeral } from 'src/app/models/estatistica-modalidade-geral.model';
 import {
   Award,
@@ -17,9 +17,9 @@ import {
   Trophy,
 } from 'lucide-angular';
 import { AcademicoService } from 'src/app/services/academico.service';
-import { StateModalidadesService } from 'src/app/services/state-modalidades.service';
 import { Subscription } from 'rxjs';
 import { BloqueadoComponent } from '../bloqueado/bloqueado.component';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-estatisticas-pessoais',
@@ -31,19 +31,18 @@ import { BloqueadoComponent } from '../bloqueado/bloqueado.component';
 export class EstatisticasPessoaisComponent implements OnInit {
   estatisticasUso: EstatisticaUso[] = [];
   estatisticasModalidadeUnica: EstatisticaModalidade[] = [];
-  estatisticasModalidadeGeral: EstatisticaModalidadeGeral | null = null; // Alterado para ser um único objeto
-  academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
+  estatisticasModalidadeGeral: EstatisticaModalidadeGeral | null = null;
+  academico: Academico | null = null;
 
   @Input() username: string = '';
   private modalidadeUpdateSubscription!: Subscription;
 
-  isBlocked: boolean = false; // Controla se o usuário está bloqueado
+  isBlocked: boolean = false;
   mensagemBloqueio: string =
     'O acadêmico bloqueou a visualização das estatísticas.';
-    
+
   user: Academico | null = null;
 
-  // Lucide Icons
   readonly CircleDashed = CircleDashed;
   readonly Target = Target;
   readonly SignalHigh = SignalHigh;
@@ -56,21 +55,20 @@ export class EstatisticasPessoaisComponent implements OnInit {
     private estatisticaService: EstatisticasAcademicoService,
     private authService: AuthService,
     private academicoService: AcademicoService,
-    private stateModalidadesService: StateModalidadesService
+    private stateService: StateService
   ) {}
 
   ngOnInit() {
     this.user = this.authService.getUser();
-    // Verifica se o 'username' foi passado via @Input
-    const usernameFinal =
-      this.username || this.authService.getUser()?.username || ''; // Se não for passado, tenta pegar do AuthService
 
-    // Se o usernameFinal não estiver vazio, tenta buscar o acadêmico
+    const usernameFinal =
+      this.username || this.authService.getUser()?.username || '';
+
     if (usernameFinal) {
       this.buscarAcademicoPorUsername(usernameFinal);
 
       this.modalidadeUpdateSubscription =
-        this.stateModalidadesService.updateModalidades$.subscribe(() => {
+        this.stateService.updateModalidades$.subscribe(() => {
           if (this.academico) {
             this.loadEstatisticasUso(this.academico.idAcademico);
             this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
@@ -81,13 +79,11 @@ export class EstatisticasPessoaisComponent implements OnInit {
     }
   }
 
-  // Função para buscar o acadêmico pelo username
   buscarAcademicoPorUsername(username: string) {
     this.academicoService.getAcademicoByUsername(username).subscribe({
       next: (academico: Academico | null) => {
-        this.academico = academico; // Atribui o acadêmico à variável
+        this.academico = academico;
         if (this.academico) {
-          // Se o acadêmico for encontrado, carrega as estatísticas
           this.loadEstatisticasUso(this.academico.idAcademico);
           this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
         } else {
@@ -100,7 +96,6 @@ export class EstatisticasPessoaisComponent implements OnInit {
     });
   }
 
-  // Função para realizar a requisição e salvar os dados de uso
   loadEstatisticasUso(id: number) {
     this.estatisticaService.getEstatisticasUso(id).subscribe({
       next: (data: EstatisticaUso[] | null) => {
@@ -112,7 +107,6 @@ export class EstatisticasPessoaisComponent implements OnInit {
     });
   }
 
-  // Função para realizar a requisição e salvar os dados de modalidade
   loadEstatisticasModalidade(idAcademico: number, idModalidade: number) {
     this.estatisticaService
       .getEstatisticasModalidade(idAcademico, idModalidade)
@@ -140,7 +134,7 @@ export class EstatisticasPessoaisComponent implements OnInit {
           },
           error: (err) => {
             if (err.status === 403) {
-              this.isBlocked = true; // Define como bloqueado
+              this.isBlocked = true;
             } else {
               console.error(
                 'Erro ao buscar dados de todas as modalidades:',
@@ -158,7 +152,7 @@ export class EstatisticasPessoaisComponent implements OnInit {
           },
           error: (err) => {
             if (err.status === 403) {
-              this.isBlocked = true; // Define como bloqueado
+              this.isBlocked = true;
             } else {
               console.error(
                 'Erro ao buscar dados de todas as modalidades do outro acadêmico:',

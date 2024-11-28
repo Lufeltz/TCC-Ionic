@@ -70,7 +70,6 @@ export class InformacoesSaudeComponent implements OnInit {
     this.saudeService.getContatosSaude().subscribe({
       next: (data: Saude[] | null) => {
         this.contatosSaude = data || [];
-        console.log('Dados de saúde recebidos:', this.contatosSaude);
       },
       error: (err) => {
         console.error('Erro ao buscar dados de saúde:', err);
@@ -80,10 +79,5 @@ export class InformacoesSaudeComponent implements OnInit {
 
   getUsuarioLogado() {
     this.user = this.authService.getUser();
-    if (this.user) {
-      console.log('Dados do acadêmico logado:', this.user);
-    } else {
-      console.error('Usuário não autenticado ou dados não carregados');
-    }
   }
 }

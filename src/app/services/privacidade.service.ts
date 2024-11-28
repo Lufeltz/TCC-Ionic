@@ -3,14 +3,17 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Privacidade } from '../models/privacidade.model';
 import { AuthService } from './auth.service';  // Importando o AuthService
+import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PrivacidadeService {
   constructor(private _http: HttpClient, private authService: AuthService) {}
+  
+  private ip: string = APP_CONFIG.ip;
 
-  BASE_URL = 'http://localhost:8081/academico';
+  BASE_URL = `http://${this.ip}:8081/academico`;
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

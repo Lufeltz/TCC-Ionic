@@ -1,481 +1,473 @@
 ion-label {
-    color: var(--light-blue);
-  }
-  
-  ion-segment {
+  color: var(--light-blue);
+}
 
-    --background: var(--background-dark);
-  }
-  
-  .toggle {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .item-lista ion-label {
-    color: var(--light-blue);
-    margin-bottom: 0.5rem;
-  }
-  
-  div {
-    h2,
-    p {
-      color: var(--text-white);
-    }
-  }
-  
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-  }
-  
-  .item-lista {
-    border-radius: 8px;
-    padding: 1rem;
+ion-segment {
+  --background: var(--background-dark);
+}
+
+.toggle {
+  display: flex;
+  justify-content: center;
+}
+
+.item-lista ion-label {
+  color: var(--light-blue);
+  margin-bottom: 0.5rem;
+}
+
+div {
+  h2,
+  p {
     color: var(--text-white);
   }
-  
-  .item-lista:hover {
-    background-color: var(--background-hover);
-    transform: translateY(-2px);
-  }
-  
-  .item-lista ion-label {
-    color: var(--yellow-desc);
-  }
-  
-  .item-lista ion-input,
-  .item-lista ion-datetime {
-    background-color: var(--background-dark);
-    border-radius: 5px;
-    color: var(--text-white);
-    padding: 0.5rem;
-    --padding-start: 0.5rem;
-    --padding-end: 0.5rem;
-    --padding-top: 0.5rem;
-    --padding-bottom: 0.5rem;
-    margin-top: 10px;
-  }
-  
-  .item-lista ion-input::placeholder,
-  .item-lista ion-datetime::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-  }
-  
-  .container {
-    margin-top: 1rem;
-  }
-  
-  .centered-button {
-    --background: var(--text-white);
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    margin-top: 1rem;
-  }
-  
-  .item-lista ion-input {
-    border-right: 2px solid var(--light-blue);
-    border-bottom: 2px solid var(--light-blue);
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  .item-lista ion-datetime {
-    background-color: var(--background-hover);
-    color: var(--text-white);
-    border-radius: 5px;
-    padding: 0.5rem;
-  }
-  
-  .item-lista ion-datetime::part(native) {
-    border-right: 1px solid var(--light-blue);
-    border-bottom: 1px solid var(--light-blue);
-  }
-  
-  .item-lista ion-datetime::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-  }
-  
-  ion-input ion-icon {
-    color: var(--light-blue);
-  }
-  
-  .btn-inscrever-se {
-    margin-right: 5px;
-  }
-  
-  .cep-button {
-    margin-left: 10px;
-  }
-  
-  .input-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-  
-  .input-container ion-input {
-    flex: 1;
-    margin: 0;
-  }
-  
-  .input-container ion-button {
-    width: auto;
-    flex-shrink: 0;
-    margin-left: 10px;
-    margin-top: 0;
-    align-self: center;
-  }
-  
-  ion-button {
-    --background: var(--text-white);
-    --color: var(--background-dark);
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .btn-inscrever-se {
-    margin-left: 5px;
-    --color: var(--background-dark);
-  }
-  
-  .icon-align {
-    display: flex;
-    align-items: center;
-    margin-top: 4px;
-    color: var(--background-dark);
-  }
-  
-  .icon-align lucide-angular {
-    margin-right: 5px;
-    --color: var(--background-dark);
-  }
-  
-  .icon-align p,
-  .icon-align ion-label {
-    margin: 0;
-    // color: var(--background-dark);
-    // font-size: 1rem;
-  }
-  
-  .cep-button {
-    border: none;
-    margin-left: 10px;
-    --border-width: 0;
-  }
-  
-  .input-label {
-    color: var(--yellow-desc);
-    margin-bottom: 0.5rem;
-    // font-weight: bold;
-  }
-  
-  .styled-input::-webkit-calendar-picker-indicator {
-    color: var(--light-blue);
-    cursor: pointer;
-    z-index: 10;
-    filter: invert(0.6) sepia(1) saturate(5) hue-rotate(175deg);
-  }
-  
-  .styled-input {
-    background-color: var(--background-dark);
-    border-radius: 5px;
-    color: var(--text-white);
-    padding: 0.5rem;
-    border-right: 2px solid var(--light-blue);
-    border-bottom: 2px solid var(--light-blue);
-    box-shadow: none;
-    transition: background-color 0.3s, transform 0.3s;
-    margin-top: 10px;
-    width: 100%;
-    z-index: 100;
-    position: relative;
-    outline: none;
-  }
-  
-  .styled-input::placeholder {
-    color: var(--text-white);
-  }
-  
-  .styled-input:focus {
-    background-color: var(--background-hover);
-  }
-  
-  .input-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-  }
-  
-  .input-container ion-label {
-    color: var(--text-light);
-    flex-basis: 100%;
-    margin-bottom: 0.5rem;
-  }
-  
-  
-  .input-container ion-input {
-    background-color: var(--background-dark);
-    color: var(--text-white);
-    padding: 0.5rem;
-    border-radius: 5px;
-    --padding-start: 0.5rem;
-    --padding-end: 0.5rem;
-  }
-  
-  ion-radio-group {
-    display: flex;
-    flex-direction: column;
-    color: var(--background-dark);
-    margin-bottom: 1rem;
-  }
-  
-  ion-radio {
-    --border-radius: 4px;
-    --color: var(--background-dark);
-    --color-checked: var(--light-blue);
-    --inner-border-radius: 4px;
-    margin-bottom: 0.5rem;
-  }
-  
-  ion-radio.ios::part(container) {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .radio-checked.ios::part(container) {
-    border-color: var(--light-blue);
-  }
-  
-  .radio-item ion-label {
-    color: var(--text-light);
-  }
-  
-  .radio-item ion-radio {
-    --border-radius: 4px;
-    --color: var(--background-dark);
-    --color-checked: var(--light-blue);
-    --inner-border-radius: 4px;
-  }
-  
-  .radio-item ion-radio.ios::part(container) {
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .radio-item .radio-checked.ios::part(container) {
-    border-color: var(--light-blue);
-  }
-  
-  ion-radio-group {
-    color: var(--background-dark);
-  }
-  
-  ion-item {
-    --background: var(--background-dark);
-  }
-  
-  .align-it {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    padding-top: 7px;
-  }
-  
-  .items {
-    margin-top: 15px;
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: -15px;
-  }
-  
-  .item-up {
-    // border-top-left-radius: 10px;
-    // border-top-right-radius: 10px;
-    border-radius: 10px;
-  }
-  
-  .item-bottom {
-    // border-bottom-left-radius: 10px;
-    // border-bottom-right-radius: 10px;
-    border-radius: 10px;
-  }
-  
-  .radio-item:hover {
-    background-color: var(--background-hover);
-    transform: translateY(-2px);
-  }
-  
-  .item-lista ion-textarea {
-    background-color: var(--background-dark);
-    border-radius: 5px;
-    color: var(--text-white);
-    padding: 0.5rem;
-    --padding-start: 0.5rem;
-    --padding-end: 0.5rem;
-    --padding-top: 0.5rem;
-    --padding-bottom: 0.5rem;
-    margin-top: 10px;
-    border-bottom: 2px solid var(--light-blue);
-    border-right: 2px solid var(--light-blue);
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-    transition: background-color 0.3s, transform 0.3s;
-  }
-  
-  .item-lista ion-textarea::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-  }
-  
-  .input-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .cep-header {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    margin-bottom: 0.5rem;
-  }
-  
-  .cep-header lucide-angular {
-    margin-right: 10px;
-  }
-  
-  .cep-header ion-label {
-    margin: 0;
-    color: var(--yellow-desc);
-  }
-  
-  .cep-footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    width: 100%;
-  }
-  
-  .cep-footer ion-input {
-    flex-grow: 1;
-    margin-right: 10px;
-  }
-  
-  .cep-button {
-    margin-left: 0;
-    display: inline-flex;
-    align-items: center;
-  }
-  
-  ion-datetime {
-    --background: var(--background-dark);
-    --color: var(--text-white);
-    --border-radius: 10px;
-  }
-  
-  ion-datetime .button {
-    --background: var(--light-blue);
-    --color: var(--background-dark);
-    --border-radius: 5px;
-    transition: background-color 0.3s;
-  }
-  
-  ion-datetime .button:hover {
-    --background: var(--yellow-desc);
-    --color: var(--background-dark);
-  }
-  
-  ion-datetime .days .day {
-    color: var(--text-white);
-    background-color: var(--background-dark);
-    border-radius: 5px;
-  }
-  
-  ion-datetime .days .day:hover {
-    background-color: var(--light-blue);
-    color: var(--background-dark);
-  }
-  
-  ion-datetime .days .day.selected {
-    background-color: var(--yellow-desc);
-    color: var(--background-dark);
-  }
-  
-  .input-space {
-    margin-top: 0.75rem;
-    margin-bottom: .75rem;
-  }
-  
-  .custom-select-wrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
-  }
-  
-  .custom-select {
-    appearance: none;
-    background-color: var(--background-dark);
-    border: none;
-    border-bottom: 2px solid var(--light-blue);
-    border-right: 2px solid var(--light-blue);
-    border-radius: 5px;
-    padding: 0.5rem;
-    width: 100%;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-    transition: background-color 0.3s, transform 0.3s;
-    text-align: center;
-    overflow: hidden; /* Impede que o texto ultrapasse o campo */
-    word-wrap: break-word; /* Quebra palavras longas */
-    white-space: normal; /* Permite quebra de linha dentro das opções */
-  }
-  
-  /* Estilo de foco do select */
-  .custom-select:focus {
-    outline: none;
-    background-color: var(--background-dark);
-    border-bottom: 2px solid var(--light-blue);
-  }
-  
-  /* Estilo das opções dentro do select */
-  .custom-select option {
-    background-color: var(--background-dark);
-    color: var(--text-white);
-    padding: 0.5rem; /* Dê algum padding para as opções */
-    white-space: normal; /* Permite a quebra de linha nas opções */
-    word-wrap: break-word; /* Quebra palavras longas */
-    max-width: 100%; /* Garante que o texto não ultrapasse a largura do select */
-  }
-  
-  /* Estilo das opções quando selecionadas */
-  .custom-select option[value="futebol"]:checked {
-    background-color: var(--background-dark);
-    color: var(--light-blue);
-  }
-  
-  .custom-select option:checked {
-    background-color: var(--background-dark);
-    color: var(--light-blue);
-  }
-  
-  /* Estilo das opções quando o mouse passa por cima */
-  .custom-select option:hover {
-    background-color: var(--light-blue);
-    color: var(--text-white);
-  }
-  
-  /* Estilo do select quando o mouse passa por cima */
-  .custom-select:hover {
-    background-color: var(--background-dark);
-  }
-  
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.item-lista {
+  border-radius: 8px;
+  padding: 1rem;
+  color: var(--text-white);
+}
+
+.item-lista:hover {
+  background-color: var(--background-hover);
+  transform: translateY(-2px);
+}
+
+.item-lista ion-label {
+  color: var(--yellow-desc);
+}
+
+.item-lista ion-input,
+.item-lista ion-datetime {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  margin-top: 10px;
+}
+
+.item-lista ion-input::placeholder,
+.item-lista ion-datetime::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.container {
+  margin-top: 1rem;
+}
+
+.centered-button {
+  --background: var(--text-white);
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.item-lista ion-input {
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+.item-lista ion-datetime {
+  background-color: var(--background-hover);
+  color: var(--text-white);
+  border-radius: 5px;
+  padding: 0.5rem;
+}
+
+.item-lista ion-datetime::part(native) {
+  border-right: 1px solid var(--light-blue);
+  border-bottom: 1px solid var(--light-blue);
+}
+
+.item-lista ion-datetime::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+ion-input ion-icon {
+  color: var(--light-blue);
+}
+
+.btn-inscrever-se {
+  margin-right: 5px;
+}
+
+.cep-button {
+  margin-left: 10px;
+}
+
+.input-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.input-container ion-input {
+  flex: 1;
+  margin: 0;
+}
+
+.input-container ion-button {
+  width: auto;
+  flex-shrink: 0;
+  margin-left: 10px;
+  margin-top: 0;
+  align-self: center;
+}
+
+ion-button {
+  --background: var(--text-white);
+  --color: var(--background-dark);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+  --color: var(--background-dark);
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  color: var(--background-dark);
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+  --color: var(--background-dark);
+}
+
+.icon-align p,
+.icon-align ion-label {
+  margin: 0;
+  // color: var(--background-dark);
+  // font-size: 1rem;
+}
+
+.cep-button {
+  border: none;
+  margin-left: 10px;
+  --border-width: 0;
+}
+
+.input-label {
+  color: var(--yellow-desc);
+  margin-bottom: 0.5rem;
+  // font-weight: bold;
+}
+
+.styled-input::-webkit-calendar-picker-indicator {
+  color: var(--light-blue);
+  cursor: pointer;
+  z-index: 10;
+  filter: invert(0.6) sepia(1) saturate(5) hue-rotate(175deg);
+}
+
+.styled-input {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: none;
+  margin-top: 10px;
+  width: 100%;
+  z-index: 100;
+  position: relative;
+  outline: none;
+}
+
+.styled-input::placeholder {
+  color: var(--text-white);
+}
+
+.styled-input:focus {
+  background-color: var(--background-hover);
+}
+
+.input-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.input-container ion-label {
+  color: var(--text-light);
+  flex-basis: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.input-container ion-input {
+  background-color: var(--background-dark);
+  color: var(--text-white);
+  padding: 0.5rem;
+  border-radius: 5px;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+}
+
+ion-radio-group {
+  display: flex;
+  flex-direction: column;
+  color: var(--background-dark);
+  margin-bottom: 1rem;
+}
+
+ion-radio {
+  --border-radius: 4px;
+  --color: var(--background-dark);
+  --color-checked: var(--light-blue);
+  --inner-border-radius: 4px;
+  margin-bottom: 0.5rem;
+}
+
+ion-radio.ios::part(container) {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
+
+.radio-checked.ios::part(container) {
+  border-color: var(--light-blue);
+}
+
+.radio-item ion-label {
+  color: var(--text-light);
+}
+
+.radio-item ion-radio {
+  --border-radius: 4px;
+  --color: var(--background-dark);
+  --color-checked: var(--light-blue);
+  --inner-border-radius: 4px;
+}
+
+.radio-item ion-radio.ios::part(container) {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+}
+
+.radio-item .radio-checked.ios::part(container) {
+  border-color: var(--light-blue);
+}
+
+ion-radio-group {
+  color: var(--background-dark);
+}
+
+ion-item {
+  --background: var(--background-dark);
+}
+
+.align-it {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 7px;
+}
+
+.items {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: -15px;
+}
+
+.item-up {
+  // border-top-left-radius: 10px;
+  // border-top-right-radius: 10px;
+  border-radius: 10px;
+}
+
+.item-bottom {
+  // border-bottom-left-radius: 10px;
+  // border-bottom-right-radius: 10px;
+  border-radius: 10px;
+}
+
+.radio-item:hover {
+  background-color: var(--background-hover);
+  transform: translateY(-2px);
+}
+
+.item-lista ion-textarea {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  margin-top: 10px;
+  border-bottom: 2px solid var(--light-blue);
+  border-right: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+.item-lista ion-textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.input-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.cep-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: 0.5rem;
+}
+
+.cep-header lucide-angular {
+  margin-right: 10px;
+}
+
+.cep-header ion-label {
+  margin: 0;
+  color: var(--yellow-desc);
+}
+
+.cep-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
+.cep-footer ion-input {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.cep-button {
+  margin-left: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+ion-datetime {
+  --background: var(--background-dark);
+  --color: var(--text-white);
+  --border-radius: 10px;
+}
+
+ion-datetime .button {
+  --background: var(--light-blue);
+  --color: var(--background-dark);
+  --border-radius: 5px;
+}
+
+ion-datetime .button:hover {
+  --background: var(--yellow-desc);
+  --color: var(--background-dark);
+}
+
+ion-datetime .days .day {
+  color: var(--text-white);
+  background-color: var(--background-dark);
+  border-radius: 5px;
+}
+
+ion-datetime .days .day:hover {
+  background-color: var(--light-blue);
+  color: var(--background-dark);
+}
+
+ion-datetime .days .day.selected {
+  background-color: var(--yellow-desc);
+  color: var(--background-dark);
+}
+
+.input-space {
+  margin-top: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.custom-select {
+  appearance: none;
+  background-color: var(--background-dark);
+  border: none;
+  border-bottom: 2px solid var(--light-blue);
+  border-right: 2px solid var(--light-blue);
+  border-radius: 5px;
+  padding: 0.5rem;
+  width: 100%;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  text-align: center;
+  overflow: hidden; /* Impede que o texto ultrapasse o campo */
+  word-wrap: break-word; /* Quebra palavras longas */
+  white-space: normal; /* Permite quebra de linha dentro das opções */
+}
+
+/* Estilo de foco do select */
+.custom-select:focus {
+  outline: none;
+  background-color: var(--background-dark);
+  border-bottom: 2px solid var(--light-blue);
+}
+
+/* Estilo das opções dentro do select */
+.custom-select option {
+  background-color: var(--background-dark);
+  color: var(--text-white);
+  padding: 0.5rem; /* Dê algum padding para as opções */
+  white-space: normal; /* Permite a quebra de linha nas opções */
+  word-wrap: break-word; /* Quebra palavras longas */
+  max-width: 100%; /* Garante que o texto não ultrapasse a largura do select */
+}
+
+/* Estilo das opções quando selecionadas */
+.custom-select option[value="futebol"]:checked {
+  background-color: var(--background-dark);
+  color: var(--light-blue);
+}
+
+.custom-select option:checked {
+  background-color: var(--background-dark);
+  color: var(--light-blue);
+}
+
+/* Estilo das opções quando o mouse passa por cima */
+.custom-select option:hover {
+  background-color: var(--light-blue);
+  color: var(--text-white);
+}
+
+/* Estilo do select quando o mouse passa por cima */
+.custom-select:hover {
+  background-color: var(--background-dark);
+}

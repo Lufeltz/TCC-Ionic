@@ -50,6 +50,7 @@ import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { CampeonatoCriacao } from 'src/app/models/campeonato-criacao.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { Academico } from 'src/app/models/academico.model';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-campeonatos',
@@ -100,7 +101,7 @@ export class CampeonatosPage implements OnInit {
 
   isCepValid: boolean = false;
 
-  errorMessage: string = ''; // Variável para armazenar mensagens de erro
+  errorMessage: string = '';
   usuarioLogado: Academico | null = null;
 
   readonly Pencil = Pencil;
@@ -122,20 +123,17 @@ export class CampeonatosPage implements OnInit {
   constructor(
     private enderecoService: EnderecoService,
     private campeonatoService: CampeonatoService,
-    private authService: AuthService
-  ) {
-    addIcons({ calendar });
-  }
+    private authService: AuthService,
+    private stateService: StateService
+  ) {}
 
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();
-    // this.campeonato.privacidadeCampeonato = 'PUBLICO';
 
-    if(this.usuarioLogado){
-      this.campeonato.idAcademico = this.usuarioLogado.idAcademico
+    if (this.usuarioLogado) {
+      this.campeonato.idAcademico = this.usuarioLogado.idAcademico;
     }
 
-    // Inscrever-se no observable para atualizar a lista de campeonatos
     this.campeonatoService.campeonatoCreated$.subscribe(() => {
       this.loadCampeonatos();
     });
@@ -144,65 +142,51 @@ export class CampeonatosPage implements OnInit {
   }
 
   loadCampeonatos() {
-    // Implementar a lógica para carregar a lista de campeonatos
-    this.campeonatoService.getAllCampeonatos(0, 5).subscribe((campeonatos) => {
-      // Atualizar a lista de campeonatos no componente
-      console.log('Campeonatos carregados:', campeonatos);
-    });
+    this.campeonatoService
+      .getAllCampeonatos(0, 5)
+      .subscribe((campeonatos) => {});
   }
 
-validateLimiteTimes(event: any) {
-  const input = event.target as HTMLInputElement;
-  let value = input.value;
+  validateLimiteTimes(event: any) {
+    const input = event.target as HTMLInputElement;
+    let value = input.value;
 
-  // Remove caracteres não numéricos
-  value = value.replace(/\D/g, '');
+    value = value.replace(/\D/g, '');
 
-  // Limita a entrada a 2 caracteres
-  if (value.length > 2) {
-    value = value.substring(0, 2);
-  }
-
-  // Verifica se o número tem 2 dígitos e é inválido
-  if (value.length === 2) {
-    // Verifica se o número é par
-    if (parseInt(value, 10) % 2 !== 0) {
-      this.errorMessage = 'O limite de times deve ser um número par!';
-      input.value = ''; // Limpa o campo se não for par
+    if (value.length > 2) {
+      value = value.substring(0, 2);
     }
-    // Verifica se o número é maior que 16
-    else if (parseInt(value, 10) > 16) {
-      this.errorMessage = 'O limite de times não pode ser maior que 16!';
-      input.value = ''; // Limpa o campo se for maior que 16
-    } 
-    else {
-      this.errorMessage = ''; // Limpa a mensagem de erro se o número for válido
-      this.campeonato.limiteTimes = Number(value); // Atualiza o modelo ngModel
+
+    if (value.length === 2) {
+      if (parseInt(value, 10) % 2 !== 0) {
+        this.errorMessage = 'O limite de times deve ser um número par!';
+        input.value = '';
+      } else if (parseInt(value, 10) > 16) {
+        this.errorMessage = 'O limite de times não pode ser maior que 16!';
+        input.value = '';
+      } else {
+        this.errorMessage = '';
+        this.campeonato.limiteTimes = Number(value);
+      }
+    } else {
+      this.errorMessage = '';
     }
-  } else {
-    this.errorMessage = ''; // Limpa a mensagem de erro enquanto o número estiver incompleto
+
+    input.value = value;
   }
-
-  input.value = value; // Atualiza o valor do campo
-}
-
-  
 
   validateNumber(event: any) {
     const input = event.target as HTMLInputElement;
     let value = input.value;
 
-    // Remove caracteres não numéricos
     value = value.replace(/\D/g, '');
 
-    // Limita a entrada a 2 caracteres
     if (value.length > 2) {
       value = value.substring(0, 2);
     }
 
     input.value = value;
 
-    // Atualiza o modelo ngModel
     this.campeonato.limiteParticipantes = Number(value);
   }
 
@@ -210,17 +194,14 @@ validateLimiteTimes(event: any) {
     const input = event.target as HTMLInputElement;
     const value = input.value;
 
-    // Remove caracteres não numéricos
     const cleanedValue = value.replace(/\D/g, '');
 
-    // Limita a entrada a 5 caracteres
     if (cleanedValue.length > 5) {
       input.value = cleanedValue.substring(0, 5);
     } else {
       input.value = cleanedValue;
     }
 
-    // Atualiza o modelo ngModel
     this.campeonato.endereco.numero = Number(input.value);
   }
 
@@ -234,7 +215,6 @@ validateLimiteTimes(event: any) {
   onSelectChange(event: Event) {
     const selectElement = event.target as HTMLSelectElement;
     const selectedValue = selectElement.value;
-    // this.publicacao.idModalidadeEsportiva = null; // Atualiza corretamente
   }
 
   salvarDados() {
@@ -247,11 +227,10 @@ validateLimiteTimes(event: any) {
       this.horaFim
     );
 
-    console.log(this.campeonato);
     this.campeonatoService.postCampeonato(this.campeonato).subscribe({
       next: (campeonatoCriado) => {
         if (campeonatoCriado) {
-          console.log('Campeonato criado com sucesso:', campeonatoCriado);
+          this.stateService.triggerUpdateListagemCampeonatos();
         } else {
           console.log('Erro ao criar campeonato');
         }
@@ -275,22 +254,18 @@ validateLimiteTimes(event: any) {
   }
 
   formatarCep(cep: string): string {
-    // Remove qualquer caractere não numérico
     cep = cep.replace(/\D/g, '');
-  
-    // Aplica a máscara de CEP (5 primeiros números, seguidos de um hífen e 3 números)
+
     if (cep.length > 5) {
       return cep.replace(/(\d{5})(\d{3})/, '$1-$2');
     }
     return cep;
   }
-  
 
   validarCep() {
-    // Remove qualquer caractere não numérico e verifica se tem exatamente 8 dígitos
-    const cep = this.campeonato.endereco.cep.replace(/\D/g, ''); // Remove caracteres não numéricos
-    this.isCepValid = cep.length === 8; // Valida se tem exatamente 8 dígitos
-    this.campeonato.endereco.cep = cep; // Atualiza o campo com o valor limpo
+    const cep = this.campeonato.endereco.cep.replace(/\D/g, '');
+    this.isCepValid = cep.length === 8;
+    this.campeonato.endereco.cep = cep;
   }
 
   pesquisarCep(cep: string) {
@@ -304,7 +279,6 @@ validateLimiteTimes(event: any) {
           this.campeonato.endereco.cidade = this.endereco.cidade || '';
           this.campeonato.endereco.uf = this.endereco.uf || '';
         } else {
-          // console.log('Endereço não encontrado');
         }
       },
       error: (err) => {

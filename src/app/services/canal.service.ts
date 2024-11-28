@@ -10,7 +10,7 @@ export class CanalService {
   
   constructor(private _http: HttpClient) {}
 
-  NEW_URL = 'http://localhost:8081/canal';
+  NEW_URL = 'http://192.168.0.133:8081/canal';
 
   httpOptions = {
     observe: 'response' as 'response',

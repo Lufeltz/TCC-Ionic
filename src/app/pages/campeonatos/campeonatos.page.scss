@@ -78,7 +78,6 @@ ul {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 .item-lista ion-datetime {
@@ -187,7 +186,6 @@ ion-button {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: none;
-  transition: background-color 0.3s, transform 0.3s;
   margin-top: 10px;
   width: 100%;
   z-index: 100;
@@ -325,7 +323,6 @@ ion-item {
   border-bottom: 2px solid var(--light-blue);
   border-right: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 .item-lista ion-textarea::placeholder {
@@ -384,7 +381,6 @@ ion-datetime .button {
   --background: var(--light-blue);
   --color: var(--background-dark);
   --border-radius: 5px;
-  transition: background-color 0.3s;
 }
 
 ion-datetime .button:hover {
@@ -431,7 +427,6 @@ ion-datetime .days .day.selected {
   width: 100%;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
   text-align: center;
   overflow: hidden; /* Impede que o texto ultrapasse o campo */
   word-wrap: break-word; /* Quebra palavras longas */

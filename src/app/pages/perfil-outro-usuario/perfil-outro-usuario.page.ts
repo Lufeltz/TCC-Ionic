@@ -68,7 +68,6 @@ export class PerfilOutroUsuarioPage implements OnInit {
     // Captura o 'username' da URL
     this.route.paramMap.subscribe((params) => {
       this.username = params.get('username') || '';
-      console.log('Username capturado da URL:', this.username);
     });
 
     this.pageTitle = this.username;

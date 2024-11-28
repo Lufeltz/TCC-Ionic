@@ -11,7 +11,6 @@ ion-input.styled-input {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 ion-input.styled-input::placeholder {
@@ -54,7 +53,6 @@ ion-input.styled-input:focus {
   font-weight: 700;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
   text-align: center;
 }
 
@@ -131,7 +129,6 @@ ion-input.styled-input {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 .message-input {
@@ -145,7 +142,6 @@ ion-input.styled-input {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 .message-input::placeholder {
@@ -167,7 +163,6 @@ ion-textarea.styled-textarea {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
   width: 100%;
   height: 125px;
   resize: none;
@@ -185,7 +180,7 @@ ion-textarea.styled-textarea:focus {
 
 /* Adiciona um estilo específico para o textarea do título */
 ion-textarea.styled-textarea.titulo-input {
-  height: 62.5px; /* Ajusta a altura para metade do que era anteriormente (125px) */
+  height: 80px; /* Ajusta a altura para metade do que era anteriormente (125px) */
   resize: none; /* Desabilita o redimensionamento */
 }
 
@@ -195,7 +190,6 @@ ion-button {
   margin-top: 16px;
   --background: var(--text-white);
   --color: var(--background-dark);
-  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 ion-button:active {
@@ -213,7 +207,6 @@ ion-button:active {
   color: var(--yellow-desc);
   font-size: 1rem;
 }
-
 
 .btn-inscrever-se {
   margin-left: 5px;
@@ -235,11 +228,9 @@ ion-button:active {
   font-size: 1rem;
 }
 
-
 .post-container {
   padding: 16px;
 }
-
 
 div .error-message p {
   color: var(--text-light);

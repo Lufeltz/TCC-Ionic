@@ -81,17 +81,17 @@ export class CampeonatoDetalhesComponent implements OnInit {
   readonly ArrowDownToDot = ArrowDownToDot;
 
   campeonato: Campeonato | null = null;
-  modalidades: ModalidadeEsportiva[] = []; // Armazena a lista de modalidades
+  modalidades: ModalidadeEsportiva[] = [];
   modalidadesSimplificadas: { idModalidadeEsportiva: number; nome: string }[] =
-    []; // Variável para armazenar o novo array
+    [];
 
   mensagem!: string;
   mensagem_detalhes!: string;
   loading: boolean = true;
-  academico: Academico | null = null; // Variável para armazenar os dados do acadêmico logado
+  academico: Academico | null = null;
 
   codigo: string = '';
-  error: string = ''; // Mensagem de erro
+  error: string = '';
 
   currentPage: number = 0;
   pageSize: number = 5;
@@ -111,14 +111,13 @@ export class CampeonatoDetalhesComponent implements OnInit {
   getLockColor(privacidade: string): string {
     return privacidade === 'PRIVADO'
       ? 'var(--light-red)'
-      : 'var(--text-new-green)'; // 'red' para 'privado', 'green' para 'público'
+      : 'var(--text-new-green)';
   }
 
   ngOnInit() {
     this.loadModalidades();
     this.route.paramMap.subscribe((params) => {
       this.codigo = params.get('codigo')!;
-      console.log(this.codigo); // Você pode usar o código aqui para buscar os detalhes do campeonato
     });
     this.buscarCampeonatoPorCodigo(this.codigo);
   }
@@ -127,9 +126,7 @@ export class CampeonatoDetalhesComponent implements OnInit {
     this.loading = true;
     this.partidaService.listarTimes(idCampeonato).subscribe({
       next: (times: Time[]) => {
-        // Armazena os times no objeto timesPorCampeonato usando o idCampeonato como chave
         this.times = times;
-        console.log('times: ', this.times);
         this.loading = false;
       },
       error: (err) => {
@@ -143,9 +140,7 @@ export class CampeonatoDetalhesComponent implements OnInit {
     this.loading = true;
     this.partidaService.listarJogadores(idCampeonato).subscribe({
       next: (response: JogadorResponse) => {
-        // Armazena os jogadores no objeto jogadoresPorCampeonato usando o idCampeonato como chave
         this.jogadores = response.content || [];
-        console.log('jogadores:', this.jogadores);
         this.loading = false;
       },
       error: (err) => {
@@ -155,25 +150,23 @@ export class CampeonatoDetalhesComponent implements OnInit {
     });
   }
 
-  // Método para buscar campeonato por código
   buscarCampeonatoPorCodigo(codigo: string): void {
-    this.loading = true; // Define loading como true no início da requisição
+    this.loading = true;
     this.campeonatoService.filtrarCampeonatos(codigo).subscribe({
       next: (campeonatos) => {
         if (campeonatos && campeonatos.length > 0) {
-          this.campeonato = campeonatos[0]; // Salva o primeiro campeonato na variável campeonato
-          console.log('Campeonato encontrado nos detalhes:', this.campeonato);
+          this.campeonato = campeonatos[0];
           this.listarTimesPorCampeonato(this.campeonato.idCampeonato);
           this.listarJogadoresPorCampeonato(this.campeonato.idCampeonato);
         } else {
-          this.campeonato = null; // Caso não encontre o campeonato
+          this.campeonato = null;
           console.warn('Campeonato não encontrado');
         }
-        this.loading = false; // Define loading como false após a requisição ser concluída
+        this.loading = false;
       },
       error: (err) => {
         console.error('Erro ao buscar campeonato:', err);
-        this.loading = false; // Define loading como false caso ocorra um erro na requisição
+        this.loading = false;
       },
     });
   }
@@ -182,8 +175,8 @@ export class CampeonatoDetalhesComponent implements OnInit {
     this.modalidadeService.getAllModalidades().subscribe({
       next: (modalidades) => {
         if (modalidades && modalidades.length > 0) {
-          this.modalidades = modalidades; // Atribui corretamente um array de ModalidadeEsportiva
-          this.gerarModalidadesSimplificadas(); // Chama a função para gerar o array simplificado
+          this.modalidades = modalidades;
+          this.gerarModalidadesSimplificadas();
         } else {
           console.warn('Nenhuma modalidade encontrada');
           this.modalidades = [];
@@ -196,9 +189,7 @@ export class CampeonatoDetalhesComponent implements OnInit {
   }
 
   gerarModalidadesSimplificadas(): void {
-    // Verifica se `this.modalidades` é um array e não está vazio
     if (Array.isArray(this.modalidades) && this.modalidades.length > 0) {
-      // Mapeia o array diretamente e extrai o id e nome de cada modalidade
       this.modalidadesSimplificadas = this.modalidades.map((modalidade) => ({
         idModalidadeEsportiva: modalidade.idModalidadeEsportiva,
         nome: modalidade.nome,
@@ -211,11 +202,10 @@ export class CampeonatoDetalhesComponent implements OnInit {
   }
 
   getNomeModalidade(id: number): string | undefined {
-    // Busca o nome da modalidade no array de modalidades simplificadas
     const modalidade = this.modalidadesSimplificadas.find(
       (mod) => mod.idModalidadeEsportiva === id
     );
-    return modalidade ? modalidade.nome : 'Modalidade não encontrada'; // Retorna o nome ou uma mensagem de erro
+    return modalidade ? modalidade.nome : 'Modalidade não encontrada';
   }
 
   async presentAlertPrompt(campeonato: Campeonato, errorMessage: string = '') {
@@ -250,10 +240,10 @@ export class CampeonatoDetalhesComponent implements OnInit {
   }
 
   verificarSenha(campeonato: Campeonato, senha: string) {
-    const senhaCorreta = 'senha123'; // Defina a senha correta aqui
+    const senhaCorreta = 'senha123';
 
     if (senha === senhaCorreta) {
-      console.log('Você entrou no campeonato:', campeonato.titulo);
+      // console.log('Você entrou no campeonato:', campeonato.titulo);
     } else {
       this.presentAlertPrompt(campeonato, 'Senha errada. Tente novamente.');
     }

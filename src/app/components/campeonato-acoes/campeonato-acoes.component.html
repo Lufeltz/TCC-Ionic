@@ -1,24 +1,3 @@
-<!-- <h3 style="display: flex; justify-content: space-between">
-  <div class="icon-align">
-    <ion-label> Participar</ion-label>
-    <lucide-angular
-      [img]="Ellipsis"
-      class="btn-inscrever-se"
-      [size]="20"
-      [color]="'var(--yellow-desc)'"
-      (click)="toggleMenu()"
-    ></lucide-angular>
-
-    
-    <div [class.show]="menuVisible" class="dropdown-menu">
-      <ul>
-        <li (click)="sairDoCampeonato()">Sair do Campeonato</li>
-        <li (click)="deletarCampeonato()">Deletar Campeonato</li>
-      </ul>
-    </div>
-  </div>
-</h3> -->
-
 <div class="criar-post" *ngIf="campeonato?.limiteParticipantes !== 1">
   <ion-button size="small" (click)="abrirModalEditar()">
     <div class="icon-align">
@@ -31,8 +10,10 @@
   ></ion-button>
 </div>
 
-<div class="criar-post" *ngIf="campeonato?.limiteParticipantes === 1 &&
-                !usuarioInscritoNoCampeonato">
+<div
+  class="criar-post"
+  *ngIf="campeonato?.limiteParticipantes === 1 && !usuarioInscritoNoCampeonato"
+>
   <ion-button size="small" (click)="abrirModalEditar()">
     <!-- <ion-button size="small" (click)="criarTime()"> -->
     <div class="icon-align">

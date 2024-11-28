@@ -50,8 +50,7 @@ p span {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
-  width: 100%; /* Faz os cards ocuparem 100% da largura do container */
+    width: 100%; /* Faz os cards ocuparem 100% da largura do container */
 }
 
 h3 {

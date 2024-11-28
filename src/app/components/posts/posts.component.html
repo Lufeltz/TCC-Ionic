@@ -190,6 +190,7 @@
                 ></textarea>
 
                 <ion-button
+                  id="open-toast2"
                   size="small"
                   expand="block"
                   class="comentar-button no-padding-button"
@@ -205,6 +206,12 @@
                   </div>
                 </ion-button>
               </div>
+
+              <ion-toast
+                trigger="open-toast2"
+                message="Comentários criado com sucesso!"
+                [duration]="3000"
+              ></ion-toast>
 
               <ion-button
                 size="small"

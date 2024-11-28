@@ -26,7 +26,6 @@ ul {
   border-right: 2px solid var(--text-pink);
   border-bottom: 2px solid var(--text-pink);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 .campeonato-header {
@@ -140,7 +139,6 @@ ion-accordion:hover .detalhes-header ion-label {
   color: var(--text-pink);
 }
 
-
 .icon-align {
   display: flex;
   align-items: center;
@@ -162,7 +160,6 @@ ion-button {
   --background: var(--text-white);
   --color: var(--background-dark);
 }
-
 
 ///// extra
 
@@ -194,7 +191,6 @@ ul {
   border-right: 2px solid var(--text-pink);
   border-bottom: 2px solid var(--text-pink);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  transition: background-color 0.3s, transform 0.3s;
 }
 
 .campeonato-header {
