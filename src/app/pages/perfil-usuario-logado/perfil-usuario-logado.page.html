@@ -1,0 +1,171 @@
+<ion-content class="ion-padding">
+  <app-menu-perfil
+    [title]="pageTitle"
+    [menu]="pageMenu"
+    [menuContentId]="pageContent"
+  ></app-menu-perfil>
+
+  <div class="container">
+    <ul>
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="CaseSensitive"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Nome</ion-label>
+        </div>
+
+        <ion-input *ngIf="academico" [(ngModel)]="academico.nome"></ion-input>
+      </li>
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="User"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Username</ion-label>
+        </div>
+
+        <ion-input
+          *ngIf="academico"
+          [(ngModel)]="academico.username"
+        ></ion-input>
+      </li>
+
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Key"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Senha</ion-label>
+        </div>
+
+        <ion-input
+          [type]="showPassword ? 'text' : 'password'"
+          placeholder="*******"
+          *ngIf="academico"
+          [(ngModel)]="academico.password"
+          class="input-with-icon"
+        >
+          <div slot="end" class="eye-icon" (click)="togglePasswordVisibility()">
+            <lucide-angular
+              [img]="showPassword ? Eye : EyeOff"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+          </div>
+        </ion-input>
+      </li>
+
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="AtSign"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Email</ion-label>
+        </div>
+
+        <ion-input *ngIf="academico" [(ngModel)]="academico.email"></ion-input>
+      </li>
+
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="Phone"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Telefone</ion-label>
+        </div>
+
+        <ion-input
+          *ngIf="academico"
+          [pattern]="'[0-9]*'"
+          maxlength="15"
+          [(ngModel)]="academico.telefone"
+          (ngModelChange)="academico.telefone"
+        ></ion-input>
+      </li>
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="UserRound"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Gênero</ion-label>
+        </div>
+
+        <ion-input
+          *ngIf="academico"
+          placeholder="Masculino, Feminino, Outros..."
+          [(ngModel)]="academico.genero"
+        ></ion-input>
+      </li>
+
+      <li class="item-lista">
+        <div class="icon-align">
+          <lucide-angular
+            [img]="GraduationCap"
+            class="btn-inscrever-se"
+            [size]="20"
+            [color]="'var(--yellow-desc)'"
+          ></lucide-angular>
+          <ion-label>Curso</ion-label>
+        </div>
+
+        <div class="input-space">
+          <div class="custom-select-wrapper">
+            <select
+              class="custom-select"
+              id="modalidade-select"
+              [(ngModel)]="academico!.curso"
+            >
+              <option value="{{academico?.curso}}" selected>
+                {{academico?.curso}}
+              </option>
+              <option *ngFor="let curso of cursos" [value]="curso">
+                {{ curso }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <ion-button
+      id="open-toast"
+      expand="small"
+      class="centered-button"
+      (click)="salvarDados()"
+    >
+      <div class="icon-align">
+        <p>Salvar</p>
+        <lucide-angular
+          [img]="SaveAll"
+          class="btn-inscrever-se"
+          [size]="20"
+          [color]="'var(--background-dark)'"
+        ></lucide-angular>
+      </div>
+    </ion-button>
+    <ion-toast
+      trigger="open-toast"
+      message="Dados de perfil atualizados!"
+      [duration]="3000"
+    ></ion-toast>
+  </div>
+</ion-content>

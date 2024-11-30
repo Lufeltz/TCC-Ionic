@@ -97,7 +97,7 @@ export class MetasPage implements OnInit {
   pageMenu: string = 'metas-menu';
   pageContent: string = 'metas';
 
-  selectedSegment: string = 'criacao';
+  selectedSegment: string = 'listagem';
   filterEsportivas: boolean = false;
   filterDiarias: boolean = true;
 

@@ -72,11 +72,11 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'perfil-usuario',
+        path: 'perfil-usuario-logado',
         loadComponent: () =>
-          import('./pages/perfil-usuario/perfil-usuario.page').then(
-            (m) => m.PerfilUsuarioPage
-          ),
+          import(
+            './pages/perfil-usuario-logado/perfil-usuario-logado.page'
+          ).then((m) => m.PerfilUsuarioLogadoPage),
       },
       {
         path: 'perfil-outro-usuario/:username', // Rota com parâmetro dinâmico para 'username'
@@ -151,8 +151,8 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'perfil-usuario',
-    redirectTo: 'homepage/perfil-usuario',
+    path: 'perfil-usuario-logado',
+    redirectTo: 'homepage/perfil-usuario-logado',
     pathMatch: 'full',
   },
   {

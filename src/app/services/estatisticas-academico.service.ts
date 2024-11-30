@@ -13,7 +13,7 @@ export class EstatisticasAcademicoService {
   constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
   BASE_URL = 'http://localhost:8081/academico';
-  ESTATISTICAS_URL = 'http:localhost:8081/estatistica';
+  ESTATISTICAS_URL = 'http://localhost:8081/estatistica';
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

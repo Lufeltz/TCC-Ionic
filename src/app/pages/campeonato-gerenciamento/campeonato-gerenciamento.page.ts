@@ -29,8 +29,8 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { TitleCasePipe } from 'src/app/pipes/title-case.pipe';
 import { Campeonato } from 'src/app/models/campeonato.model';
 import { CampeonatoDetalhesComponent } from '../../components/campeonato-detalhes/campeonato-detalhes.component';
-import { CampeonatoAcoesComponent } from 'src/app/components/campeonato-acoes/campeonato-acoes.component';
 import { CampeonatoStatusComponent } from 'src/app/components/campeonato-status/campeonato-status.component';
+import { CampeonatoTimesComponent } from 'src/app/components/campeonato-times/campeonato-times.component';
 
 @Component({
   selector: 'app-campeonato-gerenciamento',
@@ -48,7 +48,7 @@ import { CampeonatoStatusComponent } from 'src/app/components/campeonato-status/
     NgxMaskPipe,
     TitleCasePipe,
     CampeonatoDetalhesComponent,
-    CampeonatoAcoesComponent,
+    CampeonatoTimesComponent,
     CampeonatoStatusComponent,
   ],
 })

@@ -34,9 +34,9 @@ import { ModalInscreverSeComponent } from '../modal-inscrever-se/modal-inscrever
 import { StateService } from 'src/app/services/state.service';
 
 @Component({
-  selector: 'app-campeonato-acoes',
-  templateUrl: './campeonato-acoes.component.html',
-  styleUrls: ['./campeonato-acoes.component.scss'],
+  selector: 'app-campeonato-times',
+  templateUrl: './campeonato-times.component.html',
+  styleUrls: ['./campeonato-times.component.scss'],
   imports: [
     IonToast,
     IonInput,
@@ -53,7 +53,7 @@ import { StateService } from 'src/app/services/state.service';
   ],
   standalone: true,
 })
-export class CampeonatoAcoesComponent implements OnInit {
+export class CampeonatoTimesComponent  implements OnInit {
   times: any[] = [];
 
   codigo: string = '';
@@ -274,4 +274,5 @@ export class CampeonatoAcoesComponent implements OnInit {
   deletarCampeonato() {
     this.menuVisible = false;
   }
+
 }
