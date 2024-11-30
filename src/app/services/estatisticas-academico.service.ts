@@ -5,7 +5,6 @@ import { EstatisticaUso } from '../models/estatistica-uso.model';
 import { EstatisticaModalidade } from '../models/estatistica-modalidade.model';
 import { EstatisticaModalidadeGeral } from '../models/estatistica-modalidade-geral.model';
 import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
-import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +12,8 @@ import { APP_CONFIG } from './host';
 export class EstatisticasAcademicoService {
   constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
 
-  private ip: string = APP_CONFIG.ip;
-
-  BASE_URL = `http://${this.ip}:8081/academico`;
-  ESTATISTICAS_URL = `http://${this.ip}:8081/estatistica`;
+  BASE_URL = 'http://localhost:8081/academico';
+  ESTATISTICAS_URL = 'http:localhost:8081/estatistica';
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

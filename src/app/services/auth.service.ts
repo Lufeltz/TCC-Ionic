@@ -8,7 +8,6 @@ import { LoginRequest } from '../models/login-request';
 import { LoginResponse } from '../models/login-response';
 import { jwtDecode } from 'jwt-decode';
 import { Academico } from '../models/academico.model';
-import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +15,8 @@ import { APP_CONFIG } from './host';
 export class AuthService {
   constructor(private _http: HttpClient, private router: Router) {}
 
-  private ip: string = APP_CONFIG.ip;
-
-  private NEW_URL = `http://${this.ip}:8081/academico`;
-  private LOGIN_URL = `http://${this.ip}:8081/login/efetuarLogin`;
+  private NEW_URL = 'http://localhost:8081/academico';
+  private LOGIN_URL = 'http://localhost:8081/login/efetuarLogin';
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

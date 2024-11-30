@@ -2,18 +2,15 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Privacidade } from '../models/privacidade.model';
-import { AuthService } from './auth.service';  // Importando o AuthService
-import { APP_CONFIG } from './host';
+import { AuthService } from './auth.service'; // Importando o AuthService
 
 @Injectable({
   providedIn: 'root',
 })
 export class PrivacidadeService {
   constructor(private _http: HttpClient, private authService: AuthService) {}
-  
-  private ip: string = APP_CONFIG.ip;
 
-  BASE_URL = `http://${this.ip}:8081/academico`;
+  BASE_URL = 'http://localhost:8081/academico';
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {
@@ -56,18 +53,20 @@ export class PrivacidadeService {
 
   atualizarPrivacidade(privacidade: Privacidade): Observable<Privacidade> {
     const url = `${this.BASE_URL}/privacidade`;
-    return this._http.put<Privacidade>(url, privacidade, this.getHttpOptions()).pipe(
-      map((resp: HttpResponse<Privacidade>) => {
-        if (resp.status === 200) {
-          return resp.body as Privacidade; // Retorna o objeto atualizado de privacidade
-        } else {
-          throw new Error('Erro ao atualizar os dados de privacidade');
-        }
-      }),
-      catchError((err) => {
-        console.error('Erro ao atualizar privacidade:', err);
-        return throwError(() => err); // Lança o erro para ser tratado no componente
-      })
-    );
+    return this._http
+      .put<Privacidade>(url, privacidade, this.getHttpOptions())
+      .pipe(
+        map((resp: HttpResponse<Privacidade>) => {
+          if (resp.status === 200) {
+            return resp.body as Privacidade; // Retorna o objeto atualizado de privacidade
+          } else {
+            throw new Error('Erro ao atualizar os dados de privacidade');
+          }
+        }),
+        catchError((err) => {
+          console.error('Erro ao atualizar privacidade:', err);
+          return throwError(() => err); // Lança o erro para ser tratado no componente
+        })
+      );
   }
 }

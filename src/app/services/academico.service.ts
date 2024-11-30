@@ -4,7 +4,6 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Academico } from '../models/academico.model';
 import { AuthService } from './auth.service'; // Importe o AuthService
 import { AcademicoAlteracao } from '../models/academico-alteracao.model';
-import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
@@ -12,9 +11,7 @@ import { APP_CONFIG } from './host';
 export class AcademicoService {
   constructor(private _http: HttpClient, private authService: AuthService) {}
 
-  private ip: string = APP_CONFIG.ip;
-
-  NEW_URL = `http://${this.ip}:8081/academico`;
+  NEW_URL = 'http://localhost:8081/academico';
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

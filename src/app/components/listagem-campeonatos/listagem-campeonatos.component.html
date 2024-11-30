@@ -70,9 +70,15 @@
               ></lucide-angular>
               <p>
                 <strong>Times: </strong>
-                {{ timesPorCampeonato[campeonato.idCampeonato]?.length || 0 }} /
+                {{
+                  timesPorCampeonato[campeonato.idCampeonato]
+                    ? timesPorCampeonato[campeonato.idCampeonato].length
+                    : 0
+                }}
+                /
                 {{ campeonato.limiteTimes }}
               </p>
+              
             </div>
             <div class="icon-align">
               <lucide-angular
@@ -84,7 +90,9 @@
               <p>
                 <strong>Jogadores: </strong>
                 {{
-                  jogadoresPorCampeonato[campeonato.idCampeonato]?.length || 0
+                  (jogadoresPorCampeonato[campeonato.idCampeonato]
+                    ? jogadoresPorCampeonato[campeonato.idCampeonato].length
+                    : 0)
                 }}
                 /
                 {{

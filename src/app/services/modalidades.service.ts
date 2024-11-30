@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { ModalidadeEsportiva, Modalidades } from '../models/modalidades.model';
 import { AuthService } from './auth.service';
-import { APP_CONFIG } from './host';
 
 
 @Injectable({
@@ -12,9 +11,7 @@ import { APP_CONFIG } from './host';
 export class ModalidadesService {
   constructor(private _http: HttpClient, private authService: AuthService) {}
 
-  private ip: string = APP_CONFIG.ip;
-
-  NEW_URL = `http://${this.ip}:8081/modalidadeEsportiva`;
+    NEW_URL = 'http://localhost:8081/modalidadeEsportiva';
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

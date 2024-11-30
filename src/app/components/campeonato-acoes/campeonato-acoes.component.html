@@ -42,9 +42,16 @@
             (click)="toggleMenu()"
           ></lucide-angular>
           <p>
-            Jogadores: {{ jogadoresPorTime[time.idTime]?.length || 0 }} /
+            Jogadores: 
+            {{
+              jogadoresPorTime[time.idTime]
+                ? jogadoresPorTime[time.idTime].length
+                : 0
+            }}
+            /
             {{ campeonato?.limiteParticipantes }}
           </p>
+          
         </div>
       </div>
 

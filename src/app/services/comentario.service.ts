@@ -4,17 +4,14 @@ import { ComentarioApiResponse } from '../models/comentario-api-response.model';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Comentario } from '../models/comentario.model';
 import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
-import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ComentarioService {
   constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
-  private ip: string = APP_CONFIG.ip;
-  private readonly NEW_URL = `http://${this.ip}:8081`;
 
-
+  private readonly NEW_URL = 'http://localhost:8081';
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

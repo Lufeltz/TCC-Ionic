@@ -10,9 +10,7 @@ import { Campeonato } from '../models/campeonato.model';
 import { CampeonatoCriacao } from '../models/campeonato-criacao.model';
 import { Avaliacao } from '../models/avaliacao.model';
 import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
-import { Jogador } from '../models/jogador.model';
 import { JogadorResponse } from '../models/jogador-response.model';
-import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
@@ -22,9 +20,8 @@ export class CampeonatoService {
   campeonatoCreated$ = this.campeonatoCreatedSource.asObservable();
 
   constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
-  private ip: string = APP_CONFIG.ip;
-
-  NEW_URL = `http://${this.ip}:8081/campeonatos`;
+  
+  NEW_URL = 'http://localhost:8081/campeonatos';
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

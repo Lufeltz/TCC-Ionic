@@ -4,10 +4,8 @@ import { AuthService } from './auth.service';
 import { CriarTime } from '../models/criar-time.model';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Time } from '../models/time.model';
-import { Jogador } from '../models/jogador.model';
 import { JogadorResponse } from '../models/jogador-response.model';
 import { Partida } from '../models/partida.model';
-import { APP_CONFIG } from './host';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +13,8 @@ import { APP_CONFIG } from './host';
 export class PartidaService {
   constructor(private _http: HttpClient, private authService: AuthService) {}
 
-  private ip: string = APP_CONFIG.ip;
-
-  NEW_URL = `http://${this.ip}:8081/campeonatos/times`; // Atualize para o novo endpoint
-  BASE_URL = `http://${this.ip}:8081/campeonatos`;
+  NEW_URL = 'http://localhost:8081/campeonatos/times'; // Atualize para o novo endpoint
+  BASE_URL = 'http://localhost:8081/campeonatos';
 
   // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {

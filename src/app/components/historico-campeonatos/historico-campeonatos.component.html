@@ -26,7 +26,10 @@
               [size]="20"
               [color]="'var(--purple-desc)'"
             ></lucide-angular>
-            <p><strong>Status: </strong>{{ campeonato.situacaoCampeonato | titleCase}}</p>
+            <p>
+              <strong>Status: </strong
+              >{{ campeonato.situacaoCampeonato | titleCase }}
+            </p>
           </div>
 
           <div class="icon-align">
@@ -38,7 +41,12 @@
             ></lucide-angular>
             <p>
               <strong>Times: </strong>
-              {{ timesPorCampeonato[campeonato.idCampeonato]?.length || 0 }} /
+              {{
+                timesPorCampeonato[campeonato.idCampeonato]
+                  ? timesPorCampeonato[campeonato.idCampeonato].length
+                  : 0
+              }}
+              /
               {{ campeonato.limiteTimes }}
             </p>
           </div>
@@ -52,7 +60,9 @@
             <p>
               <strong>Jogadores: </strong>
               {{
-                jogadoresPorCampeonato[campeonato.idCampeonato]?.length || 0
+                jogadoresPorCampeonato[campeonato.idCampeonato]
+                  ? jogadoresPorCampeonato[campeonato.idCampeonato].length
+                  : 0
               }}
               /
               {{
