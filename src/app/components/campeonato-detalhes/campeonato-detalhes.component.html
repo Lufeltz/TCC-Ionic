@@ -231,15 +231,16 @@
                   expand="block"
                   class="icon-button"
                   *ngIf="usuarioLogado?.username === campeonato.usernameCriador"
+                  (click)="excluirCampeonatoAlert(campeonato)"
                 >
-                  <div class="text-container">Excluir Campeonato</div>
                   <div class="icon-align">
                     <lucide-angular
-                      [img]="ArrowDownToDot"
+                      [img]="CircleX"
                       class="btn-inscrever-se"
                       [size]="20"
                     ></lucide-angular>
                   </div>
+                  <div class="text-container">Excluir Campeonato</div>
                 </ion-button>
               </div>
             </ion-accordion>

@@ -20,7 +20,7 @@ export class CampeonatoService {
   campeonatoCreated$ = this.campeonatoCreatedSource.asObservable();
 
   constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
-  
+
   NEW_URL = 'http://localhost:8081/campeonatos';
 
   // Função para obter o token e adicionar ao cabeçalho
@@ -39,6 +39,41 @@ export class CampeonatoService {
       headers: headers,
       observe: 'response' as 'response',
     };
+  }
+
+  // Método para sair de um time
+  sairDoTime(idCampeonato: number, idAcademico: number): Observable<any> {
+    const url = `${this.NEW_URL}/${idCampeonato}/times/${idAcademico}`;
+
+    return this._http.delete<any>(url, this.getHttpOptions()).pipe(
+      map((resp: HttpResponse<any>) => {
+        if (resp.status === 204) {
+          return resp.body; // A resposta 204 não contém um corpo, então pode ser null ou vazio
+        } else {
+          return null;
+        }
+      }),
+      catchError((err) => {
+        return throwError(() => err); // Em caso de erro, lança o erro para ser tratado posteriormente
+      })
+    );
+  }
+
+  excluirCampeonato(idCampeonato: number): Observable<any> {
+    const url = `${this.NEW_URL}/${idCampeonato}`;
+
+    return this._http.delete<any>(url, this.getHttpOptions()).pipe(
+      map((resp: HttpResponse<any>) => {
+        if (resp.status === 204) {
+          return resp.body; // A resposta 204 não contém um corpo, então pode ser null ou vazio
+        } else {
+          return null;
+        }
+      }),
+      catchError((err) => {
+        return throwError(() => err); // Em caso de erro, lança o erro para ser tratado posteriormente
+      })
+    );
   }
 
   getJogadoresEnfrentados(

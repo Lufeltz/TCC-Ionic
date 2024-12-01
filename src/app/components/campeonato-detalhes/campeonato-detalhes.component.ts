@@ -10,6 +10,7 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
+import { AlertButton } from '@ionic/angular/standalone';
 import {
   LockOpen,
   LucideAngularModule,
@@ -31,6 +32,7 @@ import {
   NotebookPen,
   UsersRound,
   ArrowDownToDot,
+  CircleX,
 } from 'lucide-angular';
 import { Academico } from 'src/app/models/academico.model';
 import { Campeonato } from 'src/app/models/campeonato.model';
@@ -39,12 +41,13 @@ import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { TitleCasePipe } from 'src/app/pipes/title-case.pipe';
 import { NgxMaskPipe } from 'ngx-mask';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PartidaService } from 'src/app/services/partida.service';
 import { Time } from 'src/app/models/time.model';
 import { Jogador } from 'src/app/models/jogador.model';
 import { JogadorResponse } from 'src/app/models/jogador-response.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { StateService } from 'src/app/services/state.service';
 @Component({
   selector: 'app-campeonato-detalhes',
   templateUrl: './campeonato-detalhes.component.html',
@@ -80,6 +83,7 @@ export class CampeonatoDetalhesComponent implements OnInit {
   readonly NotebookText = NotebookText;
   readonly NotebookPen = NotebookPen;
   readonly ArrowDownToDot = ArrowDownToDot;
+  readonly CircleX = CircleX;
 
   campeonato: Campeonato | null = null;
   modalidades: ModalidadeEsportiva[] = [];
@@ -101,6 +105,8 @@ export class CampeonatoDetalhesComponent implements OnInit {
   times: Time[] = [];
   jogadores: Jogador[] = [];
 
+  alertButtons: AlertButton[] = [];
+
   usuarioLogado: Academico | null = null;
 
   constructor(
@@ -109,7 +115,9 @@ export class CampeonatoDetalhesComponent implements OnInit {
     private modalidadeService: ModalidadesService,
     private route: ActivatedRoute,
     private partidaService: PartidaService,
-    private authService: AuthService
+    private authService: AuthService,
+    private stateService: StateService,
+    private router: Router
   ) {}
 
   getLockColor(privacidade: string): string {
@@ -125,6 +133,49 @@ export class CampeonatoDetalhesComponent implements OnInit {
       this.codigo = params.get('codigo')!;
     });
     this.buscarCampeonatoPorCodigo(this.codigo);
+  }
+
+  excluirCampeonatoAlert(campeonato: Campeonato) {
+    const alertButtons: AlertButton[] = [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        handler: () => {
+          console.log('Exclusão cancelada');
+        },
+      },
+      {
+        text: 'Confirmar',
+        handler: () => {
+          this.deletarCampeonato(campeonato.idCampeonato);
+          this.stateService.triggerUpdateListagemCampeonatos();
+        },
+      },
+    ];
+
+    this.exibirAlerta(campeonato.titulo, alertButtons);
+  }
+
+  async exibirAlerta(campeonatoTitulo: string, buttons: AlertButton[]) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar Exclusão',
+      message: `Tem certeza de que gostaria de excluir o campeonato ${campeonatoTitulo}?`,
+      buttons: buttons,
+    });
+    this.stateService.triggerUpdateListagemCampeonatos();
+    await alert.present();
+  }
+
+  deletarCampeonato(idCampeonato: number) {
+    this.campeonatoService.excluirCampeonato(idCampeonato).subscribe({
+      next: () => {
+        this.stateService.triggerUpdateListagemCampeonatos();
+        this.router.navigate(['/homepage/feed']);
+      },
+      error: (err) => {
+        console.error('Erro ao excluir o campeonato:', err);
+      },
+    });
   }
 
   listarTimesPorCampeonato(idCampeonato: number): void {
@@ -163,6 +214,7 @@ export class CampeonatoDetalhesComponent implements OnInit {
           this.campeonato = campeonatos[0];
           this.listarTimesPorCampeonato(this.campeonato.idCampeonato);
           this.listarJogadoresPorCampeonato(this.campeonato.idCampeonato);
+          console.log(this.campeonato.idCampeonato);
         } else {
           this.campeonato = null;
           console.warn('Campeonato não encontrado');

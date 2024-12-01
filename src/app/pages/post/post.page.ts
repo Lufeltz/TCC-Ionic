@@ -87,9 +87,11 @@ export class PostPage implements OnInit {
   onSubmit() {
     this.publicacaoService.postPublicacao(this.publicacao).subscribe(
       (response) => {
+        console.log('Resposta do servidor:', response); // Adicione logs aqui
         if (response) {
           this.toastMessage = 'Post criado com sucesso!';
           this.showToast = true;
+          this.stateService.triggerUpdateListagemPublicacoes();
           this.voltarComunidadePostCriado();
         } else {
           this.toastMessage = 'Erro ao criar o post. Tente novamente.';
@@ -97,6 +99,7 @@ export class PostPage implements OnInit {
         }
       },
       (error) => {
+        console.error('Erro ao enviar o post:', error); // Adicione logs aqui
         this.toastMessage = 'Erro ao enviar o post. Tente novamente.';
         this.showToast = true;
       }
@@ -105,9 +108,8 @@ export class PostPage implements OnInit {
 
   voltarComunidadePostCriado() {
     setTimeout(() => {
-      this.router.navigate(['/feed']);
-      this.stateService.triggerUpdateListagemPublicacoes();
-    }, 3000);
+      this.router.navigate(['/homepage/feed']);
+    }, 2000);
   }
 
   voltarComunidadeSemCriarPost() {

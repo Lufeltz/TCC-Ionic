@@ -102,11 +102,30 @@
                 !usuarioInscritoNoCampeonato
               "
             >
-              <ion-button size="small" (click)="abrirModalInscrever(time)">
+              <ion-button
+                size="small"
+                (click)="abrirModalInscrever(time)"
+                *ngIf="!usuarioInscritoNoCampeonato"
+              >
                 <div class="icon-align">
-                  Inscrever-se
+                  Entrar no Time
                   <lucide-angular
-                    [img]="SquarePen"
+                    [img]="ArrowUp"
+                    class="btn-inscrever-se"
+                    [size]="20"
+                  ></lucide-angular>
+                </div>
+              </ion-button>
+
+              <ion-button
+                size="small"
+                (click)="sairDoTime()"
+                *ngIf="usuarioInscritoNoCampeonato"
+              >
+                <div class="icon-align">
+                  Sair do Time
+                  <lucide-angular
+                    [img]="ArrowDown"
                     class="btn-inscrever-se"
                     [size]="20"
                   ></lucide-angular>

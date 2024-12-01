@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  ArrowDown,
+  ArrowUp,
   Ellipsis,
   ExternalLink,
   LucideAngularModule,
@@ -68,6 +70,8 @@ export class CampeonatoTimesComponent implements OnInit {
   readonly Users = Users;
   readonly Ellipsis = Ellipsis;
   readonly SquarePen = SquarePen;
+  readonly ArrowDown = ArrowDown;
+  readonly ArrowUp = ArrowUp;
 
   menuVisible: boolean = false;
   modalEditarVisivel: boolean = false;
@@ -95,6 +99,7 @@ export class CampeonatoTimesComponent implements OnInit {
     this.usuarioLogado = this.authService.getUser();
     if (this.usuarioLogado) {
       this.verificarInscricaoUsuario();
+      console.log('id usuario: ', this.usuarioLogado.idAcademico);
     } else {
       console.error('Usuário não logado');
     }
@@ -141,6 +146,22 @@ export class CampeonatoTimesComponent implements OnInit {
     });
   }
 
+  sairDoTime() {
+    this.campeonatoService
+      .sairDoTime(this.idCampeonato, this.usuarioLogado!.idAcademico)
+      .subscribe(
+        (response) => {
+          console.log('Usuário saiu do time com sucesso:', response);
+          this.stateService.triggerUpdateListagemJogadores();
+          this.stateService.triggerUpdateListagemTimes();
+          this.stateService.triggerUpdateListagemCampeonatos();
+        },
+        (error) => {
+          console.error('Erro ao sair do time:', error);
+        }
+      );
+  }
+
   verificarInscricaoUsuario() {
     const jogadorInscrito = Object.values(this.jogadoresPorTime).some(
       (jogadores) =>
@@ -149,6 +170,7 @@ export class CampeonatoTimesComponent implements OnInit {
         )
     );
     this.usuarioInscritoNoCampeonato = jogadorInscrito;
+    console.log('Verificação de inscrição: ', jogadorInscrito); // Adicione log para depuração
   }
 
   navegarParaPerfil(username: string) {
@@ -207,10 +229,10 @@ export class CampeonatoTimesComponent implements OnInit {
       next: (campeonatos) => {
         if (campeonatos && campeonatos.length > 0) {
           this.campeonato = campeonatos[0];
-
           this.idCampeonato = this.campeonato.idCampeonato;
           this.listarTimes();
           this.listarJogadores();
+          console.log('id campeonato: ', this.campeonato.idCampeonato);
         } else {
           this.campeonato = null;
           console.warn('Campeonato não encontrado');

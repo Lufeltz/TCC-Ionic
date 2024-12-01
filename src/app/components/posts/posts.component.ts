@@ -60,6 +60,11 @@ export class PostsComponent implements OnInit, OnChanges {
   searchedCampeonatos: string = '';
 
   searchSubject: Subject<string> = new Subject<string>();
+  
+  menuVisible: Boolean = false;
+  menuVisibilityPublicacao: { [key: number]: boolean } = {};
+
+  menuVisibilityComentario: { [key: number]: boolean } = {};
 
   readonly RotateCw = RotateCw;
   readonly UserRound = UserRound;
@@ -75,23 +80,20 @@ export class PostsComponent implements OnInit, OnChanges {
     private publicacaoService: PublicacaoService,
     private stateService: StateService
   ) {}
-
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();
     if (this.usuarioLogado) {
       this.listarPosts();
-
-      this.stateService.updatePublicacoes$.subscribe(() => {
-        this.listarPosts();
-      });
     } else {
       console.error('Usuário não logado');
     }
-    this.subscribeToSearch();
-  }
 
-  menuVisible: Boolean = false;
-  menuVisibilityPublicacao: { [key: number]: boolean } = {};
+    this.subscribeToSearch();
+
+    this.stateService.updatePublicacoes$.subscribe(() => {
+      this.listarMaisPosts();
+    });
+  }
 
   toggleMenuPublicacao(publicacaoId: number): void {
     for (const id in this.menuVisibilityPublicacao) {
@@ -111,8 +113,6 @@ export class PostsComponent implements OnInit, OnChanges {
   deletarPublicacao(publicacaoId: number): void {
     this.menuVisibilityPublicacao[publicacaoId] = false;
   }
-
-  menuVisibilityComentario: { [key: number]: boolean } = {};
 
   toggleMenuComentario(comentarioId: number): void {
     for (const id in this.menuVisibilityComentario) {
