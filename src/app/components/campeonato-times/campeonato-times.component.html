@@ -15,7 +15,6 @@
   *ngIf="campeonato?.limiteParticipantes === 1 && !usuarioInscritoNoCampeonato"
 >
   <ion-button size="small" (click)="abrirModalEditar()">
-    <!-- <ion-button size="small" (click)="criarTime()"> -->
     <div class="icon-align">
       Criar Time Individual
       <lucide-angular
@@ -42,7 +41,7 @@
             (click)="toggleMenu()"
           ></lucide-angular>
           <p>
-            Jogadores: 
+            Jogadores:
             {{
               jogadoresPorTime[time.idTime]
                 ? jogadoresPorTime[time.idTime].length
@@ -51,7 +50,6 @@
             /
             {{ campeonato?.limiteParticipantes }}
           </p>
-          
         </div>
       </div>
 
@@ -95,10 +93,6 @@
               "
             >
               <ion-button size="small" (click)="abrirModalInscrever(time)">
-                <!-- <ion-button
-                size="small"
-                (click)="adicionarUsuario(usuarioLogado!.idAcademico, time)"
-              > -->
                 <div class="icon-align">
                   Inscrever-se
                   <lucide-angular

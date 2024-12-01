@@ -90,34 +90,33 @@ export class JogadorComponent implements OnInit {
 
   ngOnInit() {
     this.userLogado = this.authService.getUser();
-    this.getUsuarios();
+    this.getAcademicos();
     this.subscribeToSearch();
     this.getJogadoresEnfrentados();
   }
 
   onSearchInput(event: any): void {
-    this.searchSubject.next(event.target.value); // Envia o valor para o subject
+    this.searchSubject.next(event.target.value);
   }
 
   subscribeToSearch(): void {
     this.searchSubject
       .pipe(
-        debounceTime(3000), // Aumenta o tempo para 3000ms (3 segundos)
+        debounceTime(3000),
         switchMap((searchTerm: string) => {
           if (searchTerm.trim() === '') {
-            // Se o campo estiver vazio, retorna todos os acadêmicos
-            this.getUsuarios();
-            return []; // Retorna uma lista vazia para evitar chamada de busca
+            this.getAcademicos();
+            return [];
           }
-          return this.academicoService.getAcademicoByUsername(searchTerm); // Chama o serviço para buscar o acadêmico
+          return this.academicoService.getAcademicoByUsername(searchTerm);
         })
       )
       .subscribe({
         next: (academico: Academico | null) => {
           if (academico) {
-            this.filteredJogadores = [academico]; // Se encontrar, exibe o acadêmico
+            this.filteredJogadores = [academico];
           } else {
-            this.filteredJogadores = []; // Se não encontrar, limpa a lista
+            this.filteredJogadores = [];
           }
         },
         error: (err) => {
@@ -163,7 +162,7 @@ export class JogadorComponent implements OnInit {
     }
   }
 
-  getUsuarios(): void {
+  getAcademicos(): void {
     this.academicoService
       .getAllAcademicos(this.currentPage, this.pageSize)
       .subscribe({
@@ -195,7 +194,7 @@ export class JogadorComponent implements OnInit {
 
   loadMore(): void {
     this.currentPage++;
-    this.getUsuarios();
+    this.getAcademicos();
   }
 
   navigateToPerfil(academico: Academico): void {

@@ -53,7 +53,7 @@ import { StateService } from 'src/app/services/state.service';
   ],
   standalone: true,
 })
-export class CampeonatoTimesComponent  implements OnInit {
+export class CampeonatoTimesComponent implements OnInit {
   times: any[] = [];
 
   codigo: string = '';
@@ -104,13 +104,15 @@ export class CampeonatoTimesComponent  implements OnInit {
       this.buscarCampeonatoPorCodigo(this.codigo);
     });
 
-    // Inscrevendo-se nos Observables do serviço para atualizar o componente
     this.stateService.updateTimes$.subscribe((times) => {
-      this.times = times;
+      this.listarTimes();
+      this.listarJogadores();
+      this.verificarInscricaoUsuario();
     });
 
     this.stateService.updateJogadores$.subscribe((jogadoresPorTime) => {
-      this.jogadoresPorTime = jogadoresPorTime;
+      this.listarTimes();
+      this.listarJogadores();
       this.verificarInscricaoUsuario();
     });
   }
@@ -119,12 +121,7 @@ export class CampeonatoTimesComponent  implements OnInit {
     this.partidaService
       .criarTimeIndividual(this.idCampeonato, this.usuarioLogado!.idAcademico)
       .subscribe({
-        next: (response) => {
-          this.stateService.triggerUpdateListagemTimes([...response.times]);
-          this.stateService.triggerUpdateListagemJogadores([
-            ...response.jogadoresPorTime,
-          ]);
-        },
+        next: (response) => {},
         error: (err) => {
           console.error('Erro ao inscrever o time:', err);
         },
@@ -134,10 +131,8 @@ export class CampeonatoTimesComponent  implements OnInit {
   adicionarUsuario(idUsuario: number, time: Time) {
     this.partidaService.adicionarUsuarioAoTime(idUsuario, time).subscribe({
       next: (response) => {
-        this.stateService.triggerUpdateListagemJogadores([
-          ...response.jogadoresPorTime,
-        ]);
-        this.stateService.triggerUpdateListagemTimes([...response.times]);
+        this.stateService.triggerUpdateListagemJogadores();
+        this.stateService.triggerUpdateListagemTimes();
       },
       error: (error) => {
         console.error('Erro ao adicionar usuário ao time:', error);
@@ -228,9 +223,7 @@ export class CampeonatoTimesComponent  implements OnInit {
     });
   }
 
-  onSelectChange(event: any) {
-    // console.log('Time selecionado:', event.target.value);
-  }
+  onSelectChange(event: any) {}
 
   abrirModalInscrever(time: Time) {
     if (this.campeonato && this.campeonato.idCampeonato) {
@@ -274,5 +267,4 @@ export class CampeonatoTimesComponent  implements OnInit {
   deletarCampeonato() {
     this.menuVisible = false;
   }
-
 }

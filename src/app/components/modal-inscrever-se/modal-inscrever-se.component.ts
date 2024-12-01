@@ -6,6 +6,7 @@ import { IonButton, IonLabel, IonInput } from '@ionic/angular/standalone';
 import { Time } from 'src/app/models/time.model';
 import { PartidaService } from 'src/app/services/partida.service';
 import { Campeonato } from 'src/app/models/campeonato.model';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-modal-inscrever-se',
@@ -22,7 +23,10 @@ import { Campeonato } from 'src/app/models/campeonato.model';
   ],
 })
 export class ModalInscreverSeComponent implements OnInit {
-  constructor(private partidaService: PartidaService) {}
+  constructor(
+    private partidaService: PartidaService,
+    private stateService: StateService
+  ) {}
 
   @Input() idUsuario!: number;
   @Input() time!: Time;
@@ -38,6 +42,8 @@ export class ModalInscreverSeComponent implements OnInit {
   adicionarUsuario(idUsuario: number, time: Time) {
     this.partidaService.adicionarUsuarioAoTime(idUsuario, time).subscribe({
       next: (response) => {
+        this.stateService.triggerUpdateListagemTimes();
+        this.stateService.triggerUpdateListagemJogadores();
         this.closeModal();
       },
       error: (error) => {

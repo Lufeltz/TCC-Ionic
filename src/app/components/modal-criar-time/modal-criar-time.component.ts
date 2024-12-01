@@ -14,6 +14,7 @@ import { PartidaService } from 'src/app/services/partida.service';
 import { Campeonato } from 'src/app/models/campeonato.model';
 import { Academico } from 'src/app/models/academico.model';
 import { AuthService } from 'src/app/services/auth.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-modal-criar-time',
@@ -39,7 +40,8 @@ export class ModalCriarTimeComponent implements OnInit {
 
   constructor(
     private partidaService: PartidaService,
-    private authService: AuthService
+    private authService: AuthService,
+    private stateService: StateService
   ) {}
 
   readonly Save = Save;
@@ -74,6 +76,8 @@ export class ModalCriarTimeComponent implements OnInit {
         .criarTimeIndividual(this.idCampeonato, this.user.idAcademico, senha)
         .subscribe({
           next: (response) => {
+            this.stateService.triggerUpdateListagemTimes();
+            this.stateService.triggerUpdateListagemJogadores();
             this.closeModal();
           },
           error: (err) => {
@@ -83,6 +87,8 @@ export class ModalCriarTimeComponent implements OnInit {
     } else if (this.campeonato && this.campeonato.limiteParticipantes !== 1) {
       this.partidaService.inscreverTime(this.time).subscribe({
         next: (response) => {
+          this.stateService.triggerUpdateListagemTimes();
+          this.stateService.triggerUpdateListagemJogadores();
           this.closeModal();
         },
         error: (err) => {
