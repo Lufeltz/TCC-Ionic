@@ -184,20 +184,40 @@ export class MetasPage implements OnInit {
         this.carregarConquistas();
       });
 
-      this.stateService.updateMetas$.subscribe(() => {
+      this.stateService.updateMetasDiarias$.subscribe(() => {
         this.listarMetaDiarias();
+      });
+
+      this.stateService.updateMetasEsportivas$.subscribe(() => {
+        this.listarMetasEsportivas();
+        this.carregarModalidades();
+        this.carregarConquistas();
       });
     } else {
       console.error('Usuário não autenticado');
     }
   }
 
+  listarMetasEsportivas(): void {
+    if (this.modalidadesUsuario.length === 0) {
+      console.error('O usuário não tem modalidades associadas.');
+      return;
+    }
 
-  someHandler() {
-    console.log('Calling triggerUpdateListarMetas');
-    console.log('StateService:', this.stateService);
-    console.log('triggerUpdateListarMetas:', this.stateService.triggerUpdateListarMetas);
-    this.stateService.triggerUpdateListarMetas();
+    const observables = this.modalidadesUsuario.map((modalidade) =>
+      this.metaEsportivaService.getMetasPorModalidade(modalidade.idModalidade)
+    );
+
+    forkJoin(observables).subscribe({
+      next: (resultados) => {
+        this.metasEsportivas = resultados
+          .flat()
+          .filter((meta): meta is MetaEsportiva => meta !== null);
+      },
+      error: (err) => {
+        console.error('Erro ao buscar metas esportivas:', err);
+      },
+    });
   }
 
   listarMetaDiarias(): void {
@@ -304,30 +324,6 @@ export class MetasPage implements OnInit {
       });
   }
 
-  listarMetasEsportivas(): void {
-    if (this.modalidadesUsuario.length === 0) {
-      console.error('O usuário não tem modalidades associadas.');
-      return;
-    }
-
-    const observables = this.modalidadesUsuario.map((modalidade) =>
-      this.metaEsportivaService.getMetasPorModalidade(modalidade.idModalidade)
-    );
-
-    forkJoin(observables).subscribe({
-      next: (resultados) => {
-        this.metasEsportivas = resultados
-          .flat()
-          .filter((meta): meta is MetaEsportiva => meta !== null);
-      },
-      error: (err) => {
-        console.error('Erro ao buscar metas esportivas:', err);
-      },
-    });
-  }
-
-
-
   get filteredMetasEsportivas(): Conquista[] {
     if (this.filterEsportivas) {
       return this.conquistasUsuario.filter(
@@ -401,7 +397,7 @@ export class MetasPage implements OnInit {
           text: 'Concluir',
           handler: () => {
             this.excluirMetaConfirmada(meta.idMetaDiaria.toString());
-            this.stateService.triggerUpdateListarMetas();
+            this.stateService.triggerUpdateListarMetasDiarias();
           },
         },
       ],
@@ -430,7 +426,7 @@ export class MetasPage implements OnInit {
     this.metaDiariaService.deleteMetaDiaria(id).subscribe({
       next: () => {
         this.listarMetaDiarias(); // Atualiza a lista de metas após a exclusão
-        this.stateService.triggerUpdateListarMetas();
+        this.stateService.triggerUpdateListarMetasDiarias();
       },
       error: (err) => {
         console.error('Erro ao excluir meta:', err);
@@ -454,7 +450,7 @@ export class MetasPage implements OnInit {
           text: 'Concluir',
           handler: () => {
             this.listarMetaDiarias(); // Atualiza a lista de metas após a conclusão
-            this.stateService.triggerUpdateListarMetas();
+            this.stateService.triggerUpdateListarMetasDiarias();
             console.log('Meta confirmada:', meta);
           },
         },

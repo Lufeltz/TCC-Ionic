@@ -77,6 +77,12 @@ export class ConquistasComponent implements OnInit {
             this.buscarConquistasPorIdAcademico(this.academico.idAcademico);
           }
         });
+
+      this.stateService.updateMetasEsportivas$.subscribe(() => {
+        if (this.academico) {
+          this.buscarConquistasPorIdAcademico(this.academico.idAcademico);
+        }
+      });
     } else {
       console.error('Username não fornecido');
     }

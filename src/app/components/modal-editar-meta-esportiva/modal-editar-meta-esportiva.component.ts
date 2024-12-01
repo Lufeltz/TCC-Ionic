@@ -23,6 +23,7 @@ import { Conquista } from 'src/app/models/conquista.model';
 import { MetaEsportivaService } from 'src/app/services/meta-esportiva.service';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { ConquistasService } from 'src/app/services/conquistas.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-modal-editar-meta-esportiva',
@@ -46,7 +47,10 @@ export class ModalEditarMetaEsportivaComponent {
 
   @Output() close = new EventEmitter<void>();
 
-  constructor(private conquistasService: ConquistasService) {}
+  constructor(
+    private conquistasService: ConquistasService,
+    private stateService: StateService
+  ) {}
 
   readonly CircleX = CircleX;
   readonly CaseUpper = CaseUpper;
@@ -65,6 +69,7 @@ export class ModalEditarMetaEsportivaComponent {
       .atualizarConquista(this.conquistaEsportiva)
       .subscribe({
         next: (response) => {
+          this.stateService.triggerUpdateListarMetasEsportivas();
           this.closeModal();
         },
         error: (err) => {

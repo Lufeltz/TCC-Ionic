@@ -74,6 +74,13 @@ export class EstatisticasPessoaisComponent implements OnInit {
             this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
           }
         });
+
+      this.stateService.updateMetasEsportivas$.subscribe(() => {
+        if (this.academico) {
+          this.loadEstatisticasUso(this.academico.idAcademico);
+          this.loadEstatisticasMetasEsportivas(this.academico.idAcademico);
+        }
+      });
     } else {
       console.error('Username não fornecido');
     }
