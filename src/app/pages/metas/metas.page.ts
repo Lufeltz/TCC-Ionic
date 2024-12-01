@@ -179,14 +179,42 @@ export class MetasPage implements OnInit {
       this.user = user;
       this.carregarDadosUsuario();
 
-      this.modalidadeUpdateSubscription =
-        this.stateService.updateModalidades$.subscribe(() => {
-          this.carregarModalidades();
-          this.carregarConquistas();
-        });
+      this.stateService.updateModalidades$.subscribe(() => {
+        this.carregarModalidades();
+        this.carregarConquistas();
+      });
+
+      this.stateService.updateMetas$.subscribe(() => {
+        this.listarMetaDiarias();
+      });
     } else {
       console.error('Usuário não autenticado');
     }
+  }
+
+
+  someHandler() {
+    console.log('Calling triggerUpdateListarMetas');
+    console.log('StateService:', this.stateService);
+    console.log('triggerUpdateListarMetas:', this.stateService.triggerUpdateListarMetas);
+    this.stateService.triggerUpdateListarMetas();
+  }
+
+  listarMetaDiarias(): void {
+    this.metaDiariaService
+      .getMetaDiariaByAcademicoId(this.user.idAcademico)
+      .subscribe({
+        next: (data: MetaDiaria[] | null) => {
+          if (data === null) {
+            this.metaDiaria = [];
+          } else {
+            this.metaDiaria = data;
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao buscar meta diária:', err);
+        },
+      });
   }
 
   menuVisibilityMetaDiaria: { [key: number]: boolean } = {};
@@ -298,22 +326,7 @@ export class MetasPage implements OnInit {
     });
   }
 
-  listarMetaDiarias(): void {
-    this.metaDiariaService
-      .getMetaDiariaByAcademicoId(this.user.idAcademico)
-      .subscribe({
-        next: (data: MetaDiaria[] | null) => {
-          if (data === null) {
-            this.metaDiaria = [];
-          } else {
-            this.metaDiaria = data;
-          }
-        },
-        error: (err) => {
-          console.error('Erro ao buscar meta diária:', err);
-        },
-      });
-  }
+
 
   get filteredMetasEsportivas(): Conquista[] {
     if (this.filterEsportivas) {
@@ -388,6 +401,7 @@ export class MetasPage implements OnInit {
           text: 'Concluir',
           handler: () => {
             this.excluirMetaConfirmada(meta.idMetaDiaria.toString());
+            this.stateService.triggerUpdateListarMetas();
           },
         },
       ],
@@ -414,8 +428,9 @@ export class MetasPage implements OnInit {
 
   excluirMetaConfirmada(id: string) {
     this.metaDiariaService.deleteMetaDiaria(id).subscribe({
-      next: (result) => {
-        this.listarMetaDiarias();
+      next: () => {
+        this.listarMetaDiarias(); // Atualiza a lista de metas após a exclusão
+        this.stateService.triggerUpdateListarMetas();
       },
       error: (err) => {
         console.error('Erro ao excluir meta:', err);
@@ -438,6 +453,8 @@ export class MetasPage implements OnInit {
         {
           text: 'Concluir',
           handler: () => {
+            this.listarMetaDiarias(); // Atualiza a lista de metas após a conclusão
+            this.stateService.triggerUpdateListarMetas();
             console.log('Meta confirmada:', meta);
           },
         },

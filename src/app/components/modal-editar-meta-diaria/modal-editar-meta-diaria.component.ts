@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { MetaDiariaService } from 'src/app/services/meta-diaria.service';
 import { AlertController } from '@ionic/angular'; // Importando o AlertController
 import { Academico } from 'src/app/models/academico.model';
+import { StateService } from 'src/app/services/state.service';
 @Component({
   selector: 'app-modal-editar-meta-diaria',
   templateUrl: './modal-editar-meta-diaria.component.html',
@@ -43,6 +44,7 @@ export class ModalEditarMetaDiariaComponent {
 
   constructor(private metaDiariaService: MetaDiariaService,
     private alertController: AlertController,
+    private stateService: StateService
   ) {}
 
   readonly CircleX = CircleX;

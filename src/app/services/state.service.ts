@@ -15,6 +15,8 @@ export class StateService {
   private updateTimesSubject = new Subject<Time[]>();
   private updateJogadoresSubject = new Subject<{ [key: number]: Jogador[] }>();
 
+  private updateMetasSubject = new Subject<void>();
+
   // Observables
   updateCampeonatos$ = this.updateCampeonatosSubject.asObservable();
   updateModalidades$ = this.updateModalidadesSubject.asObservable();
@@ -23,6 +25,7 @@ export class StateService {
   updateTimes$ = this.updateTimesSubject.asObservable();
   updateJogadores$ = this.updateJogadoresSubject.asObservable();
 
+  updateMetas$ = this.updateMetasSubject.asObservable();
 
   // Triggers
   triggerUpdateListagemCampeonatos() {
@@ -37,13 +40,18 @@ export class StateService {
     this.updatePublicacoesSubject.next();
   }
 
+  triggerUpdateListarMetas() {
+    this.updateMetasSubject.next();
+  }
 
   triggerUpdateListagemTimes(times: Time[]) {
     this.updateTimesSubject.next(times);
   }
 
   // Trigger para atualizar a listagem de jogadores
-  triggerUpdateListagemJogadores(jogadoresPorTime: { [key: number]: Jogador[] }) {
+  triggerUpdateListagemJogadores(jogadoresPorTime: {
+    [key: number]: Jogador[];
+  }) {
     this.updateJogadoresSubject.next(jogadoresPorTime);
   }
 }
