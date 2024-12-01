@@ -1,4 +1,10 @@
-<div class="criar-post" *ngIf="campeonato?.limiteParticipantes !== 1">
+<div
+  class="criar-post"
+  *ngIf="
+    campeonato?.limiteParticipantes !== 1 &&
+    campeonato?.situacaoCampeonato === 'EM_ABERTO'
+  "
+>
   <ion-button size="small" (click)="abrirModalEditar()">
     <div class="icon-align">
       Criar Time
@@ -12,7 +18,11 @@
 
 <div
   class="criar-post"
-  *ngIf="campeonato?.limiteParticipantes === 1 && !usuarioInscritoNoCampeonato"
+  *ngIf="
+    campeonato?.limiteParticipantes === 1 &&
+    !usuarioInscritoNoCampeonato &&
+    campeonato?.situacaoCampeonato === 'EM_ABERTO'
+  "
 >
   <ion-button size="small" (click)="abrirModalEditar()">
     <div class="icon-align">

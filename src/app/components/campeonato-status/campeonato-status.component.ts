@@ -19,13 +19,20 @@ import { Time } from 'src/app/models/time.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { PartidaService } from 'src/app/services/partida.service';
+import { StateService } from 'src/app/services/state.service';
 
 @Component({
   selector: 'app-campeonato-status',
   templateUrl: './campeonato-status.component.html',
   styleUrls: ['./campeonato-status.component.scss'],
   standalone: true,
-  imports: [IonButton, CommonModule, LucideAngularModule, FormsModule, IonToast],
+  imports: [
+    IonButton,
+    CommonModule,
+    LucideAngularModule,
+    FormsModule,
+    IonToast,
+  ],
 })
 export class CampeonatoStatusComponent implements OnInit {
   times: Time[] = [];
@@ -54,10 +61,13 @@ export class CampeonatoStatusComponent implements OnInit {
   constructor(
     private campeonatoService: CampeonatoService,
     private route: ActivatedRoute,
-    private partidaService: PartidaService
+    private partidaService: PartidaService,
+    private authService: AuthService,
+    private stateService: StateService
   ) {}
 
   ngOnInit() {
+    this.usuarioLogado = this.authService.getUser();
     this.route.paramMap.subscribe((params) => {
       this.codigo = params.get('codigo')!;
       this.buscarCampeonatoPorCodigo(this.codigo);
@@ -117,6 +127,8 @@ export class CampeonatoStatusComponent implements OnInit {
           next: (response) => {
             console.log('Primeira fase iniciada');
             this.isCampeonatoIniciado = true;
+            this.buscarCampeonatoPorCodigo(this.codigo);
+            this.stateService.triggerUpdateListagemCampeonatos();
           },
           error: (error) => {
             console.error('Erro ao iniciar primeira fase:', error);
@@ -132,6 +144,8 @@ export class CampeonatoStatusComponent implements OnInit {
       this.partidaService.avancarFase(this.campeonato.idCampeonato).subscribe({
         next: (response) => {
           console.log('Fase avançada');
+          this.buscarCampeonatoPorCodigo(this.codigo);
+          this.stateService.triggerUpdateListagemCampeonatos();
         },
         error: (error) => {
           console.error('Erro ao avançar fase:', error);

@@ -78,6 +78,7 @@ export class ModalCriarTimeComponent implements OnInit {
           next: (response) => {
             this.stateService.triggerUpdateListagemTimes();
             this.stateService.triggerUpdateListagemJogadores();
+            this.stateService.triggerUpdateListagemCampeonatos();
             this.closeModal();
           },
           error: (err) => {

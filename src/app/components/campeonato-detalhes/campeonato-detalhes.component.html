@@ -46,7 +46,10 @@
               [size]="20"
               [color]="'var(--purple-desc)'"
             ></lucide-angular>
-            <p><strong> Times: </strong>{{times.length}} / {{ campeonato.limiteTimes }}</p>
+            <p>
+              <strong> Times: </strong>{{ times.length }} /
+              {{ campeonato.limiteTimes }}
+            </p>
           </div>
           <div class="icon-align">
             <p *ngIf="campeonato">
@@ -57,7 +60,7 @@
                 [color]="'var(--purple-desc)'"
               ></lucide-angular>
               <strong>Jogadores: </strong>
-              {{jogadores.length}} /
+              {{ jogadores.length }} /
               {{
                 (campeonato.limiteParticipantes || 0) *
                   (campeonato.limiteTimes || 0)
@@ -112,7 +115,7 @@
                   ></lucide-angular>
                   <p>
                     <strong>Criação: </strong>
-                    {{ campeonato.dataCriacao | date : "dd/MM/yyyy" }}
+                    {{ campeonato.dataCriacao | date : "dd/MM/yyyy - HH:mm" }} h
                   </p>
                 </div>
                 <div class="icon-align">
@@ -122,7 +125,9 @@
                     [size]="20"
                     [color]="'var(--yellow-desc)'"
                   ></lucide-angular>
-                  <p><strong>Criador: </strong>{{campeonato.usernameCriador}}</p>
+                  <p>
+                    <strong>Criador: </strong>{{ campeonato.usernameCriador }}
+                  </p>
                 </div>
                 <div class="icon-align">
                   <lucide-angular
@@ -142,7 +147,7 @@
                   ></lucide-angular>
                   <p>
                     <strong>Início:</strong>
-                    {{ campeonato.dataInicio | date : "dd/MM/yyyy" }}
+                    {{ campeonato.dataInicio | date : "dd/MM/yyyy - HH:mm" }} h
                   </p>
                 </div>
                 <div class="icon-align">
@@ -154,7 +159,7 @@
                   ></lucide-angular>
                   <p>
                     <strong>Fim:</strong>
-                    {{ campeonato.dataFim | date : "dd/MM/yyyy" }}
+                    {{ campeonato.dataFim | date : "dd/MM/yyyy - HH:mm" }} h
                   </p>
                 </div>
                 <div class="endereco">
@@ -221,6 +226,21 @@
                     </p>
                   </div>
                 </div>
+                <ion-button
+                  size="small"
+                  expand="block"
+                  class="icon-button"
+                  *ngIf="usuarioLogado?.username === campeonato.usernameCriador"
+                >
+                  <div class="text-container">Excluir Campeonato</div>
+                  <div class="icon-align">
+                    <lucide-angular
+                      [img]="ArrowDownToDot"
+                      class="btn-inscrever-se"
+                      [size]="20"
+                    ></lucide-angular>
+                  </div>
+                </ion-button>
               </div>
             </ion-accordion>
           </ion-accordion-group>
@@ -231,16 +251,5 @@
     <ng-template #noData>
       <p>Não há informações sobre o campeonato.</p>
     </ng-template>
-
-    <ion-button size="small" expand="block" class="icon-button">
-      <div class="text-container">Voltar</div>
-      <div class="icon-align">
-        <lucide-angular
-          [img]="ArrowDownToDot"
-          class="btn-inscrever-se"
-          [size]="20"
-        ></lucide-angular>
-      </div>
-    </ion-button>
   </ng-template>
 </div>

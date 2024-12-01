@@ -71,6 +71,30 @@
           </ion-text>
         </li>
 
+        <!-- Aposta -->
+        <li class="item-lista">
+          <div class="icon-align">
+            <lucide-angular
+              [img]="CircleDollarSign"
+              class="btn-inscrever-se"
+              [size]="20"
+              [color]="'var(--yellow-desc)'"
+            ></lucide-angular>
+            <ion-label>Aposta</ion-label>
+          </div>
+          <ion-textarea
+            ngDefaultControl
+            [(ngModel)]="campeonato.aposta"
+            placeholder="Exemplo: R$10"
+            auto-grow="true"
+            required
+            #aposta="ngModel"
+          ></ion-textarea>
+          <ion-text color="danger" *ngIf="aposta?.invalid && aposta?.touched">
+            <p>O campo aposta é obrigatório.</p>
+          </ion-text>
+        </li>
+
         <!-- Modalidade -->
         <li class="item-lista">
           <div class="icon-align">
@@ -92,7 +116,6 @@
                 required
                 #modalidade="ngModel"
               >
-
                 <!-- <option [ngValue]="null" selected>Sem Modalidade</option> -->
                 <option value="1" selected>Futebol</option>
                 <option value="2">Vôlei</option>
@@ -113,7 +136,7 @@
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
-              [img]="CircleDollarSign"
+              [img]="Users"
               class="btn-inscrever-se"
               [size]="20"
               [color]="'var(--yellow-desc)'"
@@ -142,7 +165,7 @@
         <li class="item-lista">
           <div class="icon-align">
             <lucide-angular
-              [img]="Users"
+              [img]="User"
               class="btn-inscrever-se"
               [size]="20"
               [color]="'var(--yellow-desc)'"
@@ -529,12 +552,12 @@
       </ion-button>
 
       <ion-toast
-      position="top"
-      trigger="open-toast"
-      message="Campeonato criado com sucesso!"
-      position="bottom"
-      [duration]="3000"
-    ></ion-toast>
+        position="top"
+        trigger="open-toast"
+        message="Campeonato criado com sucesso!"
+        position="bottom"
+        [duration]="3000"
+      ></ion-toast>
     </div>
   </div>
 

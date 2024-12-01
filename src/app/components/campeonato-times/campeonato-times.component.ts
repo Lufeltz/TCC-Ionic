@@ -104,13 +104,13 @@ export class CampeonatoTimesComponent implements OnInit {
       this.buscarCampeonatoPorCodigo(this.codigo);
     });
 
-    this.stateService.updateTimes$.subscribe((times) => {
+    this.stateService.updateTimes$.subscribe(() => {
       this.listarTimes();
       this.listarJogadores();
       this.verificarInscricaoUsuario();
     });
 
-    this.stateService.updateJogadores$.subscribe((jogadoresPorTime) => {
+    this.stateService.updateJogadores$.subscribe(() => {
       this.listarTimes();
       this.listarJogadores();
       this.verificarInscricaoUsuario();
@@ -133,6 +133,7 @@ export class CampeonatoTimesComponent implements OnInit {
       next: (response) => {
         this.stateService.triggerUpdateListagemJogadores();
         this.stateService.triggerUpdateListagemTimes();
+        this.stateService.triggerUpdateListagemCampeonatos();
       },
       error: (error) => {
         console.error('Erro ao adicionar usuário ao time:', error);

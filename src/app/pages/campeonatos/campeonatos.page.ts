@@ -23,12 +23,9 @@ import {
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 import { HistoricoCampeonatosComponent } from '../../components/historico-campeonatos/historico-campeonatos.component';
 import { ListagemCampeonatosComponent } from '../../components/listagem-campeonatos/listagem-campeonatos.component';
-import { calendar } from 'ionicons/icons';
-import { addIcons } from 'ionicons';
 import {
   ALargeSmall,
   AlarmClock,
-  ArrowUp10,
   CalendarArrowUp,
   CalendarCheck,
   CircleDollarSign,
@@ -95,7 +92,7 @@ export class CampeonatosPage implements OnInit {
   dataFim: string = '';
   horaFim: string = '';
 
-  selectedSegment: string = 'criacao';
+  selectedSegment: string = 'listagem-campeonatos';
 
   isPublico: boolean = true;
 

@@ -47,10 +47,10 @@
   </div>
 
   <ion-button
-    *ngIf="!isCampeonatoIniciado"
-    size="small"
-    (click)="iniciarPrimeiraFase()"
-  >
+  *ngIf="!isCampeonatoIniciado && campeonato?.usernameCriador === usuarioLogado?.username"
+  size="small"
+  (click)="iniciarPrimeiraFase()"
+>
     <div class="icon-align">
       Iniciar Campeonato
       <lucide-angular
@@ -64,7 +64,9 @@
   <div
     class="criar-post"
     *ngIf="
-      isCampeonatoIniciado && campeonato?.situacaoCampeonato !== 'FINALIZADO'
+      isCampeonatoIniciado &&
+      campeonato?.situacaoCampeonato !== 'FINALIZADO' &&
+      campeonato?.usernameCriador === usuarioLogado?.username
     "
   >
     <ion-button size="small" (click)="avancarFase()">

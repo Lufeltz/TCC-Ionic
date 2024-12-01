@@ -44,6 +44,7 @@ import { PartidaService } from 'src/app/services/partida.service';
 import { Time } from 'src/app/models/time.model';
 import { Jogador } from 'src/app/models/jogador.model';
 import { JogadorResponse } from 'src/app/models/jogador-response.model';
+import { AuthService } from 'src/app/services/auth.service';
 @Component({
   selector: 'app-campeonato-detalhes',
   templateUrl: './campeonato-detalhes.component.html',
@@ -100,12 +101,15 @@ export class CampeonatoDetalhesComponent implements OnInit {
   times: Time[] = [];
   jogadores: Jogador[] = [];
 
+  usuarioLogado: Academico | null = null;
+
   constructor(
     private campeonatoService: CampeonatoService,
     private alertController: AlertController,
     private modalidadeService: ModalidadesService,
     private route: ActivatedRoute,
-    private partidaService: PartidaService
+    private partidaService: PartidaService,
+    private authService: AuthService
   ) {}
 
   getLockColor(privacidade: string): string {
@@ -115,6 +119,7 @@ export class CampeonatoDetalhesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.usuarioLogado = this.authService.getUser();
     this.loadModalidades();
     this.route.paramMap.subscribe((params) => {
       this.codigo = params.get('codigo')!;
