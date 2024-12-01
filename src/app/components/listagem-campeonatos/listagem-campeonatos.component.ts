@@ -141,6 +141,7 @@ export class ListagemCampeonatosComponent implements OnInit {
     this.subscribeToSearch();
     if (this.academico) {
       this.listarCampeonatos();
+      
       this.stateService.updateCampeonatos$.subscribe(() => {
         this.listarCampeonatos();
       });

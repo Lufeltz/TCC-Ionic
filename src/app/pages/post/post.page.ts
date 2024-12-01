@@ -67,8 +67,6 @@ export class PostPage implements OnInit {
   readonly NotebookPen = NotebookPen;
   readonly MessageCircleQuestion = MessageCircleQuestion;
 
-  @ViewChild(PostsComponent) postsComponent: PostsComponent | undefined;
-
   constructor(
     private router: Router,
     private publicacaoService: PublicacaoService,
@@ -92,10 +90,7 @@ export class PostPage implements OnInit {
         if (response) {
           this.toastMessage = 'Post criado com sucesso!';
           this.showToast = true;
-          // Chama o método de adicionar post para atualizar a lista no componente PostsComponent
-          // this.postsComponent?.adicionarPost(response);
-          this.stateService.triggerUpdateListagemPublicacoes();
-          this.voltarComunidadePostCriado(); // Navega para a tela de feed após 3 segundos
+          this.voltarComunidadePostCriado();
         } else {
           this.toastMessage = 'Erro ao criar o post. Tente novamente.';
           this.showToast = true;
@@ -111,7 +106,7 @@ export class PostPage implements OnInit {
   voltarComunidadePostCriado() {
     setTimeout(() => {
       this.router.navigate(['/feed']);
-      this.postsComponent?.listarPosts();
+      this.stateService.triggerUpdateListagemPublicacoes();
     }, 3000);
   }
 

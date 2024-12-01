@@ -80,6 +80,7 @@ export class PostsComponent implements OnInit, OnChanges {
     this.usuarioLogado = this.authService.getUser();
     if (this.usuarioLogado) {
       this.listarPosts();
+
       this.stateService.updatePublicacoes$.subscribe(() => {
         this.listarPosts();
       });

@@ -21,8 +21,9 @@
 
         <div class="username icon-align">
           <p class="data">
-            {{ publicacao.dataPublicacao | date : "dd/MM/yy, hh:mm" }}
+            {{ publicacao.dataPublicacao | date : "dd/MM/yy, HH:mm" }}
           </p>
+          
           <lucide-angular
             *ngIf="usuarioLogado!.username === publicacao.Usuario.username"
             [img]="EllipsisVertical"
@@ -106,7 +107,7 @@
                     <div class="username icon-align">
                       <p class="comentario-data">
                         {{
-                          comentario.dataComentario | date : "dd/MM/yy, hh:mm"
+                          comentario.dataComentario | date : "dd/MM/yy, HH:mm"
                         }}
                       </p>
                       <lucide-angular

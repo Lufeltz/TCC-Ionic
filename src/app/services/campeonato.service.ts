@@ -244,7 +244,7 @@ export class CampeonatoService {
     idAcademico: number,
     page: number,
     size: number,
-    sort: string = 'dataCriacao,desc' // Definindo um valor padrão para sort
+    sort: string = 'dataCriacao' // Definindo um valor padrão para sort
   ): Observable<Campeonato[] | null> {
     return this._http
       .get<Campeonato[]>(

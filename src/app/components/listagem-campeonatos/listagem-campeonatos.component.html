@@ -7,7 +7,7 @@
 <ng-template #showCampeonatos>
   <div class="campeonatos-container">
     <!-- Exibe o esqueleto de carregamento quando loading for true -->
-    <ng-container *ngIf="loading; else content">
+    <!-- <ng-container *ngIf="loading; else content">
       <div class="skeleton">
         <div class="skeleton-header"></div>
         <div class="skeleton-body">
@@ -17,10 +17,10 @@
           ></div>
         </div>
       </div>
-    </ng-container>
+    </ng-container> -->
 
     <!-- Quando o carregamento terminar, exibe o conteúdo -->
-    <ng-template #content>
+    <!-- <ng-template #content> -->
       <ion-searchbar
         animated="true"
         placeholder="Procurar"
@@ -78,7 +78,6 @@
                 /
                 {{ campeonato.limiteTimes }}
               </p>
-              
             </div>
             <div class="icon-align">
               <lucide-angular
@@ -90,9 +89,9 @@
               <p>
                 <strong>Jogadores: </strong>
                 {{
-                  (jogadoresPorCampeonato[campeonato.idCampeonato]
+                  jogadoresPorCampeonato[campeonato.idCampeonato]
                     ? jogadoresPorCampeonato[campeonato.idCampeonato].length
-                    : 0)
+                    : 0
                 }}
                 /
                 {{
@@ -290,20 +289,20 @@
         </li>
       </ul>
       <ion-button
-      size="small"
-      expand="block"
-      class="icon-button"
-      (click)="listarMaisCampeonatos()"
-    >
-      <div class="text-container">Mais Campeonatos</div>
-      <div class="icon-align">
-        <lucide-angular
-          [img]="ExternalLink"
-          class="btn-inscrever-se"
-          [size]="20"
-        ></lucide-angular>
-      </div>
-    </ion-button>
-    </ng-template>
+        size="small"
+        expand="block"
+        class="icon-button"
+        (click)="listarMaisCampeonatos()"
+      >
+        <div class="text-container">Mais Campeonatos</div>
+        <div class="icon-align">
+          <lucide-angular
+            [img]="ExternalLink"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
+        </div>
+      </ion-button>
+    <!-- </ng-template> -->
   </div>
 </ng-template>
