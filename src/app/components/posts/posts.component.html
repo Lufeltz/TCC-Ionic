@@ -23,7 +23,7 @@
           <p class="data">
             {{ publicacao.dataPublicacao | date : "dd/MM/yy, HH:mm" }}
           </p>
-          
+
           <lucide-angular
             *ngIf="usuarioLogado!.username === publicacao.Usuario.username"
             [img]="EllipsisVertical"

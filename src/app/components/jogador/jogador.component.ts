@@ -45,23 +45,20 @@ import { JogadorResponse } from 'src/app/models/jogador-response.model';
     ConteudoVazioComponent,
   ],
 })
-export class JogadorComponent implements OnInit, OnChanges {
+export class JogadorComponent implements OnInit {
   @Input() searchedJogadores!: string;
   academicos: Academico[] = [];
-  public filteredJogadores: Academico[] = []; // Para armazenar a lista filtrada de acadêmicos
+  public filteredJogadores: Academico[] = [];
 
   mensagem!: string;
   mensagem_detalhes!: string;
 
-  // Controle de carregamento de mais jogadores
   currentPage: number = 0;
   pageSize: number = 5;
 
-  // Variáveis para armazenar jogadores enfrentados
-  public jogadoresEnfrentados: Jogador[] = []; // Lista dos jogadores que o usuário enfrentou
-  public totalJogadoresEnfrentados: number = 0; // Total de jogadores enfrentados
+  public jogadoresEnfrentados: Jogador[] = [];
+  public totalJogadoresEnfrentados: number = 0;
 
-  // Variável para armazenar as estatísticas por acadêmico
   estatisticasMap: Map<number, EstatisticaModalidade> = new Map();
 
   readonly UserRound = UserRound;
@@ -73,10 +70,10 @@ export class JogadorComponent implements OnInit, OnChanges {
   readonly SquareX = SquareX;
   readonly ArrowDownToDot = ArrowDownToDot;
 
-  searchedCampeonatos: string = ''; // Variável que armazenará o valor da pesquisa
-  searchSubject: Subject<string> = new Subject<string>(); // Subject para pesquisa
+  searchedCampeonatos: string = '';
+  searchSubject: Subject<string> = new Subject<string>();
 
-  isBlocked: boolean = false; // Controla se o usuário está bloqueado
+  isBlocked: boolean = false;
   mensagemAusencia: string =
     'Você ainda não jogou com ninguém, participe de campeonatos para visualizar outros jogadores.';
 
@@ -94,91 +91,43 @@ export class JogadorComponent implements OnInit, OnChanges {
   ngOnInit() {
     this.userLogado = this.authService.getUser();
     this.getUsuarios();
-    this.subscribeToSearch(); // Inscreve-se para realizar a pesquisa
+    this.subscribeToSearch();
     this.getJogadoresEnfrentados();
   }
 
-  // Método que é chamado sempre que o usuário digita no IonSearchbar
   onSearchInput(event: any): void {
-    this.searchedJogadores = event.target.value; // Atualiza o valor da pesquisa
-    this.filterJogadores(); // Aplica o filtro sempre que houver uma mudança no valor
+    this.searchSubject.next(event.target.value); // Envia o valor para o subject
   }
 
   subscribeToSearch(): void {
     this.searchSubject
       .pipe(
-        debounceTime(3000), // Espera 3 segundos após a última digitação
-        switchMap(() => {
-          return this.academicoService.getAllAcademicos(
-            this.currentPage,
-            this.pageSize
-          ); // Carrega todos os acadêmicos
+        debounceTime(3000), // Aumenta o tempo para 3000ms (3 segundos)
+        switchMap((searchTerm: string) => {
+          if (searchTerm.trim() === '') {
+            // Se o campo estiver vazio, retorna todos os acadêmicos
+            this.getUsuarios();
+            return []; // Retorna uma lista vazia para evitar chamada de busca
+          }
+          return this.academicoService.getAcademicoByUsername(searchTerm); // Chama o serviço para buscar o acadêmico
         })
       )
       .subscribe({
-        next: (response) => {
-          // Verifica se a resposta é um array válido ou um valor null
-          this.academicos = Array.isArray(response) ? response : []; // Garantir que seja um array
-          this.filteredJogadores = this.academicos; // Atribui todos os acadêmicos a filteredJogadores
-
-          // Agora aplica o filtro após a lista ser carregada
-          this.filterJogadores(); // Aplica o filtro com base no que foi digitado no campo de pesquisa
+        next: (academico: Academico | null) => {
+          if (academico) {
+            this.filteredJogadores = [academico]; // Se encontrar, exibe o acadêmico
+          } else {
+            this.filteredJogadores = []; // Se não encontrar, limpa a lista
+          }
         },
         error: (err) => {
-          this.mensagem = 'Erro buscando lista de acadêmicos';
+          this.mensagem = 'Erro buscando acadêmico';
           this.mensagem_detalhes = `[${err.status} ${err.message}]`;
         },
       });
   }
 
-  filterJogadores(): void {
-    // Primeiro, inicia com a lista completa de acadêmicos
-    let jogadoresParaFiltrar = [...this.academicos];
-
-    if (this.searchedJogadores && this.searchedJogadores.trim() !== '') {
-      const searchTerm = this.searchedJogadores.toLowerCase().trim();
-      jogadoresParaFiltrar = jogadoresParaFiltrar.filter(
-        (academico) =>
-          academico.username &&
-          academico.username.toLowerCase().includes(searchTerm)
-      );
-    }
-
-    // Agora, aplica o filtro de jogadores enfrentados
-    if (this.jogadoresEnfrentados.length > 0) {
-      jogadoresParaFiltrar = jogadoresParaFiltrar.filter((academico) =>
-        this.jogadoresEnfrentados.some(
-          (enfrentado) => enfrentado.username === academico.username
-        )
-      );
-    }
-
-    // Atualiza a lista filtrada com os jogadores que passaram nos filtros
-    this.filteredJogadores = jogadoresParaFiltrar;
-  }
-
-  filtrarJogadoresEnfrentados() {
-    // Esse método agora apenas vai filtrar a lista de acadêmicos com base nos jogadores enfrentados
-    // if (this.jogadoresEnfrentados.length > 0) {
-    //   this.filteredJogadores = this.academicos.filter((academico) =>
-    //     this.jogadoresEnfrentados.some(
-    //       (enfrentado) => enfrentado.username === academico.username
-    //     )
-    //   );
-    // } else {
-    //   // Caso não haja jogadores enfrentados, exibe todos os acadêmicos
-    //   this.filteredJogadores = [...this.academicos];
-    // }
-  }
-
-  ngOnChanges(changes: SimpleChanges) {
-    if (
-      changes['searchedJogadores'] &&
-      this.searchedJogadores !== changes['searchedJogadores'].previousValue
-    ) {
-      this.filterJogadores(); // Aplica o filtro quando houver alteração no valor da pesquisa
-    }
-  }
+  filtrarJogadoresEnfrentados() {}
 
   getJogadoresEnfrentados(): void {
     if (this.userLogado) {
@@ -192,14 +141,14 @@ export class JogadorComponent implements OnInit, OnChanges {
           next: (response: JogadorResponse | null) => {
             if (response) {
               if (response.content && response.content.length > 0) {
-                this.jogadoresEnfrentados = response.content; // Atualiza os jogadores enfrentados
+                this.jogadoresEnfrentados = response.content;
                 this.totalJogadoresEnfrentados = response.totalElements || 0;
-                this.filtrarJogadoresEnfrentados(); // Aplica o filtro após atualizar a lista
+                this.filtrarJogadoresEnfrentados();
               } else {
                 this.jogadoresEnfrentados = [];
                 this.totalJogadoresEnfrentados = 0;
                 this.filtrarJogadoresEnfrentados();
-                this.isBlocked = true; // Marca o usuário como bloqueado quando não há jogadores enfrentados
+                this.isBlocked = true;
                 this.mensagem = 'Você não tem jogadores enfrentados.';
                 this.mensagem_detalhes =
                   'Nenhum jogador foi encontrado para este usuário.';
@@ -207,7 +156,6 @@ export class JogadorComponent implements OnInit, OnChanges {
             }
           },
           error: (err) => {
-            // Para outros erros, você mantém a lógica de mensagem de erro
             this.mensagem = 'Erro buscando jogadores enfrentados';
             this.mensagem_detalhes = `[${err.status} ${err.message}]`;
           },
@@ -228,7 +176,6 @@ export class JogadorComponent implements OnInit, OnChanges {
           }
           this.filteredJogadores = this.academicos;
 
-          // Chama as estatísticas para cada acadêmico usando o id da primeira modalidade
           this.academicos.forEach((academico) => {
             if (academico.modalidades && academico.modalidades.length > 0) {
               const primeiraModalidade = academico.modalidades[0];
@@ -255,14 +202,12 @@ export class JogadorComponent implements OnInit, OnChanges {
     this.router.navigate(['/perfil-outro-usuario', academico.username]);
   }
 
-  // Chama o serviço para obter as estatísticas por modalidade
   getEstatisticas(academicoId: number, modalidadeId: number | null): void {
     if (modalidadeId) {
       this.academicoService
         .getEstatisticasPorModalidade(academicoId, modalidadeId)
         .subscribe({
           next: (response: EstatisticaModalidade) => {
-            // Armazena as estatísticas associadas ao ID do acadêmico
             this.estatisticasMap.set(academicoId, response);
           },
           error: (err) => {
@@ -270,9 +215,8 @@ export class JogadorComponent implements OnInit, OnChanges {
           },
         });
     } else {
-      // Caso não tenha modalidades, definimos valores padrão
       const estatisticasPadrão: EstatisticaModalidade = {
-        modalidade: 'Sem Modalidade', // Valor padrão para modalidade
+        modalidade: 'Sem Modalidade',
         vitorias: 0,
         derrotas: 0,
         jogos: 0,
@@ -286,7 +230,6 @@ export class JogadorComponent implements OnInit, OnChanges {
     }
   }
 
-  // Obtém as modalidades de um acadêmico
   getModalidades(academico: any): string {
     if (academico.modalidades && academico.modalidades.length > 0) {
       return academico.modalidades
@@ -297,7 +240,6 @@ export class JogadorComponent implements OnInit, OnChanges {
     }
   }
 
-  // Obtém as estatísticas para um acadêmico a partir do mapa
   getEstatisticasDoAcademico(
     academicoId: number
   ): EstatisticaModalidade | undefined {
