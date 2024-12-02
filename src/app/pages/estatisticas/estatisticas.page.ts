@@ -36,12 +36,13 @@ import { EstatisticasPessoaisComponent } from '../../components/estatisticas-pes
   ],
 })
 export class EstatisticasPage implements OnInit {
+  constructor() {}
+
   pageTitle: string = 'Estatísticas';
   pageMenu: string = 'estatisticas';
   pageContent: string = 'estatisticas';
 
   selectedSegment: string = 'estatisticas-pessoais';
-  constructor() {}
 
   ngOnInit() {}
 }

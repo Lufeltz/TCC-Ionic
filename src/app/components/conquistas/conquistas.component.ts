@@ -26,7 +26,23 @@ import { StateService } from 'src/app/services/state.service';
   imports: [IonLabel, CommonModule, LucideAngularModule, BloqueadoComponent],
 })
 export class ConquistasComponent implements OnInit {
+  constructor(
+    private academicoService: AcademicoService,
+    private conquistasService: ConquistasService,
+    private authService: AuthService,
+    private stateService: StateService
+  ) {}
+
+  @Input() username: string = '';
+
   private modalidadeUpdateSubscription!: Subscription;
+  academico: Academico | null = null;
+  conquistas: Conquista[] = [];
+  user: Academico | null = null;
+
+  isBlocked: boolean = false;
+  mensagemBloqueio: string =
+    'O acadêmico bloqueou a visualização das conquistas.';
 
   modalidades: { [key: number]: string } = {
     1: 'Futebol',
@@ -36,31 +52,11 @@ export class ConquistasComponent implements OnInit {
     5: 'Handebol',
   };
 
-  getModalidadeName(id: number): string {
-    return this.modalidades[id] || 'Desconhecido';
-  }
-
   readonly Award = Award;
   readonly NotebookText = NotebookText;
   readonly Target = Target;
   readonly CircleDashed = CircleDashed;
   readonly SignalHigh = SignalHigh;
-
-  academico: Academico | null = null;
-  conquistas: Conquista[] = [];
-  user: Academico | null = null;
-  @Input() username: string = '';
-
-  isBlocked: boolean = false;
-  mensagemBloqueio: string =
-    'O acadêmico bloqueou a visualização das conquistas.';
-
-  constructor(
-    private academicoService: AcademicoService,
-    private conquistasService: ConquistasService,
-    private authService: AuthService,
-    private stateService: StateService
-  ) {}
 
   ngOnInit() {
     this.user = this.authService.getUser();
@@ -85,6 +81,10 @@ export class ConquistasComponent implements OnInit {
     } else {
       console.error('Username não fornecido');
     }
+  }
+
+  getModalidadeName(id: number): string {
+    return this.modalidades[id] || 'Desconhecido';
   }
 
   buscarConquistasPorIdAcademico(idAcademico: number) {

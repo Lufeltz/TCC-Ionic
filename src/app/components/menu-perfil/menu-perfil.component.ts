@@ -68,22 +68,17 @@ import { Avaliacao } from 'src/app/models/avaliacao.model';
   ],
 })
 export class MenuPerfilComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private metaDiariaService: MetaDiariaService,
+    private metaEsportivaService: MetaEsportivaService,
+    private router: Router,
+    private campeonatoService: CampeonatoService
+  ) {}
+
   @Input() title: string = '';
   @Input() menu: string = '';
   @Input() menuContentId: string = '';
-
-  readonly User = User;
-  readonly GraduationCap = GraduationCap;
-  readonly Bell = Bell;
-  readonly ShieldPlus = ShieldPlus;
-  readonly HeartPulse = HeartPulse;
-  readonly ChartNoAxesCombined = ChartNoAxesCombined;
-  readonly Settings = Settings;
-  readonly Calendar1 = Calendar1;
-  readonly DiamondPlus = DiamondPlus;
-  readonly Dumbbell = Dumbbell;
-  readonly Star = Star;
-  readonly LogOut = LogOut;
 
   user: Academico | null = null;
   metasDiarias: MetaDiaria[] = [];
@@ -103,13 +98,18 @@ export class MenuPerfilComponent implements OnInit {
   selectedRating: number = 0;
   stars: number[] = [1, 2, 3, 4, 5];
 
-  constructor(
-    private authService: AuthService,
-    private metaDiariaService: MetaDiariaService,
-    private metaEsportivaService: MetaEsportivaService,
-    private router: Router,
-    private campeonatoService: CampeonatoService
-  ) {}
+  readonly User = User;
+  readonly GraduationCap = GraduationCap;
+  readonly Bell = Bell;
+  readonly ShieldPlus = ShieldPlus;
+  readonly HeartPulse = HeartPulse;
+  readonly ChartNoAxesCombined = ChartNoAxesCombined;
+  readonly Settings = Settings;
+  readonly Calendar1 = Calendar1;
+  readonly DiamondPlus = DiamondPlus;
+  readonly Dumbbell = Dumbbell;
+  readonly Star = Star;
+  readonly LogOut = LogOut;
 
   obterMediaAvaliacao(): void {
     if (this.user && this.user.idAcademico) {

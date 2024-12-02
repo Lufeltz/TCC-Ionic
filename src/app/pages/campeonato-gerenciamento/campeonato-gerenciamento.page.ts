@@ -53,11 +53,21 @@ import { CampeonatoTimesComponent } from 'src/app/components/campeonato-times/ca
   ],
 })
 export class CampeonatoGerenciamentoPage implements OnInit {
+  constructor() {}
+
   pageTitle: string = 'Gerenciamento';
   pageMenu: string = 'campeonato-gerenciamento';
   pageContent: string = 'campeonato-gerenciamento';
 
   selectedSegment: string = 'detalhes';
+
+  modalidadesSimplificadas: { idModalidadeEsportiva: number; nome: string }[] =
+    [];
+  mensagem!: string;
+  mensagem_detalhes!: string;
+  loading: boolean = true;
+
+  campeonato: Campeonato = new Campeonato();
 
   readonly SquareArrowUpRight = SquareArrowUpRight;
   readonly Lock = Lock;
@@ -78,16 +88,6 @@ export class CampeonatoGerenciamentoPage implements OnInit {
   readonly NotebookText = NotebookText;
   readonly NotebookPen = NotebookPen;
   readonly ArrowDownToDot = ArrowDownToDot;
-
-  modalidadesSimplificadas: { idModalidadeEsportiva: number; nome: string }[] =
-    [];
-  mensagem!: string;
-  mensagem_detalhes!: string;
-  loading: boolean = true;
-
-  campeonato: Campeonato = new Campeonato();
-
-  constructor() {}
 
   ngOnInit() {
     this.loading = false;

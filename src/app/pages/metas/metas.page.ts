@@ -93,6 +93,17 @@ import { StateService } from 'src/app/services/state.service';
   ],
 })
 export class MetasPage implements OnInit {
+  constructor(
+    private metaDiariaService: MetaDiariaService,
+    private metaEsportivaService: MetaEsportivaService,
+    private alertController: AlertController,
+    private authService: AuthService,
+    private conquistasService: ConquistasService,
+    private stateService: StateService
+  ) {}
+
+  private modalidadeUpdateSubscription!: Subscription;
+
   pageTitle: string = 'Metas';
   pageMenu: string = 'metas-menu';
   pageContent: string = 'metas';
@@ -117,30 +128,6 @@ export class MetasPage implements OnInit {
 
   conquistasUsuario: Conquista[] = [];
 
-  private modalidadeUpdateSubscription!: Subscription;
-
-  getModalidadeName(id: number): string {
-    return this.modalidades[id] || 'Desconhecido';
-  }
-
-  abrirModalEditar(meta: any) {
-    this.metaParaEditar = meta;
-    this.modalEditarVisivel = true;
-  }
-
-  abrirModalEditarEsportiva(conquista: any) {
-    this.ConquistaParaEditar = conquista;
-    this.modalEsportivaEditarVisivel = true;
-  }
-
-  fecharModal() {
-    this.modalEditarVisivel = false;
-  }
-
-  fecharModalEsportiva() {
-    this.modalEsportivaEditarVisivel = false;
-  }
-
   modalidades: { [key: number]: string } = {
     1: 'Futebol',
     2: 'Vôlei',
@@ -163,15 +150,6 @@ export class MetasPage implements OnInit {
   readonly CircleDashed = CircleDashed;
   readonly ClipboardPen = ClipboardPen;
   readonly EllipsisVertical = EllipsisVertical;
-
-  constructor(
-    private metaDiariaService: MetaDiariaService,
-    private metaEsportivaService: MetaEsportivaService,
-    private alertController: AlertController,
-    private authService: AuthService,
-    private conquistasService: ConquistasService,
-    private stateService: StateService
-  ) {}
 
   ngOnInit(): void {
     const user = this.authService.getUser();
@@ -196,6 +174,28 @@ export class MetasPage implements OnInit {
     } else {
       console.error('Usuário não autenticado');
     }
+  }
+
+  getModalidadeName(id: number): string {
+    return this.modalidades[id] || 'Desconhecido';
+  }
+
+  abrirModalEditar(meta: any) {
+    this.metaParaEditar = meta;
+    this.modalEditarVisivel = true;
+  }
+
+  abrirModalEditarEsportiva(conquista: any) {
+    this.ConquistaParaEditar = conquista;
+    this.modalEsportivaEditarVisivel = true;
+  }
+
+  fecharModal() {
+    this.modalEditarVisivel = false;
+  }
+
+  fecharModalEsportiva() {
+    this.modalEsportivaEditarVisivel = false;
   }
 
   listarMetasEsportivas(): void {

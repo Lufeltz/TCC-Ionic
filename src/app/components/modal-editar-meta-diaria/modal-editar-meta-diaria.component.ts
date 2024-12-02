@@ -32,6 +32,12 @@ import { StateService } from 'src/app/services/state.service';
   standalone: true,
 })
 export class ModalEditarMetaDiariaComponent {
+  constructor(
+    private metaDiariaService: MetaDiariaService,
+    private alertController: AlertController,
+    private stateService: StateService
+  ) {}
+
   @Input() meta!: MetaDiaria;
   @Input() user!: Academico;
   @Output() close = new EventEmitter<void>();
@@ -42,12 +48,6 @@ export class ModalEditarMetaDiariaComponent {
   @Input() listarMetaDiarias!: () => void; //
   @Output() metaExcluida = new EventEmitter<void>();
 
-  constructor(
-    private metaDiariaService: MetaDiariaService,
-    private alertController: AlertController,
-    private stateService: StateService
-  ) {}
-
   readonly CircleX = CircleX;
   readonly CaseUpper = CaseUpper;
   readonly NotebookText = NotebookText;
@@ -55,10 +55,6 @@ export class ModalEditarMetaDiariaComponent {
   readonly Ruler = Ruler;
   readonly Save = Save;
   readonly Goal = Goal;
-
-  closeModal() {
-    this.close.emit();
-  }
 
   editarDados() {
     this.metaDiariaService.putMetaDiaria(this.meta).subscribe({
@@ -71,5 +67,9 @@ export class ModalEditarMetaDiariaComponent {
         console.error('Erro ao atualizar meta:', err);
       },
     });
+  }
+
+  closeModal() {
+    this.close.emit();
   }
 }

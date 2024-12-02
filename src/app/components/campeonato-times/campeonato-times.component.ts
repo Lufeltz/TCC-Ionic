@@ -56,6 +56,15 @@ import { StateService } from 'src/app/services/state.service';
   standalone: true,
 })
 export class CampeonatoTimesComponent implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private campeonatoService: CampeonatoService,
+    private partidaService: PartidaService,
+    private authService: AuthService,
+    private router: Router,
+    private stateService: StateService
+  ) {}
+
   times: any[] = [];
 
   codigo: string = '';
@@ -63,15 +72,8 @@ export class CampeonatoTimesComponent implements OnInit {
   campeonato: Campeonato | null = null;
   jogadoresPorTime: { [key: number]: Jogador[] } = {};
 
-  public usuarioLogado: Academico | null = null;
-
-  readonly ExternalLink = ExternalLink;
-  readonly User = User;
-  readonly Users = Users;
-  readonly Ellipsis = Ellipsis;
-  readonly SquarePen = SquarePen;
-  readonly ArrowDown = ArrowDown;
-  readonly ArrowUp = ArrowUp;
+  usuarioLogado: Academico | null = null;
+  usuarioInscritoNoCampeonato: boolean = false;
 
   menuVisible: boolean = false;
   modalEditarVisivel: boolean = false;
@@ -84,16 +86,13 @@ export class CampeonatoTimesComponent implements OnInit {
   idUsuario!: number;
   time!: Time;
 
-  public usuarioInscritoNoCampeonato: boolean = false;
-
-  constructor(
-    private route: ActivatedRoute,
-    private campeonatoService: CampeonatoService,
-    private partidaService: PartidaService,
-    private authService: AuthService,
-    private router: Router,
-    private stateService: StateService
-  ) {}
+  readonly ExternalLink = ExternalLink;
+  readonly User = User;
+  readonly Users = Users;
+  readonly Ellipsis = Ellipsis;
+  readonly SquarePen = SquarePen;
+  readonly ArrowDown = ArrowDown;
+  readonly ArrowUp = ArrowUp;
 
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();

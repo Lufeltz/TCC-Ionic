@@ -81,6 +81,13 @@ import { StateService } from 'src/app/services/state.service';
   ],
 })
 export class CampeonatosPage implements OnInit {
+  constructor(
+    private enderecoService: EnderecoService,
+    private campeonatoService: CampeonatoService,
+    private authService: AuthService,
+    private stateService: StateService
+  ) {}
+  
   pageTitle: string = 'Campeonatos';
   pageMenu: string = 'campeonato-menu';
   pageContent: string = 'campeonato';
@@ -116,13 +123,6 @@ export class CampeonatosPage implements OnInit {
   readonly MapPinHouse = MapPinHouse;
   readonly MapPinned = MapPinned;
   readonly Volleyball = Volleyball;
-
-  constructor(
-    private enderecoService: EnderecoService,
-    private campeonatoService: CampeonatoService,
-    private authService: AuthService,
-    private stateService: StateService
-  ) {}
 
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();

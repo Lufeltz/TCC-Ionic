@@ -11,13 +11,12 @@ import { IonicModule } from '@ionic/angular';
   imports: [CommonModule, IonicModule, LucideAngularModule],
 })
 export class BloqueadoComponent implements OnInit {
+  constructor() {}
   @Input() mensagemBloqueio: string = '';
   @Input() tipoErro: '403' | '404' = '404';
 
   readonly Lock = Lock;
   readonly CircleHelp = CircleHelp;
-
-  constructor() {}
 
   ngOnInit() {}
 }

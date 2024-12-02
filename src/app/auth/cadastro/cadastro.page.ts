@@ -58,14 +58,11 @@ import { Academico } from 'src/app/models/academico.model';
   ],
 })
 export class CadastroPage {
-  readonly SaveAll = SaveAll;
-  readonly User = User;
-  readonly AtSign = AtSign;
-  readonly Lock = Lock;
-  readonly CalendarArrowUp = CalendarArrowUp;
-  readonly ALargeSmall = ALargeSmall;
-  readonly Phone = Phone;
-  readonly GraduationCap = GraduationCap;
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private academicoService: AcademicoService
+  ) {}
 
   @ViewChild('formCadastro') formCadastro!: NgForm;
   @ViewChild('dateInput') dateInput!: ElementRef;
@@ -78,11 +75,14 @@ export class CadastroPage {
   cursos: string[] = [];
   loading: boolean = true;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router,
-    private academicoService: AcademicoService
-  ) {}
+  readonly SaveAll = SaveAll;
+  readonly User = User;
+  readonly AtSign = AtSign;
+  readonly Lock = Lock;
+  readonly CalendarArrowUp = CalendarArrowUp;
+  readonly ALargeSmall = ALargeSmall;
+  readonly Phone = Phone;
+  readonly GraduationCap = GraduationCap;
 
   ngOnInit() {
     this.user = this.authService.getUser();

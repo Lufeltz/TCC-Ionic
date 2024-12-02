@@ -50,6 +50,13 @@ import { StateService } from 'src/app/services/state.service';
   ],
 })
 export class PostPage implements OnInit {
+  constructor(
+    private router: Router,
+    private publicacaoService: PublicacaoService,
+    private authService: AuthService,
+    private stateService: StateService
+  ) {}
+
   pageTitle: string = 'Criar Publicação';
   pageMenu: string = 'criar-post';
   pageContent: string = 'criar-post';
@@ -63,13 +70,6 @@ export class PostPage implements OnInit {
   readonly ArrowRight = ArrowRight;
   readonly NotebookPen = NotebookPen;
   readonly MessageCircleQuestion = MessageCircleQuestion;
-
-  constructor(
-    private router: Router,
-    private publicacaoService: PublicacaoService,
-    private authService: AuthService,
-    private stateService: StateService
-  ) {}
 
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();

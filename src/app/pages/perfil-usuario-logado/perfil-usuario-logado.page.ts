@@ -57,6 +57,11 @@ import { AcademicoAlteracao } from 'src/app/models/academico-alteracao.model';
   providers: [DatePipe],
 })
 export class PerfilUsuarioLogadoPage implements OnInit {
+  constructor(
+    private academicoService: AcademicoService,
+    private authService: AuthService
+  ) {}
+
   pageTitle: string = 'Meu Perfil';
   pageMenu: string = 'meu-perfil';
   pageContent: string = 'meu-perfil';
@@ -65,6 +70,8 @@ export class PerfilUsuarioLogadoPage implements OnInit {
   showPassword: boolean = false;
   cursos: string[] = [];
   loading: boolean = true;
+
+  user: Academico | null = null;
 
   readonly SaveAll = SaveAll;
   readonly GraduationCap = GraduationCap;
@@ -77,13 +84,6 @@ export class PerfilUsuarioLogadoPage implements OnInit {
   readonly Eye = Eye;
   readonly EyeOff = EyeOff;
   readonly UserRound = UserRound;
-
-  user: Academico | null = null;
-
-  constructor(
-    private academicoService: AcademicoService,
-    private authService: AuthService
-  ) {}
 
   ngOnInit() {
     this.user = this.authService.getUser();
@@ -164,5 +164,4 @@ export class PerfilUsuarioLogadoPage implements OnInit {
       },
     });
   }
-
 }

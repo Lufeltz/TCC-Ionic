@@ -46,9 +46,16 @@ import { JogadorResponse } from 'src/app/models/jogador-response.model';
   ],
 })
 export class JogadorComponent implements OnInit {
+  constructor(
+    private academicoService: AcademicoService,
+    private router: Router,
+    private authService: AuthService,
+    private campeonatoService: CampeonatoService
+  ) {}
+
   @Input() searchedJogadores!: string;
   academicos: Academico[] = [];
-  public filteredJogadores: Academico[] = [];
+  filteredJogadores: Academico[] = [];
 
   mensagem!: string;
   mensagem_detalhes!: string;
@@ -56,10 +63,21 @@ export class JogadorComponent implements OnInit {
   currentPage: number = 0;
   pageSize: number = 5;
 
-  public jogadoresEnfrentados: Jogador[] = [];
-  public totalJogadoresEnfrentados: number = 0;
+  jogadoresEnfrentados: Jogador[] = [];
+  totalJogadoresEnfrentados: number = 0;
 
   estatisticasMap: Map<number, EstatisticaModalidade> = new Map();
+
+  searchedCampeonatos: string = '';
+  searchSubject: Subject<string> = new Subject<string>();
+
+  isBlocked: boolean = false;
+  mensagemAusencia: string =
+    'Você ainda não jogou com ninguém, participe de campeonatos para visualizar outros jogadores.';
+
+  user: Academico | null = null;
+
+  userLogado: Academico | null = null;
 
   readonly UserRound = UserRound;
   readonly CalendarArrowUp = CalendarArrowUp;
@@ -69,24 +87,6 @@ export class JogadorComponent implements OnInit {
   readonly Bike = Bike;
   readonly SquareX = SquareX;
   readonly ArrowDownToDot = ArrowDownToDot;
-
-  searchedCampeonatos: string = '';
-  searchSubject: Subject<string> = new Subject<string>();
-
-  isBlocked: boolean = false;
-  mensagemAusencia: string =
-    'Você ainda não jogou com ninguém, participe de campeonatos para visualizar outros jogadores.';
-
-  constructor(
-    private academicoService: AcademicoService,
-    private router: Router,
-    private authService: AuthService,
-    private campeonatoService: CampeonatoService
-  ) {}
-
-  user: Academico | null = null;
-
-  userLogado: Academico | null = null;
 
   ngOnInit() {
     this.userLogado = this.authService.getUser();

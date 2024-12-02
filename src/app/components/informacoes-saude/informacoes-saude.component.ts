@@ -22,19 +22,19 @@ import { SaudeService } from 'src/app/services/saude.service';
   imports: [CommonModule, LucideAngularModule, TelefoneMaskPipe],
 })
 export class InformacoesSaudeComponent implements OnInit {
+  constructor(
+    private saudeService: SaudeService,
+    private authService: AuthService
+  ) {}
+
+  contatosSaude: Saude[] = [];
+  user: Academico | null = null;
+
   readonly Stethoscope = Stethoscope;
   readonly Phone = Phone;
   readonly Clock = Clock;
   readonly AtSign = AtSign;
   readonly MapPinPlusInside = MapPinPlusInside;
-
-  contatosSaude: Saude[] = [];
-  user: Academico | null = null;
-
-  constructor(
-    private saudeService: SaudeService,
-    private authService: AuthService
-  ) {}
 
   ngOnInit() {
     this.loadContatosSaude();

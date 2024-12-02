@@ -60,32 +60,18 @@ import { Academico } from 'src/app/models/academico.model';
   ],
 })
 export class ModalidadesPage implements OnInit {
+  constructor(
+    private modalidadesService: ModalidadesService,
+    private authService: AuthService,
+    private conquistaService: ConquistasService,
+    private stateService: StateService
+  ) {}
+
   pageTitle: string = 'Modalidades';
   pageMenu: string = 'modalidades-menu';
   pageContent: string = 'modalidades';
 
   selectedSegment: string = 'inscrito';
-
-  setSelectedSegment(segment: string) {
-    this.selectedSegment = segment;
-
-    if (segment === 'inscrito') {
-      this.modalidadesInscritas = this.modalidadesInscritas || [];
-    } else if (segment === 'nao-inscrito') {
-      this.modalidadesDiferentes = this.modalidadesDiferentes || [];
-    }
-  }
-
-  readonly SquareArrowUpRight = SquareArrowUpRight;
-  readonly CircleX = CircleX;
-  readonly Medal = Medal;
-  readonly ExternalLink = ExternalLink;
-  readonly Notebook = Notebook;
-  readonly Zap = Zap;
-  readonly ZapOff = ZapOff;
-  readonly Crosshair = Crosshair;
-  readonly Users = Users;
-  readonly SquarePen = SquarePen;
 
   todasModalidades: any;
   modalidadesInscritas: any;
@@ -96,6 +82,8 @@ export class ModalidadesPage implements OnInit {
 
   modalEditarVisivel: boolean = false;
   modalidadeParaEditar!: any;
+
+  user: Academico | null = null;
 
   isBlocked: boolean = false;
   mensagemAusencia: string =
@@ -113,14 +101,26 @@ export class ModalidadesPage implements OnInit {
     5: 'Handebol',
   };
 
-  user: Academico | null = null;
+  readonly SquareArrowUpRight = SquareArrowUpRight;
+  readonly CircleX = CircleX;
+  readonly Medal = Medal;
+  readonly ExternalLink = ExternalLink;
+  readonly Notebook = Notebook;
+  readonly Zap = Zap;
+  readonly ZapOff = ZapOff;
+  readonly Crosshair = Crosshair;
+  readonly Users = Users;
+  readonly SquarePen = SquarePen;
 
-  constructor(
-    private modalidadesService: ModalidadesService,
-    private authService: AuthService,
-    private conquistaService: ConquistasService,
-    private stateService: StateService
-  ) {}
+  ngOnInit() {
+    this.user = this.authService.getUser();
+    if (this.user) {
+      const usuarioId = this.user.idAcademico;
+      this.carregarModalidadesConquistas(usuarioId);
+    } else {
+      console.error('Usuário não autenticado');
+    }
+  }
 
   processarConquistas(): void {
     this.conquistasUsuario!.forEach((conquista) => {
@@ -142,13 +142,13 @@ export class ModalidadesPage implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.user = this.authService.getUser();
-    if (this.user) {
-      const usuarioId = this.user.idAcademico;
-      this.carregarModalidadesConquistas(usuarioId);
-    } else {
-      console.error('Usuário não autenticado');
+  setSelectedSegment(segment: string) {
+    this.selectedSegment = segment;
+
+    if (segment === 'inscrito') {
+      this.modalidadesInscritas = this.modalidadesInscritas || [];
+    } else if (segment === 'nao-inscrito') {
+      this.modalidadesDiferentes = this.modalidadesDiferentes || [];
     }
   }
 

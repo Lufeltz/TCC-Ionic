@@ -43,10 +43,6 @@ import { StateService } from 'src/app/services/state.service';
   ],
 })
 export class LoginPage implements OnInit {
-  readonly Lock = Lock;
-  readonly User = User;
-  readonly LogIn = LogIn;
-
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -60,6 +56,10 @@ export class LoginPage implements OnInit {
   message!: string;
 
   user: Academico | null = null;
+
+  readonly Lock = Lock;
+  readonly User = User;
+  readonly LogIn = LogIn;
 
   ngOnInit(): void {
     if (this.authService.isAuthenticated()) {

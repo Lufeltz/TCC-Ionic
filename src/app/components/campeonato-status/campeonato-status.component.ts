@@ -35,14 +35,16 @@ import { StateService } from 'src/app/services/state.service';
   ],
 })
 export class CampeonatoStatusComponent implements OnInit {
+  constructor(
+    private campeonatoService: CampeonatoService,
+    private route: ActivatedRoute,
+    private partidaService: PartidaService,
+    private authService: AuthService,
+    private stateService: StateService
+  ) {}
+
   times: Time[] = [];
   mapaTimes: Map<number, string> = new Map();
-
-  readonly SquarePen = SquarePen;
-  readonly Flag = Flag;
-  readonly Users = Users;
-  readonly User = User;
-  readonly Crown = Crown;
 
   codigo: string = '';
   loading: boolean = true;
@@ -58,13 +60,11 @@ export class CampeonatoStatusComponent implements OnInit {
 
   isCampeonatoIniciado: boolean = false;
 
-  constructor(
-    private campeonatoService: CampeonatoService,
-    private route: ActivatedRoute,
-    private partidaService: PartidaService,
-    private authService: AuthService,
-    private stateService: StateService
-  ) {}
+  readonly SquarePen = SquarePen;
+  readonly Flag = Flag;
+  readonly Users = Users;
+  readonly User = User;
+  readonly Crown = Crown;
 
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();

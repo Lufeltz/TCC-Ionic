@@ -58,26 +58,16 @@ import { StateService } from 'src/app/services/state.service';
   ],
 })
 export class CampeonatoDetalhesComponent implements OnInit {
-  readonly SquareArrowUpRight = SquareArrowUpRight;
-  readonly Lock = Lock;
-  readonly LockOpen = LockOpen;
-  readonly ExternalLink = ExternalLink;
-  readonly RotateCw = RotateCw;
-  readonly UsersRound = UsersRound;
-  readonly Users = Users;
-  readonly User = User;
-  readonly Volleyball = Volleyball;
-  readonly MessageSquareCode = MessageSquareCode;
-  readonly Flag = Flag;
-  readonly MapPin = MapPin;
-  readonly CalendarCheck = CalendarCheck;
-  readonly CalendarArrowUp = CalendarArrowUp;
-  readonly Calendar = Calendar;
-  readonly CircleDollarSign = CircleDollarSign;
-  readonly NotebookText = NotebookText;
-  readonly NotebookPen = NotebookPen;
-  readonly ArrowDownToDot = ArrowDownToDot;
-  readonly CircleX = CircleX;
+  constructor(
+    private campeonatoService: CampeonatoService,
+    private alertController: AlertController,
+    private modalidadeService: ModalidadesService,
+    private route: ActivatedRoute,
+    private partidaService: PartidaService,
+    private authService: AuthService,
+    private stateService: StateService,
+    private router: Router
+  ) {}
 
   campeonato: Campeonato | null = null;
   modalidades: ModalidadeEsportiva[] = [];
@@ -103,22 +93,26 @@ export class CampeonatoDetalhesComponent implements OnInit {
 
   usuarioLogado: Academico | null = null;
 
-  constructor(
-    private campeonatoService: CampeonatoService,
-    private alertController: AlertController,
-    private modalidadeService: ModalidadesService,
-    private route: ActivatedRoute,
-    private partidaService: PartidaService,
-    private authService: AuthService,
-    private stateService: StateService,
-    private router: Router
-  ) {}
-
-  getLockColor(privacidade: string): string {
-    return privacidade === 'PRIVADO'
-      ? 'var(--light-red)'
-      : 'var(--text-new-green)';
-  }
+  readonly SquareArrowUpRight = SquareArrowUpRight;
+  readonly Lock = Lock;
+  readonly LockOpen = LockOpen;
+  readonly ExternalLink = ExternalLink;
+  readonly RotateCw = RotateCw;
+  readonly UsersRound = UsersRound;
+  readonly Users = Users;
+  readonly User = User;
+  readonly Volleyball = Volleyball;
+  readonly MessageSquareCode = MessageSquareCode;
+  readonly Flag = Flag;
+  readonly MapPin = MapPin;
+  readonly CalendarCheck = CalendarCheck;
+  readonly CalendarArrowUp = CalendarArrowUp;
+  readonly Calendar = Calendar;
+  readonly CircleDollarSign = CircleDollarSign;
+  readonly NotebookText = NotebookText;
+  readonly NotebookPen = NotebookPen;
+  readonly ArrowDownToDot = ArrowDownToDot;
+  readonly CircleX = CircleX;
 
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();
@@ -127,6 +121,12 @@ export class CampeonatoDetalhesComponent implements OnInit {
       this.codigo = params.get('codigo')!;
     });
     this.buscarCampeonatoPorCodigo(this.codigo);
+  }
+
+  getLockColor(privacidade: string): string {
+    return privacidade === 'PRIVADO'
+      ? 'var(--light-red)'
+      : 'var(--text-new-green)';
   }
 
   excluirCampeonatoAlert(campeonato: Campeonato) {

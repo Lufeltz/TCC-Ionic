@@ -48,6 +48,8 @@ import { Academico } from 'src/app/models/academico.model';
   ],
 })
 export class PerfilOutroUsuarioPage implements OnInit {
+  constructor(private route: ActivatedRoute, private router: Router) {}
+
   pageTitle: string = 'Carlos Ribeiro';
   pageMenu: string = 'perfil-outro-usuario';
   pageContent: string = 'perfil-outro-usuario';
@@ -56,11 +58,9 @@ export class PerfilOutroUsuarioPage implements OnInit {
 
   academico: Academico = new Academico();
 
-  readonly Star = Star;
-
   selectedSegment: string = 'estatisticas';
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  readonly Star = Star;
 
   ngOnInit() {
     this.route.paramMap.subscribe((params) => {

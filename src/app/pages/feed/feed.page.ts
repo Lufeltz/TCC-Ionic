@@ -48,10 +48,12 @@ import { LucideAngularModule, Pencil } from 'lucide-angular';
     IonButtons,
     IonItem,
     ListagemCampeonatosComponent,
-    LucideAngularModule
+    LucideAngularModule,
   ],
 })
 export class FeedPage implements OnInit {
+  constructor(private router: Router) {}
+
   pageTitle: string = 'Comunidade';
   pageMenu: string = 'feed-menu';
   pageContent: string = 'feed';
@@ -61,25 +63,9 @@ export class FeedPage implements OnInit {
 
   readonly Pencil = Pencil;
 
-  statusToggles: { aberto: boolean; finalizado: boolean; iniciado: boolean; participando:boolean } = {
-    aberto: true,
-    finalizado: false,
-    iniciado: false,
-    participando: true,
-  };
-
-  constructor(private router: Router) {}
-
   ngOnInit() {}
 
   criarPost() {
     this.router.navigate(['/app-post']);
-  }
-
-  updateStatus(status: 'aberto' | 'finalizado' | 'iniciado' | 'participando', event: any) {
-    this.statusToggles = {
-      ...this.statusToggles,
-      [status]: event.detail.checked,
-    };
   }
 }

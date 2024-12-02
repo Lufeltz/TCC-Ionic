@@ -37,15 +37,26 @@ import { StateService } from 'src/app/services/state.service';
   ],
 })
 export class PostsComponent implements OnInit, OnChanges {
+  constructor(
+    private postsService: PostService,
+    private comentarioService: ComentarioService,
+    private authService: AuthService,
+    private publicacaoService: PublicacaoService,
+    private stateService: StateService
+  ) {}
+
   @Input() searchedPosts!: string;
-  public filteredPublications: any[] = [];
-  public modalCurtidasVisible = false;
-  public curtidasParaExibir: any[] = [];
-  public novoComentario: { [key: string]: string } = {};
+
   private currentPage = 0;
   private pageSize = 10;
   private comentarioSize = 5;
-  public usuarioLogado: Academico | null = null;
+
+  filteredPublications: any[] = [];
+  modalCurtidasVisible = false;
+  curtidasParaExibir: any[] = [];
+  novoComentario: { [key: string]: string } = {};
+
+  usuarioLogado: Academico | null = null;
 
   searchedCampeonatos: string = '';
 
@@ -63,13 +74,6 @@ export class PostsComponent implements OnInit, OnChanges {
   readonly ArrowDownToDot = ArrowDownToDot;
   readonly MessageCircleMore = MessageCircleMore;
 
-  constructor(
-    private postsService: PostService,
-    private comentarioService: ComentarioService,
-    private authService: AuthService,
-    private publicacaoService: PublicacaoService,
-    private stateService: StateService
-  ) {}
   ngOnInit() {
     this.usuarioLogado = this.authService.getUser();
     if (this.usuarioLogado) {

@@ -29,13 +29,20 @@ import { StateService } from 'src/app/services/state.service';
   imports: [CommonModule, LucideAngularModule, BloqueadoComponent],
 })
 export class EstatisticasPessoaisComponent implements OnInit {
+  constructor(
+    private estatisticaService: EstatisticasAcademicoService,
+    private authService: AuthService,
+    private academicoService: AcademicoService,
+    private stateService: StateService
+  ) {}
+
+  @Input() username: string = '';
+  private modalidadeUpdateSubscription!: Subscription;
+
   estatisticasUso: EstatisticaUso[] = [];
   estatisticasModalidadeUnica: EstatisticaModalidade[] = [];
   estatisticasModalidadeGeral: EstatisticaModalidadeGeral | null = null;
   academico: Academico | null = null;
-
-  @Input() username: string = '';
-  private modalidadeUpdateSubscription!: Subscription;
 
   isBlocked: boolean = false;
   mensagemBloqueio: string =
@@ -50,13 +57,6 @@ export class EstatisticasPessoaisComponent implements OnInit {
   readonly Medal = Medal;
   readonly Trophy = Trophy;
   readonly MapPinPlus = MapPinPlus;
-
-  constructor(
-    private estatisticaService: EstatisticasAcademicoService,
-    private authService: AuthService,
-    private academicoService: AcademicoService,
-    private stateService: StateService
-  ) {}
 
   ngOnInit() {
     this.user = this.authService.getUser();

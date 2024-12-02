@@ -76,26 +76,14 @@ import { StateService } from 'src/app/services/state.service';
   standalone: true,
 })
 export class ListagemCampeonatosComponent implements OnInit {
-  readonly SquareArrowUpRight = SquareArrowUpRight;
-  readonly Lock = Lock;
-  readonly LockOpen = LockOpen;
-  readonly ExternalLink = ExternalLink;
-  readonly RotateCw = RotateCw;
-  readonly UsersRound = UsersRound;
-  readonly Users = Users;
-  readonly User = User;
-  readonly Volleyball = Volleyball;
-  readonly MessageSquareCode = MessageSquareCode;
-  readonly Flag = Flag;
-  readonly MapPin = MapPin;
-  readonly CalendarCheck = CalendarCheck;
-  readonly CalendarArrowUp = CalendarArrowUp;
-  readonly Calendar = Calendar;
-  readonly CircleDollarSign = CircleDollarSign;
-  readonly NotebookText = NotebookText;
-  readonly NotebookPen = NotebookPen;
-  readonly ArrowDownToDot = ArrowDownToDot;
-  readonly UserPlus = UserPlus;
+  constructor(
+    private alertController: AlertController,
+    private campeonatoService: CampeonatoService,
+    private modalidadeService: ModalidadesService,
+    private partidaService: PartidaService,
+    private authService: AuthService,
+    private stateService: StateService
+  ) {}
 
   campeonatos: Campeonato[] = [];
   modalidades: ModalidadeEsportiva[] = [];
@@ -126,14 +114,26 @@ export class ListagemCampeonatosComponent implements OnInit {
   mensagemAusencia: string =
     'Não há campeonatos disponíveis. Inscreva-se em alguma modalidade para visualizá-los';
 
-  constructor(
-    private alertController: AlertController,
-    private campeonatoService: CampeonatoService,
-    private modalidadeService: ModalidadesService,
-    private partidaService: PartidaService,
-    private authService: AuthService,
-    private stateService: StateService
-  ) {}
+  readonly SquareArrowUpRight = SquareArrowUpRight;
+  readonly Lock = Lock;
+  readonly LockOpen = LockOpen;
+  readonly ExternalLink = ExternalLink;
+  readonly RotateCw = RotateCw;
+  readonly UsersRound = UsersRound;
+  readonly Users = Users;
+  readonly User = User;
+  readonly Volleyball = Volleyball;
+  readonly MessageSquareCode = MessageSquareCode;
+  readonly Flag = Flag;
+  readonly MapPin = MapPin;
+  readonly CalendarCheck = CalendarCheck;
+  readonly CalendarArrowUp = CalendarArrowUp;
+  readonly Calendar = Calendar;
+  readonly CircleDollarSign = CircleDollarSign;
+  readonly NotebookText = NotebookText;
+  readonly NotebookPen = NotebookPen;
+  readonly ArrowDownToDot = ArrowDownToDot;
+  readonly UserPlus = UserPlus;
 
   ngOnInit() {
     this.academico = this.authService.getUser();
@@ -141,7 +141,7 @@ export class ListagemCampeonatosComponent implements OnInit {
     this.subscribeToSearch();
     if (this.academico) {
       this.listarCampeonatos();
-      
+
       this.stateService.updateCampeonatos$.subscribe(() => {
         this.listarCampeonatos();
       });

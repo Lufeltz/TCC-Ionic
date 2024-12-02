@@ -47,22 +47,21 @@ import { Academico } from 'src/app/models/academico.model';
   ],
 })
 export class PrefNotifPage implements OnInit {
+  constructor(
+    private privacidadeService: PrivacidadeService,
+    private authService: AuthService
+  ) {}
+
   pageTitle: string = 'Preferências';
   pageMenu: string = 'pref-notif';
   pageContent: string = 'pref-notif';
+  privacidades: Privacidade = new Privacidade();
 
   user: Academico = new Academico();
 
   readonly Volleyball = Volleyball;
   readonly EyeOff = EyeOff;
   readonly SaveAll = SaveAll;
-
-  privacidades: Privacidade = new Privacidade();
-
-  constructor(
-    private privacidadeService: PrivacidadeService,
-    private authService: AuthService
-  ) {}
 
   mostrarEstadoToggle(estado: boolean): void {}
 

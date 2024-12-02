@@ -31,18 +31,18 @@ import { StateService } from 'src/app/services/state.service';
   ],
 })
 export class ModalCriarTimeComponent implements OnInit {
+  constructor(
+    private partidaService: PartidaService,
+    private authService: AuthService,
+    private stateService: StateService
+  ) {}
+  
   @Input() idCampeonato!: number;
   @Input() campeonato!: Campeonato | null;
   @Output() close = new EventEmitter<void>();
 
   time: CriarTime = new CriarTime();
   user: Academico = new Academico();
-
-  constructor(
-    private partidaService: PartidaService,
-    private authService: AuthService,
-    private stateService: StateService
-  ) {}
 
   readonly Save = Save;
   readonly Key = Key;

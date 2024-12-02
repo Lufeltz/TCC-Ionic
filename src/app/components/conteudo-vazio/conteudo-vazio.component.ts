@@ -12,12 +12,12 @@ import { Router, RouterModule } from '@angular/router';
   imports: [CommonModule, IonicModule, LucideAngularModule, RouterModule],
 })
 export class ConteudoVazioComponent implements OnInit {
+  constructor(private router: Router) {}
+
   @Input() mensagemAusencia: string = '';
   @Input() tipoErro: '404' | '204' = '404';
 
   readonly CircleHelp = CircleHelp;
-
-  constructor(private router: Router) {}
 
   ngOnInit() {}
 

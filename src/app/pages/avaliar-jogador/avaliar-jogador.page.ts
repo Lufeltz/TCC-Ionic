@@ -50,19 +50,18 @@ import { Avaliacao } from 'src/app/models/avaliacao.model';
   ],
 })
 export class AvaliarJogadorPage implements OnInit {
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private academicoService: AcademicoService,
+    private campeonatoService: CampeonatoService
+  ) {}
+
   pageTitle: string = 'Avaliar Jogador';
   pageMenu: string = 'avaliar-jogador';
   pageContent: string = 'avaliar-jogador';
 
   username: string = '';
-
-  readonly Star = Star;
-  readonly StarHalf = StarHalf;
-  readonly User = User;
-  readonly Volleyball = Volleyball;
-  readonly ChartColumn = ChartColumn;
-  readonly MousePointerClick = MousePointerClick;
-  readonly Save = Save;
 
   avaliacoes: number[] = [
     5, 4, 5, 3, 4, 4, 5, 3, 5, 5, 5, 4, 5, 4, 3, 2, 4, 5, 4, 3, 2, 3, 4,
@@ -82,12 +81,13 @@ export class AvaliarJogadorPage implements OnInit {
 
   isRatingSaved: boolean = false;
 
-  constructor(
-    private route: ActivatedRoute,
-    private authService: AuthService,
-    private academicoService: AcademicoService,
-    private campeonatoService: CampeonatoService
-  ) {}
+  readonly Star = Star;
+  readonly StarHalf = StarHalf;
+  readonly User = User;
+  readonly Volleyball = Volleyball;
+  readonly ChartColumn = ChartColumn;
+  readonly MousePointerClick = MousePointerClick;
+  readonly Save = Save;
 
   ngOnInit() {
     const usernameFinal =

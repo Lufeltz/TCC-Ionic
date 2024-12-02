@@ -1,11 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnInit,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import {
   IonLabel,
@@ -23,7 +17,6 @@ import {
   Calendar,
   CalendarArrowUp,
   CalendarCheck,
-  CheckCheck,
   CircleCheckBig,
   CircleDollarSign,
   ExternalLink,
@@ -73,10 +66,47 @@ import { TitleCasePipe } from 'src/app/pipes/title-case.pipe';
     LucideAngularModule,
     RouterModule,
     BloqueadoComponent,
-    TitleCasePipe
+    TitleCasePipe,
   ],
 })
 export class HistoricoCampeonatosComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private academicoService: AcademicoService,
+    private campeonatoService: CampeonatoService,
+    private partidaService: PartidaService
+  ) {}
+
+  @Input() username: string = '';
+  @Input() searchedCampeonatos: string = '';
+
+  academico: Academico | null = null;
+
+  historicoCampeonatos: Campeonato[] = [];
+  filteredCampeonatos: Campeonato[] = [];
+
+  times: Time[] = [];
+  jogadores: Jogador[] = [];
+  timesPorCampeonato: { [idCampeonato: number]: Time[] } = {};
+  jogadoresPorCampeonato: { [idCampeonato: number]: Jogador[] } = [];
+  error: string = '';
+  loading: boolean = true;
+
+  isBlocked: boolean = false;
+  mensagemBloqueio: string =
+    'O acadêmico bloqueou a visualização do histórico.';
+
+  currentPage: number = 0;
+  totalPages: number = 5;
+
+  modalidades: { [key: number]: string } = {
+    1: 'Futebol',
+    2: 'Vôlei',
+    3: 'Basquete',
+    4: 'Tênis de Mesa',
+    5: 'Handebol',
+  };
+
   readonly SquareArrowUpRight = SquareArrowUpRight;
   readonly Lock = Lock;
   readonly LockOpen = LockOpen;
@@ -98,54 +128,6 @@ export class HistoricoCampeonatosComponent implements OnInit {
   readonly NotebookText = NotebookText;
   readonly NotebookPen = NotebookPen;
 
-  @Input() username: string = '';
-  academico: Academico | null = null;
-
-  historicoCampeonatos: Campeonato[] = [];
-  filteredCampeonatos: Campeonato[] = [];
-
-  times: Time[] = [];
-  jogadores: Jogador[] = [];
-  timesPorCampeonato: { [idCampeonato: number]: Time[] } = {};
-  jogadoresPorCampeonato: { [idCampeonato: number]: Jogador[] } = [];
-  error: string = '';
-  loading: boolean = true;
-
-  modalidades: { [key: number]: string } = {
-    1: 'Futebol',
-    2: 'Vôlei',
-    3: 'Basquete',
-    4: 'Tênis de Mesa',
-    5: 'Handebol',
-  };
-
-  getModalidadeNome(id: number): string {
-    return this.modalidades[id] || 'Modalidade não encontrada';
-  }
-
-  @Input() statusToggles: {
-    aberto?: boolean;
-    finalizado?: boolean;
-    iniciado?: boolean;
-  } = {};
-
-  isBlocked: boolean = false;
-  mensagemBloqueio: string =
-    'O acadêmico bloqueou a visualização do histórico.';
-  @Input() searchedCampeonatos: string = '';
-
-  constructor(
-    private authService: AuthService,
-    private academicoService: AcademicoService,
-    private campeonatoService: CampeonatoService,
-    private partidaService: PartidaService
-  ) {
-    addIcons({ lockClosed, lockOpen });
-  }
-
-  currentPage: number = 0;
-  totalPages: number = 5;
-
   ngOnInit() {
     const usernameFinal =
       this.username || this.authService.getUser()?.username || '';
@@ -155,6 +137,10 @@ export class HistoricoCampeonatosComponent implements OnInit {
     } else {
       console.error('Username não fornecido');
     }
+  }
+
+  getModalidadeNome(id: number): string {
+    return this.modalidades[id] || 'Modalidade não encontrada';
   }
 
   listarTimesPorCampeonato(idCampeonato: number): void {

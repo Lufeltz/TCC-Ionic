@@ -38,16 +38,15 @@ import { StateService } from 'src/app/services/state.service';
   ],
 })
 export class ModalEditarMetaEsportivaComponent {
+  constructor(
+    private conquistasService: ConquistasService,
+    private stateService: StateService
+  ) {}
   @Input() conquistaEsportiva!: Conquista;
   @Input() modalidadesUsuario!: any[];
   @Input() listarMetasEsportivas!: () => void;
 
   @Output() close = new EventEmitter<void>();
-
-  constructor(
-    private conquistasService: ConquistasService,
-    private stateService: StateService
-  ) {}
 
   readonly CircleX = CircleX;
   readonly CaseUpper = CaseUpper;
@@ -56,10 +55,6 @@ export class ModalEditarMetaEsportivaComponent {
   readonly Ruler = Ruler;
   readonly Save = Save;
   readonly Goal = Goal;
-
-  closeModal() {
-    this.close.emit();
-  }
 
   editarProgresso() {
     this.conquistasService
@@ -73,5 +68,9 @@ export class ModalEditarMetaEsportivaComponent {
           console.error('Erro ao atualizar a conquista:', err);
         },
       });
+  }
+
+  closeModal() {
+    this.close.emit();
   }
 }
