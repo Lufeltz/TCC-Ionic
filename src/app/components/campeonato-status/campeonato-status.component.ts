@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { IonButton, IonToast } from '@ionic/angular/standalone';
+import { IonButton, IonToast, IonContent } from '@ionic/angular/standalone';
 import {
   Crown,
   Flag,
@@ -32,6 +32,7 @@ import { StateService } from 'src/app/services/state.service';
     LucideAngularModule,
     FormsModule,
     IonToast,
+    IonContent,
   ],
 })
 export class CampeonatoStatusComponent implements OnInit {

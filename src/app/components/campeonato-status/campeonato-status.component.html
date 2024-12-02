@@ -47,10 +47,14 @@
   </div>
 
   <ion-button
-  *ngIf="!isCampeonatoIniciado && campeonato?.usernameCriador === usuarioLogado?.username"
-  size="small"
-  (click)="iniciarPrimeiraFase()"
->
+    *ngIf="
+      !isCampeonatoIniciado &&
+      campeonato?.usernameCriador === usuarioLogado?.username
+    "
+    size="small"
+    id="open-toast-iniciar"
+    (click)="iniciarPrimeiraFase()"
+  >
     <div class="icon-align">
       Iniciar Campeonato
       <lucide-angular
@@ -60,6 +64,12 @@
       ></lucide-angular>
     </div>
   </ion-button>
+  <ion-toast
+    position="bottom"
+    trigger="open-toast-iniciar"
+    message="Primeira fase iniciada!"
+    [duration]="2000"
+  ></ion-toast>
 
   <div
     class="criar-post"
@@ -69,7 +79,7 @@
       campeonato?.usernameCriador === usuarioLogado?.username
     "
   >
-    <ion-button size="small" (click)="avancarFase()">
+    <ion-button size="small" id="open-toast-avancar" (click)="avancarFase()">
       <div class="icon-align">
         Avançar Fase
         <lucide-angular
@@ -80,6 +90,13 @@
       </div>
     </ion-button>
   </div>
+
+  <ion-toast
+    position="bottom"
+    trigger="open-toast-iniciar"
+    message="Primeira fase avançada!"
+    [duration]="2000"
+  ></ion-toast>
 
   <ul>
     <li *ngIf="shouldShowEtapa('OITAVAS')">
@@ -128,7 +145,7 @@
         <ion-toast
           trigger="open-toast-salvar"
           message="Placar salvo com sucesso!"
-          [duration]="3000"
+          [duration]="2000"
         ></ion-toast>
       </div>
     </li>
