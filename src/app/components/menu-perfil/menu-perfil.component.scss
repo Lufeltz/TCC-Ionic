@@ -6,7 +6,6 @@
 
 .toolbar-menu {
   --background: var(--background-dark);
-  // border-bottom: 1px solid var(--light-blue);
 }
 
 ion-menu {
@@ -31,7 +30,6 @@ ion-content {
   display: flex;
   align-items: center;
   padding: 10px;
-  // border-bottom: 1px solid var(--light-blue);
 }
 
 .menu-item:hover ion-label {
@@ -75,11 +73,10 @@ ion-content {
 }
 
 ion-title {
-  text-align: center;  /* Centraliza o texto */
-  width: 100%;         /* Garante que o título ocupe toda a largura disponível */
+  text-align: center;
+  width: 100%;
   margin-left: 25px;
 }
-
 
 .logout {
   width: 100%;
@@ -97,17 +94,17 @@ ion-title {
 
 .item .stars {
   display: flex;
-  gap: 5px; /* Espaço entre as estrelas */
+  gap: 5px;
   margin-top: 1.5rem;
   justify-content: center;
 }
 
 .rating-info-inline {
-  display: flex; /* Exibe a média e a quantidade na mesma linha */
-  align-items: center; /* Alinha os itens verticalmente ao centro */
-  justify-content: center; /* Centraliza o conteúdo horizontalmente */
-  gap: 10px; /* Espaçamento entre a média e a quantidade */
-  margin-top: -15px; /* Ajusta o espaço entre as estrelas e as informações */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: -15px;
 }
 
 .rating-info-inline ion-label {

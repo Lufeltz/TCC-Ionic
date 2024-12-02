@@ -47,7 +47,7 @@ ul {
   color: var(--text-white);
   padding: 0.5rem;
   --padding-start: 0.5rem;
-  --padding-end: 2.5rem; /* Espaço para o ícone à direita */
+  --padding-end: 2.5rem;
   --padding-top: 0.5rem;
   --padding-bottom: 0.5rem;
   margin-top: 10px;
@@ -63,15 +63,15 @@ ul {
 
 .centered-button {
   width: 100%;
-  max-width: 300px; /* Define uma largura máxima para o botão */
-  margin: 0 auto; /* Centraliza horizontalmente */
+  max-width: 300px;
+  margin: 0 auto;
   margin-top: 1rem;
 }
 
 ion-input {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
-  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2); /* Sombra clara */
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
 }
 
 ion-button {
@@ -110,21 +110,20 @@ ion-button {
   color: var(--background-dark);
 }
 
-/* Estilos para o ícone de visibilidade dentro do input */
 .input-wrapper {
-  position: relative; /* Necessário para garantir que o ícone se posicione corretamente dentro do campo */
+  position: relative;
 }
 
 .input-with-icon {
   width: 100%;
-  padding-right: 0; /* Remover o padding-right para que o ícone fique colado à direita */
+  padding-right: 0;
 }
 
 .eye-icon {
   position: absolute;
-  right: 0; /* Alinha o ícone colado à direita */
+  right: 0;
   top: 50%;
-  transform: translateY(-50%); /* Centraliza o ícone verticalmente */
+  transform: translateY(-50%);
   cursor: pointer;
   z-index: 100;
 }
@@ -156,29 +155,26 @@ ion-button {
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   text-align: center;
-  overflow: hidden; /* Impede que o texto ultrapasse o campo */
-  word-wrap: break-word; /* Quebra palavras longas */
-  white-space: normal; /* Permite quebra de linha dentro das opções */
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
-/* Estilo de foco do select */
 .custom-select:focus {
   outline: none;
   background-color: var(--background-dark);
   border-bottom: 2px solid var(--light-blue);
 }
 
-/* Estilo das opções dentro do select */
 .custom-select option {
   background-color: var(--background-dark);
   color: var(--text-white);
-  padding: 0.5rem; /* Dê algum padding para as opções */
-  white-space: normal; /* Permite a quebra de linha nas opções */
-  word-wrap: break-word; /* Quebra palavras longas */
-  max-width: 100%; /* Garante que o texto não ultrapasse a largura do select */
+  padding: 0.5rem;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
-/* Estilo das opções quando selecionadas */
 .custom-select option[value="futebol"]:checked {
   background-color: var(--background-dark);
   color: var(--light-blue);
@@ -189,13 +185,11 @@ ion-button {
   color: var(--light-blue);
 }
 
-/* Estilo das opções quando o mouse passa por cima */
 .custom-select option:hover {
   background-color: var(--light-blue);
   color: var(--text-white);
 }
 
-/* Estilo do select quando o mouse passa por cima */
 .custom-select:hover {
   background-color: var(--background-dark);
 }

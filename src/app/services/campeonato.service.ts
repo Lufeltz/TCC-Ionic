@@ -9,7 +9,7 @@ import { catchError, map, Observable, of, Subject, throwError } from 'rxjs';
 import { Campeonato } from '../models/campeonato.model';
 import { CampeonatoCriacao } from '../models/campeonato-criacao.model';
 import { Avaliacao } from '../models/avaliacao.model';
-import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
+import { AuthService } from './auth.service';
 import { JogadorResponse } from '../models/jogador-response.model';
 
 @Injectable({
@@ -19,17 +19,16 @@ export class CampeonatoService {
   private campeonatoCreatedSource = new Subject<void>();
   campeonatoCreated$ = this.campeonatoCreatedSource.asObservable();
 
-  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
+  constructor(private _http: HttpClient, private authService: AuthService) {}
 
   NEW_URL = 'http://localhost:8081/campeonatos';
 
-  // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {
-    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const token = this.authService.getToken();
     const headers = token
       ? new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`,
         })
       : new HttpHeaders({
           'Content-Type': 'application/json',
@@ -41,20 +40,19 @@ export class CampeonatoService {
     };
   }
 
-  // Método para sair de um time
   sairDoTime(idCampeonato: number, idAcademico: number): Observable<any> {
     const url = `${this.NEW_URL}/${idCampeonato}/times/${idAcademico}`;
 
     return this._http.delete<any>(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<any>) => {
         if (resp.status === 204) {
-          return resp.body; // A resposta 204 não contém um corpo, então pode ser null ou vazio
+          return resp.body;
         } else {
           return null;
         }
       }),
       catchError((err) => {
-        return throwError(() => err); // Em caso de erro, lança o erro para ser tratado posteriormente
+        return throwError(() => err);
       })
     );
   }
@@ -65,13 +63,13 @@ export class CampeonatoService {
     return this._http.delete<any>(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<any>) => {
         if (resp.status === 204) {
-          return resp.body; // A resposta 204 não contém um corpo, então pode ser null ou vazio
+          return resp.body;
         } else {
           return null;
         }
       }),
       catchError((err) => {
-        return throwError(() => err); // Em caso de erro, lança o erro para ser tratado posteriormente
+        return throwError(() => err);
       })
     );
   }
@@ -80,34 +78,31 @@ export class CampeonatoService {
     idAcademico: number,
     page: number,
     size: number,
-    sort: string = 'dataCriacao,desc' // Valor padrão para sort
+    sort: string = 'dataCriacao,desc'
   ): Observable<JogadorResponse | null> {
-    // Alterado para retornar um único objeto JogadorResponse
     return this._http
-      .get<JogadorResponse>( // Aqui, você espera um único JogadorResponse, não um array
+      .get<JogadorResponse>(
         `${this.NEW_URL}/${idAcademico}/jogadores-enfrentados?page=${page}&size=${size}&sort=${sort}`,
         this.getHttpOptions()
       )
       .pipe(
         map((resp: HttpResponse<JogadorResponse>) => {
-          // Alterado para tratar a resposta como JogadorResponse
           if (resp.status === 200) {
-            return resp.body; // Retorna os dados do corpo da resposta
+            return resp.body;
           } else {
-            return null; // Retorna null caso não tenha sucesso
+            return null;
           }
         }),
         catchError((err) => {
           if (err.status === 404) {
-            return of(null); // Retorna null se a resposta for 404
+            return of(null);
           } else {
-            return throwError(() => err); // Lança erro para outros tipos de falha
+            return throwError(() => err);
           }
         })
       );
   }
 
-  // Novo método para filtrar campeonatos por código
   filtrarCampeonato(codigo: string): Observable<Campeonato[] | null> {
     return this._http
       .get<Campeonato[]>(
@@ -123,25 +118,21 @@ export class CampeonatoService {
           }
         }),
         catchError((err) => {
-          // Tratamento de erros
           if (err.status === 404) {
-            return of(null); // Se não encontrado, retorna null
+            return of(null);
           } else {
-            return throwError(() => err); // Outros erros
+            return throwError(() => err);
           }
         })
       );
   }
 
-  // Método para filtrar campeonatos com base em parametros 'codigo' e 'titulo'
   filtrarCampeonatos(
     codigo?: string,
     titulo?: string
   ): Observable<Campeonato[] | null> {
-    // Criando a URL com parâmetros dinâmicos
     let url = `${this.NEW_URL}/filtrar`;
 
-    // Usando HttpParams para adicionar os filtros na URL
     let params = new HttpParams();
     if (codigo) {
       params = params.set('codigo', codigo);
@@ -187,7 +178,7 @@ export class CampeonatoService {
         }
       }),
       catchError((err) => {
-        return throwError(() => err); // Em caso de erro, lança o erro para ser tratado posteriormente
+        return throwError(() => err);
       })
     );
   }
@@ -207,11 +198,10 @@ export class CampeonatoService {
           }
         }),
         catchError((err) => {
-          // Tratamento de erros
           if (err.status === 404) {
-            return of(null); // Se não encontrado, retorna null
+            return of(null);
           } else {
-            return throwError(() => err); // Outros erros
+            return throwError(() => err);
           }
         })
       );
@@ -267,9 +257,9 @@ export class CampeonatoService {
         }),
         catchError((err) => {
           if (err.status === 404) {
-            return of([]); // Retorna um array vazio caso o endpoint não encontre resultados
+            return of([]);
           } else {
-            return throwError(() => err); // Lança o erro para o handler de erro
+            return throwError(() => err);
           }
         })
       );
@@ -279,11 +269,11 @@ export class CampeonatoService {
     idAcademico: number,
     page: number,
     size: number,
-    sort: string = 'dataCriacao' // Definindo um valor padrão para sort
+    sort: string = 'dataCriacao'
   ): Observable<Campeonato[] | null> {
     return this._http
       .get<Campeonato[]>(
-        `${this.NEW_URL}/${idAcademico}/listar?page=${page}&size=${size}&sort=${sort}`, // Corrigido a URL
+        `${this.NEW_URL}/${idAcademico}/listar?page=${page}&size=${size}&sort=${sort}`,
         this.getHttpOptions()
       )
       .pipe(
@@ -296,9 +286,9 @@ export class CampeonatoService {
         }),
         catchError((err) => {
           if (err.status === 404) {
-            return of([]); // Retorna um array vazio se não encontrar resultados
+            return of([]);
           } else {
-            return throwError(() => err); // Lança o erro se for outro tipo de falha
+            return throwError(() => err);
           }
         })
       );
@@ -367,7 +357,7 @@ export class CampeonatoService {
       .pipe(
         map((resp: HttpResponse<CampeonatoCriacao>) => {
           if (resp.status == 201) {
-            this.campeonatoCreatedSource.next(); // Emitir evento de criação
+            this.campeonatoCreatedSource.next();
             return resp.body;
           } else {
             return null;

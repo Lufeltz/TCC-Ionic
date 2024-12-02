@@ -59,8 +59,13 @@
             required
             #objetivo="ngModel"
           ></ion-textarea>
-          <div *ngIf="objetivo.invalid && objetivo.touched" class="error-message">
-            <p *ngIf="objetivo.errors?.['required']">A descrição é obrigatória.</p>
+          <div
+            *ngIf="objetivo.invalid && objetivo.touched"
+            class="error-message"
+          >
+            <p *ngIf="objetivo.errors?.['required']">
+              A descrição é obrigatória.
+            </p>
           </div>
         </li>
 
@@ -84,8 +89,13 @@
             type="number"
             maxlength="3"
           ></ion-input>
-          <div *ngIf="progressoMaximo.invalid && progressoMaximo.touched" class="error-message">
-            <p *ngIf="progressoMaximo.errors?.['required']">O objetivo é obrigatório.</p>
+          <div
+            *ngIf="progressoMaximo.invalid && progressoMaximo.touched"
+            class="error-message"
+          >
+            <p *ngIf="progressoMaximo.errors?.['required']">
+              O objetivo é obrigatório.
+            </p>
           </div>
         </li>
 
@@ -107,8 +117,13 @@
             required
             #progressoItem="ngModel"
           ></ion-input>
-          <div *ngIf="progressoItem.invalid && progressoItem.touched" class="error-message">
-            <p *ngIf="progressoItem.errors?.['required']">A medida é obrigatória.</p>
+          <div
+            *ngIf="progressoItem.invalid && progressoItem.touched"
+            class="error-message"
+          >
+            <p *ngIf="progressoItem.errors?.['required']">
+              A medida é obrigatória.
+            </p>
           </div>
         </li>
       </ul>
@@ -388,22 +403,6 @@
               </ion-label>
             </div>
           </div>
-          <!-- <div class="button-group">
-            <ion-button
-              expand="small"
-              class="centered-button meta-button"
-              (click)="abrirModalEditarEsportiva(conquista)"
-            >
-              <div class="icon-align">
-                <lucide-angular
-                  [img]="SquarePen"
-                  class="btn-inscrever-se"
-                  [size]="20"
-                  [color]="'var(--background-dark)'"
-                ></lucide-angular>
-              </div>
-            </ion-button>
-          </div> -->
         </li>
       </ul>
     </div>
@@ -428,13 +427,3 @@
     (close)="fecharModalEsportiva()"
   ></app-modal-editar-meta-esportiva>
 </ion-content>
-
-
-
-
-
-
-
-
-
-

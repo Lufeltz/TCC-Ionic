@@ -170,7 +170,6 @@ export class CampeonatoTimesComponent implements OnInit {
         )
     );
     this.usuarioInscritoNoCampeonato = jogadorInscrito;
-    console.log('Verificação de inscrição: ', jogadorInscrito); // Adicione log para depuração
   }
 
   navegarParaPerfil(username: string) {

@@ -2,16 +2,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* Centraliza verticalmente */
-  height: 60vh; /* Garante que a altura ocupe 100% da altura da janela */
+  justify-content: center;
+  height: 60vh;
   padding: 20px;
-  box-sizing: border-box; /* Garante que o padding não ultrapasse o tamanho do contêiner */
+  box-sizing: border-box;
 }
 
 .icon-container {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px; /* Espaço entre o ícone e a mensagem */
+  margin-bottom: 20px;
 }
 
 .error-icon {

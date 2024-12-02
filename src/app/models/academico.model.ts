@@ -11,6 +11,6 @@ export class Academico {
   foto: string = '';
   dataCriacao: string = '';
   ativo: boolean = true;
-  permissao: string = 'ACADEMICO';
+  permissao: string = '';
   modalidades: { idModalidade: number; nomeModalidade: string }[] = [];
 }

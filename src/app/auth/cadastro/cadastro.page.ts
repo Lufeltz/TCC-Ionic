@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import {
@@ -29,7 +29,6 @@ import {
   LucideAngularModule,
   Phone,
   SaveAll,
-  Smartphone,
   User,
 } from 'lucide-angular';
 import { Academico } from 'src/app/models/academico.model';
@@ -70,7 +69,7 @@ export class CadastroPage {
 
   @ViewChild('formCadastro') formCadastro!: NgForm;
   @ViewChild('dateInput') dateInput!: ElementRef;
-  @ViewChild('formLogin') formLogin!: NgForm; // Referência ao formulário
+  @ViewChild('formLogin') formLogin!: NgForm;
 
   message!: string;
   academico: Cadastro = new Cadastro();
@@ -93,38 +92,28 @@ export class CadastroPage {
   onTelefoneChange(event: any) {
     let input = event.target.value;
 
-    // Remover qualquer caractere não numérico
-    input = input.replace(/\D/g, ''); // Substitui tudo que não for número por nada
+    input = input.replace(/\D/g, '');
 
-    // Limitar o comprimento do número para 11 caracteres (como o formato 41999999999)
     if (input.length > 11) {
-      input = input.slice(0, 11); // Limita a quantidade de caracteres para 11
+      input = input.slice(0, 11);
     }
 
-    // Atualiza o valor no modelo
     this.academico.telefone = input;
   }
 
-  // Removido a formatação de telefone
-
-  // Método para formatar a data
   formatDateToFullDate(dateString: string): string {
-    const date = new Date(dateString); // Cria um objeto Date a partir da string
+    const date = new Date(dateString);
 
-    // Formatação manual para adicionar o fuso horário e os milissegundos
-    const formattedDate = date.toISOString(); // Formata para o formato UTC ISO
-    const localOffset = date.getTimezoneOffset() * 60000; // Calcula o offset do fuso horário
+    const formattedDate = date.toISOString();
+    const localOffset = date.getTimezoneOffset() * 60000;
 
-    const localDate = new Date(date.getTime() - localOffset); // Ajusta a data para o horário local
-    const finalDate = localDate.toISOString().split('.')[0]; // Remove milissegundos e finaliza a formatação
+    const localDate = new Date(date.getTime() - localOffset);
+    const finalDate = localDate.toISOString().split('.')[0];
 
-    // Retorna a data no formato desejado
-    return finalDate + '-03:00'; // Adiciona o fuso horário de Brasília
+    return finalDate + '-03:00';
   }
 
-  // Função chamada ao clicar em Registrar
   cadastrar() {
-    // Se o formulário for válido, envia os dados
     if (this.formLogin.valid) {
       if (this.academico.dataNascimento) {
         this.academico.dataNascimento = this.formatDateToFullDate(
@@ -163,7 +152,6 @@ export class CadastroPage {
   }
 
   openDatePicker() {
-    // Simula o clique no campo de data
     this.dateInput.nativeElement.click();
   }
 }

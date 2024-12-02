@@ -1,7 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
-import { Time } from '../models/time.model';
-import { Jogador } from '../models/jogador.model';
 
 @Injectable({
   providedIn: 'root',
@@ -50,7 +48,6 @@ export class StateService {
   triggerUpdateListarMetasEsportivas() {
     this.updateMetasEsportivas.next();
   }
-
 
   triggerUpdateListagemTimes() {
     this.updateTimesSubject.next();

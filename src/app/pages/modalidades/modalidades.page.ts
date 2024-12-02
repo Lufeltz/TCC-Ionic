@@ -30,7 +30,6 @@ import {
 } from 'lucide-angular';
 import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { forkJoin } from 'rxjs';
-import { ModalEditarModalidadeComponent } from 'src/app/components/modal-editar-modalidade/modal-editar-modalidade.component';
 import { AuthService } from 'src/app/services/auth.service';
 import { ConquistasService } from 'src/app/services/conquistas.service';
 import { Conquista } from 'src/app/models/conquista.model';
@@ -58,7 +57,6 @@ import { Academico } from 'src/app/models/academico.model';
     IonButton,
     IonAlert,
     LucideAngularModule,
-    ModalEditarModalidadeComponent,
   ],
 })
 export class ModalidadesPage implements OnInit {
@@ -72,10 +70,8 @@ export class ModalidadesPage implements OnInit {
     this.selectedSegment = segment;
 
     if (segment === 'inscrito') {
-      // Recarregar as modalidades inscritas caso a segmentação seja alterada
       this.modalidadesInscritas = this.modalidadesInscritas || [];
     } else if (segment === 'nao-inscrito') {
-      // Recarregar as modalidades não inscritas caso a segmentação seja alterada
       this.modalidadesDiferentes = this.modalidadesDiferentes || [];
     }
   }

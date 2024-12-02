@@ -11,11 +11,11 @@ import { IonicModule } from '@ionic/angular';
   imports: [CommonModule, IonicModule, LucideAngularModule],
 })
 export class BloqueadoComponent implements OnInit {
-  @Input() mensagemBloqueio: string = ''; // Mensagem para exibir
-  @Input() tipoErro: '403' | '404' = '404'; // Tipo de erro, pode ser 403 ou 404
+  @Input() mensagemBloqueio: string = '';
+  @Input() tipoErro: '403' | '404' = '404';
 
-  readonly Lock = Lock; // Icone para 403
-  readonly CircleHelp = CircleHelp; // Icone para 404
+  readonly Lock = Lock;
+  readonly CircleHelp = CircleHelp;
 
   constructor() {}
 

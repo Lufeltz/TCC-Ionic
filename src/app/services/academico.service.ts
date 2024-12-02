@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Academico } from '../models/academico.model';
-import { AuthService } from './auth.service'; // Importe o AuthService
+import { AuthService } from './auth.service';
 import { AcademicoAlteracao } from '../models/academico-alteracao.model';
 
 @Injectable({
@@ -13,13 +13,12 @@ export class AcademicoService {
 
   NEW_URL = 'http://localhost:8081/academico';
 
-  // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {
-    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const token = this.authService.getToken();
     const headers = token
       ? new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`,
         })
       : new HttpHeaders({
           'Content-Type': 'application/json',
@@ -41,16 +40,15 @@ export class AcademicoService {
         if (resp.status === 200) {
           return resp.body;
         } else {
-          return null; // Retorna null caso o status não seja 200
+          return null;
         }
       }),
       catchError((err) => {
-        return throwError(() => err); // Retorna o erro para ser tratado em outro lugar
+        return throwError(() => err);
       })
     );
   }
 
-  // Novo método para buscar o acadêmico pelo username
   getAcademicoByUsername(username: string): Observable<Academico | null> {
     const url = `${this.NEW_URL}/buscar/${username}`;
     return this._http.get<Academico>(url, this.getHttpOptions()).pipe(
@@ -79,7 +77,7 @@ export class AcademicoService {
       }),
       catchError((err) => {
         if (err.status === 404) {
-          return of([]); // Retorna um array vazio em caso de erro
+          return of([]);
         } else {
           return throwError(() => err);
         }
@@ -104,7 +102,10 @@ export class AcademicoService {
       );
   }
 
-  atualizar(id: number, academico: AcademicoAlteracao): Observable<AcademicoAlteracao | null> {
+  atualizar(
+    id: number,
+    academico: AcademicoAlteracao
+  ): Observable<AcademicoAlteracao | null> {
     return this._http
       .put<AcademicoAlteracao>(
         `${this.NEW_URL}/atualizar/${id}`,
@@ -137,7 +138,7 @@ export class AcademicoService {
       }),
       catchError((err) => {
         if (err.status === 404) {
-          return of([]); // Retorna um array vazio em caso de erro
+          return of([]);
         } else {
           return throwError(() => err);
         }

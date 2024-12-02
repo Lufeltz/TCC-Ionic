@@ -4,24 +4,23 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { EstatisticaUso } from '../models/estatistica-uso.model';
 import { EstatisticaModalidade } from '../models/estatistica-modalidade.model';
 import { EstatisticaModalidadeGeral } from '../models/estatistica-modalidade-geral.model';
-import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EstatisticasAcademicoService {
-  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
+  constructor(private _http: HttpClient, private authService: AuthService) {}
 
   BASE_URL = 'http://localhost:8081/academico';
   ESTATISTICAS_URL = 'http://localhost:8081/estatistica';
 
-  // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {
-    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const token = this.authService.getToken();
     const headers = token
       ? new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`,
         })
       : new HttpHeaders({
           'Content-Type': 'application/json',
@@ -87,22 +86,21 @@ export class EstatisticasAcademicoService {
       .pipe(
         map((resp: HttpResponse<EstatisticaModalidadeGeral>) => {
           if (resp.status === 200) {
-            return resp.body; // Retorna um único objeto EstatisticaModalidadeGeral
+            return resp.body;
           } else {
-            return null; // Caso o status não seja 200, retorna null
+            return null;
           }
         }),
         catchError((err, caught) => {
           if (err.status === 404) {
-            return of(null); // Retorna null caso o erro seja 404
+            return of(null);
           } else {
-            return throwError(() => err); // Repassa outros erros
+            return throwError(() => err);
           }
         })
       );
   }
 
-  // Novo método para o endpoint visualizarEstatisticasMetasEsportivasOutroAcademico
   getEstatisticasMetasEsportivasOutroAcademico(
     idAcademico: number
   ): Observable<EstatisticaModalidadeGeral | null> {
@@ -112,16 +110,16 @@ export class EstatisticasAcademicoService {
       .pipe(
         map((resp: HttpResponse<EstatisticaModalidadeGeral>) => {
           if (resp.status === 200) {
-            return resp.body; // Retorna um único objeto EstatisticaModalidadeGeral
+            return resp.body;
           } else {
-            return null; // Caso o status não seja 200, retorna null
+            return null;
           }
         }),
         catchError((err, caught) => {
           if (err.status === 404) {
-            return of(null); // Retorna null caso o erro seja 404
+            return of(null);
           } else {
-            return throwError(() => err); // Repassa outros erros
+            return throwError(() => err);
           }
         })
       );

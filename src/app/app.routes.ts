@@ -65,13 +65,6 @@ export const routes: Routes = [
           ),
       },
       {
-        path: 'privacidade',
-        loadComponent: () =>
-          import('./pages/privacidade/privacidade.page').then(
-            (m) => m.PrivacidadePage
-          ),
-      },
-      {
         path: 'perfil-usuario-logado',
         loadComponent: () =>
           import(
@@ -97,20 +90,7 @@ export const routes: Routes = [
             (m) => m.CanalSaudePage
           ),
       },
-      {
-        path: 'chaveamento',
-        loadComponent: () =>
-          import('./pages/chaveamento/chaveamento.page').then(
-            (m) => m.ChaveamentoPage
-          ),
-      },
-      {
-        path: 'resultados',
-        loadComponent: () =>
-          import('./pages/resultados/resultados.page').then(
-            (m) => m.ResultadosPage
-          ),
-      },
+
       {
         path: 'estatisticas',
         loadComponent: () =>

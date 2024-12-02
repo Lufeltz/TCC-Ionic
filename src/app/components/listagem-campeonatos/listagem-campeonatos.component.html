@@ -6,21 +6,6 @@
 
 <ng-template #showCampeonatos>
   <div class="campeonatos-container">
-    <!-- Exibe o esqueleto de carregamento quando loading for true -->
-    <!-- <ng-container *ngIf="loading; else content">
-      <div class="skeleton">
-        <div class="skeleton-header"></div>
-        <div class="skeleton-body">
-          <div
-            class="skeleton-line"
-            *ngFor="let line of [].constructor(5)"
-          ></div>
-        </div>
-      </div>
-    </ng-container> -->
-
-    <!-- Quando o carregamento terminar, exibe o conteúdo -->
-    <!-- <ng-template #content> -->
     <ion-searchbar
       animated="true"
       placeholder="Procurar"
@@ -299,6 +284,5 @@
         ></lucide-angular>
       </div>
     </ion-button>
-    <!-- </ng-template> -->
   </div>
 </ng-template>

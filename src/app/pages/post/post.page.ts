@@ -1,13 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
   IonHeader,
   IonTitle,
-  IonToolbar,
   IonButton,
-  IonInput,
   IonToast,
   IonList,
   IonItem,
@@ -21,7 +19,6 @@ import { PublicacaoService } from '../../services/publicacao.service';
 import { Publicacao } from '../../models/publicacao.model';
 import { Academico } from 'src/app/models/academico.model';
 import { AuthService } from 'src/app/services/auth.service';
-import { PostsComponent } from 'src/app/components/posts/posts.component';
 import {
   ArrowRight,
   LucideAngularModule,
@@ -87,7 +84,7 @@ export class PostPage implements OnInit {
   onSubmit() {
     this.publicacaoService.postPublicacao(this.publicacao).subscribe(
       (response) => {
-        console.log('Resposta do servidor:', response); // Adicione logs aqui
+        console.log('Resposta do servidor:', response);
         if (response) {
           this.toastMessage = 'Post criado com sucesso!';
           this.showToast = true;
@@ -99,7 +96,7 @@ export class PostPage implements OnInit {
         }
       },
       (error) => {
-        console.error('Erro ao enviar o post:', error); // Adicione logs aqui
+        console.error('Erro ao enviar o post:', error);
         this.toastMessage = 'Erro ao enviar o post. Tente novamente.';
         this.showToast = true;
       }

@@ -1,302 +1,295 @@
 .card-container {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 16px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.card {
+  background-color: var(--background-dark);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h3 {
+  display: flex;
+  justify-content: space-between;
+  color: var(--yellow-desc);
+  margin-bottom: 8px;
+}
+
+.input-space {
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.custom-select-wrapper {
+  background-color: var(--background-dark);
+}
+
+.custom-select {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+  padding: 16px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+ion-accordion-group {
+  background-color: var(--background-dark);
+}
+
+ion-accordion {
+  background-color: var(--background-dark);
+  color: var(--text-light);
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+div[slot="header"] {
+  background: var(--background-dark);
+}
+
+ion-item {
+  border-top: 1px solid var(--text-light);
+  --background: var(--background-dark);
+  color: var(--text-light);
+  margin-bottom: 0;
+}
+
+.detalles-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--yellow-desc);
+}
+
+ion-accordion:hover .detalles-header ion-label {
+  color: var(--yellow-desc);
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+  margin: 0;
+}
+
+li {
+  color: var(--text-light);
+}
+
+.detalles-header ion-label {
+  font-size: 16px;
+  color: var(--yellow-desc);
+}
+
+button {
+  background-color: var(--yellow-desc);
+  color: var(--background-dark);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 14px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: var(--yellow-desc);
+  opacity: 0.8;
+}
+
+button:active {
+  background-color: var(--purple-desc);
+}
+
+@media (max-width: 375px) {
   .card {
-    background-color: var(--background-dark);
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 16px;
-    margin-top: 16px;
-    border-right: 2px solid var(--light-blue);
-    border-bottom: 2px solid var(--light-blue);
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-      width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+    padding: 12px;
+    width: 90%;
   }
-  
-  h3 {
-    display: flex;
-    justify-content: space-between;
-    color: var(--yellow-desc);
-    margin-bottom: 8px;
+
+  .campeonato-data,
+  .campeonato-foto {
+    font-size: 10px;
   }
-  
-  .input-space {
-    border-radius: 8px;
-    padding: 16px;
-  }
-  
-  .custom-select-wrapper {
-    background-color: var(--background-dark);
-  }
-  
-  .custom-select {
-    background-color: var(--background-dark);
-    color: var(--text-light);
-    padding: 16px;
-    width: 100%;
-    border-radius: 8px;
-  }
-  
-  ion-accordion-group {
-    background-color: var(--background-dark);
-  }
-  
-  ion-accordion {
-    background-color: var(--background-dark);
-    color: var(--text-light);
-    border-radius: 8px;
-    margin-bottom: 16px;
-  }
-  
-  div[slot="header"] {
-    background: var(--background-dark);
-  }
-  
-  ion-item {
-    border-top: 1px solid var(--text-light);
-    --background: var(--background-dark);
-    color: var(--text-light);
-    margin-bottom: 0;
-  }
-  
-  .detalles-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    color: var(--yellow-desc);
-  }
-  
-  ion-accordion:hover .detalles-header ion-label {
-    color: var(--yellow-desc);
-  }
-  
-  ul {
-    padding: 0;
-    list-style-type: none;
-    margin: 0;
-  }
-  
-  li {
-    color: var(--text-light);
-  }
-  
-  .detalles-header ion-label {
-    font-size: 16px;
-    color: var(--yellow-desc);
-  }
-  
-  button {
-    background-color: var(--yellow-desc);
-    color: var(--background-dark);
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  button:hover {
-    background-color: var(--yellow-desc);
-    opacity: 0.8;
-  }
-  
-  button:active {
-    background-color: var(--purple-desc);
-  }
-  
-  @media (max-width: 375px) {
-    .card {
-      padding: 12px;
-      width: 90%;
-    }
-  
-    .campeonato-data,
-    .campeonato-foto {
-      font-size: 10px;
-    }
-  }
-  
-  .icon-align {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%; /* Garantir que ocupe toda a largura disponível */
-  }
-  
-  .icon-align ion-label {
-    color: var(--text-new-green);
-    margin-right: 10px; /* Espaço entre o label e o ícone */
-  }
-  
-  lucide-angular {
-    z-index: 950;
-  }
-  
-  
-  .icon-align div ion-label {
-    color: var(--text-new-green);
-  }
-  .card-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    gap: 8px;
-    margin-bottom: 1rem;
-  }
-  
-  .card-header p {
-    margin-bottom: 0;
-  }
-  
-  h3,
-  p {
-    width: 80%; /* Ajuste a largura desejada, aqui a largura foi definida como 80% */
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  .input-space,
-  .custom-select-wrapper {
-    width: 80%; /* Ajuste a largura do input também */
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
-  h3 .icon-align ion-label {
-    color: var(--yellow-desc);
-  }
-  
-  //* Menu suspenso */
-  .dropdown-menu {
-    position: absolute;
-    top: 9rem; /* Mover o menu 2rem para baixo */
-    right: 1rem;
-    background-color: var(--background-dark);
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    padding: 4px 0;
-    width: 170px; /* Aumentando a largura do menu */
-    display: none; /* Inicialmente invisível */
-    z-index: 9999; /* Aumente o z-index para garantir que o menu sobreponha outros elementos */
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-    border-right: 2px solid var(--text-orange);
-    border-bottom: 2px solid var(--text-orange);
-  }
-  
-  /* Quando o menu estiver visível */
-  .dropdown-menu.show {
-    display: block; /* Exibe o menu */
-    opacity: 1; /* Torna o menu visível */
-  }
-  
-  /* Estilo dos itens do menu */
-  .dropdown-menu ul {
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
-  }
-  
-  /* Adicionar borda apenas no primeiro item do menu */
-  .dropdown-menu li:first-child {
-    border-bottom: 1px solid var(--text-light);
-    color: var(--text-light);
-    padding: 12px 16px;
-    cursor: pointer;
-    font-size: 14px; /* Diminuindo o tamanho da fonte */
-  }
-  
-  /* Estilo para os outros itens do menu */
-  .dropdown-menu li {
-    color: var(--text-light);
-    padding: 12px 16px;
-    cursor: pointer;
-    font-size: 14px; /* Diminuindo o tamanho da fonte */
-  }
-  
-  .dropdown-menu li:hover {
-    background-color: var(--yellow-desc);
-  }
-  
-  .dropdown-menu li:active {
-    background-color: var(--purple-desc);
-  }
-  
-  lucide-angular {
-    z-index: 950;
-  }
-  
-  .card-header {
-    display: flex;
-    justify-content: center; /* Centraliza o conteúdo */
-    align-items: center;
-    text-align: center;
-    // gap: 1px; /* Espaçamento entre o texto e o ícone */
-    margin-bottom: 1rem;
-    width: 100%;
-  }
-  
-  .card-header .icon-align {
-    display: flex;
-    justify-content: flex-start; /* Alinha os itens à esquerda dentro da div */
-    align-items: center;
-    // gap: 8px; /* Espaçamento entre o ícone e o número de jogadores */
-    width: auto; /* Faz com que o tamanho da div se ajuste ao conteúdo */
-  }
-  
-  .card-header p {
-    margin-bottom: 0;
-  }
-  
-  .icon-align lucide-angular {
-    margin-right: 8px; /* Espaçamento entre o ícone e o número */
-  }
-  
-  
-  .icon-align {
-    display: flex;
-    align-items: center;
-    margin-top: 4px;
-    color: var(--background-dark);
-  }
-  
-  .icon-align lucide-angular {
-    margin-right: 5px;
-    --color: var(--background-dark);
-  }
-  
-  .icon-align p {
-    margin: 0;
-    color: var(--yellow-desc);
-    font-size: 1rem;
-  }
-  
-  .card-header .time {
-    color: var(--text-white);
-    font-size: 1.25rem;
-    margin-bottom: 1rem;
-  }
-  
-  .btn-inscrever-se {
-    margin-left: 5px;
-    --color: var(--background-dark);
-  }
-  
-  .criar-post {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .criar-post ion-button {
-    width: auto; /* Ajuste automático da largura */
-    max-width: 300px; /* Largura máxima opcional */
-  }
+}
+
+.icon-align {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.icon-align ion-label {
+  color: var(--text-new-green);
+  margin-right: 10px;
+}
+
+lucide-angular {
+  z-index: 950;
+}
+
+.icon-align div ion-label {
+  color: var(--text-new-green);
+}
+.card-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.card-header p {
+  margin-bottom: 0;
+}
+
+h3,
+p {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.input-space,
+.custom-select-wrapper {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h3 .icon-align ion-label {
+  color: var(--yellow-desc);
+}
+
+/ .dropdown-menu {
+  position: absolute;
+  top: 9rem;
+  right: 1rem;
+  background-color: var(--background-dark);
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  padding: 4px 0;
+  width: 170px;
+  display: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  border-right: 2px solid var(--text-orange);
+  border-bottom: 2px solid var(--text-orange);
+}
+
+.dropdown-menu.show {
+  display: block;
+  opacity: 1;
+}
+
+.dropdown-menu ul {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.dropdown-menu li:first-child {
+  border-bottom: 1px solid var(--text-light);
+  color: var(--text-light);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-menu li {
+  color: var(--text-light);
+  padding: 12px 16px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-menu li:hover {
+  background-color: var(--yellow-desc);
+}
+
+.dropdown-menu li:active {
+  background-color: var(--purple-desc);
+}
+
+lucide-angular {
+  z-index: 950;
+}
+
+.card-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  // gap: 1px;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.card-header .icon-align {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  // gap: 8px;
+  width: auto;
+}
+
+.card-header p {
+  margin-bottom: 0;
+}
+
+.icon-align lucide-angular {
+  margin-right: 8px;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+  color: var(--background-dark);
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+  --color: var(--background-dark);
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--yellow-desc);
+  font-size: 1rem;
+}
+
+.card-header .time {
+  color: var(--text-white);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+  --color: var(--background-dark);
+}
+
+.criar-post {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.criar-post ion-button {
+  width: auto;
+  max-width: 300px;
+}

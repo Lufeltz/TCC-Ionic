@@ -11,7 +11,7 @@ import {
   IonLabel,
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
-import { EstatisticasEsportivasComponent } from '../../components/estatisticas-esportivas/estatisticas-esportivas.component';
+
 import { ConquistasComponent } from '../../components/conquistas/conquistas.component';
 import { EstatisticasPessoaisComponent } from '../../components/estatisticas-pessoais/estatisticas-pessoais.component';
 
@@ -31,7 +31,6 @@ import { EstatisticasPessoaisComponent } from '../../components/estatisticas-pes
     IonSegment,
     IonSegmentButton,
     IonLabel,
-    EstatisticasEsportivasComponent,
     ConquistasComponent,
     EstatisticasPessoaisComponent,
   ],

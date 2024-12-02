@@ -14,7 +14,7 @@ import { IonButton, IonLabel, IonInput } from '@ionic/angular/standalone';
 import { MetaDiaria } from 'src/app/models/meta-diaria.model';
 import { FormsModule } from '@angular/forms';
 import { MetaDiariaService } from 'src/app/services/meta-diaria.service';
-import { AlertController } from '@ionic/angular'; // Importando o AlertController
+import { AlertController } from '@ionic/angular';
 import { Academico } from 'src/app/models/academico.model';
 import { StateService } from 'src/app/services/state.service';
 @Component({
@@ -32,17 +32,18 @@ import { StateService } from 'src/app/services/state.service';
   standalone: true,
 })
 export class ModalEditarMetaDiariaComponent {
-  @Input() meta!: MetaDiaria; // Recebe a meta a ser editada
-  @Input() user!: Academico; // Recebe a meta a ser editada
-  @Output() close = new EventEmitter<void>(); // Evento para fechar o modal
+  @Input() meta!: MetaDiaria;
+  @Input() user!: Academico;
+  @Output() close = new EventEmitter<void>();
 
-  @Input() verificarProgresso!: (meta: MetaDiaria) => void; // Método para verificar progresso
+  @Input() verificarProgresso!: (meta: MetaDiaria) => void;
   @Input() excluirPresentAlert!: (meta: MetaDiaria) => void; //
   @Input() excluirMetaConfirmada!: (id: string) => void; //
-    @Input() listarMetaDiarias!: () => void; //
-  @Output() metaExcluida = new EventEmitter<void>(); 
+  @Input() listarMetaDiarias!: () => void; //
+  @Output() metaExcluida = new EventEmitter<void>();
 
-  constructor(private metaDiariaService: MetaDiariaService,
+  constructor(
+    private metaDiariaService: MetaDiariaService,
     private alertController: AlertController,
     private stateService: StateService
   ) {}
@@ -56,22 +57,19 @@ export class ModalEditarMetaDiariaComponent {
   readonly Goal = Goal;
 
   closeModal() {
-    this.close.emit(); // Emite o evento para fechar o modal
+    this.close.emit();
   }
-
-
 
   editarDados() {
     this.metaDiariaService.putMetaDiaria(this.meta).subscribe({
       next: (result) => {
-        this.verificarProgresso(this.meta); // Chama o método do pai para verificar o progresso
-        // this.listarMetaDiarias(); // Chama o método do pai para listar as metas atualizadas
-        this.closeModal(); // Fecha o modal após a atualização
+        this.verificarProgresso(this.meta);
+
+        this.closeModal();
       },
       error: (err) => {
         console.error('Erro ao atualizar meta:', err);
       },
     });
   }
-  
 }

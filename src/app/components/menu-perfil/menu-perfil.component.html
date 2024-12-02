@@ -27,7 +27,6 @@
         </div>
       </li>
 
-      <!-- Dados gerais -->
       <li class="menu-item">
         <div class="item">
           <lucide-angular
@@ -64,13 +63,14 @@
       <li class="menu-item">
         <div class="item">
           <lucide-angular [img]="Settings" class="i-tem"></lucide-angular>
-          <ion-label (click)="goToPage('/perfil-usuario-logado')">Perfil</ion-label>
+          <ion-label (click)="goToPage('/perfil-usuario-logado')"
+            >Perfil</ion-label
+          >
         </div>
       </li>
 
       <li class="menu-item">
         <div class="item">
-          <!-- Exibição das estrelas -->
           <div class="stars">
             <lucide-angular
               [img]="Star"
@@ -79,8 +79,6 @@
               class="i-tem"
             ></lucide-angular>
           </div>
-
-          <!-- Exibição da média e quantidade -->
         </div>
       </li>
       <li class="menu-item">
@@ -97,7 +95,11 @@
 
       <li class="menu-item">
         <div class="logout" (click)="logout()">
-          <lucide-angular [img]="LogOut" [color]="'var(--light-red)'" class="log-out"></lucide-angular>
+          <lucide-angular
+            [img]="LogOut"
+            [color]="'var(--light-red)'"
+            class="log-out"
+          ></lucide-angular>
           <ion-label>Sair</ion-label>
         </div>
       </li>

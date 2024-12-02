@@ -32,8 +32,7 @@ export class AuthService {
   loadToken(): Observable<void> {
     const token = localStorage.getItem('jwt');
     if (token) {
-      // Aqui, você pode adicionar lógica adicional, como uma chamada HTTP, caso necessário
-      return of(undefined); // Simplesmente retorna um Observable vazio se o token for encontrado
+      return of(undefined);
     }
     return throwError(() => new Error('Token não encontrado.'));
   }
@@ -58,7 +57,6 @@ export class AuthService {
       );
   }
 
-  // Quando o usuário logar, atualize o BehaviorSubject
   login(loginRequest: LoginRequest): Observable<string | null> {
     return this._http
       .post<LoginResponse>(this.LOGIN_URL, JSON.stringify(loginRequest), {
@@ -69,7 +67,7 @@ export class AuthService {
         tap((resp) => {
           if (resp.token) {
             localStorage.setItem('jwt', resp.token);
-            this.loadUserData(); // Carrega os dados do usuário e atualiza o BehaviorSubject
+            this.loadUserData();
           }
         }),
         map((resp) => resp.token || null),
@@ -80,14 +78,17 @@ export class AuthService {
   public loadUserData(): void {
     const username = this.getUsernameFromToken();
     if (username !== null) {
-      const token = this.getToken(); // Pegue o token
-      const headers = this.httpOptions.headers.set('Authorization', `Bearer ${token}`); // Adicione o cabeçalho Authorization
-      
+      const token = this.getToken();
+      const headers = this.httpOptions.headers.set(
+        'Authorization',
+        `Bearer ${token}`
+      );
+
       this._http
         .get<Academico>(`${this.NEW_URL}/buscar/${username}`, { headers })
         .subscribe({
           next: (academico) => {
-            this.userSubject.next(academico); // Atualiza o BehaviorSubject
+            this.userSubject.next(academico);
             localStorage.setItem('user', JSON.stringify(academico));
           },
           error: (err) => {
@@ -96,7 +97,6 @@ export class AuthService {
         });
     }
   }
-  
 
   logout(): void {
     localStorage.removeItem('jwt');
@@ -139,13 +139,12 @@ export class AuthService {
     }
   }
 
-  // New method to get the username from the token
   private getUsernameFromToken(): string | null {
     const token = this.getToken();
     if (token) {
       try {
         const decodedToken: any = jwtDecode(token);
-        return decodedToken.sub; // Getting 'sub' (username) from the token
+        return decodedToken.sub;
       } catch (error) {
         console.error('Erro ao decodificar o token:', error);
         return null;

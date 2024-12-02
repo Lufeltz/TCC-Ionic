@@ -15,7 +15,7 @@ li {
   margin-bottom: 16px;
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
-  // box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
 }
 
@@ -120,8 +120,6 @@ li {
   .usuario-nome,
   .usuario-username,
   .comentario-usuario {
-    // font-size: 12px !important;
-    // color: var(--text-white);
     color: var(--text-new-green);
   }
 
@@ -287,7 +285,6 @@ ion-button {
 }
 
 .comentario-input:focus {
-  // background-color: rgba(41, 128, 185, 0.4);
   transform: translateY(-2px);
   outline: none;
 }
@@ -307,7 +304,6 @@ ion-button {
 }
 
 .comentar-button:hover {
-  // background-color: var(--highlight-color);
   color: var(--background-dark);
 }
 
@@ -330,7 +326,6 @@ textarea.styled-textarea::placeholder {
 }
 
 textarea.styled-textarea:focus {
-  // background-color: rgba(41, 128, 185, 0.4);
   transform: translateY(-2px);
   outline: none;
 }

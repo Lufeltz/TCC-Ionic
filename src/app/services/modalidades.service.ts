@@ -4,22 +4,20 @@ import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { ModalidadeEsportiva, Modalidades } from '../models/modalidades.model';
 import { AuthService } from './auth.service';
 
-
 @Injectable({
   providedIn: 'root',
 })
 export class ModalidadesService {
   constructor(private _http: HttpClient, private authService: AuthService) {}
 
-    NEW_URL = 'http://localhost:8081/modalidadeEsportiva';
+  NEW_URL = 'http://localhost:8081/modalidadeEsportiva';
 
-  // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {
-    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const token = this.authService.getToken();
     const headers = token
       ? new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`,
         })
       : new HttpHeaders({
           'Content-Type': 'application/json',
@@ -40,7 +38,7 @@ export class ModalidadesService {
       .pipe(
         map((resp: HttpResponse<Modalidades>) => {
           if (resp.status == 200) {
-            return resp.body; // Retorna a estrutura de Modalidades
+            return resp.body;
           } else {
             return null;
           }
@@ -64,14 +62,14 @@ export class ModalidadesService {
       .pipe(
         map((resp: HttpResponse<ModalidadeEsportiva[]>) => {
           if (resp.status === 200) {
-            return resp.body; // Retorna o array de ModalidadeEsportiva
+            return resp.body;
           } else {
             return [];
           }
         }),
         catchError((err) => {
           if (err.status === 404) {
-            return of([]); // Retorna um array vazio em caso de erro
+            return of([]);
           } else {
             return throwError(() => err);
           }

@@ -41,6 +41,5 @@ ion-toggle {
 }
 
 ion-toggle::part(track) {
-  /* Required for iOS handle to overflow the height of the track */
   overflow: visible;
 }

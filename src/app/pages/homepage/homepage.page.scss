@@ -13,11 +13,11 @@ ion-tab-bar {
 }
 
 ion-tab-button.selected {
-    color: var(--light-blue); 
+  color: var(--light-blue);
 }
 
 ion-tab-button ion-icon:hover {
-  color: var(--light-blue); 
+  color: var(--light-blue);
 }
 
 ion-label {
@@ -26,5 +26,4 @@ ion-label {
 
 .my-icon {
   font-size: 0.5rem;
-  // color: var(--text-green);
 }

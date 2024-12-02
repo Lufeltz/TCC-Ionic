@@ -58,10 +58,8 @@ ion-input.styled-input:focus {
 
 .custom-select:focus {
   outline: none;
-  background-color: var(
-    --background-dark
-  ); /* Ajuste aqui para manter a cor de fundo original */
-  border-bottom: 2px solid var(--light-blue); /* Garantir que a borda inferior esteja visível */
+  background-color: var(--background-dark);
+  border-bottom: 2px solid var(--light-blue);
 }
 
 .custom-select option {
@@ -178,13 +176,10 @@ ion-textarea.styled-textarea:focus {
   outline: none;
 }
 
-/* Adiciona um estilo específico para o textarea do título */
 ion-textarea.styled-textarea.titulo-input {
-  height: 80px; /* Ajusta a altura para metade do que era anteriormente (125px) */
-  resize: none; /* Desabilita o redimensionamento */
+  height: 80px;
+  resize: none;
 }
-
-/* Outros estilos existentes... */
 
 ion-button {
   margin-top: 16px;

@@ -425,7 +425,7 @@ export class MetasPage implements OnInit {
   excluirMetaConfirmada(id: string) {
     this.metaDiariaService.deleteMetaDiaria(id).subscribe({
       next: () => {
-        this.listarMetaDiarias(); // Atualiza a lista de metas após a exclusão
+        this.listarMetaDiarias();
         this.stateService.triggerUpdateListarMetasDiarias();
       },
       error: (err) => {
@@ -449,7 +449,7 @@ export class MetasPage implements OnInit {
         {
           text: 'Concluir',
           handler: () => {
-            this.listarMetaDiarias(); // Atualiza a lista de metas após a conclusão
+            this.listarMetaDiarias();
             this.stateService.triggerUpdateListarMetasDiarias();
             console.log('Meta confirmada:', meta);
           },

@@ -67,10 +67,10 @@ export class PrefNotifPage implements OnInit {
   mostrarEstadoToggle(estado: boolean): void {}
 
   ngOnInit() {
-    const user = this.authService.getUser(); // Obtém o usuário autenticado
+    const user = this.authService.getUser();
     if (user) {
-      this.user = user; // Armazena o usuário
-      this.getPrivacidades(this.user.idAcademico); // Passa o idAcademico do usuário
+      this.user = user;
+      this.getPrivacidades(this.user.idAcademico);
     } else {
       console.error('Usuário não autenticado');
     }
@@ -79,8 +79,7 @@ export class PrefNotifPage implements OnInit {
   getPrivacidades(id: number) {
     this.privacidadeService.getPrivacidades(id).subscribe({
       next: (data: Privacidade | null) => {
-        // Se for null, usa o valor padrão ou trata como necessário
-        this.privacidades = data || new Privacidade(); // Garante que privacidades seja sempre um objeto válido
+        this.privacidades = data || new Privacidade();
       },
       error: (err) => {
         console.error('Erro ao buscar dados de privacidade:', err);

@@ -48,7 +48,6 @@ ion-toggle::part(track) {
   height: 20px;
   width: 36px;
 
-  /* Required for iOS handle to overflow the height of the track */
   overflow: visible;
 }
 
@@ -59,8 +58,8 @@ ion-toggle::part(track) {
 }
 
 .criar-post ion-button {
-  width: auto; /* Ajuste automático da largura */
-  max-width: 300px; /* Largura máxima opcional */
+  width: auto;
+  max-width: 300px;
 }
 
 lucide-angular {

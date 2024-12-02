@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { MetaEsportiva } from 'src/app/models/meta-esportiva.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import {
   IonButton,
   IonLabel,
@@ -14,14 +14,11 @@ import {
   NotebookText,
   Ruler,
   Save,
-  Smile,
   Target,
 } from 'lucide-angular';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Conquista } from 'src/app/models/conquista.model';
-import { MetaEsportivaService } from 'src/app/services/meta-esportiva.service';
-import { ModalidadesService } from 'src/app/services/modalidades.service';
 import { ConquistasService } from 'src/app/services/conquistas.service';
 import { StateService } from 'src/app/services/state.service';
 

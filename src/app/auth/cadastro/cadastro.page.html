@@ -4,7 +4,6 @@
       <h1>Sportfy</h1>
       <p>Faça seu cadastro abaixo.</p>
       <ion-list lines="none">
-        <!-- Nome -->
         <div class="icon-align">
           <lucide-angular
             [img]="User"
@@ -29,7 +28,6 @@
           <p *ngIf="nome.errors?.['required']">O nome é obrigatório.</p>
         </div>
 
-        <!-- Usuário -->
         <div class="icon-align">
           <lucide-angular
             [img]="ALargeSmall"
@@ -54,7 +52,6 @@
           <p *ngIf="username.errors?.['required']">O usuário é obrigatório.</p>
         </div>
 
-        <!-- E-mail -->
         <div class="icon-align">
           <lucide-angular
             [img]="AtSign"
@@ -73,7 +70,7 @@
             [(ngModel)]="academico.email"
             #email="ngModel"
             required
-            email 
+            email
           ></ion-input>
         </ion-item>
         <div *ngIf="email.invalid && email.touched" class="error-message">
@@ -81,7 +78,6 @@
           <p *ngIf="email.errors?.['email']">O e-mail deve ser válido.</p>
         </div>
 
-        <!-- Telefone -->
         <div class="icon-align">
           <lucide-angular
             [img]="Phone"
@@ -98,19 +94,20 @@
             id="telefone"
             placeholder="Exemplo: (41) 9 9214-4435"
             [(ngModel)]="academico.telefone"
-            (input)="onTelefoneChange($event)"  
+            (input)="onTelefoneChange($event)"
             #telefone="ngModel"
             required
             maxlength="11"
             pattern="[0-9]{11}"
           ></ion-input>
-        </ion-item>        
+        </ion-item>
         <div *ngIf="telefone.invalid && telefone.touched" class="error-message">
           <p *ngIf="telefone.errors?.['required']">O telefone é obrigatório.</p>
-          <p *ngIf="telefone.errors?.['pattern']">O telefone deve conter apenas números e 11 dígitos.</p>
+          <p *ngIf="telefone.errors?.['pattern']">
+            O telefone deve conter apenas números e 11 dígitos.
+          </p>
         </div>
 
-        <!-- Data de Nascimento -->
         <div class="icon-align">
           <lucide-angular
             [img]="CalendarArrowUp"
@@ -131,11 +128,15 @@
             required
           ></ion-input>
         </ion-item>
-        <div *ngIf="dataNascimento.invalid && dataNascimento.touched" class="error-message">
-          <p *ngIf="dataNascimento.errors?.['required']">A data de nascimento é obrigatória.</p>
+        <div
+          *ngIf="dataNascimento.invalid && dataNascimento.touched"
+          class="error-message"
+        >
+          <p *ngIf="dataNascimento.errors?.['required']">
+            A data de nascimento é obrigatória.
+          </p>
         </div>
 
-        <!-- Curso -->
         <div class="icon-align">
           <lucide-angular
             [img]="GraduationCap"
@@ -157,12 +158,13 @@
                 required
               >
                 <option value="" disabled selected>Selecione o curso</option>
-                <option *ngFor="let curso of cursos" [value]="curso">{{ curso }}</option>
+                <option *ngFor="let curso of cursos" [value]="curso">
+                  {{ curso }}
+                </option>
               </select>
             </div>
           </div>
         </ion-item>
-
       </ion-list>
 
       <ion-button
@@ -182,7 +184,9 @@
         </div>
       </ion-button>
 
-      <p class="margin-bot">Já possui uma conta? <a routerLink="/login">Log in</a></p>
+      <p class="margin-bot">
+        Já possui uma conta? <a routerLink="/login">Log in</a>
+      </p>
     </div>
   </form>
 </ion-content>

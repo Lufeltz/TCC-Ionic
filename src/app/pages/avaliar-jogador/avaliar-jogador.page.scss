@@ -9,23 +9,23 @@
 }
 
 .star {
-  width: 2rem; /* Tamanho do ícone */
-  height: 2rem; /* Tamanho do ícone */
-  cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-  transition: fill 0.3s; /* Transição suave ao mudar a cor */
-  color: gray; /* Cor padrão para as estrelas */
-  z-index: 10; /* Define um z-index alto para garantir que as estrelas sejam clicáveis */
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  transition: fill 0.3s;
+  color: gray;
+  z-index: 10;
 
   &.active {
-    color: var(--yellow-desc); /* Cor amarela para estrelas ativas */
+    color: var(--yellow-desc);
   }
 }
 
 .card {
-  display: flex; /* Habilita flexbox no card */
-  flex-direction: column; /* Coloca os itens em coluna */
-  align-items: center; /* Centraliza os itens horizontalmente */
-  justify-content: center; /* Centraliza os itens verticalmente */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   background-color: var(--background-dark);
   border-radius: 8px;
   border-right: 2px solid var(--light-blue);

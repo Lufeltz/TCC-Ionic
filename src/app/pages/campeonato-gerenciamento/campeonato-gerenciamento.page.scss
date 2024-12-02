@@ -428,29 +428,26 @@ ion-datetime .days .day.selected {
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   text-align: center;
-  overflow: hidden; /* Impede que o texto ultrapasse o campo */
-  word-wrap: break-word; /* Quebra palavras longas */
-  white-space: normal; /* Permite quebra de linha dentro das opções */
+  overflow: hidden;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
-/* Estilo de foco do select */
 .custom-select:focus {
   outline: none;
   background-color: var(--background-dark);
   border-bottom: 2px solid var(--light-blue);
 }
 
-/* Estilo das opções dentro do select */
 .custom-select option {
   background-color: var(--background-dark);
   color: var(--text-white);
-  padding: 0.5rem; /* Dê algum padding para as opções */
-  white-space: normal; /* Permite a quebra de linha nas opções */
-  word-wrap: break-word; /* Quebra palavras longas */
-  max-width: 100%; /* Garante que o texto não ultrapasse a largura do select */
+  padding: 0.5rem;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 100%;
 }
 
-/* Estilo das opções quando selecionadas */
 .custom-select option[value="futebol"]:checked {
   background-color: var(--background-dark);
   color: var(--light-blue);
@@ -461,13 +458,11 @@ ion-datetime .days .day.selected {
   color: var(--light-blue);
 }
 
-/* Estilo das opções quando o mouse passa por cima */
 .custom-select option:hover {
   background-color: var(--light-blue);
   color: var(--text-white);
 }
 
-/* Estilo do select quando o mouse passa por cima */
 .custom-select:hover {
   background-color: var(--background-dark);
 }

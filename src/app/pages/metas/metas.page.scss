@@ -191,7 +191,6 @@ ion-input {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-  
 }
 
 .btn-inscrever-se {
@@ -306,49 +305,49 @@ ion-button {
 .align-esportivas,
 .align-diarias {
   display: flex;
-  justify-content: flex-start; /* Alinha o texto à esquerda */
+  justify-content: flex-start;
   align-items: center;
-  gap: 8px; /* Espaçamento entre o título e o nome da modalidade */
+  gap: 8px;
   padding: 0;
-  margin: 0; /* Remove qualquer margem */
-  text-align: left; /* Garante alinhamento à esquerda */
-  width: auto; /* Ajusta a largura conforme o conteúdo */
+  margin: 0;
+  text-align: left;
+  width: auto;
 }
 
 .centered-toggle {
   display: flex;
-  justify-content: center; /* Centraliza o toggle */
-  align-items: center; /* Garante que o toggle esteja centralizado verticalmente */
+  justify-content: center;
+  align-items: center;
   margin-left: auto;
   margin-right: auto;
-  width: fit-content; /* Ajusta a largura para o conteúdo */
+  width: fit-content;
 }
 
 .titulo-esportiva {
   display: flex;
-  justify-content: space-between; /* Garantir que o título e a modalidade ocupem o espaço */
+  justify-content: space-between;
   align-items: center;
   margin: 0;
-  width: 100%; /* Faz com que o título ocupe toda a largura disponível */
+  width: 100%;
 }
 
 .titulo-esportiva .texto-light {
   font-size: 0.8rem;
-  color: var(--text-light); /* Mantém a cor do texto conforme configurado */
+  color: var(--text-light);
 }
 
 .titulo-principal {
-  color: var(--text-new-green); /* Cor para o título das metas esportivas */
+  color: var(--text-new-green);
   font-size: 1.25rem;
-  flex-grow: 1; /* Garante que o título ocupe o espaço restante */
+  flex-grow: 1;
 }
 
 .centered-toggle {
   display: flex;
-  justify-content: center; /* Centraliza o toggle */
-  align-items: center; /* Garante que o toggle esteja centralizado verticalmente */
-  flex-grow: 1; /* Garante que o espaço disponível será ocupado */
-  width: auto; /* Ajusta a largura conforme necessário */
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  width: auto;
 }
 
 .novo-alinhamento {
@@ -362,31 +361,31 @@ ion-button {
 
 .container-alinhado {
   display: flex;
-  justify-content: center; /* Alinha os itens no centro */
+  justify-content: center;
   align-items: center;
   width: 100%;
 }
 
 .icone-texto {
   display: flex;
-  align-items: center; /* Alinha verticalmente o ícone e o texto */
-  justify-content: center; /* Alinha horizontalmente o ícone e o texto */
+  align-items: center;
+  justify-content: center;
 }
 
 .icone {
-  margin-right: 8px; /* Ajuste a distância entre o ícone e o texto */
+  margin-right: 8px;
 }
 
 .texto {
-  font-size: 16px; /* Ajuste o tamanho do texto conforme necessário */
+  font-size: 16px;
   text-align: center;
 }
 
 .toggle-container {
   display: flex;
-  align-items: center; /* Alinha o toggle verticalmente com o ícone e o texto */
-  justify-content: center; /* Garante que o toggle também estará alinhado ao centro */
-  margin-left: 16px; /* Pode ser ajustado para o espaço entre o conjunto de ícone + texto e o toggle */
+  align-items: center;
+  justify-content: center;
+  margin-left: 16px;
 }
 
 .novo-alinhamento-esportivas {
@@ -400,39 +399,39 @@ ion-button {
 
 .container-alinhado-esportivas {
   display: flex;
-  justify-content: center; /* Alinha os itens no centro */
+  justify-content: center;
   align-items: center;
   width: 100%;
 }
 
 .icone-texto-esportivas {
   display: flex;
-  align-items: center; /* Alinha verticalmente o ícone e o texto */
-  justify-content: center; /* Alinha horizontalmente o ícone e o texto */
+  align-items: center;
+  justify-content: center;
 }
 
 .icone-esportivas {
-  margin-right: 8px; /* Ajuste a distância entre o ícone e o texto */
+  margin-right: 8px;
 }
 
 .texto-esportivas {
-  font-size: 16px; /* Ajuste o tamanho do texto conforme necessário */
+  font-size: 16px;
   text-align: center;
 }
 
 .toggle-container-esportivas {
   display: flex;
-  align-items: center; /* Alinha o toggle verticalmente com o ícone e o texto */
-  justify-content: center; /* Garante que o toggle também estará alinhado ao centro */
-  margin-left: 16px; /* Ajuste o espaço entre o conjunto ícone + texto e o toggle */
+  align-items: center;
+  justify-content: center;
+  margin-left: 16px;
 }
 
 .icon-completo {
-  color: var(--text-new-green) !important; /* Verde para completo */
+  color: var(--text-new-green) !important;
 }
 
 .icon-incompleto {
-  color: var(--light-red) !important; /* Vermelho para incompleto */
+  color: var(--light-red) !important;
 }
 
 .titulo-completo {

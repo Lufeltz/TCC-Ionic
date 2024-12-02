@@ -62,7 +62,6 @@ export class LoginPage implements OnInit {
   user: Academico | null = null;
 
   ngOnInit(): void {
-    // Verificar se o usuário está autenticado
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/homepage']);
     } else {
@@ -71,9 +70,8 @@ export class LoginPage implements OnInit {
       });
     }
 
-    // Inscrever-se no BehaviorSubject para obter as atualizações do usuário
     this.authService.user$.subscribe((user) => {
-      this.user = user; // Armazenar o usuário no componente
+      this.user = user;
     });
   }
 
@@ -83,15 +81,13 @@ export class LoginPage implements OnInit {
       next: (token) => {
         if (token) {
           const decodedToken: any = jwtDecode(token);
-          console.log(token)
-          // Navega para a homepage
+          console.log(token);
+
           this.router.navigate(['/homepage']).then(() => {
-            // Carregar os dados do usuário após login
             this.authService.loadUserData();
             this.stateService.triggerUpdateListagemCampeonatos();
           });
         } else {
-          // Caso o token seja inválido
           this.message = 'Usuário/Senha inválidos.';
         }
         this.loading = false;
@@ -99,7 +95,6 @@ export class LoginPage implements OnInit {
       error: (err) => {
         this.loading = false;
 
-        // Verificar o código de erro e exibir a mensagem correspondente
         if (err.status === 400) {
           this.message =
             'Erro no login. Verifique o usuário e a senha novamente.';

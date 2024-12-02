@@ -4,7 +4,6 @@
       <h1>Sportfy</h1>
       <p>Acesse a sua conta.</p>
       <ion-list lines="none">
-        <!-- Campo Usuário -->
         <ion-item>
           <div class="icon-align">
             <lucide-angular
@@ -28,7 +27,6 @@
           <p *ngIf="username.errors?.['required']">O usuário é obrigatório.</p>
         </div>
 
-        <!-- Campo Senha -->
         <ion-item>
           <div class="icon-align">
             <lucide-angular
@@ -53,7 +51,6 @@
         </div>
       </ion-list>
 
-      <!-- Botão Entrar -->
       <ion-button
         size="small"
         expand="block"
@@ -63,14 +60,18 @@
       >
         <div class="text-container">Entrar</div>
         <div class="icon-align">
-          <lucide-angular [img]="LogIn" class="btn-inscrever-se" [size]="20"></lucide-angular>
+          <lucide-angular
+            [img]="LogIn"
+            class="btn-inscrever-se"
+            [size]="20"
+          ></lucide-angular>
         </div>
       </ion-button>
 
-      <!-- Link para cadastro -->
-      <p class="margin-bot">Não tem uma conta? <a routerLink="/cadastro">Cadastre-se</a></p>
+      <p class="margin-bot">
+        Não tem uma conta? <a routerLink="/cadastro">Cadastre-se</a>
+      </p>
 
-      <!-- Exibe a mensagem de erro abaixo do campo de senha -->
       <p *ngIf="message" class="error-message">{{ message }}</p>
     </div>
   </form>

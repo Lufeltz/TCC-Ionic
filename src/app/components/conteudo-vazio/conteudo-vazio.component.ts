@@ -11,18 +11,17 @@ import { Router, RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, IonicModule, LucideAngularModule, RouterModule],
 })
-export class ConteudoVazioComponent  implements OnInit {
-  @Input() mensagemAusencia: string = ''; // Mensagem para exibir
-  @Input() tipoErro: '404' | '204'= '404';
+export class ConteudoVazioComponent implements OnInit {
+  @Input() mensagemAusencia: string = '';
+  @Input() tipoErro: '404' | '204' = '404';
 
-  readonly CircleHelp = CircleHelp; // Icone para 404
+  readonly CircleHelp = CircleHelp;
 
   constructor(private router: Router) {}
 
   ngOnInit() {}
 
-    // Método para navegação
-    navigateToModalidades() {
-      this.router.navigate(['/homepage/modalidades']);
-    }
+  navigateToModalidades() {
+    this.router.navigate(['/homepage/modalidades']);
+  }
 }

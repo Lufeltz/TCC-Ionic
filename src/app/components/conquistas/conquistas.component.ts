@@ -3,7 +3,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import {
   Award,
   CircleDashed,
-  Ellipsis,
   LucideAngularModule,
   NotebookText,
   SignalHigh,

@@ -82,7 +82,6 @@ export class AvaliarJogadorPage implements OnInit {
 
   isRatingSaved: boolean = false;
 
-
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
@@ -180,21 +179,22 @@ export class AvaliarJogadorPage implements OnInit {
       const idAcademico = this.academico.idAcademico;
       const nota = this.selectedRating;
       const idModalidade = this.academico.modalidades[0].idModalidade;
-  
+
       this.campeonatoService
         .avaliarJogador(idAvaliador, idAcademico, nota, idModalidade)
         .subscribe(
           (response) => {
             this.obterMediaAvaliacao();
-            this.isRatingSaved = true;  // Defina como true após salvar a avaliação
+            this.isRatingSaved = true;
           },
           (error) => {
             console.error('Erro ao salvar avaliação:', error);
           }
         );
     } else {
-      console.error('Selecione uma avaliação válida e verifique os dados do acadêmico.');
+      console.error(
+        'Selecione uma avaliação válida e verifique os dados do acadêmico.'
+      );
     }
   }
-  
 }

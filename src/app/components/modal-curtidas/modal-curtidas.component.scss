@@ -13,43 +13,41 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: var(
-    --background-dark
-  ); /* Cor do fundo do modal igual ao do post */
+  background: var(--background-dark);
   padding: 20px;
   border-radius: 8px;
   z-index: 1001;
-  border-right: 2px solid var(--yellow-desc); /* Borda direita amarela */
-  border-bottom: 2px solid var(--yellow-desc); /* Borda inferior amarela */
-  color: var(--text-white); /* Cor do texto do modal */
-  width: 86%; /* Largura do modal proporcional ao tamanho da tela */
-  max-width: 800px; /* Largura máxima, igual ao tamanho do post */
+  border-right: 2px solid var(--yellow-desc);
+  border-bottom: 2px solid var(--yellow-desc);
+  color: var(--text-white);
+  width: 86%;
+  max-width: 800px;
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
 }
 
 h2 {
   font-size: 20px;
-  color: var(--text-highlight); /* Cor do título do modal */
-  text-align: center; /* Centraliza o título */
+  color: var(--text-highlight);
+  text-align: center;
 }
 
 .curtidas-lista {
-  max-height: 175px; /* Altura máxima ajustada para 150px */
-  overflow-y: auto; /* Adiciona a rolagem vertical quando necessário */
-  margin-bottom: 20px; /* Espaçamento entre lista e botão */
+  max-height: 175px;
+  overflow-y: auto;
+  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza a lista dentro do modal */
+  align-items: center;
 }
 
 ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  width: 100%; /* Faz a lista ocupar toda a largura disponível */
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza os itens da lista */
+  align-items: center;
 }
 
 li {
@@ -57,34 +55,34 @@ li {
   font-size: 16px;
   color: var(--text-white);
   display: flex;
-  align-items: center; /* Alinha o ícone e o nome na mesma linha */
-  justify-content: center; /* Centraliza o conteúdo do item (ícone e nome) */
+  align-items: center;
+  justify-content: center;
 }
 
 .user-icon {
-  margin-right: 10px; /* Espaçamento entre o ícone e o nome */
+  margin-right: 10px;
 }
 
 button {
   margin-top: 20px;
   padding: 10px 20px;
-  background-color: var(--text-white); /* Fundo branco para o botão */
-  color: var(--background-dark); /* Texto escuro para o botão */
+  background-color: var(--text-white);
+  color: var(--background-dark);
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
   display: flex;
   align-items: center;
-  justify-content: center; /* Centraliza o ícone e o texto dentro do botão */
+  justify-content: center;
 }
 
 button:hover {
-  background-color: var(--yellow-desc); /* Cor do botão quando passar o mouse */
+  background-color: var(--yellow-desc);
 }
 
 .button-icon {
-  margin-right: 8px; /* Espaçamento entre o ícone e o texto */
+  margin-right: 8px;
 }
 
 .btn-inscrever-se {
@@ -126,19 +124,19 @@ ion-button {
 .title {
   margin-bottom: 20px;
   // margin-top: -5px;
-  margin-right: 10px; /* Espaçamento entre o título e o ícone */
-  // line-height: 1; /* Garantir que a altura da linha do título seja mínima para centralizar melhor */
+  margin-right: 10px;
+  // line-height: 1;
 }
 
 .title-icon {
   display: flex;
-  align-items: center; /* Alinha o título e o ícone verticalmente */
-  justify-content: center; /* Alinha os itens na horizontal */
+  align-items: center;
+  justify-content: center;
 }
 
 .divider {
   width: 100%;
   height: 1px;
-  background-color: var(--yellow-desc); /* Cor da linha */
+  background-color: var(--yellow-desc);
   margin-bottom: 20px;
 }

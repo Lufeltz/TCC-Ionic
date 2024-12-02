@@ -5,7 +5,10 @@
     [menuContentId]="pageContent"
   ></app-menu-perfil>
 
-  <ion-segment [(ngModel)]="selectedSegment" (ngModelChange)="setSelectedSegment($event)">
+  <ion-segment
+    [(ngModel)]="selectedSegment"
+    (ngModelChange)="setSelectedSegment($event)"
+  >
     <ion-segment-button value="inscrito">
       <ion-label>Inscrito</ion-label>
     </ion-segment-button>
@@ -13,9 +16,6 @@
       <ion-label>Não Inscrito</ion-label>
     </ion-segment-button>
   </ion-segment>
-  
-
-    
 
   <!-- Modalidades inscritas -->
   <div *ngIf="selectedSegment === 'inscrito'">
@@ -49,49 +49,9 @@
             modalidade.descricao }}
           </p>
         </div>
-        <!-- <div class="icon-align">
-          <lucide-angular
-            [img]="Users"
-            class="btn-inscrever-se"
-            [size]="20"
-            [color]="'var(--text-new-green)'"
-          ></lucide-angular>
-          <p><strong class="inscritos">Usuários inscritos: 138</strong></p>
-        </div> -->
-        <div class="icon-align">
-          <!-- <lucide-angular
-            [img]="ZapOff"
-            class="btn-inscrever-se"
-            [size]="20"
-            [color]="'var(--yellow-desc)'"
-          ></lucide-angular> -->
-          <!-- <p>
-            <strong class="atuais">
-              Metas Atuais: {{
-              contagemPorModalidade[modalidade.idModalidadeEsportiva].conquistados
-              }} /
-              {{contagemPorModalidade[modalidade.idModalidadeEsportiva].naoConquistados
-              }}
-            </strong>
-          </p> -->
-        </div>
-        <div class="icon-align">
-          <!-- <lucide-angular
-            [img]="Crosshair"
-            class="btn-inscrever-se"
-            [size]="20"
-            [color]="'var(--purple-desc)'"
-          ></lucide-angular> -->
-          <!-- <p>
-            <strong class="conquistas"
-              >Conquistas:
-              {{contagemPorModalidade[modalidade.idModalidadeEsportiva].conquistados}}
-              / {{
-              contagemPorModalidade[modalidade.idModalidadeEsportiva].naoConquistados
-              }}
-            </strong>
-          </p> -->
-        </div>
+
+        <div class="icon-align"></div>
+        <div class="icon-align"></div>
         <img
           *ngIf="modalidade.foto"
           [src]="modalidade.foto"
@@ -157,28 +117,8 @@
             modalidade.descricao }}
           </p>
         </div>
-        <div class="icon-align">
-          <!-- <lucide-angular
-            [img]="ZapOff"
-            class="btn-inscrever-se"
-            [size]="20"
-            [color]="'var(--yellow-desc)'"
-          ></lucide-angular> -->
-          <!-- <p>
-            <strong class="atuais"> Metas Atuais: 0 / 4 </strong>
-          </p> -->
-        </div>
-        <div class="icon-align">
-          <!-- <lucide-angular
-            [img]="Crosshair"
-            class="btn-inscrever-se"
-            [size]="20"
-            [color]="'var(--purple-desc)'"
-          ></lucide-angular> -->
-          <!-- <p>
-            <strong class="conquistas">Conquistas: 0 / 4 </strong>
-          </p> -->
-        </div>
+        <div class="icon-align"></div>
+        <div class="icon-align"></div>
         <img
           *ngIf="modalidade.foto"
           [src]="modalidade.foto"
@@ -208,10 +148,4 @@
       </li>
     </ul>
   </div>
-
-  <app-modal-editar-modalidade
-    *ngIf="modalEditarVisivel"
-    [modalidade]="modalidadeParaEditar"
-    (close)="fecharModal()"
-  ></app-modal-editar-modalidade>
 </ion-content>

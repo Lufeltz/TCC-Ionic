@@ -3,23 +3,22 @@ import { Injectable } from '@angular/core';
 import { ComentarioApiResponse } from '../models/comentario-api-response.model';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Comentario } from '../models/comentario.model';
-import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ComentarioService {
-  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
+  constructor(private _http: HttpClient, private authService: AuthService) {}
 
   private readonly NEW_URL = 'http://localhost:8081';
 
-  // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {
-    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const token = this.authService.getToken();
     const headers = token
       ? new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`,
         })
       : new HttpHeaders({
           'Content-Type': 'application/json',
@@ -73,9 +72,9 @@ export class ComentarioService {
               numberOfElements: 0,
               pageable: {},
               empty: true,
-            }); // Retorna um objeto vazio se a página não for encontrada
+            });
           } else {
-            return throwError(() => err); // Caso de erro diferente, lança o erro
+            return throwError(() => err);
           }
         })
       );

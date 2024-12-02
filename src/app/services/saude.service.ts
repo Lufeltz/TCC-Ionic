@@ -2,23 +2,22 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Saude } from '../models/saude.model';
-import { AuthService } from './auth.service'; // Importa o AuthService
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SaudeService {
-  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
+  constructor(private _http: HttpClient, private authService: AuthService) {}
 
-    NEW_URL = 'http://localhost:8081/apoioSaude';
+  NEW_URL = 'http://localhost:8081/apoioSaude';
 
-  // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {
-    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const token = this.authService.getToken();
     const headers = token
       ? new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`,
         })
       : new HttpHeaders({
           'Content-Type': 'application/json',
@@ -32,7 +31,7 @@ export class SaudeService {
 
   getContatosSaude(): Observable<Saude[] | null> {
     return this._http
-      .get<Saude[]>(`${this.NEW_URL}`, this.getHttpOptions()) // Usa getHttpOptions para incluir o token
+      .get<Saude[]>(`${this.NEW_URL}`, this.getHttpOptions())
       .pipe(
         map((resp: HttpResponse<Saude[]>) => {
           if (resp.status === 200) {
@@ -43,9 +42,9 @@ export class SaudeService {
         }),
         catchError((err, caught) => {
           if (err.status === 404) {
-            return of([]); // Retorna um array vazio caso não haja dados
+            return of([]);
           } else {
-            return throwError(() => err); // Retorna erro em caso de falha
+            return throwError(() => err);
           }
         })
       );

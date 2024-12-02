@@ -11,11 +11,9 @@ import {
 } from '@ionic/angular/standalone';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
-import { HTTP_INTERCEPTORS, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import { provideNgxMask } from 'ngx-mask';
-import { AuthInterceptor } from './app/auth/auth.interceptor';
 import { AuthService } from './app/services/auth.service';
-import { APP_INITIALIZER } from '@angular/core';
 import { Observable } from 'rxjs';
 
 export function initializeAuth(authService: AuthService) {

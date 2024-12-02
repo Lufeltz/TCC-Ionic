@@ -1,354 +1,351 @@
 .cadeado-icon {
-    color: var(--light-blue);
-    font-size: 1.5rem;
-    vertical-align: middle;
-    margin-left: 8px;
-  }
-  
-  .campeonatos-container {
-    padding: 16px;
-  }
-  
-  ul {
-    padding: 0;
-    list-style-type: none;
-    margin: 0;
-  }
-  
+  color: var(--light-blue);
+  font-size: 1.5rem;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+.campeonatos-container {
+  padding: 16px;
+}
+
+ul {
+  padding: 0;
+  list-style-type: none;
+  margin: 0;
+}
+
+.campeonato {
+  background-color: var(--background-dark);
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px;
+  margin-top: 16px;
+  position: relative;
+  z-index: 1;
+  border-right: 2px solid var(--light-blue);
+  border-bottom: 2px solid var(--light-blue);
+  box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
+}
+
+.campeonato-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.campeonato-nome {
+  font-size: 1.25rem;
+  color: var(--light-blue);
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+}
+
+.campeonato-curso {
+  font-size: 14px;
+  color: var(--text-white);
+}
+
+.campeonato-data {
+  font-size: 12px;
+  color: var(--text-light);
+}
+
+.campeonato-foto {
+  font-size: 12px;
+  color: var(--text-light);
+  margin-top: 4px;
+}
+
+.campeonato-interacoes {
+  margin-top: 20px;
+  border-top: 1px solid var(--text-light);
+  padding-top: 16px;
+  color: var(--text-light);
+}
+
+.detalhes-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.detalhes-header ion-label {
+  font-size: 16px;
+  color: var(--text-highlight);
+}
+
+ion-accordion {
+  background-color: var(--background-dark);
+}
+
+div[slot="header"] {
+  background: var(--background-dark);
+}
+
+ion-item {
+  --background: var(--background-dark);
+  color: var(--light-blue);
+}
+
+@media (max-width: 375px) {
   .campeonato {
-    background-color: var(--background-dark);
-    border-radius: 8px;
-    padding: 16px;
-    margin-bottom: 16px;
-    margin-top: 16px;
-    position: relative;
-    z-index: 1;
-    border-right: 2px solid var(--light-blue);
-    border-bottom: 2px solid var(--light-blue);
-    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-    
+    padding: 12px;
   }
-  
-  .campeonato-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+  .campeonato-data,
+  .campeonato-foto {
+    font-size: 10px;
+  }
+}
+
+.header {
+  color: var(--text-white);
+}
+
+ion-button {
+  margin-top: 16px;
+  --background: var(--text-white);
+  --color: var(--background-dark);
+}
+
+.endereco {
+  border-top: 1px solid var(--text-light);
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.detalhes strong {
+  color: var(--yellow-desc);
+}
+
+.endereco strong {
+  color: var(--light-red);
+}
+
+.header strong {
+  color: var(--purple-desc);
+}
+
+ion-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.icon-button .text-container {
+  display: flex;
+  align-items: center;
+}
+
+.btn-inscrever-se {
+  margin-left: 5px;
+}
+
+.icon-align {
+  display: flex;
+  align-items: center;
+  margin-top: 4px;
+}
+
+.icon-align lucide-angular {
+  margin-right: 5px;
+}
+
+.icon-align p {
+  margin: 0;
+  color: var(--text-white);
+  font-size: 1rem;
+}
+
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin-bottom: 16px;
+
+  &-header {
+    height: 20px;
+    width: 70%;
+    background-color: #e0e0e0;
+    border-radius: 4px;
     margin-bottom: 8px;
   }
-  
-  .campeonato-nome {
-    font-size: 1.25rem;
-    color: var(--light-blue);
-    flex-grow: 1;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  .campeonato-curso {
-    font-size: 14px;
-    color: var(--text-white);
-  }
-  
-  .campeonato-data {
-    font-size: 12px;
-    color: var(--text-light);
-  }
-  
-  .campeonato-foto {
-    font-size: 12px;
-    color: var(--text-light);
-    margin-top: 4px;
-  }
-  
-  .campeonato-interacoes {
-    margin-top: 20px;
-    border-top: 1px solid var(--text-light);
-    padding-top: 16px;
-    color: var(--text-light);
-  }
-  
-  .detalhes-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .detalhes-header ion-label {
-    font-size: 16px;
-    color: var(--text-highlight);
-  }
-  
-  ion-accordion {
-    background-color: var(--background-dark);
-  }
-  
-  div[slot="header"] {
-    background: var(--background-dark);
-  }
-  
-  ion-item {
-    --background: var(--background-dark);
-    color: var(--light-blue);
-  }
-  
-  @media (max-width: 375px) {
-    .campeonato {
-      padding: 12px;
-    }
-  
-    .campeonato-data,
-    .campeonato-foto {
-      font-size: 10px;
-    }
-  }
-  
-  .header {
-    color: var(--text-white);
-  }
-  
-  ion-button {
-    margin-top: 16px;
-    --background: var(--text-white);
-    --color: var(--background-dark);
-  }
-  
-  .endereco {
-    border-top: 1px solid var(--text-light);
-    padding-top: 20px;
-    margin-top: 20px;
-  }
-  
-  .detalhes strong {
-    color: var(--yellow-desc);
-  }
-  
-  .endereco strong {
-    color: var(--light-red);
-  }
-  
-  .header strong {
-    color: var(--purple-desc);
-  }
-  
-  ion-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-  }
-  
-  .icon-button .text-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .btn-inscrever-se {
-    margin-left: 5px;
-  }
-  
-  .icon-align {
-    display: flex;
-    align-items: center;
-    margin-top: 4px;
-  }
-  
-  .icon-align lucide-angular {
-    margin-right: 5px;
-  }
-  
-  .icon-align p {
-    margin: 0;
-    color: var(--text-white);
-    font-size: 1rem;
-  }
-  
-  .skeleton {
+
+  &-body {
     display: flex;
     flex-direction: column;
-    padding: 16px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    margin-bottom: 16px;
-  
-    &-header {
-      height: 20px;
-      width: 70%;
+
+    .skeleton-line {
+      height: 14px;
       background-color: #e0e0e0;
+      margin: 4px 0;
       border-radius: 4px;
-      margin-bottom: 8px;
-    }
-  
-    &-body {
-      display: flex;
-      flex-direction: column;
-  
-      .skeleton-line {
-        height: 14px;
-        background-color: #e0e0e0;
-        margin: 4px 0;
-        border-radius: 4px;
-        width: 100%;
-      }
+      width: 100%;
     }
   }
-  .detalhes-header {
-    --background: var(--background-dark);
-    color: var(--light-blue);
-  }
-  
-  ion-accordion:hover .detalhes-header ion-label {
-    color: var(--light-blue);
-  }
-  
-  ion-toggle {
-    color: var(--gray-50);
-    --handle-width: 20px;
-    --handle-height: 20px;
-    --track-background: #d2caca;
-    --track-background-checked: #333337;
-    --handle-background: var(--gray-50);
-    margin-right: 2rem;
-  }
-  
-  .label-titulo {
-    font-weight: 600;
-  }
-  
-  .toggle-diarias {
-    --handle-background-checked: var(--yellow-desc);
-  }
-  
-  .toggle-esportivas {
-    --handle-background-checked: var(--text-new-green);
-  }
-  
-  ion-item {
-    --background: var(--background-light);
-    color: var(--light-blue);
-  }
-  
-  .texto-light {
-    font-size: 0.8rem;
-    color: var(--text-light);
-  }
-  
-  .centered-button {
-    --background: var(--light-blue);
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    margin-top: 1rem;
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 1rem;
-  }
-  
-  .item-lista ion-label {
-    color: var(--light-blue);
-    margin-bottom: 0.5rem;
-  }
-  
-  ion-segment {
-    --background: var(--background-dark);
-  }
-  
-  div {
-    h2,
-    p {
-      color: var(--text-white);
-    }
-  }
-  
-  ul {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-  }
-  
-  .item-lista2 {
-    border-radius: 8px;
-    padding: 1rem;
+}
+.detalhes-header {
+  --background: var(--background-dark);
+  color: var(--light-blue);
+}
+
+ion-accordion:hover .detalhes-header ion-label {
+  color: var(--light-blue);
+}
+
+ion-toggle {
+  color: var(--gray-50);
+  --handle-width: 20px;
+  --handle-height: 20px;
+  --track-background: #d2caca;
+  --track-background-checked: #333337;
+  --handle-background: var(--gray-50);
+  margin-right: 2rem;
+}
+
+.label-titulo {
+  font-weight: 600;
+}
+
+.toggle-diarias {
+  --handle-background-checked: var(--yellow-desc);
+}
+
+.toggle-esportivas {
+  --handle-background-checked: var(--text-new-green);
+}
+
+ion-item {
+  --background: var(--background-light);
+  color: var(--light-blue);
+}
+
+.texto-light {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.centered-button {
+  --background: var(--light-blue);
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.item-lista ion-label {
+  color: var(--light-blue);
+  margin-bottom: 0.5rem;
+}
+
+ion-segment {
+  --background: var(--background-dark);
+}
+
+div {
+  h2,
+  p {
     color: var(--text-white);
   }
-  
-  .item-lista2:hover {
-    background-color: var(--background-hover);
-    transform: translateY(-2px);
-  }
-  
-  .item-lista2 ion-label {
-    color: var(--text-light);
-  }
-  
-  .item-lista2 ion-input {
-    background-color: var(--background-dark);
-    border-radius: 5px;
-    color: var(--text-white);
-    padding: 0.5rem;
-    --padding-start: 0.5rem;
-    --padding-end: 0.5rem;
-    --padding-top: 0.5rem;
-    --padding-bottom: 0.5rem;
-    margin-top: 10px;
-  }
-  
-  .item-lista2 ion-input::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-  }
-  
-  .container {
-    margin-top: 1rem;
-  }
-  
-  .centered-button {
-    --background: var(--light-blue);
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
-    margin-top: 1rem;
-  }
-  
-  .btn-inscrever-se {
-    margin-right: 5px;
-  }
-  
-  .align-esportivas,
-  .align-diarias {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    padding: 0 16px;
-    margin: auto;
-    text-align: center;
-    width: fit-content;
-  }
-  
-  .align-diarias {
-    color: var(--yellow-desc);
-  }
-  
-  .align-esportivas {
-    color: var(--text-new-green);
-  }
-  .icon-label {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  ion-button {
-    margin-top: 16px;
-    --background: var(--text-white);
-    --color: var(--background-dark);
-    
-  }
-  
-  ion-button:active {
-    --color: var(--text-white);
-  }
-  
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.item-lista2 {
+  border-radius: 8px;
+  padding: 1rem;
+  color: var(--text-white);
+}
+
+.item-lista2:hover {
+  background-color: var(--background-hover);
+  transform: translateY(-2px);
+}
+
+.item-lista2 ion-label {
+  color: var(--text-light);
+}
+
+.item-lista2 ion-input {
+  background-color: var(--background-dark);
+  border-radius: 5px;
+  color: var(--text-white);
+  padding: 0.5rem;
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+  --padding-top: 0.5rem;
+  --padding-bottom: 0.5rem;
+  margin-top: 10px;
+}
+
+.item-lista2 ion-input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.container {
+  margin-top: 1rem;
+}
+
+.centered-button {
+  --background: var(--light-blue);
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+  margin-top: 1rem;
+}
+
+.btn-inscrever-se {
+  margin-right: 5px;
+}
+
+.align-esportivas,
+.align-diarias {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  padding: 0 16px;
+  margin: auto;
+  text-align: center;
+  width: fit-content;
+}
+
+.align-diarias {
+  color: var(--yellow-desc);
+}
+
+.align-esportivas {
+  color: var(--text-new-green);
+}
+.icon-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+ion-button {
+  margin-top: 16px;
+  --background: var(--text-white);
+  --color: var(--background-dark);
+}
+
+ion-button:active {
+  --color: var(--text-white);
+}

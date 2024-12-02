@@ -3,24 +3,22 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Post } from '../models/post.model';
 import { PostApiResponse } from '../models/post-api-response.model';
-import { AuthService } from './auth.service'; // Importa o AuthService para obter o token
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PostService {
-  constructor(private _http: HttpClient, private authService: AuthService) {} // Injeta o AuthService
-
+  constructor(private _http: HttpClient, private authService: AuthService) {}
 
   NEW_URL = 'http://localhost:8081';
 
-  // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {
-    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const token = this.authService.getToken();
     const headers = token
       ? new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`,
         })
       : new HttpHeaders({
           'Content-Type': 'application/json',
@@ -71,15 +69,14 @@ export class PostService {
             numberOfElements: 0,
             pageable: {},
             empty: true,
-          }); // Retorna um objeto vazio se a página não for encontrada
+          });
         } else {
-          return throwError(() => err); // Caso de erro diferente, lança o erro
+          return throwError(() => err);
         }
       })
     );
   }
 
-  // Alterar URL
   getPostById(id: number): Observable<Post | null> {
     return this._http
       .get<Post>(`${this.NEW_URL}/aeroportos/${id}`, this.getHttpOptions())

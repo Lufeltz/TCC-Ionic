@@ -110,9 +110,7 @@ export class CampeonatoStatusComponent implements OnInit {
 
   salvarResultado(partida: Partida) {
     this.partidaService.salvarPontuacao(partida).subscribe({
-      next: (response) => {
-        // console.log('Resultado salvo com sucesso:', response);
-      },
+      next: () => {},
       error: (error) => {
         console.error('Erro ao salvar resultado:', error);
       },

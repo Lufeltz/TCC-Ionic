@@ -1,13 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { AlertButton } from '@ionic/angular/standalone';
@@ -300,7 +294,6 @@ export class CampeonatoDetalhesComponent implements OnInit {
     const senhaCorreta = 'senha123';
 
     if (senha === senhaCorreta) {
-      // console.log('Você entrou no campeonato:', campeonato.titulo);
     } else {
       this.presentAlertPrompt(campeonato, 'Senha errada. Tente novamente.');
     }

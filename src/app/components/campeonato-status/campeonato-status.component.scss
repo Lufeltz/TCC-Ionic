@@ -1,17 +1,13 @@
 body {
-  background-color: black; /* Fundo preto */
-  color: white; /* Texto branco */
-  margin: 0; /* Remover margens externas */
-  padding: 0; /* Remover padding */
+  background-color: black;
+  color: white;
+  margin: 0;
+  padding: 0;
   display: flex;
-  justify-content: center; /* Centraliza horizontalmente o conteúdo */
-  align-items: flex-start; /* Alinha o conteúdo no topo */
-  height: 100vh; /* Altura da página cheia */
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
 }
-
-// app-campeonato-status {
-//   width: 80%; /* Limita a largura do componente principal para 80% */
-// }
 
 .icon-align p {
   margin: 0;
@@ -25,18 +21,16 @@ p span {
 
 .card-container {
   display: flex;
-  flex-direction: column; /* Muda a direção para coluna */
+  flex-direction: column;
   gap: 16px;
   margin-top: 16px;
   justify-content: center;
   align-items: center;
-  width: 100%; /* Garante que os cards ocupem 100% da largura do container */
+  width: 100%;
   border-radius: 8px;
   border-right: 2px solid var(--yellow-desc);
   border-bottom: 2px solid var(--yellow-desc);
-  // padding-top: 1rem;
-  // padding-right: 1rem;
-  // padding-left: 1rem;
+
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
   padding: 1.75rem;
   background-color: var(--background-dark);
@@ -50,7 +44,7 @@ p span {
   border-right: 2px solid var(--light-blue);
   border-bottom: 2px solid var(--light-blue);
   box-shadow: 0 4px 10px rgba(255, 255, 255, 0.2);
-    width: 100%; /* Faz os cards ocuparem 100% da largura do container */
+  width: 100%;
 }
 
 h3 {
@@ -58,7 +52,7 @@ h3 {
   justify-content: center;
   color: var(--text-new-green);
   margin-bottom: 8px;
-  width: 100%; /* Garante que o título ocupe toda a largura do container */
+  width: 100%;
 }
 
 h4 {
@@ -82,9 +76,9 @@ h4 {
 }
 
 .placar-input {
-  width: 50px; /* Largura do input */
-  text-align: center; /* Alinhar o texto ao centro */
-  // border: 1px solid var(--light-blue);
+  width: 50px;
+  text-align: center;
+
   border-right: 2px solid var(--yellow-desc);
   border-bottom: 2px solid var(--yellow-desc);
   border-radius: 4px;
@@ -100,7 +94,7 @@ ul {
   padding: 0;
   list-style-type: none;
   margin: 0;
-  width: 100%; /* Garante que a lista ocupe toda a largura do container */
+  width: 100%;
 }
 
 li {
@@ -112,11 +106,10 @@ li {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
-  // margin: 8px 0; /* Margem para separar o "X" dos cards */
 }
 
 .icon-align lucide-angular {
-  margin-right: 8px; /* Espaçamento entre o ícone e o número */
+  margin-right: 8px;
 }
 
 .icon-align {
@@ -154,22 +147,17 @@ li {
   justify-content: center;
 }
 
-// .criar-post ion-button {
-//   width: auto; /* Ajuste automático da largura */
-//   max-width: 300px; /* Largura máxima opcional */
-// }
-
 ion-button {
   margin-top: 1.5rem;
 }
 
 .card-container-vencedor {
   display: flex;
-  flex-direction: column; /* Muda a direção para coluna */
+  flex-direction: column;
   margin-top: 16px;
   justify-content: center;
   align-items: center;
-  width: 100%; /* Garante que os cards ocupem 100% da largura do container */
+  width: 100%;
   border-radius: 8px;
   border-right: 2px solid var(--text-new-green);
   border-bottom: 2px solid var(--text-new-green);
@@ -203,7 +191,6 @@ h3 {
 }
 
 li .icon-align {
-  // margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;

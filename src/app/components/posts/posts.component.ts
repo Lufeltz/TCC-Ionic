@@ -1,20 +1,10 @@
-import {
-  Component,
-  Input,
-  OnInit,
-  OnChanges,
-  ChangeDetectorRef,
-  ElementRef,
-  Renderer2,
-} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, Input, OnInit, OnChanges } from '@angular/core';
 import { PostService } from 'src/app/services/post.service';
 import { ComentarioService } from 'src/app/services/comentario.service';
 import { PostApiResponse } from 'src/app/models/post-api-response.model';
 import { ComentarioApiResponse } from 'src/app/models/comentario-api-response.model';
 import { Comentario } from 'src/app/models/comentario.model';
 import {
-  ArrowDown,
   ArrowDownToDot,
   EllipsisVertical,
   LucideAngularModule,
@@ -60,7 +50,7 @@ export class PostsComponent implements OnInit, OnChanges {
   searchedCampeonatos: string = '';
 
   searchSubject: Subject<string> = new Subject<string>();
-  
+
   menuVisible: Boolean = false;
   menuVisibilityPublicacao: { [key: number]: boolean } = {};
 

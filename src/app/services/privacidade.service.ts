@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { Privacidade } from '../models/privacidade.model';
-import { AuthService } from './auth.service'; // Importando o AuthService
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,13 +12,12 @@ export class PrivacidadeService {
 
   BASE_URL = 'http://localhost:8081/academico';
 
-  // Função para obter o token e adicionar ao cabeçalho
   private getHttpOptions() {
-    const token = this.authService.getToken(); // Obtém o token do AuthService
+    const token = this.authService.getToken();
     const headers = token
       ? new HttpHeaders({
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho Authorization
+          Authorization: `Bearer ${token}`,
         })
       : new HttpHeaders({
           'Content-Type': 'application/json',
@@ -35,17 +34,16 @@ export class PrivacidadeService {
     return this._http.get<Privacidade>(url, this.getHttpOptions()).pipe(
       map((resp: HttpResponse<Privacidade>) => {
         if (resp.status === 200) {
-          return resp.body || null; // Retorna o objeto Privacidade ou null se não existir
+          return resp.body || null;
         } else {
-          return null; // Retorna null se o status não for 200
+          return null;
         }
       }),
       catchError((err) => {
-        // Se o erro for 404, retorna null
         if (err.status === 404) {
-          return of(null); // Retorna null se não encontrar dados
+          return of(null);
         } else {
-          return throwError(() => err); // Lança o erro para ser tratado no componente
+          return throwError(() => err);
         }
       })
     );
@@ -58,14 +56,14 @@ export class PrivacidadeService {
       .pipe(
         map((resp: HttpResponse<Privacidade>) => {
           if (resp.status === 200) {
-            return resp.body as Privacidade; // Retorna o objeto atualizado de privacidade
+            return resp.body as Privacidade;
           } else {
             throw new Error('Erro ao atualizar os dados de privacidade');
           }
         }),
         catchError((err) => {
           console.error('Erro ao atualizar privacidade:', err);
-          return throwError(() => err); // Lança o erro para ser tratado no componente
+          return throwError(() => err);
         })
       );
   }

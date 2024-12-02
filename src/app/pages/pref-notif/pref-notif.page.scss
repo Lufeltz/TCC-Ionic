@@ -30,14 +30,14 @@ ul {
 }
 
 .toggle:hover {
-  background-color: rgba(59, 130, 246, 0.3); /* Usando o light-blue */
+  background-color: rgba(59, 130, 246, 0.3);
 }
 
 ion-toggle {
   --handle-background: var(--light-blue);
   --handle-background-checked: var(--light-blue);
   --track-background: rgba(255, 255, 255, 0.2);
-  --track-background-checked: rgba(59, 130, 246, 0.6); /* Usando o light-blue */
+  --track-background-checked: rgba(59, 130, 246, 0.6);
   --track-border-radius: 14px;
   --track-height: 24px;
   --track-width: 50px;

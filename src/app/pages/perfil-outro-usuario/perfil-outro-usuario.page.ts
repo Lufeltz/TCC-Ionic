@@ -15,7 +15,6 @@ import {
 } from '@ionic/angular/standalone';
 import { MenuPerfilComponent } from 'src/app/components/menu-perfil/menu-perfil.component';
 
-import { EstatisticasEsportivasComponent } from '../../components/estatisticas-esportivas/estatisticas-esportivas.component';
 import { EstatisticasPessoaisComponent } from '../../components/estatisticas-pessoais/estatisticas-pessoais.component';
 import { HistoricoCampeonatosComponent } from '../../components/historico-campeonatos/historico-campeonatos.component';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -42,7 +41,6 @@ import { Academico } from 'src/app/models/academico.model';
     IonButton,
     IonButtons,
     IonModal,
-    EstatisticasEsportivasComponent,
     EstatisticasPessoaisComponent,
     HistoricoCampeonatosComponent,
     ConquistasComponent,
@@ -65,7 +63,6 @@ export class PerfilOutroUsuarioPage implements OnInit {
   constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
-    // Captura o 'username' da URL
     this.route.paramMap.subscribe((params) => {
       this.username = params.get('username') || '';
     });

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {
   Bell,
@@ -13,7 +13,6 @@ import {
   HeartPulse,
   LogOut,
   LucideAngularModule,
-  MessageCirclePlus,
   Settings,
   ShieldPlus,
   Star,
@@ -40,7 +39,7 @@ import { MetaDiariaService } from 'src/app/services/meta-diaria.service';
 import { MetaDiaria } from 'src/app/models/meta-diaria.model';
 import { MetaEsportivaService } from 'src/app/services/meta-esportiva.service';
 import { MetaEsportiva } from 'src/app/models/meta-esportiva.model';
-import { forkJoin, Subscription } from 'rxjs';
+import { forkJoin } from 'rxjs';
 import { CampeonatoService } from 'src/app/services/campeonato.service';
 import { Avaliacao } from 'src/app/models/avaliacao.model';
 
