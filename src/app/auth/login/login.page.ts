@@ -83,7 +83,7 @@ export class LoginPage implements OnInit {
       next: (token) => {
         if (token) {
           const decodedToken: any = jwtDecode(token);
-
+          console.log(token)
           // Navega para a homepage
           this.router.navigate(['/homepage']).then(() => {
             // Carregar os dados do usuário após login

@@ -29,16 +29,5 @@ bootstrapApplication(AppComponent, {
     provideRouter(routes, withPreloading(PreloadAllModules)),
     provideNgxMask(),
     provideHttpClient(),
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true, // Garante que o interceptor seja chamado em todas as requisições
-    },
-    // {
-    //   provide: APP_INITIALIZER,
-    //   useFactory: initializeAuth,
-    //   deps: [AuthService],
-    //   multi: true,
-    // },
   ],
 });

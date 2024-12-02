@@ -80,8 +80,11 @@ export class AuthService {
   public loadUserData(): void {
     const username = this.getUsernameFromToken();
     if (username !== null) {
+      const token = this.getToken(); // Pegue o token
+      const headers = this.httpOptions.headers.set('Authorization', `Bearer ${token}`); // Adicione o cabeçalho Authorization
+      
       this._http
-        .get<Academico>(`${this.NEW_URL}/buscar/${username}`, this.httpOptions)
+        .get<Academico>(`${this.NEW_URL}/buscar/${username}`, { headers })
         .subscribe({
           next: (academico) => {
             this.userSubject.next(academico); // Atualiza o BehaviorSubject
@@ -93,6 +96,7 @@ export class AuthService {
         });
     }
   }
+  
 
   logout(): void {
     localStorage.removeItem('jwt');
