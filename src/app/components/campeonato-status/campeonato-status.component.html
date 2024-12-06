@@ -133,12 +133,15 @@
         </div>
 
         <div class="salvar-button">
-          <ion-button
-            id="open-toast-salvar"
-            size="small"
-            (click)="salvarResultado(partida)"
-          >
-            Salvar Resultado
+          <ion-button size="small" (click)="salvarResultado(partida)">
+            <div class="icon-align">
+              Salvar Resultado
+              <lucide-angular
+                [img]="SquarePen"
+                class="btn-inscrever-se"
+                [size]="20"
+              ></lucide-angular>
+            </div>
           </ion-button>
         </div>
 
@@ -185,7 +188,7 @@
 
         <ion-button size="small" (click)="salvarResultado(partida)">
           <div class="icon-align">
-            Salvar
+            Salvar Resultado
             <lucide-angular
               [img]="SquarePen"
               class="btn-inscrever-se"
@@ -231,7 +234,7 @@
 
         <ion-button size="small" (click)="salvarResultado(partida)">
           <div class="icon-align">
-            Salvar
+            Salvar Resultado
             <lucide-angular
               [img]="SquarePen"
               class="btn-inscrever-se"
@@ -277,7 +280,7 @@
 
         <ion-button size="small" (click)="salvarResultado(partida)">
           <div class="icon-align">
-            Salvar
+            Salvar Resultado
             <lucide-angular
               [img]="SquarePen"
               class="btn-inscrever-se"
